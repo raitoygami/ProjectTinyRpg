@@ -1,0 +1,151 @@
+#input {
+    align-items: center;
+    height: 20px;
+    background-color: rgba(44, 44, 44, 0.9);
+}
+
+#output {
+    align-items: center;
+    height: auto;
+    background-color: rgba(44, 44, 44, 0.9);
+}
+
+/*#input.option {*/
+/*    background-color: rgba(0, 122, 166, 0.9);*/
+/*}*/
+
+/*#output.option {*/
+/*    background-color: rgba(0, 122, 166, 0.9);*/
+/*}*/
+
+/*#input.content {*/
+/*    background-color: rgba(62, 145, 70, 0.9);*/
+/*}*/
+
+/*#output.content {*/
+/*    background-color: rgba(62, 145, 70, 0.9);*/
+/*}*/
+
+/*DialoguePort.typeStart {*/
+/*    --port-color:#FF8B8B;*/
+/*}*/
+
+/*#output:hover > */
+
+#selection-border {
+    border-left-color: rgb(248, 108, 1);
+    border-right-color: rgb(248, 108, 1);
+    border-top-color: rgb(255, 140, 84);
+    border-bottom-color: rgb(218, 65, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 5px;
+}
+
+:hover > #selection-border {
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+}
+
+:selected > #selection-border {
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+}
+
+:hover:selected > #selection-border {
+    border-left-width: 6px;
+    border-right-width: 6px;
+    border-top-width: 6px;
+    border-bottom-width: 6px;
+}
+
+.node {
+    margin: 0;
+    min-width: auto;
+}
+
+#divider {
+    min-height: 1px;
+    background-color: rgb(72, 72, 72);
+}
+
+#node-state {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 5px;
+}
+
+.running #node-state {
+    background-color: rgb(255, 213, 0);
+}
+
+.success #node-state {
+    background-color: rgba(60, 212, 0, 0.54);
+}
+
+.failure #node-state {
+    background-color: rgba(250, 25, 25, 0.67);
+}
+
+.option #background {
+    background-color: rgb(17, 55, 127);
+}
+
+.content #background {
+    background-color: rgb(94, 47, 163);
+}
+
+.content #top {
+    padding-bottom: 0;
+    /*margin-bottom: 5px;*/
+}
+
+.option #top {
+    padding-bottom: 0;
+    /*margin-bottom: 5px;*/
+}
+
+#node-border {
+    background-color: rgb(255, 138, 8);
+}
+
+.root #top {
+    margin-top: 10px;
+}
+
+.root #node-icon {
+    background-image: resource('Icons/Root_24x');
+    padding-top: 0;
+    margin-top: 0;
+    padding-right: 0;
+}
+
+.sequence #node-icon {
+    background-image: resource('Icons/Sequence_24x');
+}
+
+.log #node-icon {
+    background-image: resource('Icons/log_24x');
+}
+
+.content #node-icon {
+    background-image: resource('Icons/Selector_24x');
+}
+
+.option #node-icon {
+    background-image: resource('Icons/Optional_24x');
+}

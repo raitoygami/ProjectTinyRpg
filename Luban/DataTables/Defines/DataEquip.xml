@@ -1,0 +1,23 @@
+<module name="">
+
+	<enum name="EquipType" comment="装备类型">
+		<var name="HandMain" 	value="0" alias="主手"/>
+		<var name="HandOff" 	value="1" alias="副手"/>
+		<var name="Helmet" 		value="2" alias="头盔"/>
+		<var name="Armor" 		value="3" alias="护甲"/>
+		<var name="Greaves" 	value="4" alias="护腿"/>
+		<var name="Boots" 		value="5" alias="鞋子"/>
+		<var name="Ring" 		value="6" alias="戒指"/>
+		<var name="Necklace" 	value="7" alias="项链"/>
+	</enum>
+	
+	<bean name="t_Equip" parent="t_ItemBase" comment="装备">
+		<var name="equipType" type="EquipType"/>
+		<var name="equipment" type="string?" comment="换装"/>
+		<var name="attrModifier" type="(list#sep=|),(Defination.AttributeModifier#sep=,)" />
+	</bean>
+	
+	<table name="Data_Equip" value="t_Equip" input="装备表@Item/装备系统表.xlsx" comment="装备"/>
+	
+
+</module>

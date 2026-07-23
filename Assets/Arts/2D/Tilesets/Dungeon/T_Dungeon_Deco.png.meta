@@ -1,0 +1,2706 @@
+fileFormatVersion: 2
+guid: 17a0fe614337ccb43a932165109ba3c4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2087633190525588640
+    second: T_Dungeon_Deco_0
+  - first:
+      213: 5281340632781465229
+    second: T_Dungeon_Deco_1
+  - first:
+      213: -3589297566227513325
+    second: T_Dungeon_Deco_2
+  - first:
+      213: -4381931087421691262
+    second: T_Dungeon_Deco_3
+  - first:
+      213: 2932366247793040973
+    second: T_Dungeon_Deco_4
+  - first:
+      213: 7871453822807419224
+    second: T_Dungeon_Deco_5
+  - first:
+      213: -2024736572691660464
+    second: T_Dungeon_Deco_6
+  - first:
+      213: 819933219442370982
+    second: T_Dungeon_Deco_7
+  - first:
+      213: -605293930478579307
+    second: T_Dungeon_Deco_8
+  - first:
+      213: -4828493746018318772
+    second: T_Dungeon_Deco_9
+  - first:
+      213: 8317417423611721045
+    second: T_Dungeon_Deco_10
+  - first:
+      213: -504219007664130898
+    second: T_Dungeon_Deco_11
+  - first:
+      213: 6290760074692759819
+    second: T_Dungeon_Deco_12
+  - first:
+      213: 4603996022113162596
+    second: T_Dungeon_Deco_13
+  - first:
+      213: -3681068049620081063
+    second: T_Dungeon_Deco_14
+  - first:
+      213: 3051071156213451655
+    second: T_Dungeon_Deco_15
+  - first:
+      213: -8254787365693175342
+    second: T_Dungeon_Deco_16
+  - first:
+      213: 6855387676292740995
+    second: T_Dungeon_Deco_17
+  - first:
+      213: -1425865323673843622
+    second: T_Dungeon_Deco_18
+  - first:
+      213: 2492038480986096407
+    second: T_Dungeon_Deco_19
+  - first:
+      213: -606368304675977556
+    second: T_Dungeon_Deco_20
+  - first:
+      213: -3093149205569044460
+    second: T_Dungeon_Deco_21
+  - first:
+      213: -8543628995882618626
+    second: T_Dungeon_Deco_22
+  - first:
+      213: 6451947597604558543
+    second: T_Dungeon_Deco_23
+  - first:
+      213: 274346266171826725
+    second: T_Dungeon_Deco_24
+  - first:
+      213: -5214786624688312099
+    second: T_Dungeon_Deco_25
+  - first:
+      213: 1471142464196160934
+    second: T_Dungeon_Deco_26
+  - first:
+      213: -8143535212239697822
+    second: T_Dungeon_Deco_27
+  - first:
+      213: 7064698310470304743
+    second: T_Dungeon_Deco_28
+  - first:
+      213: 8041824776574788954
+    second: T_Dungeon_Deco_29
+  - first:
+      213: 6755684672892504197
+    second: T_Dungeon_Deco_30
+  - first:
+      213: 5517543867513674544
+    second: T_Dungeon_Deco_31
+  - first:
+      213: -1258704348896417914
+    second: T_Dungeon_Deco_32
+  - first:
+      213: -3297414102520816448
+    second: T_Dungeon_Deco_33
+  - first:
+      213: 6902783806155352299
+    second: T_Dungeon_Deco_34
+  - first:
+      213: -2331208769256305012
+    second: T_Dungeon_Deco_35
+  - first:
+      213: -6655139394853244945
+    second: T_Dungeon_Deco_36
+  - first:
+      213: -7563998058702122434
+    second: T_Dungeon_Deco_37
+  - first:
+      213: -2031037951332331784
+    second: T_Dungeon_Deco_38
+  - first:
+      213: -910274789415255691
+    second: T_Dungeon_Deco_39
+  - first:
+      213: 3911873307267122187
+    second: T_Dungeon_Deco_40
+  - first:
+      213: -3541028703208156365
+    second: T_Dungeon_Deco_41
+  - first:
+      213: -6117762988043178584
+    second: T_Dungeon_Deco_42
+  - first:
+      213: 1068052429459773968
+    second: T_Dungeon_Deco_43
+  - first:
+      213: -1080303538046201272
+    second: T_Dungeon_Deco_44
+  - first:
+      213: -5898078051580246582
+    second: T_Dungeon_Deco_45
+  - first:
+      213: 1710305585982393667
+    second: T_Dungeon_Deco_46
+  - first:
+      213: 5541250104099202837
+    second: T_Dungeon_Deco_47
+  - first:
+      213: 2522527529525858682
+    second: T_Dungeon_Deco_48
+  - first:
+      213: -6627338179451932555
+    second: T_Dungeon_Deco_49
+  - first:
+      213: 2537994068560876774
+    second: T_Dungeon_Deco_50
+  - first:
+      213: -476848831999777550
+    second: T_Dungeon_Deco_51
+  - first:
+      213: -3790060742985576474
+    second: T_Dungeon_Deco_52
+  - first:
+      213: 8002310318303864425
+    second: T_Dungeon_Deco_53
+  - first:
+      213: -7886247231788658466
+    second: T_Dungeon_Deco_54
+  - first:
+      213: -1588668938120137756
+    second: T_Dungeon_Deco_55
+  - first:
+      213: 1362470099678851886
+    second: T_Dungeon_Deco_56
+  - first:
+      213: 3402865075470142942
+    second: T_Dungeon_Deco_57
+  - first:
+      213: -3626695691208328460
+    second: T_Dungeon_Deco_58
+  - first:
+      213: -7262138331738963209
+    second: T_Dungeon_Deco_59
+  - first:
+      213: 8647653806741998872
+    second: T_Dungeon_Deco_60
+  - first:
+      213: -9208198917141111177
+    second: T_Dungeon_Deco_61
+  - first:
+      213: -4927328334275899230
+    second: T_Dungeon_Deco_62
+  - first:
+      213: 3072682538765307369
+    second: T_Dungeon_Deco_63
+  - first:
+      213: 6187398748682266058
+    second: T_Dungeon_Deco_64
+  - first:
+      213: 4200203412013344427
+    second: T_Dungeon_Deco_65
+  - first:
+      213: 4521600197225086336
+    second: T_Dungeon_Deco_66
+  - first:
+      213: -8187090541758884142
+    second: T_Dungeon_Deco_67
+  - first:
+      213: 5900580588695623546
+    second: T_Dungeon_Deco_68
+  - first:
+      213: -7897503718744710661
+    second: T_Dungeon_Deco_69
+  - first:
+      213: -2191089986408540306
+    second: T_Dungeon_Deco_70
+  - first:
+      213: 4643933409371669587
+    second: T_Dungeon_Deco_71
+  - first:
+      213: -5023139579295397048
+    second: T_Dungeon_Deco_72
+  - first:
+      213: -8353299499326761722
+    second: T_Dungeon_Deco_73
+  - first:
+      213: -6556514040939091805
+    second: T_Dungeon_Deco_74
+  - first:
+      213: -987574897463379287
+    second: T_Dungeon_Deco_75
+  - first:
+      213: 5983143470264921111
+    second: T_Dungeon_Deco_76
+  - first:
+      213: 5799735109864826746
+    second: T_Dungeon_Deco_77
+  - first:
+      213: -3868242572522707953
+    second: T_Dungeon_Deco_78
+  - first:
+      213: 1482336309449127983
+    second: T_Dungeon_Deco_79
+  - first:
+      213: -6317902290030765656
+    second: T_Dungeon_Deco_80
+  - first:
+      213: 2822225658325835716
+    second: T_Dungeon_Deco_81
+  - first:
+      213: 3727927376818412835
+    second: T_Dungeon_Deco_82
+  - first:
+      213: -7115785605246110811
+    second: T_Dungeon_Deco_83
+  - first:
+      213: -4223992682706651932
+    second: T_Dungeon_Deco_84
+  - first:
+      213: -6088754822105327964
+    second: T_Dungeon_Deco_85
+  - first:
+      213: 6090966003994379008
+    second: T_Dungeon_Deco_86
+  - first:
+      213: 7836478193747272643
+    second: T_Dungeon_Deco_87
+  - first:
+      213: 4229970883553121695
+    second: T_Dungeon_Deco_88
+  - first:
+      213: -3582981568696774453
+    second: T_Dungeon_Deco_89
+  - first:
+      213: -234790322596711069
+    second: T_Dungeon_Deco_90
+  - first:
+      213: 779842182998391690
+    second: T_Dungeon_Deco_91
+  - first:
+      213: 3674237974468461725
+    second: T_Dungeon_Deco_92
+  - first:
+      213: -984753643711912456
+    second: T_Dungeon_Deco_93
+  - first:
+      213: 3560955597703172360
+    second: T_Dungeon_Deco_94
+  - first:
+      213: -88415199854017450
+    second: T_Dungeon_Deco_95
+  - first:
+      213: -8977351928113913098
+    second: T_Dungeon_Deco_96
+  - first:
+      213: 2349798390738693345
+    second: T_Dungeon_Deco_97
+  - first:
+      213: 6327298874509170808
+    second: T_Dungeon_Deco_98
+  - first:
+      213: 7982359917537183458
+    second: T_Dungeon_Deco_99
+  - first:
+      213: 4594954879525439691
+    second: T_Dungeon_Deco_100
+  - first:
+      213: -7488636668274994014
+    second: T_Dungeon_Deco_101
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 234
+        width: 16
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a4d7967353c8fc10800000000000000
+      internalID: 2087633190525588640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_1
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 234
+        width: 9
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d86a6c2e2571b4940800000000000000
+      internalID: 5281340632781465229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 234
+        width: 16
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 310c5d361e0403ec0800000000000000
+      internalID: -3589297566227513325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_3
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 234
+        width: 16
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28a2df774e04033c0800000000000000
+      internalID: -4381931087421691262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_4
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 234
+        width: 16
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4e9c07e09bd1b820800000000000000
+      internalID: 2932366247793040973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_5
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 216
+        width: 27
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 859a35e0c850d3d60800000000000000
+      internalID: 7871453822807419224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 237
+        width: 30
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 051c8fc80d0b6e3e0800000000000000
+      internalID: -2024736572691660464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_7
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 237
+        width: 30
+        height: 19
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a9a76c3becf06b00800000000000000
+      internalID: 819933219442370982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_8
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 214
+        width: 48
+        height: 42
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 591df1190609997f0800000000000000
+      internalID: -605293930478579307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_9
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 213
+        width: 21
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c46026c358ebdfcb0800000000000000
+      internalID: -4828493746018318772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_10
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 212
+        width: 18
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 555750744176d6370800000000000000
+      internalID: 8317417423611721045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_11
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 212
+        width: 16
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea4fd27eb77a009f0800000000000000
+      internalID: -504219007664130898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_12
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 216
+        width: 26
+        height: 20
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b01954345f44d4750800000000000000
+      internalID: 6290760074692759819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_13
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 216
+        width: 30
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 465dd553dfda4ef30800000000000000
+      internalID: 4603996022113162596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_14
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 195
+        width: 16
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 956ea5cac183aecc0800000000000000
+      internalID: -3681068049620081063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_15
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 195
+        width: 16
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78b0b822d05975a20800000000000000
+      internalID: 3051071156213451655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_16
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 186
+        width: 12
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d9c97b60aa117d80800000000000000
+      internalID: -8254787365693175342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_17
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 186
+        width: 12
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 387f40b25ca332f50800000000000000
+      internalID: 6855387676292740995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_18
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 178
+        width: 14
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a588fdcea0f463ce0800000000000000
+      internalID: -1425865323673843622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_19
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 178
+        width: 14
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 713c7c98bcf759220800000000000000
+      internalID: 2492038480986096407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_20
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 138
+        width: 16
+        height: 75
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca68bb45d3fb597f0800000000000000
+      internalID: -606368304675977556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_21
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 173
+        width: 48
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41086cc8f2de215d0800000000000000
+      internalID: -3093149205569044460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_22
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 173
+        width: 48
+        height: 40
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef070bfb1beee6980800000000000000
+      internalID: -8543628995882618626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_23
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 198
+        width: 14
+        height: 11
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc697a8f72ce98950800000000000000
+      internalID: 6451947597604558543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_24
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 197
+        width: 14
+        height: 13
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52260acb97caec300800000000000000
+      internalID: 274346266171826725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_25
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 178
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd0bef7a13b51a7b0800000000000000
+      internalID: -5214786624688312099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_26
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 178
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ada768d64c8a6410800000000000000
+      internalID: 1471142464196160934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_27
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 173
+        width: 10
+        height: 12
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 268419aeed95cfe80800000000000000
+      internalID: -8143535212239697822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_28
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 173
+        width: 10
+        height: 12
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e382e8dea9da0260800000000000000
+      internalID: 7064698310470304743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_29
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 181
+        width: 13
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a55eca1e60d4a9f60800000000000000
+      internalID: 8041824776574788954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_30
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 181
+        width: 12
+        height: 13
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5880f46ba6301cd50800000000000000
+      internalID: 6755684672892504197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_31
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 161
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03b99cf0ae0429c40800000000000000
+      internalID: 5517543867513674544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_32
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 161
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6872ac6401f288ee0800000000000000
+      internalID: -1258704348896417914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_33
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 150
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cc12ed185b3d32d0800000000000000
+      internalID: -3297414102520816448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_34
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 150
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be865379c4d9bcf50800000000000000
+      internalID: 6902783806155352299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_35
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 144
+        width: 16
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8ec333c9f1e5afd0800000000000000
+      internalID: -2331208769256305012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_36
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 144
+        width: 16
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fef60171bf134a3a0800000000000000
+      internalID: -6655139394853244945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_37
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 128
+        width: 48
+        height: 42
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e32d05567d7470790800000000000000
+      internalID: -7563998058702122434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_38
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 128
+        width: 48
+        height: 42
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fecf718ebd40d3e0800000000000000
+      internalID: -2031037951332331784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_39
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 128
+        width: 32
+        height: 44
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57109e0e6ed0e53f0800000000000000
+      internalID: -910274789415255691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_40
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 128
+        width: 6
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b044df50c04c94630800000000000000
+      internalID: 3911873307267122187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_41
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 128
+        width: 6
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 333d0d5d72dbbdec0800000000000000
+      internalID: -3541028703208156365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_42
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 128
+        width: 6
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ad67a5c9f6591ba0800000000000000
+      internalID: -6117762988043178584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_43
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 128
+        width: 6
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01a517b960c72de00800000000000000
+      internalID: 1068052429459773968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_44
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 128
+        width: 6
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8429825e7adf101f0800000000000000
+      internalID: -1080303538046201272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_45
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 126
+        width: 16
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac5080ee241d52ea0800000000000000
+      internalID: -5898078051580246582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_46
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 113
+        width: 14
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34dc8dd6ed93cb710800000000000000
+      internalID: 1710305585982393667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_47
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 110
+        width: 9
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 517ed626c9976ec40800000000000000
+      internalID: 5541250104099202837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_48
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 112
+        width: 9
+        height: 9
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7158855c61d10320800000000000000
+      internalID: 2522527529525858682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_49
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 96
+        width: 31
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5703267f907f604a0800000000000000
+      internalID: -6627338179451932555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_50
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 109
+        width: 15
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e49e929824c83320800000000000000
+      internalID: 2537994068560876774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_51
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 94
+        width: 48
+        height: 31
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f4e7158384e169f0800000000000000
+      internalID: -476848831999777550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_52
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 94
+        width: 32
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ef0139b5dff66bc0800000000000000
+      internalID: -3790060742985576474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_53
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 94
+        width: 32
+        height: 27
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 966e1f026daed0f60800000000000000
+      internalID: 8002310318303864425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_54
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 97
+        width: 10
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed054520deb6e8290800000000000000
+      internalID: -7886247231788658466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_55
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 97
+        width: 10
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e3f6a5940ae3f9e0800000000000000
+      internalID: -1588668938120137756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_56
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 84
+        width: 16
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e23f274465778e210800000000000000
+      internalID: 1362470099678851886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_57
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 16
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edd0bf9c1c7693f20800000000000000
+      internalID: 3402865075470142942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_58
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 64
+        width: 26
+        height: 29
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fa7611eb736badc0800000000000000
+      internalID: -3626695691208328460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_59
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 71
+        width: 46
+        height: 24
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f283fae9a3b73b90800000000000000
+      internalID: -7262138331738963209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_60
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 76
+        width: 14
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d496be153a20870800000000000000
+      internalID: 8647653806741998872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_61
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 85
+        width: 8
+        height: 10
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77edaaa3fd7e53080800000000000000
+      internalID: -9208198917141111177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_62
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 68
+        width: 28
+        height: 25
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a094cf6cfc9e9bb0800000000000000
+      internalID: -4927328334275899230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_63
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 66
+        width: 32
+        height: 26
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9edc6ae3d7c54aa20800000000000000
+      internalID: 3072682538765307369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_64
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 77
+        width: 32
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac527e2316e0ed550800000000000000
+      internalID: 6187398748682266058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_65
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 64
+        width: 16
+        height: 24
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba66075efbe1a4a30800000000000000
+      internalID: 4200203412013344427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_66
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 70
+        width: 12
+        height: 11
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08dffe34c63ffbe30800000000000000
+      internalID: 4521600197225086336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_67
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 62
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d65082878c916e80800000000000000
+      internalID: -8187090541758884142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_68
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 68
+        width: 5
+        height: 4
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7794c568c213e150800000000000000
+      internalID: 5900580588695623546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_69
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 72
+        width: 7
+        height: 5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf125e7e53e666290800000000000000
+      internalID: -7897503718744710661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_70
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 69
+        width: 7
+        height: 5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e671439244fa791e0800000000000000
+      internalID: -2191089986408540306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_71
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 72
+        width: 6
+        height: 4
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 354ca2ac4d0927040800000000000000
+      internalID: 4643933409371669587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_72
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 55
+        width: 14
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84b84e69a293a4ab0800000000000000
+      internalID: -5023139579295397048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_73
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 55
+        width: 16
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6051e20fc5e131c80800000000000000
+      internalID: -8353299499326761722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_74
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 54
+        width: 16
+        height: 13
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a8e6f8b7359205a0800000000000000
+      internalID: -6556514040939091805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_75
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 54
+        width: 12
+        height: 11
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aa3a97fcdd6b42f0800000000000000
+      internalID: -987574897463379287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_76
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 44
+        width: 15
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71ca6514945680350800000000000000
+      internalID: 5983143470264921111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_77
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 50
+        width: 13
+        height: 13
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a77aad6aa5ccc7050800000000000000
+      internalID: 5799735109864826746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_78
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 62
+        width: 7
+        height: 5
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f04adb700ed315ac0800000000000000
+      internalID: -3868242572522707953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_79
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 62
+        width: 9
+        height: 6
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f28f06a0501529410800000000000000
+      internalID: 1482336309449127983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_80
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 18
+        width: 32
+        height: 44
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a9d615475d4258a0800000000000000
+      internalID: -6317902290030765656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_81
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 43
+        width: 15
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cf1180984f8a2720800000000000000
+      internalID: 2822225658325835716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_82
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 43
+        width: 15
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32d17b3a2324cb330800000000000000
+      internalID: 3727927376818412835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_83
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 32
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a3b77d61b6af3d90800000000000000
+      internalID: -7115785605246110811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_84
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e4bb65e80d5165c0800000000000000
+      internalID: -4223992682706651932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_85
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 33
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a617f7bfb5608ba0800000000000000
+      internalID: -6088754822105327964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_86
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 42
+        width: 16
+        height: 15
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 003c01f2f45778450800000000000000
+      internalID: 6090966003994379008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_87
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 21
+        width: 18
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c3a664d563c0cc60800000000000000
+      internalID: 7836478193747272643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_88
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 28
+        width: 32
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f95dd647b10e3ba30800000000000000
+      internalID: 4229970883553121695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_94
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 28
+        width: 16
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8015906df3e0b6130800000000000000
+      internalID: 3560955597703172360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_97
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 0
+        width: 32
+        height: 27
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eca3c5cf292c9020800000000000000
+      internalID: 2349798390738693345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_98
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 1
+        width: 32
+        height: 27
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87819da8dc41fc750800000000000000
+      internalID: 6327298874509170808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_99
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 0
+        width: 48
+        height: 25
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e6ce1a7d0a07ce60800000000000000
+      internalID: 7982359917537183458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_100
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 3
+        width: 48
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc8cf092e1f84cf30800000000000000
+      internalID: 4594954879525439691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_101
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1
+        width: 16
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a4118f60a4031890800000000000000
+      internalID: -7488636668274994014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_102
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 2
+        width: 16
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0984cde40818c8a41ba9d0a423e9101d
+      internalID: 561720095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_89
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 25
+        width: 14
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73dc2c4a7db909441bf04ba9aa9feb84
+      internalID: -3582981568696774453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_92
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 24
+        width: 14
+        height: 18
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a1008b9e9d2b7440935acce4251ad09
+      internalID: 3674237974468461725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Dungeon_Deco_90
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 96
+        width: 16
+        height: 14
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c85b773e71a7c84690d6a7d3965e7bc
+      internalID: -234790322596711069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1e3063b7affd050479806f31c532bdad
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      T_Dungeon_Deco_0: 2087633190525588640
+      T_Dungeon_Deco_1: 5281340632781465229
+      T_Dungeon_Deco_10: 8317417423611721045
+      T_Dungeon_Deco_100: 4594954879525439691
+      T_Dungeon_Deco_101: -7488636668274994014
+      T_Dungeon_Deco_102: 561720095
+      T_Dungeon_Deco_11: -504219007664130898
+      T_Dungeon_Deco_12: 6290760074692759819
+      T_Dungeon_Deco_13: 4603996022113162596
+      T_Dungeon_Deco_14: -3681068049620081063
+      T_Dungeon_Deco_15: 3051071156213451655
+      T_Dungeon_Deco_16: -8254787365693175342
+      T_Dungeon_Deco_17: 6855387676292740995
+      T_Dungeon_Deco_18: -1425865323673843622
+      T_Dungeon_Deco_19: 2492038480986096407
+      T_Dungeon_Deco_2: -3589297566227513325
+      T_Dungeon_Deco_20: -606368304675977556
+      T_Dungeon_Deco_21: -3093149205569044460
+      T_Dungeon_Deco_22: -8543628995882618626
+      T_Dungeon_Deco_23: 6451947597604558543
+      T_Dungeon_Deco_24: 274346266171826725
+      T_Dungeon_Deco_25: -5214786624688312099
+      T_Dungeon_Deco_26: 1471142464196160934
+      T_Dungeon_Deco_27: -8143535212239697822
+      T_Dungeon_Deco_28: 7064698310470304743
+      T_Dungeon_Deco_29: 8041824776574788954
+      T_Dungeon_Deco_3: -4381931087421691262
+      T_Dungeon_Deco_30: 6755684672892504197
+      T_Dungeon_Deco_31: 5517543867513674544
+      T_Dungeon_Deco_32: -1258704348896417914
+      T_Dungeon_Deco_33: -3297414102520816448
+      T_Dungeon_Deco_34: 6902783806155352299
+      T_Dungeon_Deco_35: -2331208769256305012
+      T_Dungeon_Deco_36: -6655139394853244945
+      T_Dungeon_Deco_37: -7563998058702122434
+      T_Dungeon_Deco_38: -2031037951332331784
+      T_Dungeon_Deco_39: -910274789415255691
+      T_Dungeon_Deco_4: 2932366247793040973
+      T_Dungeon_Deco_40: 3911873307267122187
+      T_Dungeon_Deco_41: -3541028703208156365
+      T_Dungeon_Deco_42: -6117762988043178584
+      T_Dungeon_Deco_43: 1068052429459773968
+      T_Dungeon_Deco_44: -1080303538046201272
+      T_Dungeon_Deco_45: -5898078051580246582
+      T_Dungeon_Deco_46: 1710305585982393667
+      T_Dungeon_Deco_47: 5541250104099202837
+      T_Dungeon_Deco_48: 2522527529525858682
+      T_Dungeon_Deco_49: -6627338179451932555
+      T_Dungeon_Deco_5: 7871453822807419224
+      T_Dungeon_Deco_50: 2537994068560876774
+      T_Dungeon_Deco_51: -476848831999777550
+      T_Dungeon_Deco_52: -3790060742985576474
+      T_Dungeon_Deco_53: 8002310318303864425
+      T_Dungeon_Deco_54: -7886247231788658466
+      T_Dungeon_Deco_55: -1588668938120137756
+      T_Dungeon_Deco_56: 1362470099678851886
+      T_Dungeon_Deco_57: 3402865075470142942
+      T_Dungeon_Deco_58: -3626695691208328460
+      T_Dungeon_Deco_59: -7262138331738963209
+      T_Dungeon_Deco_6: -2024736572691660464
+      T_Dungeon_Deco_60: 8647653806741998872
+      T_Dungeon_Deco_61: -9208198917141111177
+      T_Dungeon_Deco_62: -4927328334275899230
+      T_Dungeon_Deco_63: 3072682538765307369
+      T_Dungeon_Deco_64: 6187398748682266058
+      T_Dungeon_Deco_65: 4200203412013344427
+      T_Dungeon_Deco_66: 4521600197225086336
+      T_Dungeon_Deco_67: -8187090541758884142
+      T_Dungeon_Deco_68: 5900580588695623546
+      T_Dungeon_Deco_69: -7897503718744710661
+      T_Dungeon_Deco_7: 819933219442370982
+      T_Dungeon_Deco_70: -2191089986408540306
+      T_Dungeon_Deco_71: 4643933409371669587
+      T_Dungeon_Deco_72: -5023139579295397048
+      T_Dungeon_Deco_73: -8353299499326761722
+      T_Dungeon_Deco_74: -6556514040939091805
+      T_Dungeon_Deco_75: -987574897463379287
+      T_Dungeon_Deco_76: 5983143470264921111
+      T_Dungeon_Deco_77: 5799735109864826746
+      T_Dungeon_Deco_78: -3868242572522707953
+      T_Dungeon_Deco_79: 1482336309449127983
+      T_Dungeon_Deco_8: -605293930478579307
+      T_Dungeon_Deco_80: -6317902290030765656
+      T_Dungeon_Deco_81: 2822225658325835716
+      T_Dungeon_Deco_82: 3727927376818412835
+      T_Dungeon_Deco_83: -7115785605246110811
+      T_Dungeon_Deco_84: -4223992682706651932
+      T_Dungeon_Deco_85: -6088754822105327964
+      T_Dungeon_Deco_86: 6090966003994379008
+      T_Dungeon_Deco_87: 7836478193747272643
+      T_Dungeon_Deco_88: 4229970883553121695
+      T_Dungeon_Deco_89: -3582981568696774453
+      T_Dungeon_Deco_9: -4828493746018318772
+      T_Dungeon_Deco_90: -234790322596711069
+      T_Dungeon_Deco_91: 779842182998391690
+      T_Dungeon_Deco_92: 3674237974468461725
+      T_Dungeon_Deco_93: -984753643711912456
+      T_Dungeon_Deco_94: 3560955597703172360
+      T_Dungeon_Deco_95: -88415199854017450
+      T_Dungeon_Deco_96: -8977351928113913098
+      T_Dungeon_Deco_97: 2349798390738693345
+      T_Dungeon_Deco_98: 6327298874509170808
+      T_Dungeon_Deco_99: 7982359917537183458
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,86 @@
+[
+  {
+    "id": 110001,
+    "name": 110001,
+    "desc": 110001,
+    "type": 5,
+    "rarity": 1,
+    "icon": "/Game/UI/UIText/UI_TestIcon_3.UI_TestIcon_3",
+    "stackable": true,
+    "tradeValue": 1,
+    "x": 1,
+    "y": 1
+  },
+  {
+    "id": 110002,
+    "name": 110002,
+    "desc": 110002,
+    "type": 5,
+    "rarity": 1,
+    "icon": "/Game/UI/UIText/UI_TestIcon_1.UI_TestIcon_1",
+    "stackable": true,
+    "tradeValue": 1,
+    "x": 1,
+    "y": 1
+  },
+  {
+    "id": 110003,
+    "name": 110003,
+    "desc": 110003,
+    "type": 5,
+    "rarity": 1,
+    "icon": "/Game/UI/UIText/UI_TestIcon_2.UI_TestIcon_2",
+    "stackable": true,
+    "tradeValue": 1,
+    "x": 1,
+    "y": 1
+  },
+  {
+    "id": 110004,
+    "name": 110004,
+    "desc": 110004,
+    "type": 5,
+    "rarity": 1,
+    "icon": "/Game/UI/UIText/UI_TestIcon_1.UI_TestIcon_1",
+    "stackable": true,
+    "tradeValue": 1,
+    "x": 1,
+    "y": 1
+  },
+  {
+    "id": 110005,
+    "name": 110005,
+    "desc": 110005,
+    "type": 5,
+    "rarity": 1,
+    "icon": "/Game/UI/UIText/UI_TestIcon_1.UI_TestIcon_1",
+    "stackable": true,
+    "tradeValue": 1,
+    "x": 1,
+    "y": 1
+  },
+  {
+    "id": 110006,
+    "name": 110006,
+    "desc": 110006,
+    "type": 2,
+    "rarity": 1,
+    "icon": "Item/Sp_HealthPotion",
+    "stackable": true,
+    "tradeValue": 1,
+    "x": 1,
+    "y": 1
+  },
+  {
+    "id": 110007,
+    "name": 110007,
+    "desc": 110007,
+    "type": 2,
+    "rarity": 1,
+    "icon": "Item/Sp_ManaPotion",
+    "stackable": true,
+    "tradeValue": 1,
+    "x": 1,
+    "y": 1
+  }
+]

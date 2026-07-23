@@ -1,0 +1,39 @@
+<module name="">
+
+	<enum name="ItemRarity" comment="道具品质">
+		<var name="Common" value="0" alias="普通"/>
+		<var name="Uncommon" value="1" alias="精良"/>
+		<var name="Rare" value="2" alias="稀有" comment="紫" />
+		<var name="Epic" value="3" alias="史诗" comment="橙"/>
+		<var name="Mythic" value="4" alias="神话" comment="彩色"/>
+		<var name="Cursed" value="5" alias="诅咒" comment="红"/>
+	</enum>
+
+	<enum name="ItemType" comment="道具类型">
+		<var name="None" value="0" alias="无"/>
+		<var name="Generic" value="1" alias="普通道具"/>
+		<var name="Consumable" value="2" alias="消耗品"/>
+		<var name="Equipment" value="3" alias="装备"/>
+		<var name="Quest" value="4" alias="任务道具"/>
+		<var name="Material" value="5" alias="材料"/>
+	</enum>
+	
+	<bean name="t_ItemBase" comment="道具基类">
+		<var name="id" type="int" comment="道具id"/>
+		<var name="name" type="int"/>
+		<var name="desc" type="int"/>
+		<var name="type" type="ItemType"/>
+		<var name="rarity" type="ItemRarity"/>
+		<var name="icon" type="string"/>
+		<var name="stackable" type="bool"/>
+		<var name="tradeValue" type="int"/>
+		<var name="x" type="int" comment="水平占格"/>
+		<var name="y" type="int" comment="竖直占格"/>
+	</bean>
+	
+	<bean name="t_Item" parent="t_ItemBase" comment="道具类">
+	</bean>
+	<table name="Data_Item" value="t_Item" input="通用道具表@Item/道具系统表.xlsx" comment="道具表"/>
+	
+
+</module>

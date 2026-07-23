@@ -1,0 +1,25 @@
+<module name="">
+
+	<enum name="EntityType">
+		<var name="PLAYER" alias="玩家模板" value="1"/>
+		<var name="ENEMY" alias="敌方模板" value="2"/>
+		<var name="NEUTRAL" alias="中立" value="3"/>
+		<var name="NPC" alias="NPC模板" value="4"/>
+	</enum>
+	
+	<bean name="t_Entity" comment="道具">
+		<var name="id" type="int" comment="道具id"/>
+		<var name="name" type="int"/>
+		<var name="desc" type="int"/>
+		<var name="type" type="EntityType"/>
+		<var name="addressable" type="string"/>
+		<var name="attr" type="Defination.Attribute" />
+		<var name="abilities" type="(list#sep=,),string" comment="技能列表(资源地址)"/>
+		<var name="drop_id" type="int?" comment="掉落"/>
+		<var name="ai_id" type="int?" comment="AI ID"/>
+	</bean>
+	
+	<table name="Data_Entitys" value="t_Entity" input="单位表1@Entity/单位表.xlsx" comment="单位表"/>
+	
+
+</module>

@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2959169197653451502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747ddcc087be60e4ca646c44050bdb6b, type: 3}
+  m_Name: DialogueLines
+  m_EditorClassIdentifier: 
+  Context: {fileID: 11400000}
+  Children: []
+  guid: a20c0c495968faf45b50853657d61a45
+  localtion: {x: 113, y: 196}
+  Content: "\u4E0D\u597D"
+  uid: 0
+  Description: 
+  questId: 
+  Conditions: []
+--- !u!114 &-2596467107658912332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d5788e0ccf1d314393e1c25399cb4eb, type: 3}
+  m_Name: DialogueRoot
+  m_EditorClassIdentifier: 
+  Context: {fileID: 11400000}
+  Children:
+  - {fileID: 1005368091140776353}
+  - {fileID: 3616500513004645036}
+  guid: 8a85e425f4557c84d8049c9989f8a929
+  localtion: {x: -21, y: -112}
+  Content: 1111
+  uid: 0
+  Description: Dialogue-Test
+  questId: 
+  Conditions: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cfeee77fd4dd1845992a469444b0f53, type: 3}
+  m_Name: Dialogue-Test
+  m_EditorClassIdentifier: 
+  uid: 
+  TreeRoot: {fileID: -2596467107658912332}
+  Nodes:
+  - {fileID: -2596467107658912332}
+  - {fileID: 1005368091140776353}
+  - {fileID: 8742878832801805347}
+  - {fileID: -2959169197653451502}
+  - {fileID: 3616500513004645036}
+  Parameters:
+  - m_DefaultFloat: 0
+    m_DefaultBool: 0
+    m_DefaultInt: 0
+    m_Name: Quest_0001
+    m_Type: 1
+--- !u!114 &1005368091140776353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5254817fc14c379409d5e29b1e952425, type: 3}
+  m_Name: DialogueOption
+  m_EditorClassIdentifier: 
+  Context: {fileID: 11400000}
+  Children:
+  - {fileID: 8742878832801805347}
+  - {fileID: -2959169197653451502}
+  guid: 3f95c2294057a23489ae9c9f1be5cf01
+  localtion: {x: -21, y: 5}
+  Content: "\u53BB"
+  uid: 0
+  Description: 
+  questId: 
+  Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: Quest_0001
+    m_EventTreshold: 0
+--- !u!114 &3616500513004645036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5254817fc14c379409d5e29b1e952425, type: 3}
+  m_Name: DialogueOption
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueOption
+  Context: {fileID: 11400000}
+  Children: []
+  guid: eba7bafcf14642f428e4f763aa5d0bb9
+  localtion: {x: 259, y: 5}
+  Content: "\u5FEB\u53BB\u5427"
+  uid: 0
+  Description: 
+  questId: 
+  Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Quest_0001
+    m_EventTreshold: 0
+--- !u!114 &8742878832801805347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be5cc37a395df548bd2ad71e2502532, type: 3}
+  m_Name: DialogueAcceptQuest
+  m_EditorClassIdentifier: 
+  Context: {fileID: 11400000}
+  Children: []
+  guid: 78cb5a78076d81141a5a57a514f42efa
+  localtion: {x: -156, y: 196}
+  Content: "\u597D"
+  uid: 0
+  Description: 
+  questId: Quest_0001
+  Conditions: []

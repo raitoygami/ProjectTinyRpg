@@ -1,0 +1,40 @@
+GridBackground {
+    --grid-background-color: rgb(43, 43, 43);
+    --line-color: rgb(65, 65, 65);
+    --thick-line-color: rgb(0, 0, 0);
+    --spacing: 50;
+    background-color: rgb(0, 0, 0);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.ry-node__title-container {
+    background-color: rgb(29, 29, 30);
+    padding: 8px;
+}
+
+.ry-node__label {
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    padding-left: 5px;
+}
+
+.ry-node__extension-container {
+    background-color: rgb(29, 29, 30);
+    padding: 8px;
+}
+
+.ry-node__textfield > .unity-text-field__input {
+    background-color: rgb(29, 29, 30);
+    border-color: rgb(20, 0, 40);
+    border-radius: 4px;
+    min-width: 160px;
+    max-width: 160px;
+    padding: 8px;
+}
+
+.ry-node__port-bool {
+    color: rgb(5, 244, 0);
+}

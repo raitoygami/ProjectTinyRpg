@@ -1,0 +1,52 @@
+<module name="Defination">
+	<bean name="Attribute" comment="属性">
+		<var name="BaseAttack" type="int" comment="BaseAttack: BaseAttack of character without weapon."/>
+		<var name="Strength" type="int" comment="STR: Physical damage, armor bonus"/>
+		<var name="Dexterity" type="int" comment="DEX/AGI: Crit chance, attack speed, dodge"/>
+		<var name="Intelligence" type="int" comment="INT: Magic damage, mana"/>
+		<var name="Vitality" type="int" comment="VIT: Health, defense"/>
+		
+		<var name="Health" type="int" comment="Max HP"/>
+		<var name="Mana" type="int" comment="Max MP"/>
+		<var name="CritChance" type="int" comment="Raw % (0.05f = 5%)"/>
+		<var name="CritMultiplier" type="int" comment="1.5f = 150% crit dmg"/>
+		<var name="Armor" type="int" comment="Armor"/>
+		<var name="MagicResist" type="int" comment="MagicResist"/>
+		<var name="ArmorPenetration" type="int" comment="物穿"/>
+		<var name="MagicPenetration" type="int" comment="法穿"/>
+		<var name="Dodge" type="int" comment="闪避率（百分比）"/>
+	</bean>
+	
+	
+	<enum name="AttributeType" comment="属性类型">
+		<var name="BaseAttack" 			value="0" 	alias="ATK" 		 	comment="BaseAttack: BaseAttack of character without weapon."/>
+		<var name="Strength" 			value="1" 	alias="STR" 		 	comment="STR: Physical damage, armor bonus"/>
+		<var name="Dexterity" 			value="2" 	alias="DEX" 		 	comment="DEX/AGI: Crit chance, attack speed, dodge"/>
+		<var name="Intelligence" 		value="3" 	alias="INT" 	 		comment="INT: Magic damage, mana"/>
+		<var name="Vitality" 			value="4" 	alias="VIT" 		 	comment="VIT: Health, defense"/>
+				                                        
+		<var name="Health" 				value="5" 	alias="MHP" 			comment="Max HP"/>
+		<var name="Mana" 				value="6"  	alias="MMP" 			comment="Max MP"/>
+		<var name="CritChance" 			value="7"  	alias="CHC" 		 	comment="Raw % (0.05f = 5%)"/>
+		<var name="CritMultiplier" 		value="8"  	alias="CRD" 	 		comment="1.5f = 150% crit dmg"/>
+		<var name="Armor" 				value="9"  	alias="ARM" 			comment="Armor"/>
+		<var name="MagicResist" 		value="10"  alias="MRS" 	 		comment="MagicResist"/>
+		<var name="ArmorPenetration" 	value="11"  alias="ARP" 			comment="物穿"/>
+		<var name="MagicPenetration" 	value="12"  alias="MRP" 			comment="法穿"/>
+		<var name="Dodge" 				value="13"  alias="DOD" 			comment="闪避率（百分比）"/>
+	</enum>
+	
+	<enum name="AttributeModifierType" comment="属性类型">
+		<var name="BaseAdd" 	value="0" alias="FAdd" 		comment="加基础"/>
+		<var name="PercentAdd" 	value="1" alias="PAdd" 		comment="加算百分比(1 + 10% + 10%)."/>
+		<var name="PercentMul" 	value="2" alias="PMul" 		comment="乘算百分比1 * (1 + 10%) * (1 + 10%)."/>
+		<var name="TotalAdd" 	value="3" alias="TAdd" 		comment="加最终值"/>
+	</enum>
+	
+	<bean name="AttributeModifier" comment="属性修改器">
+		<var name="T" type="AttributeType" comment="加成目标"/>
+		<var name="M" type="AttributeModifierType" comment="加成类型"/>
+		<var name="V" type="int" comment="加成数值"/>
+	</bean>
+	
+</module>

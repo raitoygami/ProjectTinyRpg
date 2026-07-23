@@ -1,0 +1,102 @@
+[
+  {
+    "id": 530001,
+    "name": 530001,
+    "desc": 530001,
+    "type": 3,
+    "rarity": 1,
+    "icon": "Equip/Helmet/T_Helmet_001",
+    "stackable": false,
+    "tradeValue": 1,
+    "x": 2,
+    "y": 2,
+    "equipType": 2,
+    "attrModifier": [
+      {
+        "T": 0,
+        "M": 3,
+        "V": 1
+      },
+      {
+        "T": 5,
+        "M": 3,
+        "V": 20
+      }
+    ]
+  },
+  {
+    "id": 540001,
+    "name": 540001,
+    "desc": 540001,
+    "type": 3,
+    "rarity": 1,
+    "icon": "Equip/Armor/T_Armor_001",
+    "stackable": false,
+    "tradeValue": 1,
+    "x": 2,
+    "y": 3,
+    "equipType": 3,
+    "attrModifier": [
+      {
+        "T": 0,
+        "M": 3,
+        "V": 1
+      },
+      {
+        "T": 5,
+        "M": 3,
+        "V": 20
+      }
+    ]
+  },
+  {
+    "id": 540002,
+    "name": 540002,
+    "desc": 540002,
+    "type": 3,
+    "rarity": 1,
+    "icon": "Equip/Armor/T_Armor_002",
+    "stackable": false,
+    "tradeValue": 1,
+    "x": 2,
+    "y": 3,
+    "equipType": 4,
+    "attrModifier": [
+      {
+        "T": 0,
+        "M": 3,
+        "V": 1
+      },
+      {
+        "T": 5,
+        "M": 3,
+        "V": 20
+      }
+    ]
+  },
+  {
+    "id": 560001,
+    "name": 540003,
+    "desc": 540003,
+    "type": 3,
+    "rarity": 1,
+    "icon": "Equip/Boots/T_Boots_001",
+    "stackable": false,
+    "tradeValue": 1,
+    "x": 2,
+    "y": 2,
+    "equipType": 5,
+    "attrModifier": [
+      {
+        "T": 0,
+        "M": 3,
+        "V": 1
+      },
+      {
+        "T": 5,
+        "M": 3,
+        "V": 20
+      }
+    ]
+  }
+]

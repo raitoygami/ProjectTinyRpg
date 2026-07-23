@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787dc09dd9cb44a458ebb250ab79015a, type: 3}
+  m_Name: GamePreload
+  m_EditorClassIdentifier: Assembly-CSharp::GamePreload
+  mainCameraPrefab: {fileID: 8612699660170575846, guid: e656a85eb6bcb0e42927025760b0d2cf,
+    type: 3}
+  followCameraPrefab: {fileID: 6899182793649903749, guid: 7d4b3619d0f21314690dc17695b5f6a2,
+    type: 3}
+  uiRoot: {fileID: 6201289635584892674, guid: f73c1d9e04290e14dbc8f4c23352f3f2, type: 3}
+  PlayerTemplate: {fileID: 2346740899212383848, guid: 1ff52b777154676419d6d9a492bfa07b,
+    type: 3}
+  EnemyTemplate: {fileID: 6995230870103815575, guid: 2099fe0956e2e6c4c98a8ec07d55c938,
+    type: 3}
+  DropPrefab: {fileID: 831146125206134521, guid: de63be13ed5e2be4581771dc34a698e5,
+    type: 3}
+  InventorySlotCount: 80
+  InventoryGridColumns: 10

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de384099e66980245b8e4069cda38027, type: 3}
+  m_Name: QuestTemplate
+  m_EditorClassIdentifier: 
+  quest:
+    rid: 8856008183243866114
+  references:
+    version: 2
+    RefIds:
+    - rid: 8856008183243866114
+      type: {class: Quest, ns: , asm: Assembly-CSharp}
+      data:
+        questId: Quest_0001
+        type: 0
+        repeatable: 0
+        currentPhaseIndex: 0
+        acceptedMinutes: -1
+        completedMinutes: -1
+        autoBindPubSubGoalListeners: 0
+        phases:
+        - phaseId: Quest_0001_Phase_01
+          goals:
+          - rid: 8856008183243866116
+          - rid: 8856008183243866117
+    - rid: 8856008183243866116
+      type: {class: QuestGoalCounter, ns: , asm: Assembly-CSharp}
+      data:
+        goalId: Quest_0001_Phase_01_Goal_01
+        current: 0
+        required: 3
+    - rid: 8856008183243866117
+      type: {class: QuestGoalKillByPubSubSample, ns: , asm: Assembly-CSharp}
+      data:
+        goalId: Quest_0001_Phase_01_Goal_02
+        enemyTypeId: 0
+        required: 0
+        current: 0

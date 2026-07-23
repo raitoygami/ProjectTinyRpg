@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/3to2/Script/Turn/Scripts/Ability/Editor/StyleSheet/Node.uss?fileID=7433441132597879392&amp;guid=6090cba0fed668a439a46480429f5815&amp;type=3#Node" />
+    <ui:VisualElement name="node-border" style="-unity-text-outline-width: 0; -unity-text-outline-color: rgb(0, 0, 0); background-color: rgb(64, 64, 64); background-image: none; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(33, 33, 33); border-right-color: rgb(33, 33, 33); border-top-color: rgb(33, 33, 33); border-bottom-color: rgb(33, 33, 33); color: rgb(255, 255, 255); visibility: visible; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+        <ui:VisualElement name="contents" picking-mode="Ignore" style="left: 0; top: 0; right: 0; bottom: 0; position: relative; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+            <ui:VisualElement name="divider" class="horizontal" style="overflow: hidden; display: none; min-height: 0;" />
+            <ui:VisualElement name="top" picking-mode="Ignore" style="padding-bottom: 0; display: flex;">
+                <ui:VisualElement name="input" style="margin-left: 15px; margin-right: 15px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; width: auto; height: auto; flex-grow: 1; -unity-text-align: upper-left; white-space: normal; flex-direction: column; flex-wrap: wrap; justify-content: flex-start; align-items: stretch; flex-shrink: 1; flex-basis: auto; display: flex;" />
+                <ui:VisualElement name="decorators" />
+                <ui:VisualElement name="title" picking-mode="Ignore" style="margin-left: 5px; margin-right: 5px; margin-top: 0; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; border-left-color: rgb(34, 34, 34); border-right-color: rgb(34, 34, 34); border-top-color: rgb(34, 34, 34); border-bottom-color: rgb(34, 34, 34); margin-bottom: 0; -unity-slice-bottom: 0; padding-bottom: 0; display: flex; -unity-font-style: bold; -unity-text-align: middle-center; -unity-text-outline-width: 0; text-shadow: 0 0 0 rgb(26, 26, 26); word-spacing: 1px; max-width: initial; text-overflow: ellipsis; white-space: nowrap; max-height: initial;">
+                    <ui:VisualElement picking-mode="Ignore" name="background" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77); display: flex;">
+                        <ui:VisualElement picking-mode="Ignore" style="-unity-text-align: upper-left; align-items: auto; flex-direction: row; margin-left: 2px; margin-right: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; margin-bottom: 2px;">
+                            <ui:VisualElement name="node-icon" style="width: 25px; height: 25px; padding-top: 0; margin-top: 0; top: 0;" />
+                            <ui:Label name="title-label" class="unity-text-element unity-label" style="align-items: stretch; -unity-text-align: middle-center; white-space: nowrap; margin-left: 5px; margin-right: 30px; margin-top: 2px; font-size: 20px; width: 160px; translate: 0 0; -unity-slice-left: 0; padding-left: 2px; text-overflow: ellipsis; max-width: 160px; max-height: 40px; height: 25px; overflow: hidden;" />
+                        </ui:VisualElement>
+                        <ui:Label tabindex="-1" text="This is description!" display-tooltip-when-elided="true" name="description" picking-mode="Ignore" style="font-size: 12px; -unity-font-style: normal; max-width: none; color: rgb(176, 176, 176); display: flex; text-shadow: 0 0 0 rgb(0, 0, 0); -unity-text-align: middle-left; white-space: nowrap; width: auto; margin-left: 1px; margin-right: 1px; padding-right: 0; padding-left: 0;" />
+                        <ui:VisualElement name="title-button-container" picking-mode="Ignore">
+                            <ui:VisualElement name="collapse-button">
+                                <ui:VisualElement name="icon" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="output" focusable="false" style="margin-left: 15px; margin-right: 15px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; flex-direction: column; align-items: stretch; justify-content: space-around; flex-grow: 1; height: auto; display: flex; overflow: visible;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="selection-border" picking-mode="Ignore" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;" />
+</ui:UXML>

@@ -1,0 +1,19 @@
+<module name="">
+
+	<bean name="Drop" sep="-">
+		<var name="item_id" type="int" comment="道具id"/>
+		<var name="min" type="int" comment="道具id"/>
+		<var name="max" type="int" comment="道具id"/>
+		<var name="chance" type="int" comment="道具id"/>
+	</bean>
+	
+	<bean name="t_Drop" comment="道具">
+		<var name="drop_id" type="int" comment="掉落ID"/>
+		<var name="darity" type="int" comment="品质"/>
+		<var name="drops" type="(list#sep=,),Drop" comment="掉落列表"/>
+	</bean>
+	
+	<table name="Data_Drop" value="t_Drop" input="掉落表@Item/道具系统表.xlsx" comment="掉落表"/>
+	
+
+</module>

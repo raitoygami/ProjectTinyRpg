@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7798447792669611025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45429a0c86fb70c4ab0c684debaf6740, type: 3}
+  m_Name: E_Damage
+  m_EditorClassIdentifier: 
+  Context: {fileID: 11400000}
+  uid: 0
+  Content: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  DurationBased: 0
+  Target: 2
+  Children: []
+  guid: 838d6a92760adb74d916462e5ef6a36c
+  localtion: {x: 0, y: 204}
+  damageType: 0
+  skillMultiplier: 100
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &-1275732767498452940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a805cd4afdf7c4491846c553260db4, type: 3}
+  m_Name: E_PunchTarget
+  m_EditorClassIdentifier: 
+  Context: {fileID: 11400000}
+  uid: 0
+  Content: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  DurationBased: 0
+  Target: 2
+  Children:
+  - {fileID: -7798447792669611025}
+  guid: 3371a2d128ea628408a2b1d73703c4ce
+  localtion: {x: 0, y: 95}
+  Duration: 0.1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78e44534ca35f444ab8c81e8e84e52e, type: 3}
+  m_Name: A_UnArmed
+  m_EditorClassIdentifier: 
+  m_Range: 2
+  m_SkillDisplayParam:
+    rid: -2
+  m_TargetMode: 2
+  m_CoolDown: 0
+  m_CostMP: 0
+  m_CostSP: 0
+  TreeRoot: {fileID: 5498850296569907920}
+  Effects:
+  - {fileID: 5498850296569907920}
+  - {fileID: -1275732767498452940}
+  - {fileID: -7798447792669611025}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &5498850296569907920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21d08e20b940fb49bc62293c3b92ebf, type: 3}
+  m_Name: AbilityRoot
+  m_EditorClassIdentifier: 
+  Context: {fileID: 11400000}
+  uid: 0
+  Content: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  DurationBased: 0
+  Target: 2
+  Children:
+  - {fileID: -1275732767498452940}
+  guid: d42dee3b6bbe3c14ebbe84d20cedeaf5
+  localtion: {x: NaN, y: NaN}
+  references:
+    version: 2
+    RefIds: []
