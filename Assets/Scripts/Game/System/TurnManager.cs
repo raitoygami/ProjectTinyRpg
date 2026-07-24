@@ -162,6 +162,8 @@ public class TurnManager : Singleton<TurnManager>
                 if (!Application.isPlaying || !this)
                     break;
 
+                await UniTask.Yield(PlayerLoopTiming.Update); // 关键防护
+                
                 CurrentGameTime = _LoopCount;
                 _NewLoopEvt.LoopCount = CurrentGameTime;
                 _LoopCount++;

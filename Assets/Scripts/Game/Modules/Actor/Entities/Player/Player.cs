@@ -68,6 +68,7 @@ public partial class Player : Entity, IDynamicEntity
     {
         TurnManager.UnRegister(m_TurnActor);
         TurnManager.Instance.StopLoop();
+        TileSelector.Instance.ClearPath();
         PathFinder.Instance.ClearLogical(this);
         
         Destroy(gameObject);

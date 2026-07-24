@@ -281,6 +281,7 @@ public class EntityManager : Singleton<EntityManager>
         {
             foreach (var entity in entities.Value)
             {
+                OnEntityUnregistered?.Invoke(entity);
                 Destroy(entity.gameObject);
             }
         }

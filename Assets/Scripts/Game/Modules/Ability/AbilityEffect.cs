@@ -44,7 +44,11 @@ public abstract partial class AbilityEffect : ScriptableObject
 
     public virtual string GetDescription()
     {
-        return Description.GetLocalizedString();
+        if (Description != null)
+        {
+            return Description.GetLocalizedString();    
+        }
+        return string.Empty;
     }
 
     public void AddChild(AbilityEffect t_Child)

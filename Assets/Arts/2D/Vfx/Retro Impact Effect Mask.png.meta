@@ -1,0 +1,4855 @@
+fileFormatVersion: 2
+guid: 5345ccc0c69c2fb478f6dc77031ee693
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3825348478933511423
+    second: Retro Impact Effect Mask_0
+  - first:
+      213: 3189784824759553739
+    second: Retro Impact Effect Mask_1
+  - first:
+      213: -6454526932314437321
+    second: Retro Impact Effect Mask_2
+  - first:
+      213: 8616580828664794262
+    second: Retro Impact Effect Mask_3
+  - first:
+      213: 1062739226978796471
+    second: Retro Impact Effect Mask_4
+  - first:
+      213: -7111165369666851930
+    second: Retro Impact Effect Mask_5
+  - first:
+      213: -8715035028974335124
+    second: Retro Impact Effect Mask_6
+  - first:
+      213: 7393378356763716496
+    second: Retro Impact Effect Mask_7
+  - first:
+      213: 1074105720098428188
+    second: Retro Impact Effect Mask_8
+  - first:
+      213: 4843052374029496099
+    second: Retro Impact Effect Mask_9
+  - first:
+      213: 5691310187178344947
+    second: Retro Impact Effect Mask_10
+  - first:
+      213: -5803309644935357404
+    second: Retro Impact Effect Mask_11
+  - first:
+      213: 982969624765647303
+    second: Retro Impact Effect Mask_12
+  - first:
+      213: -4499910947408091850
+    second: Retro Impact Effect Mask_13
+  - first:
+      213: 4044080546240837542
+    second: Retro Impact Effect Mask_14
+  - first:
+      213: 1634029895284683203
+    second: Retro Impact Effect Mask_15
+  - first:
+      213: -5660490146703869175
+    second: Retro Impact Effect Mask_16
+  - first:
+      213: -3817971810746949219
+    second: Retro Impact Effect Mask_17
+  - first:
+      213: 3937416325648124926
+    second: Retro Impact Effect Mask_18
+  - first:
+      213: -8183936381928740825
+    second: Retro Impact Effect Mask_19
+  - first:
+      213: -239445442167204400
+    second: Retro Impact Effect Mask_20
+  - first:
+      213: 3833846922917096449
+    second: Retro Impact Effect Mask_21
+  - first:
+      213: 7545494118937638427
+    second: Retro Impact Effect Mask_22
+  - first:
+      213: -5673424141123236987
+    second: Retro Impact Effect Mask_23
+  - first:
+      213: 4929914869671830954
+    second: Retro Impact Effect Mask_24
+  - first:
+      213: -6415721291770531354
+    second: Retro Impact Effect Mask_25
+  - first:
+      213: 521947136935052
+    second: Retro Impact Effect Mask_26
+  - first:
+      213: -7585416992622026534
+    second: Retro Impact Effect Mask_27
+  - first:
+      213: 8959270545167867534
+    second: Retro Impact Effect Mask_28
+  - first:
+      213: -5411450829754325437
+    second: Retro Impact Effect Mask_29
+  - first:
+      213: 4938948638330188491
+    second: Retro Impact Effect Mask_30
+  - first:
+      213: -3997286729188887039
+    second: Retro Impact Effect Mask_31
+  - first:
+      213: 4738912195298732446
+    second: Retro Impact Effect Mask_32
+  - first:
+      213: 4539608477980650413
+    second: Retro Impact Effect Mask_33
+  - first:
+      213: 1468490365992139893
+    second: Retro Impact Effect Mask_34
+  - first:
+      213: -7560199361622476410
+    second: Retro Impact Effect Mask_35
+  - first:
+      213: -986235345286830530
+    second: Retro Impact Effect Mask_36
+  - first:
+      213: 5428419730201718253
+    second: Retro Impact Effect Mask_37
+  - first:
+      213: -911347540713055651
+    second: Retro Impact Effect Mask_38
+  - first:
+      213: 1825554039898690212
+    second: Retro Impact Effect Mask_39
+  - first:
+      213: -1258896183944431312
+    second: Retro Impact Effect Mask_40
+  - first:
+      213: -5394379865323366652
+    second: Retro Impact Effect Mask_41
+  - first:
+      213: -1533294278140266941
+    second: Retro Impact Effect Mask_42
+  - first:
+      213: -5371711339661204713
+    second: Retro Impact Effect Mask_43
+  - first:
+      213: -8258719186810906397
+    second: Retro Impact Effect Mask_44
+  - first:
+      213: 7067781687023614407
+    second: Retro Impact Effect Mask_45
+  - first:
+      213: -7464455066764054307
+    second: Retro Impact Effect Mask_46
+  - first:
+      213: 1421916618083546099
+    second: Retro Impact Effect Mask_47
+  - first:
+      213: 4927559885466201296
+    second: Retro Impact Effect Mask_48
+  - first:
+      213: 5651488383676399866
+    second: Retro Impact Effect Mask_49
+  - first:
+      213: -1433121171251511335
+    second: Retro Impact Effect Mask_50
+  - first:
+      213: 5019883319462959755
+    second: Retro Impact Effect Mask_51
+  - first:
+      213: -4698589905742967773
+    second: Retro Impact Effect Mask_52
+  - first:
+      213: -5286177064640806297
+    second: Retro Impact Effect Mask_53
+  - first:
+      213: -3220245413228652533
+    second: Retro Impact Effect Mask_54
+  - first:
+      213: 700595200658251124
+    second: Retro Impact Effect Mask_55
+  - first:
+      213: -1487655149017915668
+    second: Retro Impact Effect Mask_56
+  - first:
+      213: 7538365472741009080
+    second: Retro Impact Effect Mask_57
+  - first:
+      213: -2344092632309527255
+    second: Retro Impact Effect Mask_58
+  - first:
+      213: 5759785211191327069
+    second: Retro Impact Effect Mask_59
+  - first:
+      213: 1551236457562744181
+    second: Retro Impact Effect Mask_60
+  - first:
+      213: 3445693781533057689
+    second: Retro Impact Effect Mask_61
+  - first:
+      213: 5413052413658989057
+    second: Retro Impact Effect Mask_62
+  - first:
+      213: -4025427560041203736
+    second: Retro Impact Effect Mask_63
+  - first:
+      213: -1869470942106877847
+    second: Retro Impact Effect Mask_64
+  - first:
+      213: 1525259704297454139
+    second: Retro Impact Effect Mask_65
+  - first:
+      213: -4908601103700259129
+    second: Retro Impact Effect Mask_66
+  - first:
+      213: -173827093953800442
+    second: Retro Impact Effect Mask_67
+  - first:
+      213: 3322193527057695550
+    second: Retro Impact Effect Mask_68
+  - first:
+      213: -1966427523094983482
+    second: Retro Impact Effect Mask_69
+  - first:
+      213: 7427523581169081952
+    second: Retro Impact Effect Mask_70
+  - first:
+      213: -6950903529712381777
+    second: Retro Impact Effect Mask_71
+  - first:
+      213: -5726670823038238705
+    second: Retro Impact Effect Mask_72
+  - first:
+      213: 6262300533240501062
+    second: Retro Impact Effect Mask_73
+  - first:
+      213: -5138071566186140405
+    second: Retro Impact Effect Mask_74
+  - first:
+      213: -8691049267553020239
+    second: Retro Impact Effect Mask_75
+  - first:
+      213: -9143650503096638741
+    second: Retro Impact Effect Mask_76
+  - first:
+      213: 1330411585428897682
+    second: Retro Impact Effect Mask_77
+  - first:
+      213: -5773184855045625751
+    second: Retro Impact Effect Mask_78
+  - first:
+      213: -2291428288186085905
+    second: Retro Impact Effect Mask_79
+  - first:
+      213: 7470674289099891709
+    second: Retro Impact Effect Mask_80
+  - first:
+      213: -7958882201205585461
+    second: Retro Impact Effect Mask_81
+  - first:
+      213: -2527715853454159096
+    second: Retro Impact Effect Mask_82
+  - first:
+      213: 7020464169094764754
+    second: Retro Impact Effect Mask_83
+  - first:
+      213: -8617906102435806798
+    second: Retro Impact Effect Mask_84
+  - first:
+      213: -1637302613609217911
+    second: Retro Impact Effect Mask_85
+  - first:
+      213: 76409829372649051
+    second: Retro Impact Effect Mask_86
+  - first:
+      213: -1802675445960722548
+    second: Retro Impact Effect Mask_87
+  - first:
+      213: 4201904295693409808
+    second: Retro Impact Effect Mask_88
+  - first:
+      213: 3870691101319374898
+    second: Retro Impact Effect Mask_89
+  - first:
+      213: 7944013391844512807
+    second: Retro Impact Effect Mask_90
+  - first:
+      213: 7712156599943602804
+    second: Retro Impact Effect Mask_91
+  - first:
+      213: -2728982403226355656
+    second: Retro Impact Effect Mask_92
+  - first:
+      213: 407629112135787232
+    second: Retro Impact Effect Mask_93
+  - first:
+      213: 833291067171735756
+    second: Retro Impact Effect Mask_94
+  - first:
+      213: -996525811630380152
+    second: Retro Impact Effect Mask_95
+  - first:
+      213: -2188742718202179043
+    second: Retro Impact Effect Mask_96
+  - first:
+      213: -4240958464883773355
+    second: Retro Impact Effect Mask_97
+  - first:
+      213: 8116679908003284221
+    second: Retro Impact Effect Mask_98
+  - first:
+      213: -6430347182091612059
+    second: Retro Impact Effect Mask_99
+  - first:
+      213: 1953312223635075167
+    second: Retro Impact Effect Mask_100
+  - first:
+      213: 6122136266672025015
+    second: Retro Impact Effect Mask_101
+  - first:
+      213: -8656546749827544903
+    second: Retro Impact Effect Mask_102
+  - first:
+      213: -1861455469954845116
+    second: Retro Impact Effect Mask_103
+  - first:
+      213: -5852406661449853807
+    second: Retro Impact Effect Mask_104
+  - first:
+      213: -3382407387403426287
+    second: Retro Impact Effect Mask_105
+  - first:
+      213: 7777906447483368123
+    second: Retro Impact Effect Mask_106
+  - first:
+      213: 2607072872587905707
+    second: Retro Impact Effect Mask_107
+  - first:
+      213: -3650819107889377280
+    second: Retro Impact Effect Mask_108
+  - first:
+      213: -4133388209189576159
+    second: Retro Impact Effect Mask_109
+  - first:
+      213: 7784026651483502987
+    second: Retro Impact Effect Mask_110
+  - first:
+      213: -5823867503372844178
+    second: Retro Impact Effect Mask_111
+  - first:
+      213: -1889573715275747758
+    second: Retro Impact Effect Mask_112
+  - first:
+      213: -6261449644029787558
+    second: Retro Impact Effect Mask_113
+  - first:
+      213: 3841173381864977333
+    second: Retro Impact Effect Mask_114
+  - first:
+      213: 6795993940303684809
+    second: Retro Impact Effect Mask_115
+  - first:
+      213: -3514788914237321292
+    second: Retro Impact Effect Mask_116
+  - first:
+      213: 2637478240643214158
+    second: Retro Impact Effect Mask_117
+  - first:
+      213: -3819131168452269640
+    second: Retro Impact Effect Mask_118
+  - first:
+      213: -1766716211938507324
+    second: Retro Impact Effect Mask_119
+  - first:
+      213: -1623253904853426537
+    second: Retro Impact Effect Mask_120
+  - first:
+      213: -963635624976136130
+    second: Retro Impact Effect Mask_121
+  - first:
+      213: -4005266470655342463
+    second: Retro Impact Effect Mask_122
+  - first:
+      213: 4871321636796830510
+    second: Retro Impact Effect Mask_123
+  - first:
+      213: 3538986154819439645
+    second: Retro Impact Effect Mask_124
+  - first:
+      213: 465548488912437083
+    second: Retro Impact Effect Mask_125
+  - first:
+      213: -8813102469438691737
+    second: Retro Impact Effect Mask_126
+  - first:
+      213: 8453098889559118035
+    second: Retro Impact Effect Mask_127
+  - first:
+      213: 1917598986463330335
+    second: Retro Impact Effect Mask_128
+  - first:
+      213: 3802290174286867163
+    second: Retro Impact Effect Mask_129
+  - first:
+      213: 411617566795288374
+    second: Retro Impact Effect Mask_130
+  - first:
+      213: 7240867152128008801
+    second: Retro Impact Effect Mask_131
+  - first:
+      213: -1810605649446459978
+    second: Retro Impact Effect Mask_132
+  - first:
+      213: -9088041290974892473
+    second: Retro Impact Effect Mask_133
+  - first:
+      213: 582794794348568225
+    second: Retro Impact Effect Mask_134
+  - first:
+      213: 1839928490287456820
+    second: Retro Impact Effect Mask_135
+  - first:
+      213: 5276361722903940658
+    second: Retro Impact Effect Mask_136
+  - first:
+      213: 5864747106573482915
+    second: Retro Impact Effect Mask_137
+  - first:
+      213: -6670078283089562397
+    second: Retro Impact Effect Mask_138
+  - first:
+      213: -2464299033321654594
+    second: Retro Impact Effect Mask_139
+  - first:
+      213: 1572810456799040298
+    second: Retro Impact Effect Mask_140
+  - first:
+      213: 2429328102713297367
+    second: Retro Impact Effect Mask_141
+  - first:
+      213: 5677353801912182650
+    second: Retro Impact Effect Mask_142
+  - first:
+      213: 7781767927964758783
+    second: Retro Impact Effect Mask_143
+  - first:
+      213: 3399508720868704319
+    second: Retro Impact Effect Mask_144
+  - first:
+      213: -6314856217760670452
+    second: Retro Impact Effect Mask_145
+  - first:
+      213: -8525479339854541847
+    second: Retro Impact Effect Mask_146
+  - first:
+      213: -7965020521918340711
+    second: Retro Impact Effect Mask_147
+  - first:
+      213: 7031750242662970498
+    second: Retro Impact Effect Mask_148
+  - first:
+      213: -7529673487877679592
+    second: Retro Impact Effect Mask_149
+  - first:
+      213: -5169829228601261177
+    second: Retro Impact Effect Mask_150
+  - first:
+      213: -2588805689085532441
+    second: Retro Impact Effect Mask_151
+  - first:
+      213: 3763831744066318806
+    second: Retro Impact Effect Mask_152
+  - first:
+      213: -3195562882215188021
+    second: Retro Impact Effect Mask_153
+  - first:
+      213: -4750088255856089630
+    second: Retro Impact Effect Mask_154
+  - first:
+      213: 3883958172706671016
+    second: Retro Impact Effect Mask_155
+  - first:
+      213: -7629045162208002582
+    second: Retro Impact Effect Mask_156
+  - first:
+      213: -5135156387444289802
+    second: Retro Impact Effect Mask_157
+  - first:
+      213: -4098004754268070358
+    second: Retro Impact Effect Mask_158
+  - first:
+      213: -5324564405627194521
+    second: Retro Impact Effect Mask_159
+  - first:
+      213: -5860332685989555809
+    second: Retro Impact Effect Mask_160
+  - first:
+      213: -6589895414650090490
+    second: Retro Impact Effect Mask_161
+  - first:
+      213: 2303506560609064746
+    second: Retro Impact Effect Mask_162
+  - first:
+      213: 1265182829129131928
+    second: Retro Impact Effect Mask_163
+  - first:
+      213: 7792638141183756826
+    second: Retro Impact Effect Mask_164
+  - first:
+      213: -5619606032176808890
+    second: Retro Impact Effect Mask_165
+  - first:
+      213: -8466228906437063561
+    second: Retro Impact Effect Mask_166
+  - first:
+      213: -3320682826074789310
+    second: Retro Impact Effect Mask_167
+  - first:
+      213: 7888509192114061948
+    second: Retro Impact Effect Mask_168
+  - first:
+      213: -3767206512310404123
+    second: Retro Impact Effect Mask_169
+  - first:
+      213: 2874568033212725346
+    second: Retro Impact Effect Mask_170
+  - first:
+      213: -4447314040287028623
+    second: Retro Impact Effect Mask_171
+  - first:
+      213: 179793286037653314
+    second: Retro Impact Effect Mask_172
+  - first:
+      213: 1741256660723691970
+    second: Retro Impact Effect Mask_173
+  - first:
+      213: 7187138741201723697
+    second: Retro Impact Effect Mask_174
+  - first:
+      213: 7125708475978083005
+    second: Retro Impact Effect Mask_175
+  - first:
+      213: -1893382439272857000
+    second: Retro Impact Effect Mask_176
+  - first:
+      213: 7162073415716595555
+    second: Retro Impact Effect Mask_177
+  - first:
+      213: -5048113238219071941
+    second: Retro Impact Effect Mask_178
+  - first:
+      213: 9144797478811065310
+    second: Retro Impact Effect Mask_179
+  - first:
+      213: -7182744207406134966
+    second: Retro Impact Effect Mask_180
+  - first:
+      213: 4791610853873419459
+    second: Retro Impact Effect Mask_181
+  - first:
+      213: -5430493436173196885
+    second: Retro Impact Effect Mask_182
+  - first:
+      213: -35949216348030969
+    second: Retro Impact Effect Mask_183
+  - first:
+      213: -3215501253962780722
+    second: Retro Impact Effect Mask_184
+  - first:
+      213: 2737816365209483474
+    second: Retro Impact Effect Mask_185
+  - first:
+      213: -6031445331473668361
+    second: Retro Impact Effect Mask_186
+  - first:
+      213: -7827169609301790237
+    second: Retro Impact Effect Mask_187
+  - first:
+      213: 5209873999160081525
+    second: Retro Impact Effect Mask_188
+  - first:
+      213: -3889475712698517876
+    second: Retro Impact Effect Mask_189
+  - first:
+      213: 1596306860794715773
+    second: Retro Impact Effect Mask_190
+  - first:
+      213: -6602477521355505800
+    second: Retro Impact Effect Mask_191
+  - first:
+      213: 2862158097885319549
+    second: Retro Impact Effect Mask_192
+  - first:
+      213: 7359133182968696211
+    second: Retro Impact Effect Mask_193
+  - first:
+      213: 8673895670407055074
+    second: Retro Impact Effect Mask_194
+  - first:
+      213: -9222472301815887426
+    second: Retro Impact Effect Mask_195
+  - first:
+      213: -1817001497244960072
+    second: Retro Impact Effect Mask_196
+  - first:
+      213: -2300476888069567511
+    second: Retro Impact Effect Mask_197
+  - first:
+      213: -1734592121208697044
+    second: Retro Impact Effect Mask_198
+  - first:
+      213: 175375047881249565
+    second: Retro Impact Effect Mask_199
+  - first:
+      213: 551910878815069101
+    second: Retro Impact Effect Mask_200
+  - first:
+      213: -7809849055516693929
+    second: Retro Impact Effect Mask_201
+  - first:
+      213: 7500870816382399014
+    second: Retro Impact Effect Mask_202
+  - first:
+      213: 2522073542453547169
+    second: Retro Impact Effect Mask_203
+  - first:
+      213: -9012964109278437285
+    second: Retro Impact Effect Mask_204
+  - first:
+      213: 9146533276373450948
+    second: Retro Impact Effect Mask_205
+  - first:
+      213: 6882068165668893239
+    second: Retro Impact Effect Mask_206
+  - first:
+      213: 1225997498957544061
+    second: Retro Impact Effect Mask_207
+  - first:
+      213: 6020447851184828531
+    second: Retro Impact Effect Mask_208
+  - first:
+      213: 7696085586019630221
+    second: Retro Impact Effect Mask_209
+  - first:
+      213: 7926064560085975079
+    second: Retro Impact Effect Mask_210
+  - first:
+      213: 7734689039014014871
+    second: Retro Impact Effect Mask_211
+  - first:
+      213: 7021769768395327523
+    second: Retro Impact Effect Mask_212
+  - first:
+      213: 5409185296820473847
+    second: Retro Impact Effect Mask_213
+  - first:
+      213: -1342055003676818472
+    second: Retro Impact Effect Mask_214
+  - first:
+      213: -1271076179081940795
+    second: Retro Impact Effect Mask_215
+  - first:
+      213: -2764539351710164502
+    second: Retro Impact Effect Mask_216
+  - first:
+      213: 8284448392723507745
+    second: Retro Impact Effect Mask_217
+  - first:
+      213: -4933694691618921630
+    second: Retro Impact Effect Mask_218
+  - first:
+      213: -1742563626174425529
+    second: Retro Impact Effect Mask_219
+  - first:
+      213: 7404025440815325537
+    second: Retro Impact Effect Mask_220
+  - first:
+      213: 3926337083349162788
+    second: Retro Impact Effect Mask_221
+  - first:
+      213: -4701145021501566937
+    second: Retro Impact Effect Mask_222
+  - first:
+      213: 5356652271038868150
+    second: Retro Impact Effect Mask_223
+  - first:
+      213: 158026478956859262
+    second: Retro Impact Effect Mask_224
+  - first:
+      213: -1383115379490551356
+    second: Retro Impact Effect Mask_225
+  - first:
+      213: -8077222535225149345
+    second: Retro Impact Effect Mask_226
+  - first:
+      213: 502026387121243360
+    second: Retro Impact Effect Mask_227
+  - first:
+      213: -8237993149326457809
+    second: Retro Impact Effect Mask_228
+  - first:
+      213: -856954533798075214
+    second: Retro Impact Effect Mask_229
+  - first:
+      213: 5684518006480439504
+    second: Retro Impact Effect Mask_230
+  - first:
+      213: -4769525441048670819
+    second: Retro Impact Effect Mask_231
+  - first:
+      213: -3696971600221408085
+    second: Retro Impact Effect Mask_232
+  - first:
+      213: -7617011865464063801
+    second: Retro Impact Effect Mask_233
+  - first:
+      213: -2543650692446865641
+    second: Retro Impact Effect Mask_234
+  - first:
+      213: 7172042790377010002
+    second: Retro Impact Effect Mask_235
+  - first:
+      213: 7165211369504740577
+    second: Retro Impact Effect Mask_236
+  - first:
+      213: 6838940026667183346
+    second: Retro Impact Effect Mask_237
+  - first:
+      213: 635957600848890887
+    second: Retro Impact Effect Mask_238
+  - first:
+      213: 6848478140485905886
+    second: Retro Impact Effect Mask_239
+  - first:
+      213: -7044196908097877329
+    second: Retro Impact Effect Mask_240
+  - first:
+      213: -8976284578215831830
+    second: Retro Impact Effect Mask_241
+  - first:
+      213: -7704473004150247385
+    second: Retro Impact Effect Mask_242
+  - first:
+      213: 104982503933319049
+    second: Retro Impact Effect Mask_243
+  - first:
+      213: 3792366313060162889
+    second: Retro Impact Effect Mask_244
+  - first:
+      213: 4447538076701971361
+    second: Retro Impact Effect Mask_245
+  - first:
+      213: 626869089017883709
+    second: Retro Impact Effect Mask_246
+  - first:
+      213: -5281947366469564743
+    second: Retro Impact Effect Mask_247
+  - first:
+      213: 219632327726923081
+    second: Retro Impact Effect Mask_248
+  - first:
+      213: -2936221735746604358
+    second: Retro Impact Effect Mask_249
+  - first:
+      213: -7249315982553220870
+    second: Retro Impact Effect Mask_250
+  - first:
+      213: 1430181974843604225
+    second: Retro Impact Effect Mask_251
+  - first:
+      213: 5108034106287621397
+    second: Retro Impact Effect Mask_252
+  - first:
+      213: 5280865005254821155
+    second: Retro Impact Effect Mask_253
+  - first:
+      213: -9125548015433882151
+    second: Retro Impact Effect Mask_254
+  - first:
+      213: -1257629606987896306
+    second: Retro Impact Effect Mask_255
+  - first:
+      213: -946877382644310658
+    second: Retro Impact Effect Mask_256
+  - first:
+      213: 1793419224702266816
+    second: Retro Impact Effect Mask_257
+  - first:
+      213: -8250682849219237327
+    second: Retro Impact Effect Mask_258
+  - first:
+      213: -9120904227674378021
+    second: Retro Impact Effect Mask_259
+  - first:
+      213: 7790060127770822438
+    second: Retro Impact Effect Mask_260
+  - first:
+      213: 2049222595156118065
+    second: Retro Impact Effect Mask_261
+  - first:
+      213: 27283785556774184
+    second: Retro Impact Effect Mask_262
+  - first:
+      213: 338949844249690792
+    second: Retro Impact Effect Mask_263
+  - first:
+      213: -4726286364841734015
+    second: Retro Impact Effect Mask_264
+  - first:
+      213: -3966136996681530100
+    second: Retro Impact Effect Mask_265
+  - first:
+      213: -6423663512479725807
+    second: Retro Impact Effect Mask_266
+  - first:
+      213: 6248161386092278559
+    second: Retro Impact Effect Mask_267
+  - first:
+      213: -2753665163902787508
+    second: Retro Impact Effect Mask_268
+  - first:
+      213: -3202253644415352647
+    second: Retro Impact Effect Mask_269
+  - first:
+      213: -3024168253376360060
+    second: Retro Impact Effect Mask_270
+  - first:
+      213: 5696215144175676826
+    second: Retro Impact Effect Mask_271
+  - first:
+      213: -5791804049432098106
+    second: Retro Impact Effect Mask_272
+  - first:
+      213: -3424699661269551005
+    second: Retro Impact Effect Mask_273
+  - first:
+      213: -5501394909363627649
+    second: Retro Impact Effect Mask_274
+  - first:
+      213: 1248971934584500954
+    second: Retro Impact Effect Mask_275
+  - first:
+      213: -6519784393214796912
+    second: Retro Impact Effect Mask_276
+  - first:
+      213: 8379422197252152176
+    second: Retro Impact Effect Mask_277
+  - first:
+      213: -9007209853201791650
+    second: Retro Impact Effect Mask_278
+  - first:
+      213: -1520738314581664044
+    second: Retro Impact Effect Mask_279
+  - first:
+      213: 215114748318543866
+    second: Retro Impact Effect Mask_280
+  - first:
+      213: -6956439328941348571
+    second: Retro Impact Effect Mask_281
+  - first:
+      213: -2721807648435578162
+    second: Retro Impact Effect Mask_282
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1472
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 103561373d1a9eac0800000000000000
+      internalID: -3825348478933511423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1472
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bce89bdd564644c20800000000000000
+      internalID: 3189784824759553739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1472
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 739c43ed3f9ec66a0800000000000000
+      internalID: -6454526932314437321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1472
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69c810f6c9e349770800000000000000
+      internalID: 8616580828664794262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1408
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b3c1f042bb9fbe00800000000000000
+      internalID: 1062739226978796471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1408
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6aba2f9d5c0105d90800000000000000
+      internalID: -7111165369666851930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1408
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6b06ecb0d9fd0780800000000000000
+      internalID: -8715035028974335124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_7
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1408
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09b66f4917e8a9660800000000000000
+      internalID: 7393378356763716496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1408
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c159ea9267df7ee00800000000000000
+      internalID: 1074105720098428188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1344
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32fe3ae797af53340800000000000000
+      internalID: 4843052374029496099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1344
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f1c35d16789bfe40800000000000000
+      internalID: 5691310187178344947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1344
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42c970c00a0867fa0800000000000000
+      internalID: -5803309644935357404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_12
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1344
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c9c72d6aa534ad00800000000000000
+      internalID: 982969624765647303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_13
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1344
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63569dab5da1d81c0800000000000000
+      internalID: -4499910947408091850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_14
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1344
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a7b0c194d57f1830800000000000000
+      internalID: 4044080546240837542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c1ffc4488d3da610800000000000000
+      internalID: 1634029895284683203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90bfd1fb336e171b0800000000000000
+      internalID: -5660490146703869175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_17
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9129f9ddd6d30bc0800000000000000
+      internalID: -3817971810746949219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_18
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efb841f694384a630800000000000000
+      internalID: 3937416325648124926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_19
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 728edb29831dc6e80800000000000000
+      internalID: -8183936381928740825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_20
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1280
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d5998493a15dacf0800000000000000
+      internalID: -239445442167204400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10ca2bbb67f843530800000000000000
+      internalID: 3833846922917096449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b16b3166ceaf6b860800000000000000
+      internalID: 7545494118937638427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_23
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58b49308dc2f341b0800000000000000
+      internalID: -5673424141123236987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_24
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa5a4b344739a6440800000000000000
+      internalID: 4929914869671830954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_25
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e17b122a77c6f6a0800000000000000
+      internalID: -6415721291770531354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_26
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1216
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8440b945bad10000800000000000000
+      internalID: 521947136935052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad06d893f6f2bb690800000000000000
+      internalID: -7585416992622026534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_28
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8ed953b719b55c70800000000000000
+      internalID: 8959270545167867534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_29
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3462005342aa6e4b0800000000000000
+      internalID: -5411450829754325437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_30
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc2f19f6e9baa8440800000000000000
+      internalID: 4938948638330188491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_31
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1063059f5e8c688c0800000000000000
+      internalID: -3997286729188887039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_32
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1152
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e992c86a88ff3c140800000000000000
+      internalID: 4738912195298732446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dab636ddbddeffe30800000000000000
+      internalID: 4539608477980650413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_34
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57c7b0d1530216410800000000000000
+      internalID: 1468490365992139893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_35
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6897b5b7cb6c41790800000000000000
+      internalID: -7560199361622476410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_36
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e366e33cd203052f0800000000000000
+      internalID: -986235345286830530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_37
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ded256ecbfe955b40800000000000000
+      internalID: 5428419730201718253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_38
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5a5fd08d3e3a53f0800000000000000
+      internalID: -911347540713055651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_39
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1088
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a2d0722abba55910800000000000000
+      internalID: 1825554039898690212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 039b5e23790878ee0800000000000000
+      internalID: -1258896183944431312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_41
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40791e7d7105325b0800000000000000
+      internalID: -5394379865323366652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_42
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3467f4f4af4a8bae0800000000000000
+      internalID: -1533294278140266941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_43
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7136e834ff8d375b0800000000000000
+      internalID: -5371711339661204713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_44
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e8de6af7a2236d80800000000000000
+      internalID: -8258719186810906397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_45
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c9bd056ffdc51260800000000000000
+      internalID: 7067781687023614407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_46
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1024
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd0f9a74aade86890800000000000000
+      internalID: -7464455066764054307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_47
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f3381961a9abb310800000000000000
+      internalID: 1421916618083546099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_48
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dc6da6cb95326440800000000000000
+      internalID: 4927559885466201296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_49
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af04749fdbe1e6e40800000000000000
+      internalID: 5651488383676399866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_50
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9df367343e78c1ce0800000000000000
+      internalID: -1433121171251511335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_51
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8a9f7658453aa540800000000000000
+      internalID: 5019883319462959755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_52
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c44faff514bceb0800000000000000
+      internalID: -4698589905742967773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_53
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 960
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 762844297f9b3a6b0800000000000000
+      internalID: -5286177064640806297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b08dce6bbd36f43d0800000000000000
+      internalID: -3220245413228652533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_55
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47d14928f9309b900800000000000000
+      internalID: 700595200658251124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_56
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cee918e1689ca5be0800000000000000
+      internalID: -1487655149017915668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_57
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b62ccd1577ad9860800000000000000
+      internalID: 7538365472741009080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_58
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92d8492ab2c187fd0800000000000000
+      internalID: -2344092632309527255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_59
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d597b97022edeef40800000000000000
+      internalID: 5759785211191327069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_60
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 896
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 575a9afd659178510800000000000000
+      internalID: 1551236457562744181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_61
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 992ec0dfc3091df20800000000000000
+      internalID: 3445693781533057689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_62
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10207ba9d760f1b40800000000000000
+      internalID: 5413052413658989057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_63
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e73da636fec228c0800000000000000
+      internalID: -4025427560041203736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_64
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9600ec1451e4e06e0800000000000000
+      internalID: -1869470942106877847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_65
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3afdd0be9fca2510800000000000000
+      internalID: 1525259704297454139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_66
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ce0bd59d4521ebb0800000000000000
+      internalID: -4908601103700259129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_67
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 832
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6079b84dd21769df0800000000000000
+      internalID: -173827093953800442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_68
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e33406f396dca1e20800000000000000
+      internalID: 3322193527057695550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_69
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cc4f591698d5b4e0800000000000000
+      internalID: -1966427523094983482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_70
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06e9b68285dd31760800000000000000
+      internalID: 7427523581169081952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_71
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa01c73311e698f90800000000000000
+      internalID: -6950903529712381777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_72
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0046374a37c680b0800000000000000
+      internalID: -5726670823038238705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_73
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6431a88e72928e650800000000000000
+      internalID: 6262300533240501062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_74
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0da0fa1227e1b8b0800000000000000
+      internalID: -5138071566186140405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_75
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b655120db0336780800000000000000
+      internalID: -8691049267553020239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_76
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be26a94005a3b1180800000000000000
+      internalID: -9143650503096638741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_77
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29fbd82c942967210800000000000000
+      internalID: 1330411585428897682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_78
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 968275446f681efa0800000000000000
+      internalID: -5773184855045625751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_79
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fed0366cc163330e0800000000000000
+      internalID: -2291428288186085905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_80
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df361724faa2da760800000000000000
+      internalID: 7470674289099891709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_81
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 704
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc946f35ece5c8190800000000000000
+      internalID: -7958882201205585461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_82
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 803ddbdd2dfbbecd0800000000000000
+      internalID: -2527715853454159096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_83
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d8504d37f2bd6160800000000000000
+      internalID: 7020464169094764754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_84
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b184a83f0c076880800000000000000
+      internalID: -8617906102435806798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_85
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 980010e92f12749e0800000000000000
+      internalID: -1637302613609217911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_86
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5eda11c5567f0100800000000000000
+      internalID: 76409829372649051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_87
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c87313e9b3c9bf6e0800000000000000
+      internalID: -1802675445960722548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_88
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01e5efcb1b9205a30800000000000000
+      internalID: 4201904295693409808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_89
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23828618c0577b530800000000000000
+      internalID: 3870691101319374898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_90
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72496d7371ece3e60800000000000000
+      internalID: 7944013391844512807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_91
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 472a2df1195170b60800000000000000
+      internalID: 7712156599943602804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_92
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 838b66986f4b02ad0800000000000000
+      internalID: -2728982403226355656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_93
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e226fc848038a500800000000000000
+      internalID: 407629112135787232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_94
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc807458fc1709b00800000000000000
+      internalID: 833291067171735756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_95
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88b634cdd01ab22f0800000000000000
+      internalID: -996525811630380152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_96
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 576
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1216d0281600a1e0800000000000000
+      internalID: -2188742718202179043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_97
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 550ba69eeb61525c0800000000000000
+      internalID: -4240958464883773355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_98
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df406105f5d34a070800000000000000
+      internalID: 8116679908003284221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_99
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 560defcae41d2c6a0800000000000000
+      internalID: -6430347182091612059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_100
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5072394e1f8b1b10800000000000000
+      internalID: 1953312223635075167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_101
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bda5818f7236f450800000000000000
+      internalID: 6122136266672025015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_102
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b887fa6894cdd780800000000000000
+      internalID: -8656546749827544903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_103
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 446322ccc18ca26e0800000000000000
+      internalID: -1861455469954845116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_104
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 512
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 194d627162318cea0800000000000000
+      internalID: -5852406661449853807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_105
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1166924e6664f01d0800000000000000
+      internalID: -3382407387403426287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_106
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb2777274bca0fb60800000000000000
+      internalID: 7777906447483368123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_107
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baac82af6fe2e2420800000000000000
+      internalID: 2607072872587905707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_108
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0009b0f3d5fa55dc0800000000000000
+      internalID: -3650819107889377280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_109
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 122a778c25143a6c0800000000000000
+      internalID: -4133388209189576159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_110
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89f8db7ffa660c60800000000000000
+      internalID: 7784026651483502987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_111
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e634582ac577d2fa0800000000000000
+      internalID: -5823867503372844178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_112
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25ee214a7b2e6c5e0800000000000000
+      internalID: -1889573715275747758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_113
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a52cb9c29bcda19a0800000000000000
+      internalID: -6261449644029787558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_114
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b37fb2e6d69e4530800000000000000
+      internalID: 3841173381864977333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_115
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c422836b78305e50800000000000000
+      internalID: 6795993940303684809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_116
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bf476aca16f83fc0800000000000000
+      internalID: -3514788914237321292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_117
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b6c546c743a9420800000000000000
+      internalID: 2637478240643214158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_118
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b9a7c9df68bffac0800000000000000
+      internalID: -3819131168452269640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_119
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c54b7837fc5b77e0800000000000000
+      internalID: -1766716211938507324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_120
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e12f48c2b0979e0800000000000000
+      internalID: -1623253904853426537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_121
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e38c260318a70a2f0800000000000000
+      internalID: -963635624976136130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_122
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1884ec1ad5f6a68c0800000000000000
+      internalID: -4005266470655342463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_123
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2313f328396a9340800000000000000
+      internalID: 4871321636796830510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_124
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1cc90f48210d1130800000000000000
+      internalID: 3538986154819439645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_125
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5f785352e5f57600800000000000000
+      internalID: 465548488912437083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_126
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7662df37ff191b580800000000000000
+      internalID: -8813102469438691737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_127
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d09b6357a07f4570800000000000000
+      internalID: 8453098889559118035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_128
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f10cbc94e1eac9a10800000000000000
+      internalID: 1917598986463330335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_129
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdaa353a4c274c430800000000000000
+      internalID: 3802290174286867163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_130
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63fc4240ffb56b500800000000000000
+      internalID: 411617566795288374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_131
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1626264af4abc7460800000000000000
+      internalID: 7240867152128008801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_132
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b5ad6c31cf6fd6e0800000000000000
+      internalID: -1810605649446459978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_133
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74eeb5ba89ac0e180800000000000000
+      internalID: -9088041290974892473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_134
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aed71617c0861800800000000000000
+      internalID: 582794794348568225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_135
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43264bba63db88910800000000000000
+      internalID: 1839928490287456820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_136
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23e48281807693940800000000000000
+      internalID: 5276361722903940658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_137
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3abffc0bb64c36150800000000000000
+      internalID: 5864747106573482915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_138
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e43660242f1f63a0800000000000000
+      internalID: -6670078283089562397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_139
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb6368ae51d0dcdd0800000000000000
+      internalID: -2464299033321654594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_140
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a23d68007ceb3d510800000000000000
+      internalID: 1572810456799040298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_141
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d9891dc905b6b120800000000000000
+      internalID: 2429328102713297367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_142
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a776033f3330ace40800000000000000
+      internalID: 5677353801912182650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_143
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff2fdde63b46efb60800000000000000
+      internalID: 7781767927964758783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_144
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f30c8369b2b7d2f20800000000000000
+      internalID: 3399508720868704319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_145
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0d55bc3abf1d58a0800000000000000
+      internalID: -6314856217760670452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_146
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ebc908d5b96fa980800000000000000
+      internalID: -8525479339854541847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_147
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9916c5a2900967190800000000000000
+      internalID: -7965020521918340711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_148
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2847133079bc59160800000000000000
+      internalID: 7031750242662970498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_149
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 816df505bd9318790800000000000000
+      internalID: -7529673487877679592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_150
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7834acf15b31148b0800000000000000
+      internalID: -5169829228601261177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_151
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e6eb8d11f6b21cd0800000000000000
+      internalID: -2588805689085532441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_152
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d179639701db3430800000000000000
+      internalID: 3763831744066318806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_153
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc9e32c4d7417a3d0800000000000000
+      internalID: -3195562882215188021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_154
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e561f9f5eb441eb0800000000000000
+      internalID: -4750088255856089630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_155
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a908a6416796e530800000000000000
+      internalID: 3883958172706671016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_156
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aedfd2b68df202690800000000000000
+      internalID: -7629045162208002582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_157
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fe0e4c09724cb8b0800000000000000
+      internalID: -5135156387444289802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_158
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2e5dfd5366f027c0800000000000000
+      internalID: -4098004754268070358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_159
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 763f6e242e85b16b0800000000000000
+      internalID: -5324564405627194521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_160
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f915bf1b87aebaea0800000000000000
+      internalID: -5860332685989555809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_161
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60c4ecef80dfb84a0800000000000000
+      internalID: -6589895414650090490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_162
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2792ea2303b7ff10800000000000000
+      internalID: 2303506560609064746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_163
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8976a227415de8110800000000000000
+      internalID: 1265182829129131928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_164
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1a0b6c2a13052c60800000000000000
+      internalID: 7792638141183756826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_165
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64c757276162302b0800000000000000
+      internalID: -5619606032176808890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_166
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77ccca46aa9e18a80800000000000000
+      internalID: -8466228906437063561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_167
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24a621c30909ae1d0800000000000000
+      internalID: -3320682826074789310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Retro Impact Effect Mask_168
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c72cc5ba05d997d60800000000000000
+      internalID: 7888509192114061948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 457fd4e5e9177844fbd5596154bab4c9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Retro Impact Effect Mask_0: -3825348478933511423
+      Retro Impact Effect Mask_1: 3189784824759553739
+      Retro Impact Effect Mask_10: 5691310187178344947
+      Retro Impact Effect Mask_100: 1953312223635075167
+      Retro Impact Effect Mask_101: 6122136266672025015
+      Retro Impact Effect Mask_102: -8656546749827544903
+      Retro Impact Effect Mask_103: -1861455469954845116
+      Retro Impact Effect Mask_104: -5852406661449853807
+      Retro Impact Effect Mask_105: -3382407387403426287
+      Retro Impact Effect Mask_106: 7777906447483368123
+      Retro Impact Effect Mask_107: 2607072872587905707
+      Retro Impact Effect Mask_108: -3650819107889377280
+      Retro Impact Effect Mask_109: -4133388209189576159
+      Retro Impact Effect Mask_11: -5803309644935357404
+      Retro Impact Effect Mask_110: 7784026651483502987
+      Retro Impact Effect Mask_111: -5823867503372844178
+      Retro Impact Effect Mask_112: -1889573715275747758
+      Retro Impact Effect Mask_113: -6261449644029787558
+      Retro Impact Effect Mask_114: 3841173381864977333
+      Retro Impact Effect Mask_115: 6795993940303684809
+      Retro Impact Effect Mask_116: -3514788914237321292
+      Retro Impact Effect Mask_117: 2637478240643214158
+      Retro Impact Effect Mask_118: -3819131168452269640
+      Retro Impact Effect Mask_119: -1766716211938507324
+      Retro Impact Effect Mask_12: 982969624765647303
+      Retro Impact Effect Mask_120: -1623253904853426537
+      Retro Impact Effect Mask_121: -963635624976136130
+      Retro Impact Effect Mask_122: -4005266470655342463
+      Retro Impact Effect Mask_123: 4871321636796830510
+      Retro Impact Effect Mask_124: 3538986154819439645
+      Retro Impact Effect Mask_125: 465548488912437083
+      Retro Impact Effect Mask_126: -8813102469438691737
+      Retro Impact Effect Mask_127: 8453098889559118035
+      Retro Impact Effect Mask_128: 1917598986463330335
+      Retro Impact Effect Mask_129: 3802290174286867163
+      Retro Impact Effect Mask_13: -4499910947408091850
+      Retro Impact Effect Mask_130: 411617566795288374
+      Retro Impact Effect Mask_131: 7240867152128008801
+      Retro Impact Effect Mask_132: -1810605649446459978
+      Retro Impact Effect Mask_133: -9088041290974892473
+      Retro Impact Effect Mask_134: 582794794348568225
+      Retro Impact Effect Mask_135: 1839928490287456820
+      Retro Impact Effect Mask_136: 5276361722903940658
+      Retro Impact Effect Mask_137: 5864747106573482915
+      Retro Impact Effect Mask_138: -6670078283089562397
+      Retro Impact Effect Mask_139: -2464299033321654594
+      Retro Impact Effect Mask_14: 4044080546240837542
+      Retro Impact Effect Mask_140: 1572810456799040298
+      Retro Impact Effect Mask_141: 2429328102713297367
+      Retro Impact Effect Mask_142: 5677353801912182650
+      Retro Impact Effect Mask_143: 7781767927964758783
+      Retro Impact Effect Mask_144: 3399508720868704319
+      Retro Impact Effect Mask_145: -6314856217760670452
+      Retro Impact Effect Mask_146: -8525479339854541847
+      Retro Impact Effect Mask_147: -7965020521918340711
+      Retro Impact Effect Mask_148: 7031750242662970498
+      Retro Impact Effect Mask_149: -7529673487877679592
+      Retro Impact Effect Mask_15: 1634029895284683203
+      Retro Impact Effect Mask_150: -5169829228601261177
+      Retro Impact Effect Mask_151: -2588805689085532441
+      Retro Impact Effect Mask_152: 3763831744066318806
+      Retro Impact Effect Mask_153: -3195562882215188021
+      Retro Impact Effect Mask_154: -4750088255856089630
+      Retro Impact Effect Mask_155: 3883958172706671016
+      Retro Impact Effect Mask_156: -7629045162208002582
+      Retro Impact Effect Mask_157: -5135156387444289802
+      Retro Impact Effect Mask_158: -4098004754268070358
+      Retro Impact Effect Mask_159: -5324564405627194521
+      Retro Impact Effect Mask_16: -5660490146703869175
+      Retro Impact Effect Mask_160: -5860332685989555809
+      Retro Impact Effect Mask_161: -6589895414650090490
+      Retro Impact Effect Mask_162: 2303506560609064746
+      Retro Impact Effect Mask_163: 1265182829129131928
+      Retro Impact Effect Mask_164: 7792638141183756826
+      Retro Impact Effect Mask_165: -5619606032176808890
+      Retro Impact Effect Mask_166: -8466228906437063561
+      Retro Impact Effect Mask_167: -3320682826074789310
+      Retro Impact Effect Mask_168: 7888509192114061948
+      Retro Impact Effect Mask_17: -3817971810746949219
+      Retro Impact Effect Mask_18: 3937416325648124926
+      Retro Impact Effect Mask_19: -8183936381928740825
+      Retro Impact Effect Mask_2: -6454526932314437321
+      Retro Impact Effect Mask_20: -239445442167204400
+      Retro Impact Effect Mask_21: 3833846922917096449
+      Retro Impact Effect Mask_22: 7545494118937638427
+      Retro Impact Effect Mask_23: -5673424141123236987
+      Retro Impact Effect Mask_24: 4929914869671830954
+      Retro Impact Effect Mask_25: -6415721291770531354
+      Retro Impact Effect Mask_26: 521947136935052
+      Retro Impact Effect Mask_27: -7585416992622026534
+      Retro Impact Effect Mask_28: 8959270545167867534
+      Retro Impact Effect Mask_29: -5411450829754325437
+      Retro Impact Effect Mask_3: 8616580828664794262
+      Retro Impact Effect Mask_30: 4938948638330188491
+      Retro Impact Effect Mask_31: -3997286729188887039
+      Retro Impact Effect Mask_32: 4738912195298732446
+      Retro Impact Effect Mask_33: 4539608477980650413
+      Retro Impact Effect Mask_34: 1468490365992139893
+      Retro Impact Effect Mask_35: -7560199361622476410
+      Retro Impact Effect Mask_36: -986235345286830530
+      Retro Impact Effect Mask_37: 5428419730201718253
+      Retro Impact Effect Mask_38: -911347540713055651
+      Retro Impact Effect Mask_39: 1825554039898690212
+      Retro Impact Effect Mask_4: 1062739226978796471
+      Retro Impact Effect Mask_40: -1258896183944431312
+      Retro Impact Effect Mask_41: -5394379865323366652
+      Retro Impact Effect Mask_42: -1533294278140266941
+      Retro Impact Effect Mask_43: -5371711339661204713
+      Retro Impact Effect Mask_44: -8258719186810906397
+      Retro Impact Effect Mask_45: 7067781687023614407
+      Retro Impact Effect Mask_46: -7464455066764054307
+      Retro Impact Effect Mask_47: 1421916618083546099
+      Retro Impact Effect Mask_48: 4927559885466201296
+      Retro Impact Effect Mask_49: 5651488383676399866
+      Retro Impact Effect Mask_5: -7111165369666851930
+      Retro Impact Effect Mask_50: -1433121171251511335
+      Retro Impact Effect Mask_51: 5019883319462959755
+      Retro Impact Effect Mask_52: -4698589905742967773
+      Retro Impact Effect Mask_53: -5286177064640806297
+      Retro Impact Effect Mask_54: -3220245413228652533
+      Retro Impact Effect Mask_55: 700595200658251124
+      Retro Impact Effect Mask_56: -1487655149017915668
+      Retro Impact Effect Mask_57: 7538365472741009080
+      Retro Impact Effect Mask_58: -2344092632309527255
+      Retro Impact Effect Mask_59: 5759785211191327069
+      Retro Impact Effect Mask_6: -8715035028974335124
+      Retro Impact Effect Mask_60: 1551236457562744181
+      Retro Impact Effect Mask_61: 3445693781533057689
+      Retro Impact Effect Mask_62: 5413052413658989057
+      Retro Impact Effect Mask_63: -4025427560041203736
+      Retro Impact Effect Mask_64: -1869470942106877847
+      Retro Impact Effect Mask_65: 1525259704297454139
+      Retro Impact Effect Mask_66: -4908601103700259129
+      Retro Impact Effect Mask_67: -173827093953800442
+      Retro Impact Effect Mask_68: 3322193527057695550
+      Retro Impact Effect Mask_69: -1966427523094983482
+      Retro Impact Effect Mask_7: 7393378356763716496
+      Retro Impact Effect Mask_70: 7427523581169081952
+      Retro Impact Effect Mask_71: -6950903529712381777
+      Retro Impact Effect Mask_72: -5726670823038238705
+      Retro Impact Effect Mask_73: 6262300533240501062
+      Retro Impact Effect Mask_74: -5138071566186140405
+      Retro Impact Effect Mask_75: -8691049267553020239
+      Retro Impact Effect Mask_76: -9143650503096638741
+      Retro Impact Effect Mask_77: 1330411585428897682
+      Retro Impact Effect Mask_78: -5773184855045625751
+      Retro Impact Effect Mask_79: -2291428288186085905
+      Retro Impact Effect Mask_8: 1074105720098428188
+      Retro Impact Effect Mask_80: 7470674289099891709
+      Retro Impact Effect Mask_81: -7958882201205585461
+      Retro Impact Effect Mask_82: -2527715853454159096
+      Retro Impact Effect Mask_83: 7020464169094764754
+      Retro Impact Effect Mask_84: -8617906102435806798
+      Retro Impact Effect Mask_85: -1637302613609217911
+      Retro Impact Effect Mask_86: 76409829372649051
+      Retro Impact Effect Mask_87: -1802675445960722548
+      Retro Impact Effect Mask_88: 4201904295693409808
+      Retro Impact Effect Mask_89: 3870691101319374898
+      Retro Impact Effect Mask_9: 4843052374029496099
+      Retro Impact Effect Mask_90: 7944013391844512807
+      Retro Impact Effect Mask_91: 7712156599943602804
+      Retro Impact Effect Mask_92: -2728982403226355656
+      Retro Impact Effect Mask_93: 407629112135787232
+      Retro Impact Effect Mask_94: 833291067171735756
+      Retro Impact Effect Mask_95: -996525811630380152
+      Retro Impact Effect Mask_96: -2188742718202179043
+      Retro Impact Effect Mask_97: -4240958464883773355
+      Retro Impact Effect Mask_98: 8116679908003284221
+      Retro Impact Effect Mask_99: -6430347182091612059
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
