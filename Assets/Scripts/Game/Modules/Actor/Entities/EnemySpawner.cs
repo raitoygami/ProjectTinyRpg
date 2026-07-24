@@ -17,7 +17,7 @@ public struct SpawnPoint
 /// <summary>
 /// 刷怪点管理：维护若干刷怪点（位置 + 实体配置 id），根据刷怪点创建 Enemy，并用 t_Entity.Attr 初始化 AgentStats，并在 Scene 中用 Gizmos 预览。
 /// </summary>
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IDynamicEntity
 {
     [Tooltip("刷怪点列表，每项包含格子坐标与实体配置 id（t_Entity）。")]
     [SerializeField] private List<SpawnPoint> spawnPoints = new List<SpawnPoint>();
@@ -41,62 +41,42 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("Gizmos：脱离正方形线框颜色。")]
     [SerializeField] private Color leashGizmoColor = new Color(0.4f, 1f, 0.4f, 0.35f);
 
-    private void Awake()
-    {
-        SpawnEnemiesAtAllPoints();
-    }
-
     /// <summary>当前 EnemySpawner 所在格子坐标（世界）。</summary>
     public Vector3 SpawnerGridPosition => transform.position.SnapToGrid();
 
     /// <summary>将相对本 Spawner 的格子偏移转为世界格子坐标。</summary>
-    public Vector3 GetAbsoluteGridPosition(Vector3 relativeLocation)
+
+
+    public void InitAfterLevelLoad()
+    {
+        if (spawnPoints == null || !EntityManager.HasInstance()) return;
+        for (var i = 0; i < spawnPoints.Count; i++)
+        {
+            SpawnEnemyAt(i);
+        }
+    }
+
+    private Vector3 GetAbsoluteGridPosition(Vector3 relativeLocation)
     {
         var baseGrid = SpawnerGridPosition;
-        return new Vector3(baseGrid.x + relativeLocation.x, 0, baseGrid.z + relativeLocation.z);
+        return new Vector3(baseGrid.x + relativeLocation.x, baseGrid.y + relativeLocation.y, 0);
     }
-
-    /// <summary>刷怪点数量。</summary>
-    public int SpawnPointCount => spawnPoints != null ? spawnPoints.Count : 0;
-
-    /// <summary>获取指定索引的刷怪点（只读）。</summary>
-    public SpawnPoint GetSpawnPoint(int index)
-    {
-        if (spawnPoints == null || index < 0 || index >= spawnPoints.Count)
-            return default;
-        return spawnPoints[index];
-    }
-
+    
     /// <summary>在指定刷怪点索引处创建一个 Enemy，使用该刷怪点配置的相对 Location 与 EntityId（t_Entity）。</summary>
     /// <returns>创建的 <see cref="AIEntity"/>，若索引无效或 EntityManager 未配置 enemyPrefab 则返回 null。</returns>
-    public AIEntity SpawnEnemyAt(int spawnPointIndex)
+    private void SpawnEnemyAt(int spawnPointIndex)
     {
         if (spawnPoints == null || spawnPointIndex < 0 || spawnPointIndex >= spawnPoints.Count)
-            return null;
+            return;
         var point = spawnPoints[spawnPointIndex];
         var absoluteGrid = GetAbsoluteGridPosition(point.Location);
         if (!EntityManager.HasInstance())
-            return null;
+            return;
         var enemy = EntityManager.Instance.CreateEnemy(absoluteGrid, point.EntityId);
         if (enemy != null)
             enemy.SetHomeAnchor(absoluteGrid, disengageLeashRange);
-        return enemy;
     }
-
-    /// <summary>在所有刷怪点各创建一个 Enemy，每个刷怪点使用自身配置的 EntityId。</summary>
-    /// <returns>创建的 <see cref="AIEntity"/> 列表（跳过失败项）。</returns>
-    public List<AIEntity> SpawnEnemiesAtAllPoints()
-    {
-        var list = new List<AIEntity>();
-        if (spawnPoints == null || !EntityManager.HasInstance()) return list;
-        for (int i = 0; i < spawnPoints.Count; i++)
-        {
-            var enemy = SpawnEnemyAt(i);
-            if (enemy != null) list.Add(enemy);
-        }
-        return list;
-    }
-
+    
     private void OnDrawGizmos()
     {
         var spawnerWorld = transform.position;
@@ -106,10 +86,10 @@ public class EnemySpawner : MonoBehaviour
         if (spawnPoints == null) return;
         Gizmos.color = gizmoColor;
         var baseGrid = SpawnerGridPosition;
-        for (int i = 0; i < spawnPoints.Count; i++)
+        for (var i = 0; i < spawnPoints.Count; i++)
         {
             var rel = spawnPoints[i].Location;
-            var absGrid = new Vector3(baseGrid.x + rel.x, 0, baseGrid.z + rel.z);
+            var absGrid = new Vector3(baseGrid.x + rel.x, baseGrid.y + rel.y, 0);
             var worldPos = absGrid.GridToWorld();
             Gizmos.color = gizmoColor;
             Gizmos.DrawSphere(worldPos, gizmoRadius);
@@ -117,4 +97,6 @@ public class EnemySpawner : MonoBehaviour
             WorldExtensions.DrawLeashSquareGizmo(worldPos, disengageLeashRange, leashGizmoColor);
         }
     }
+
+
 }
