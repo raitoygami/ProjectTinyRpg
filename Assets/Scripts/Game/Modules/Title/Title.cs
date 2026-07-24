@@ -8,11 +8,11 @@ public class Title : PubSubActor
 {
     public void Awake()
     {
-        this.SubscribeInput<InputSystem.MouseClickEvt>(OnMouseClick);
+        this.SubscribeInput<InputManager.MouseClickEvt>(OnMouseClick);
         Debug.Log("OnAwake");
     }
     
-    private static UniTask OnMouseClick(InputSystem.MouseClickEvt arg)
+    private static UniTask OnMouseClick(InputManager.MouseClickEvt arg)
     {
         Game.Instance.LoadGame().Forget();
         return UniTask.CompletedTask;

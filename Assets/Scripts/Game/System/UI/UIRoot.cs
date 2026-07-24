@@ -56,10 +56,10 @@ public class UIRoot : Singleton<UIRoot>
     private void Awake()
     {
         BuildPanelTypeRegistry();
-        this.SubscribeInput<InputSystem.EscPressedEvt>(OnEscPressed);
+        this.SubscribeInput<InputManager.EscPressedEvt>(OnEscPressed);
     }
 
-    async UniTask OnEscPressed(InputSystem.EscPressedEvt _)
+    async UniTask OnEscPressed(InputManager.EscPressedEvt _)
     {
         await HandleEscAsync();
     }

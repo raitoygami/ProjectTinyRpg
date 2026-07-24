@@ -50,9 +50,9 @@ internal static class Extensions
 
     public static Action SubscribeInput<TEventArgs>(this MonoBehaviour owner, Func<TEventArgs, UniTask> handler) where TEventArgs : EventArgs
     {
-        if (!InputSystem.HasInstance()) return null;
+        if (!InputManager.HasInstance()) return null;
 
-        var action = InputSystem.Instance.Messager.Subscribe(handler);
+        var action = InputManager.Instance.Messager.Subscribe(handler);
         owner.destroyCancellationToken.Register(action);
         return action;
     }

@@ -56,6 +56,7 @@ public class EntityManager : Singleton<EntityManager>
         if (stats != null && entity?.Attr != null)
             stats.SetBaseFromAttribute(entity.Attr);
         stats?.SetEntityConfig(entity);
+        
         var avatar = GetComponent<AgentAvatar>();
         if (avatar != null && !string.IsNullOrEmpty(entity?.Addressable))
             avatar.SetDisplayFromAddressable(entity.Addressable);

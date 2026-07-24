@@ -47,7 +47,7 @@ public class Game : Singleton<Game>
                 CameraManager.Instance.Setup(preload.mainCameraPrefab, preload.followCameraPrefab);
                 
                 // 初始化输入系统
-                InputSystem.Instance.Initialized();
+                InputManager.Instance.Initialized();
                 // 音频系统
                 var audioManager = new GameObject("AudioManager");
                 audioManager.AddComponent<AudioManager>();
@@ -69,7 +69,7 @@ public class Game : Singleton<Game>
                 InventoryManager.Instance.Initialized();
                 EquipmentManager.Instance.Initialized();
 
-                //TileSelector.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
+                TileSelector.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
 
                 TetrisHandle.Instance.Initialized();
 
@@ -165,8 +165,8 @@ public class Game : Singleton<Game>
         if (_isExiting)
             return;
 
-        if (InputSystem.HasInstance())
-            InputSystem.Instance.DisableInput();
+        if (InputManager.HasInstance())
+            InputManager.Instance.DisableInput();
         
         _isExiting = true;
         await UIRoot.Instance.LoadingStart();
@@ -184,8 +184,8 @@ public class Game : Singleton<Game>
         await Addressables.LoadSceneAsync("Scene/Title.unity").ToUniTask();
         await UIRoot.Instance.LoadingFinish();
         
-        if (InputSystem.HasInstance())
-            InputSystem.Instance.EnableInput();
+        if (InputManager.HasInstance())
+            InputManager.Instance.EnableInput();
 
         _isExiting = false;
     }

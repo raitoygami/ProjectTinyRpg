@@ -13,7 +13,7 @@ public partial class Player
     {
         var skillDisplay = _AbilityPrepared != null ? _AbilityPrepared.GetSkillDisplayParam() : null;
         var showSkillPreview = _AbilityPrepared != null && _AbilityPrepared.InSelection() && skillDisplay != null;
-        if (showSkillPreview && InputSystem.HasInstance() && TileSelector.HasInstance())
+        if (showSkillPreview && InputManager.HasInstance() && TileSelector.HasInstance())
         {
             var mouseGrid = hitPoint.SnapToGrid();
             if (_AbilityPrepared.TryGetSkillPreviewFrame(GridPosition, mouseGrid, out var previewOrigin,

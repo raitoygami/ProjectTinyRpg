@@ -143,6 +143,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: T_Symbols_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84e7976dbcf552c45bc458782dcd560b
+      internalID: -1898290088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -161,6 +183,7 @@ TextureImporter:
     nameFileIdTable:
       T_Symbols_0: -6890637548876617322
       T_Symbols_1: 1222457015
+      T_Symbols_2: -1898290088
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

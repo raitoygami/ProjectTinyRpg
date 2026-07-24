@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public partial class Player
 {
     private Camera m_Camera;
-
+    private Plane _xyPlane;
     private Ray GetMouseRay()
     {
         m_Camera = Camera.main;
@@ -29,10 +29,10 @@ public partial class Player
     private bool GetPointerInput(out Vector2 hitPoint)
     {
         var ray = GetMouseRay();
-        if (Physics.Raycast(ray, out var hit,
-                120.0f, LayerMask.GetMask("Terrain")))
+        if (_xyPlane.Raycast(ray, out float enter))
         {
-            hitPoint = hit.point.GetCoordinates();
+            var worldPos = ray.GetPoint(enter);
+            hitPoint =  new Vector2(worldPos.x, worldPos.y);
             return true;
         }
 

@@ -38,11 +38,11 @@ public partial class Player : Entity, IDynamicEntity
         this.Subscribe<AgentMover.MoveFinishEvent>(MoveFinishEvent);
         this.Subscribe<AgentStats.DefeatedEvent>(OnDefeated);
 
-        this.SubscribeInput<InputSystem.PointerMoveEvt>(OnPointerMoveEvt);
-        this.SubscribeInput<InputSystem.MouseClickEvt>(OnMouseClickEvt);
-        this.SubscribeInput<InputSystem.WASDEvt>(OnWASDEvt);
-        this.SubscribeInput<InputSystem.InventoryEvt>(OnInventoryInputEvt);
-        this.SubscribeInput<InputSystem.OverworldEvt>(OnOverworldInputEvt);
+        this.SubscribeInput<InputManager.PointerMoveEvt>(OnPointerMoveEvt);
+        this.SubscribeInput<InputManager.MouseClickEvt>(OnMouseClickEvt);
+        this.SubscribeInput<InputManager.WASDEvt>(OnWASDEvt);
+        this.SubscribeInput<InputManager.InventoryEvt>(OnInventoryInputEvt);
+        this.SubscribeInput<InputManager.OverworldEvt>(OnOverworldInputEvt);
         m_TurnActor = gameObject.AddComponent<TurnActor>();
 
         m_AgentStats = gameObject.AddComponent<AgentStats>();
@@ -56,7 +56,7 @@ public partial class Player : Entity, IDynamicEntity
         Faction = EntityFaction.Player;
 
         m_AgentAnimations.Setup(m_AvatarRoot);
-
+        _xyPlane = new Plane(Vector3.back, Vector3.zero);   // 法线朝 -Z，点在原点
         EntityManager.Register(this);
     }
 
@@ -75,7 +75,7 @@ public partial class Player : Entity, IDynamicEntity
         return UniTask.CompletedTask;
     }
 
-    private async UniTask OnWASDEvt(InputSystem.WASDEvt arg)
+    private async UniTask OnWASDEvt(InputManager.WASDEvt arg)
     {
         m_InputDirection = arg.Direction;
         _lootUnitTarget = null;
@@ -183,7 +183,7 @@ public partial class Player : Entity, IDynamicEntity
         }*/
     }
 
-    private async UniTask OnInventoryInputEvt(InputSystem.InventoryEvt _)
+    private async UniTask OnInventoryInputEvt(InputManager.InventoryEvt _)
     {
         if (!UIRoot.HasInstance())
         {
@@ -194,7 +194,7 @@ public partial class Player : Entity, IDynamicEntity
         await UIRoot.Instance.Toggle(Const.KeyUI.Inventory);
     }
     
-    private async UniTask OnOverworldInputEvt(InputSystem.OverworldEvt arg)
+    private async UniTask OnOverworldInputEvt(InputManager.OverworldEvt arg)
     {
         if (!UIRoot.HasInstance())
         {

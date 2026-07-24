@@ -13,9 +13,9 @@ public class PreloadSettings : Singleton<PreloadSettings>{
     }
     
     public async UniTask LoadSettings(){
-        /*var handle = Addressables.LoadAssetAsync<NavigationSettings>("Settings/Navigation");
+        var handle = Addressables.LoadAssetAsync<NavigationSettings>("Settings/Navigation");
         await handle;
-        m_NavigationSettings = Instantiate(handle.Result);*/
+        m_NavigationSettings = Instantiate(handle.Result);
         await UniTask.CompletedTask;
     }
     

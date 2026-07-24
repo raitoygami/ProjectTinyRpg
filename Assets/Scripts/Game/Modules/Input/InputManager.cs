@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputSystem : Singleton<InputSystem>
+public class InputManager : Singleton<InputManager>
 {
     private InputMapping m_InputMapping;
     private PlayerInput m_PlayerInput;
@@ -74,6 +74,45 @@ public class InputSystem : Singleton<InputSystem>
 
         m_InputMapping.PlayerInput.Enable();
         LoadBindings(); // 启动时加载已保存的改键
+        
+        InputSystem.onActionChange  += OnActionChange;
+        
+    }
+
+    private bool _isKeyboardMouse;
+
+    public bool IsKeyboardMouse()
+    {
+        return _isKeyboardMouse;
+    }
+    
+    private void OnActionChange(object obj, InputActionChange change)
+    {
+        if (change == InputActionChange.ActionPerformed)
+        {
+            InputAction action = obj as InputAction;
+            if (action == null) return;
+
+            InputDevice device = action.activeControl?.device;
+
+            _isKeyboardMouse = IsKeyboardOrMouse(device);
+        }
+    }
+
+    private bool IsKeyboardOrMouse(InputDevice device)
+    {
+        if (device == null) return false;
+
+        // 方法1：推荐（最可靠）
+        if (device is Keyboard || device is Mouse)
+            return true;
+
+        // 方法2：通过 description 判断（兼容性好）
+        string deviceClass = device.description.deviceClass;
+        return deviceClass == "Keyboard" || deviceClass == "Mouse";
+
+        // 方法3：通过名称判断（备用）
+        // return device.name.Contains("Keyboard") || device.name.Contains("Mouse");
     }
     
     /// <summary>

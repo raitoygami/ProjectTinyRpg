@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,7 +12,7 @@ public partial class Player
 
     private bool keyboardInputEnabled;
 
-    private async UniTask OnPointerMoveEvt(InputSystem.PointerMoveEvt t_Args)
+    private async UniTask OnPointerMoveEvt(InputManager.PointerMoveEvt t_Args)
     {
         // 背包拾起块：左键用于放下/丢弃，不绘制地面移动路径预览
         if (TetrisHandle.Instance.IsDragging())
@@ -23,45 +22,30 @@ public partial class Player
                 TileSelector.Instance.ClearPath();
                 TileSelector.Instance.HideSkillRangePreview();
             }
-
             return;
         }
 
         // 勿在此调用 IsPointerOverGameObject()：本方法由 Input 事件链触发，该 API 会读上一帧 UI 状态并报警告。
         // 指针在 UI 上时的 ClearPath 由 Player.Update 里的 DoNotClickUIAndGameAtSameTime 处理。
 
-        if (!GetPointerInput(out var hitPoint))
+        if (!InputManager.Instance.IsKeyboardMouse())
         {
-            TileSelector.Instance.HideSkillRangePreview();
+            TileSelector.Instance.ClearPath();
             return;
         }
-
-        /*var targetGrid = hitPoint.SnapToGrid();
+            
+        
+        if (!GetPointerInput(out var hitPoint))
+            return;
+        
+        var targetGrid = hitPoint.SnapToGrid();
         if (!_LastGrid.Equals(targetGrid))
         {
-            UpdateSkillRangePreview(hitPoint, targetGrid);
-
+            //UpdateSkillRangePreview(hitPoint, targetGrid);
             _LastGrid = targetGrid;
-            var node = PathFinder.Instance.GetNode(targetGrid.x, targetGrid.z);
-            var loot = DropSystem.Instance.GetLootUnit((int)targetGrid.x, (int)targetGrid.z);
-            if (Navigation.IsWalkable(node, Const.Layer.ForSelector))
-            {
-                TileSelector.Instance.DrawPath(
-                    new List<NavigationNode>() { new(targetGrid.x, targetGrid.z, false) });
-            }
-            else
-            {
-                TileSelector.Instance.ClearPath();
-            }
-
-            /*var coverTarget = node.Reference != null ? node.Reference.gameObject :
-                loot != null ? loot.gameObject : null;
-            CoverTarget(_CoverTarget, false);
-            if (coverTarget != null)
-            {
-                CoverTarget(coverTarget, true);
-            }#1#
-        }*/
+            var path = m_AgentMover.FindPath(targetGrid, Const.Layer.ObstacleForNavi);
+            TileSelector.Instance.DrawPath(targetGrid, path is { Count: > 0 });
+        }
 
         await UniTask.CompletedTask;
     }
@@ -85,7 +69,7 @@ public partial class Player
         // _lootUnitTarget = DropSystem.Instance.GetLootUnit(targetGrid);
     }
 
-    private async UniTask OnMouseClickEvt(InputSystem.MouseClickEvt arg)
+    private async UniTask OnMouseClickEvt(InputManager.MouseClickEvt arg)
     {
         if (_ExecutingAbility)
         {
@@ -141,32 +125,21 @@ public partial class Player
     private async UniTask MovePathAsync()
     {
         if (_PreparingAbility)
-        {
             return;
-        }
 
         ClearPath();
 
         if (!_Controllable)
-        {
             await UniTask.WaitUntil(() => _Controllable);
-        }
-
         if (!GetPointerInput(out var hitPoint))
-        {
             return;
-        }
 
         var targetPoint = hitPoint.SnapToGrid();
         if (targetPoint != GridPosition)
-        {
             _Path = m_AgentMover.FindPath(targetPoint, Const.Layer.ObstacleForNavi);
-        }
-
+        
         if (_Path is { Count: > 0 })
-        {
-            _ = HandlePath();
-        }
+            HandlePath().Forget();
     }
 
     private void ClearPath()
@@ -352,11 +325,11 @@ public partial class Player
             // 指针在 UI 上时禁用对世界的鼠标采样，并清掉地面移动路径预览（避免禁用后 OnPointerMove 不再刷新）
             if (TileSelector.HasInstance())
                 TileSelector.Instance.ClearPath();
-            InputSystem.Instance.MouseDisable();
+            InputManager.Instance.MouseDisable();
         }
         else
         {
-            InputSystem.Instance.MouseEnable();
+            InputManager.Instance.MouseEnable();
         }
     }
 }

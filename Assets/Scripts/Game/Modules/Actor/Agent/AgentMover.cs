@@ -28,7 +28,6 @@ public class AgentMover : MonoBehaviour
     private bool _MovePending;
     private CancellationTokenSource _MoveCancellation;
     private Vector3 _pendingParallelMoveWorldPosition;
-    private readonly List<PathNode> _pathBuffer = new List<PathNode>();
 
     private void Awake()
     {
@@ -175,18 +174,18 @@ public class AgentMover : MonoBehaviour
         if (!PathFinder.HasInstance())
             return null;
         int sx = (int)GetComponent<Entity>().GridPosition.x;
-        int sz = (int)GetComponent<Entity>().GridPosition.z;
+        int sy = (int)GetComponent<Entity>().GridPosition.y;
         int dx = (int)t_Destination.x;
-        int dz = (int)t_Destination.z;
+        int dy = (int)t_Destination.y;
         try
         {
-            var nav = PathFinder.Instance.Navigate(GetComponent<Entity>(), sx, sz, dx, dz, t_Range);
+            var pathBuffer = new List<PathNode>(); 
+            var nav = PathFinder.Instance.Navigate(GetComponent<Entity>(), sx, sy, dx, dy, t_Range);
             if (nav == null)
                 return null;
-            _pathBuffer.Clear();
             foreach (var step in nav)
-                _pathBuffer.Add(new PathNode(step.x, step.y, true));
-            return _pathBuffer;
+                pathBuffer.Add(new PathNode(step.x, step.y, true));
+            return pathBuffer;
         }
         catch (Exception e)
         {

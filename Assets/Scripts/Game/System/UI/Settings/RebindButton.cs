@@ -16,11 +16,11 @@ public class RebindButton : MonoBehaviour
 
     private void StartRebind()
     {
-        InputSystem.Instance.StartRebinding(actionName, 0, RefreshDisplay);
+        InputManager.Instance.StartRebinding(actionName, 0, RefreshDisplay);
     }
 
     private void RefreshDisplay()
     {
-        bindingText.text = InputSystem.Instance.GetBindingDisplay(actionName);;
+        bindingText.text = InputManager.Instance.GetBindingDisplay(actionName);;
     }
 }

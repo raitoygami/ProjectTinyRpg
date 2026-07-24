@@ -19,9 +19,7 @@ public class TileSelector : Singleton<TileSelector>
 
     private GameObject m_Navigation;
     private GameObject m_SkillPreview;
-
-    private List<GameObject> m_MarkInstance = new();
-    private Queue<GameObject> m_MarkCache = new();
+    
     private NavigationSettings m_Settings;
     private GameObject m_MarkEnd;
 
@@ -60,60 +58,22 @@ public class TileSelector : Singleton<TileSelector>
         m_MarkParent.gameObject.SetActive(true);
     }
 
-    public void DrawPath(List<PathNode> t_Path)
+    public void DrawPath(Vector3 t_GridPosition, bool t_moveable)
     {
-        ClearPath();
-        foreach (var node in t_Path)
-        {
-            if (node == t_Path.Last())
-            {
-                m_MarkEnd.transform.position = node.GetLocation().GridToWorld();
-                m_MarkEnd.transform.localScale = Vector3.one * 0.25f;
-                m_MarkEnd.transform.DOScale(Vector3.one, 0.2f).SetTarget(m_MarkEnd);
-                m_MarkEnd.SetActive(true);
-            }
-            else
-            {
-                /*var mark = m_MarkCache.Count > 0 ? m_MarkCache.Dequeue() : Instantiate(m_Settings.NavigationMark);
-                mark.transform.position = node.GetLocation().GridToWorld();
-                mark.transform.SetParent(m_MarkParent);
-                mark.SetActive(true);
-                m_MarkInstance.Add(mark);*/
-            }
-        }
-    }
-
-    public void UpdatePath(Vector3 t_GridPosition)
-    {
-        if (m_MarkEnd.transform.position.SnapToGrid().Equals(t_GridPosition))
-        {
-            m_MarkEnd.transform.DOKill(false);
-            m_MarkEnd.SetActive(false);
-            return;
-        }
-
-        foreach (var mark in m_MarkInstance.Where(mark => mark.transform.position.SnapToGrid().Equals(t_GridPosition)))
-        {
-            m_MarkInstance.Remove(mark);
-            m_MarkCache.Enqueue(mark);
-            mark.SetActive(false);
-            return;
-        }
+        var spriteRenderer = m_MarkEnd.GetComponent<SpriteRenderer>();
+        spriteRenderer.sortingOrder = t_moveable ? 0 : 1000;
+        spriteRenderer.color = t_moveable ? Color.green : Color.red;
+        
+        m_MarkEnd.transform.position = t_GridPosition.GridToWorld();
+        m_MarkEnd.transform.localScale = Vector3.one * 0.25f;
+        m_MarkEnd.transform.DOScale(Vector3.one, 0.2f).SetTarget(m_MarkEnd);
+        m_MarkEnd.SetActive(true);
     }
 
     public void ClearPath()
     {
-        /*m_MarkEnd.transform.DOKill(false);
+        m_MarkEnd.transform.DOKill(false);
         m_MarkEnd.SetActive(false);
-        if (m_MarkInstance.Count == 0) return;
-
-        foreach (var mark in m_MarkInstance)
-        {
-            mark.SetActive(false);
-            m_MarkCache.Enqueue(mark);
-        }
-
-        m_MarkInstance.Clear();*/
     }
 
     /// <summary>按 Ability 配置的 <see cref="SelectParam"/> 高亮技能范围；起点与朝向由 <see cref="Ability.TryGetSkillPreviewFrame"/> 得到。</summary>
