@@ -28,7 +28,7 @@ MonoBehaviour:
   Target: 2
   Children: []
   guid: 838d6a92760adb74d916462e5ef6a36c
-  localtion: {x: 0, y: 204}
+  localtion: {x: -244, y: 233}
   damageType: 0
   skillMultiplier: 100
   references:
@@ -62,6 +62,7 @@ MonoBehaviour:
   Target: 2
   Children:
   - {fileID: -7798447792669611025}
+  - {fileID: 7724933475829618684}
   guid: 3371a2d128ea628408a2b1d73703c4ce
   localtion: {x: 0, y: 95}
   Duration: 0.1
@@ -92,6 +93,7 @@ MonoBehaviour:
   - {fileID: 5498850296569907920}
   - {fileID: -1275732767498452940}
   - {fileID: -7798447792669611025}
+  - {fileID: 7724933475829618684}
   references:
     version: 2
     RefIds:
@@ -127,6 +129,41 @@ MonoBehaviour:
   - {fileID: -1275732767498452940}
   guid: d42dee3b6bbe3c14ebbe84d20cedeaf5
   localtion: {x: NaN, y: NaN}
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &7724933475829618684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd206e335231f64baa1f3ce6a610c9f, type: 3}
+  m_Name: E_VFX
+  m_EditorClassIdentifier: Assembly-CSharp::E_VFX
+  Context: {fileID: 11400000}
+  uid: 0
+  Content: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  DurationBased: 0
+  Target: 0
+  Children: []
+  guid: d1f20326b1a4ce842b295bff872862c8
+  localtion: {x: 10, y: 233}
+  Duration: 0
+  Particle: {fileID: 6626678927856630263, guid: 41b4f5afd2c210949863801af2111bc2, type: 3}
+  Offset: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds: []

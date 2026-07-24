@@ -48,7 +48,6 @@ public sealed class DefaultAiStrategy : IAiStrategy
     {
         if (player == null) return false;
         if (_state.PhaseDefault != AiPhaseDefault.Engaged) return false;
-        return false;
         
         return _board != null && _board.Target == player;
     }

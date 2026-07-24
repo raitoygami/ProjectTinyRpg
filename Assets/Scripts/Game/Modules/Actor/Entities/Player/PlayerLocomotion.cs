@@ -148,23 +148,8 @@ public partial class Player
         var finalPoint = _Path[^1];
         _Path.RemoveAt(0);
 
-        if (_lootUnitTarget != null)
-        {
-            var lootPosition = _lootUnitTarget.transform.SnapToGrid();
-            if (lootPosition.Equals(finalPoint.GetLocation()))
-            {
-                if (lootPosition.Dist(nextStep.GetLocation()) <= 0)
-                {
-                    await UIRoot.Instance.Open(Const.KeyUI.Inventory);
-                    await UIRoot.Instance.OpenLootPanel(_lootUnitTarget);
-                    _Controllable = true;
-                    return;
-                }
-            }
-        }
-
         var decision = DetermineMovement(nextStep, finalPoint);
-        Debug.Log(decision.Result);
+        
         switch (decision.Result)
         {
             case MovementResult.Attack:
@@ -224,8 +209,7 @@ public partial class Player
     private MovementDecision DetermineMovement(PathNode t_TargetLocation, PathNode t_TargetFinal)
     {
         // 1. 优先判断是否可以攻击（使用最终目标位置）
-        var attackTargets = m_AgentAbilities.GetAttackableTargets(this, t_TargetFinal);
-
+        var attackTargets = m_AgentAbilities.GetTargetByMove(this, t_TargetFinal);
         if (attackTargets.Count > 0 && m_AgentAbilities.WithinBaseAttack(t_TargetFinal))
         {
             return new MovementDecision(MovementResult.Attack, attackTargets);

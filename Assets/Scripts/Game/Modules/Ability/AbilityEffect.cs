@@ -44,10 +44,10 @@ public abstract partial class AbilityEffect : ScriptableObject
 
     public virtual string GetDescription()
     {
-        if (Description != null)
+        /*if (Description != null)
         {
             return Description.GetLocalizedString();    
-        }
+        }*/
         return string.Empty;
     }
 

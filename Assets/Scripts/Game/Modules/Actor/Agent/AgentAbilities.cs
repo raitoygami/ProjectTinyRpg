@@ -72,14 +72,17 @@ public class AgentAbilities : MonoBehaviour
     }
 
 
-    public List<Entity> GetAttackableTargets(IPathNodeAgent mover, PathNode targetLocation)
+    // 仅用作移动攻击选取目标
+    public List<Entity> GetTargetByMove(IPathNodeAgent mover, PathNode targetLocation)
     {
         var targets = new List<Entity>();
         if (mover == null || targetLocation == null)
             return targets;
 
         var dir = new Vector2Int(targetLocation.X - mover.X, targetLocation.Y - mover.Y);
-
+        dir.x = Math.Clamp(dir.x, -1, 1);
+        dir.y = Math.Clamp(dir.y, -1, 1);
+        
         var myFraction = GetComponent<Entity>().Faction;
         for (var i = 0; i < GetWepAbility().GetRange(); i++)
         {

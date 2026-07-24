@@ -30,7 +30,7 @@ public class SettingsPanel : PanelBase
         await Addressables.LoadSceneAsync("Scene/Menu").ToUniTask();
         UIRoot.Instance.CloseMainUI();
         await UIRoot.Instance.OpenStartMenu();
-        Debug.Log(TurnManager.Instance.GetEntityCount());
+        
         UIRoot.Instance.Hide(Const.KeyUI.SettingPanel);
         
         await UIRoot.Instance.LoadingFinish(0.25f);
