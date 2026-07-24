@@ -147,7 +147,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Overworld"",
+                    ""name"": ""Skip"",
                     ""type"": ""Button"",
                     ""id"": ""5a8d25ff-2583-4648-9763-2daa09ad17a1"",
                     ""expectedControlType"": """",
@@ -281,11 +281,11 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""78bbd617-d3cc-49ce-bee4-880dcbc6bc7c"",
-                    ""path"": ""<Keyboard>/m"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Overworld"",
+                    ""action"": ""Skip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -330,7 +330,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         m_PlayerInput_RightMouseClick = m_PlayerInput.FindAction("RightMouseClick", throwIfNotFound: true);
         m_PlayerInput_Inventory = m_PlayerInput.FindAction("Inventory", throwIfNotFound: true);
         m_PlayerInput_Esc = m_PlayerInput.FindAction("Esc", throwIfNotFound: true);
-        m_PlayerInput_Overworld = m_PlayerInput.FindAction("Overworld", throwIfNotFound: true);
+        m_PlayerInput_Skip = m_PlayerInput.FindAction("Skip", throwIfNotFound: true);
     }
 
     ~@InputMapping()
@@ -417,7 +417,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInput_RightMouseClick;
     private readonly InputAction m_PlayerInput_Inventory;
     private readonly InputAction m_PlayerInput_Esc;
-    private readonly InputAction m_PlayerInput_Overworld;
+    private readonly InputAction m_PlayerInput_Skip;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerInput".
     /// </summary>
@@ -454,9 +454,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Esc => m_Wrapper.m_PlayerInput_Esc;
         /// <summary>
-        /// Provides access to the underlying input action "PlayerInput/Overworld".
+        /// Provides access to the underlying input action "PlayerInput/Skip".
         /// </summary>
-        public InputAction @Overworld => m_Wrapper.m_PlayerInput_Overworld;
+        public InputAction @Skip => m_Wrapper.m_PlayerInput_Skip;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -501,9 +501,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Esc.started += instance.OnEsc;
             @Esc.performed += instance.OnEsc;
             @Esc.canceled += instance.OnEsc;
-            @Overworld.started += instance.OnOverworld;
-            @Overworld.performed += instance.OnOverworld;
-            @Overworld.canceled += instance.OnOverworld;
+            @Skip.started += instance.OnSkip;
+            @Skip.performed += instance.OnSkip;
+            @Skip.canceled += instance.OnSkip;
         }
 
         /// <summary>
@@ -533,9 +533,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Esc.started -= instance.OnEsc;
             @Esc.performed -= instance.OnEsc;
             @Esc.canceled -= instance.OnEsc;
-            @Overworld.started -= instance.OnOverworld;
-            @Overworld.performed -= instance.OnOverworld;
-            @Overworld.canceled -= instance.OnOverworld;
+            @Skip.started -= instance.OnSkip;
+            @Skip.performed -= instance.OnSkip;
+            @Skip.canceled -= instance.OnSkip;
         }
 
         /// <summary>
@@ -645,11 +645,11 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEsc(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Overworld" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Skip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnOverworld(InputAction.CallbackContext context);
+        void OnSkip(InputAction.CallbackContext context);
     }
 }

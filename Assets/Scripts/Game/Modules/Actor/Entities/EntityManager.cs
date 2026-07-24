@@ -86,6 +86,7 @@ public class EntityManager : Singleton<EntityManager>
         var ai = go.GetComponent<AIEntity>();
         if (ai == null) return null;
         ai.ConfigureAsEnemy(entity);
+        ai.GetComponent<IDynamicEntity>().InitAfterLevelLoad();
         return ai;
     }
 
@@ -95,7 +96,7 @@ public class EntityManager : Singleton<EntityManager>
     public AIEntity CreateEnemy(Vector3 location, int entityId)
     {
         var entity = ConfigManager.Instance.Tables?.DataEntitys.GetOrDefault(entityId);
-        return CreateEnemy(location, entity);
+        return CreateEnemy(location.SnapToGrid(), entity);
     }
 
     /// 在指定格子生成召唤用 <see cref="AIEntity"/>（与关卡敌共用预制体），存在回合数耗尽后移除。
@@ -274,4 +275,18 @@ public class EntityManager : Singleton<EntityManager>
         return null;
     }
 
+    public void OnClearAll()
+    {
+        foreach (var entities in m_Entities)
+        {
+            foreach (var entity in entities.Value)
+            {
+                Destroy(entity.gameObject);
+            }
+        }
+        
+        m_Entities.Clear();
+        
+    }
+    
 }

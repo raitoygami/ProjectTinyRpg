@@ -39,11 +39,11 @@ public class InputManager : Singleton<InputManager>
 
     private readonly InventoryEvt m_InventoryEvt = new();
 
-    public class OverworldEvt : EventArgs
+    public class SkipEvt : EventArgs
     {
     }
 
-    private readonly OverworldEvt m_OverworldEvt;
+    private readonly SkipEvt _skipEvt = new();
 
     public class EscPressedEvt : EventArgs
     {
@@ -68,7 +68,7 @@ public class InputManager : Singleton<InputManager>
         m_InputMapping.PlayerInput.Movement.canceled += OnMovementCanceled;
         m_InputMapping.PlayerInput.PointerPosition.performed += OnPointerPositionPerformed;
         m_InputMapping.PlayerInput.Inventory.performed += OnInventoryPerformed;
-        m_InputMapping.PlayerInput.Overworld.performed += OnOverworldPerformed;
+        m_InputMapping.PlayerInput.Skip.performed += OnSkipPerformed;
         m_InputMapping.PlayerInput.Esc.performed += OnEscPerformed;
 
 
@@ -78,6 +78,8 @@ public class InputManager : Singleton<InputManager>
         InputSystem.onActionChange  += OnActionChange;
         
     }
+
+
 
     private bool _isKeyboardMouse;
 
@@ -258,10 +260,9 @@ public class InputManager : Singleton<InputManager>
         this.Publish(m_InventoryEvt);
     }
 
-
-    private void OnOverworldPerformed(InputAction.CallbackContext obj)
+    private void OnSkipPerformed(InputAction.CallbackContext obj)
     {
-        this.Publish(m_OverworldEvt);
+        this.Publish(_skipEvt);
     }
 
     private void OnEscPerformed(InputAction.CallbackContext obj)

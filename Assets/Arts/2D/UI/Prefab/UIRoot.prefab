@@ -7903,20 +7903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07227ff15114c1c46a334933bf3bc2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainUI
-  _slots:
-  - {fileID: 7203821338309925997}
-  - {fileID: 3834323588845793010}
-  - {fileID: 666175635918486816}
-  - {fileID: 529385786618111856}
-  - {fileID: 7084685421990320801}
-  - {fileID: 5611799436080936727}
-  _equips:
-  - {fileID: 1463618472891849337}
-  - {fileID: 5277590197486130317}
-  - {fileID: 7037229584274030189}
-  - {fileID: 8997175338495995136}
-  - {fileID: 5111502531435550895}
-  - {fileID: 356146233825381867}
 --- !u!1 &5556893179638786097
 GameObject:
   m_ObjectHideFlags: 0
@@ -11924,7 +11910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StatBarPreset: {fileID: 8168786158939323658}
   m_StatBarRoot: {fileID: 1153758170056486977}
-  m_WorldOffset: {x: 0, y: 0, z: -0.45}
+  m_WorldOffset: {x: 0, y: -0.25, z: 0}
 --- !u!1 &7440142422183000422
 GameObject:
   m_ObjectHideFlags: 0

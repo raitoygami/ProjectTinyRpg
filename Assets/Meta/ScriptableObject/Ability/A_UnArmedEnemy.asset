@@ -15,7 +15,15 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 2
   Children: []
@@ -23,6 +31,9 @@ MonoBehaviour:
   localtion: {x: -244, y: 240}
   damageType: 0
   skillMultiplier: 100
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-2861498743273247631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,16 +49,26 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 2
   Children: []
   guid: 172bd027820ed7c4897a2d47a58bcf49
   localtion: {x: 0, y: 240}
   Duration: 0
-  Particle: {fileID: 7748268350099527173, guid: 41b4f5afd2c210949863801af2111bc2,
-    type: 3}
+  Particle: {fileID: 7748268350099527173, guid: 41b4f5afd2c210949863801af2111bc2, type: 3}
   Offset: {x: 0, y: 1, z: -0.25}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-1275732767498452940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +84,15 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 2
   Children:
@@ -72,6 +101,9 @@ MonoBehaviour:
   guid: 3371a2d128ea628408a2b1d73703c4ce
   localtion: {x: 0, y: 95}
   Duration: 0.1
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,10 +149,21 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: A_UnArmedEnemy
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 2
   Children:
   - {fileID: -1275732767498452940}
   guid: d42dee3b6bbe3c14ebbe84d20cedeaf5
   localtion: {x: NaN, y: NaN}
+  references:
+    version: 2
+    RefIds: []

@@ -1680,7 +1680,7 @@ GameObject:
   - component: {fileID: 301041666}
   - component: {fileID: 301041667}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1714,10 +1714,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   spawnPoints:
-  - Location: {x: 1, y: 2, z: 0}
-    EntityId: 0
+  - Location: {x: 0.55, y: 2, z: 0}
+    EntityId: 500001
   - Location: {x: -1, y: 0, z: 0}
-    EntityId: 0
+    EntityId: 500001
   gizmoRadius: 0.4
   gizmoColor: {r: 1, g: 0.2, b: 0.2, a: 0.6}
   spawnerGizmoColor: {r: 0.2, g: 0.6, b: 1, a: 0.7}

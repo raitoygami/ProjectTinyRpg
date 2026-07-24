@@ -352,9 +352,7 @@ public class UIRoot : Singleton<UIRoot>
                 Hide(otherKey);
         }
     }
-
-    /// <summary>隐藏对应 <see cref="PanelAttribute.PanelKey"/> 的实例，不销毁。</summary>
-    /// <param name="updateEscStack">为 false 时不同步 ESC 栈（已由 <see cref="HandleEscAsync"/> 或批量 <see cref="Toggle"/> 处理栈）。</param>
+    
     public void Hide(string panelKey, bool updateEscStack = true)
     {
         if (string.IsNullOrEmpty(panelKey))

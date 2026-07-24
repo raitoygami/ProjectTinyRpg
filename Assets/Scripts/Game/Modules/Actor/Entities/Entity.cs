@@ -32,7 +32,7 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
     }
 
     /// <summary>Grid row.</summary>
-    public int Z
+    public int Y
     {
         get => _gridZ;
         set => _gridZ = value;
@@ -59,14 +59,14 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
     {
     }
 
-    protected virtual bool IsWalkable(PathCell cell, int goalX, int goalZ)
+    protected virtual bool IsWalkable(PathCell cell, int goalX, int goalY)
     {
         return true;
     }
 
-    public bool IsMoveabled(PathCell cell, int goalX, int goalZ)
+    public bool IsMoveabled(PathCell cell, int goalX, int goalY)
     {
-        return IsWalkable(cell, goalX, goalZ);
+        return IsWalkable(cell, goalX, goalY);
     }
 
     public void SetMoveable(bool moveable)
@@ -81,7 +81,7 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
         var sgrid = args.StartPosition.SnapToGrid();
         var tgrid = args.TargetPosition.SnapToGrid();
 
-        PathFinder.Instance.Move((int)sgrid.x, (int)sgrid.z, (int)tgrid.x, (int)tgrid.z, this);
+        PathFinder.Instance.Move((int)sgrid.x, (int)sgrid.y, (int)tgrid.x, (int)tgrid.y, this);
         return UniTask.CompletedTask;
     }
 
@@ -95,11 +95,11 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
         transform.position = gridPosition.GridToWorld();
 
         X = (int)gridPosition.x;
-        Z = (int)gridPosition.y;
+        Y = (int)gridPosition.y;
         if (GridSizeX < 1) GridSizeX = 1;
         if (GridSizeZ < 1) GridSizeZ = 1;
 
         Layer = 1 << gameObject.layer;
-        PathFinder.Instance.UpdateCell(X, Z, this);
+        PathFinder.Instance.UpdateCell(X, Y, this);
     }
 }

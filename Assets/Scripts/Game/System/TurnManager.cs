@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading;
 
 // game loop: 
 public class TurnManager : Singleton<TurnManager>
@@ -12,17 +13,22 @@ public class TurnManager : Singleton<TurnManager>
     }
 
     private readonly NewLoopEvt _NewLoopEvt = new();
-    [SerializeField] private List<TurnActor> m_ActorRegister = new();
-    private readonly List<TurnActor> m_ActorRemoved = new();
+    [SerializeField] private List<TurnActor> m_EntityRegister = new();
+    private readonly List<TurnActor> m_EntityRemoved = new();
 
-    private int _ActorIndex = -1;
+    private int _EntityIndex = -1;
 
     public override void Initialized()
     {
-        _ActorIndex = -1;
+        _EntityIndex = -1;
         _Running = false;
     }
 
+    public int GetEntityCount()
+    {
+        return m_EntityRegister.Count;
+    }
+    
     public static void Register(TurnActor actor)
     {
         if (HasInstance())
@@ -33,16 +39,16 @@ public class TurnManager : Singleton<TurnManager>
     
     private void RegisterInternal(TurnActor actor)
     {
-        if (m_ActorRemoved.Contains(actor))
+        if (m_EntityRemoved.Contains(actor))
         {
-            m_ActorRemoved.Remove(actor);
+            m_EntityRemoved.Remove(actor);
         }
-        if (m_ActorRegister.Contains(actor))
+        if (m_EntityRegister.Contains(actor))
         {
             return;
         }
 
-        m_ActorRegister.Add(actor);
+        m_EntityRegister.Add(actor);
 
         if (!_Running)
         {
@@ -59,30 +65,30 @@ public class TurnManager : Singleton<TurnManager>
     }
     private void UnRegisterInternal(TurnActor actor)
     {
-        var index = m_ActorRegister.IndexOf(actor);
+        var index = m_EntityRegister.IndexOf(actor);
         if (index == -1)
             return;
 
-        if (index <= _ActorIndex)
+        if (index <= _EntityIndex)
         {
-            if (!m_ActorRemoved.Contains(actor))
+            if (!m_EntityRemoved.Contains(actor))
             {
-                m_ActorRemoved.Add(actor);    
+                m_EntityRemoved.Add(actor);    
             }
             return;
         }
 
-        m_ActorRegister.Remove(actor);
+        m_EntityRegister.Remove(actor);
     }
 
     private void UnRegisterRemovedActors()
     {
-        foreach (var actor in m_ActorRemoved)
+        foreach (var actor in m_EntityRemoved)
         {
-            m_ActorRegister.Remove(actor);
+            m_EntityRegister.Remove(actor);
         }
 
-        m_ActorRemoved.Clear();
+        m_EntityRemoved.Clear();
     }
 
     /// <summary>
@@ -91,16 +97,16 @@ public class TurnManager : Singleton<TurnManager>
     /// </summary>
     private void PurgeDestroyedActors()
     {
-        for (var i = m_ActorRegister.Count - 1; i >= 0; i--)
+        for (var i = m_EntityRegister.Count - 1; i >= 0; i--)
         {
-            if (!m_ActorRegister[i])
-                m_ActorRegister.RemoveAt(i);
+            if (!m_EntityRegister[i])
+                m_EntityRegister.RemoveAt(i);
         }
 
-        for (var i = m_ActorRemoved.Count - 1; i >= 0; i--)
+        for (var i = m_EntityRemoved.Count - 1; i >= 0; i--)
         {
-            if (!m_ActorRemoved[i])
-                m_ActorRemoved.RemoveAt(i);
+            if (!m_EntityRemoved[i])
+                m_EntityRemoved.RemoveAt(i);
         }
     }
 
@@ -111,7 +117,7 @@ public class TurnManager : Singleton<TurnManager>
             return;
         var playerGrid = player.transform.position.SnapToGrid();
 
-        m_ActorRegister.Sort((a, b) =>
+        m_EntityRegister.Sort((a, b) =>
         {
             if (a == null) return 1;
             if (b == null) return -1;
@@ -133,57 +139,81 @@ public class TurnManager : Singleton<TurnManager>
 
     //private bool StopLoop = false;
     private bool _Running;
+    private CancellationTokenSource _cts = new();
     
     public async UniTask LoopTurns()
     {
-        _Running = true;
-        while (true)
+        // 如果已有运行中的循环，先取消旧的
+        if (_Running)
         {
-            // 停止 Play / 销毁管理器时立刻退出，避免 UniTask 在 Application.isPlaying=false 后仍空转占满主线程。
-            if (!Application.isPlaying || !this)
-            {
-                _Running = false;
-                return;
-            }
-
-            CurrentGameTime = _LoopCount;
-            _NewLoopEvt.LoopCount = CurrentGameTime;
-            _LoopCount++;
-            await this.PublishGlobal(_NewLoopEvt);
-
-            if (!Application.isPlaying || !this)
-            {
-                _Running = false;
-                return;
-            }
-
-            SortActorsByDistanceToPlayerAscending();
-
-            _ActorIndex = 0;
-            while (_ActorIndex < m_ActorRegister.Count)
-            {
-                var actor = m_ActorRegister[_ActorIndex];
-                if (actor != null && !m_ActorRemoved.Contains(actor))
-                {
-                    await actor.StartTurn();
-                }
-                _ActorIndex++;
-
-                //await UniTask.DelayFrame(1);
-            }
-
-            UnRegisterRemovedActors();
-            PurgeDestroyedActors();
-
-            if (m_ActorRegister.Count > 0)
-                continue;
-
-            break;
+            _cts.Cancel();
+            await UniTask.Yield(); // 给旧循环一点时间退出
         }
+                
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = new CancellationTokenSource();
+        _Running = true;
 
-        _Running = false;
+        try
+        {
+            while (!_cts.Token.IsCancellationRequested)
+            {
+                if (!Application.isPlaying || !this)
+                    break;
+
+                CurrentGameTime = _LoopCount;
+                _NewLoopEvt.LoopCount = CurrentGameTime;
+                _LoopCount++;
+
+                await this.PublishGlobal(_NewLoopEvt).AttachExternalCancellation(_cts.Token);
+
+                if (_cts.Token.IsCancellationRequested) break;
+
+                SortActorsByDistanceToPlayerAscending();
+
+                _EntityIndex = 0;
+                while (_EntityIndex < m_EntityRegister.Count)
+                {
+                    if (_cts.Token.IsCancellationRequested) break;
+
+                    var actor = m_EntityRegister[_EntityIndex];
+                    if (actor != null && !m_EntityRemoved.Contains(actor))
+                    {
+                        await actor.StartTurn().AttachExternalCancellation(_cts.Token);
+                    }
+
+                    _EntityIndex++;
+                }
+
+                UnRegisterRemovedActors();
+                PurgeDestroyedActors();
+
+                if (m_EntityRegister.Count == 0 || _cts.Token.IsCancellationRequested)
+                    break;
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // 正常取消，不需要报错
+        }
+        finally
+        {
+            _Running = false;
+        }
     }
 
+    public void StopLoop()
+    {
+        _cts?.Cancel();
+    }
+
+    public void ClearAll()
+    {
+        m_EntityRegister.Clear();
+        m_EntityRemoved.Clear();
+    }
+    
     protected override void OnRelease()
     {
         

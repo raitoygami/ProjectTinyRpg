@@ -49,6 +49,8 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
 
     public void InitAfterLevelLoad()
     {
+        if (!gameObject.activeInHierarchy) return;
+        
         if (spawnPoints == null || !EntityManager.HasInstance()) return;
         for (var i = 0; i < spawnPoints.Count; i++)
         {
@@ -90,7 +92,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
         {
             var rel = spawnPoints[i].Location;
             var absGrid = new Vector3(baseGrid.x + rel.x, baseGrid.y + rel.y, 0);
-            var worldPos = absGrid.GridToWorld();
+            var worldPos = absGrid.SnapToGrid();
             Gizmos.color = gizmoColor;
             Gizmos.DrawSphere(worldPos, gizmoRadius);
 

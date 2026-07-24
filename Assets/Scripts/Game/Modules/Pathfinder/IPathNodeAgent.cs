@@ -13,7 +13,7 @@ public interface IPathNodeAgent
     int X { get; set; }
 
     /// <summary>Backward-compat: grid row.</summary>
-    int Z { get; set; }
+    int Y { get; set; }
 
     /// <summary>Backward-compat: footprint width.</summary>
     int GridSizeX { get; }
@@ -25,9 +25,9 @@ public interface IPathNodeAgent
 
     /// <summary>
     /// Called by the pathfinder on the mover: can the footprint be placed on <paramref name="cell"/>?
-    /// <paramref name="goalX"/> and <paramref name="goalZ"/> are the pathfinding goal anchor.
+    /// <paramref name="goalX"/> and <paramref name="goalY"/> are the pathfinding goal anchor.
     /// </summary>
-    bool IsMoveabled(PathCell cell, int goalX, int goalZ);
+    bool IsMoveabled(PathCell cell, int goalX, int goalY);
 
 }
 
@@ -44,7 +44,7 @@ public sealed class PathCell
     }
 
     /// <summary>Backward-compat: grid row.</summary>
-    public int Z
+    public int Y
     {
         get => Position.y;
         set => Position.y = value;

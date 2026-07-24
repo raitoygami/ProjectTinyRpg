@@ -41,18 +41,14 @@ public class AgentAbilities : MonoBehaviour
 
     public bool GetTargets(Vector3 t_GridPosition, Ability t_Ability, ref List<Entity> t_Targets)
     {
-        var cell = PathFinder.Instance.GetNode(t_GridPosition.x, t_GridPosition.z);
-
+        var cell = PathFinder.Instance.GetNode(t_GridPosition.x, t_GridPosition.y);
         var targetEntity = cell?.Logical as Entity;
         if (targetEntity == null)
             return false;
 
-
         var fraction = GetComponent<Entity>().Faction;
         t_Targets = new List<Entity>();
-        //for (var i = 0; i < count; i++)
-
-        //var target = PhysicsUtil.GetTarget(i);
+ 
         var entity = targetEntity;
         switch (t_Ability.TargetMode())
         {
@@ -72,8 +68,6 @@ public class AgentAbilities : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        //}
-
         return t_Targets.Count != 0;
     }
 
@@ -84,7 +78,7 @@ public class AgentAbilities : MonoBehaviour
         if (mover == null || targetLocation == null)
             return targets;
 
-        var dir = new Vector2Int(targetLocation.X - mover.X, targetLocation.Y - mover.Z);
+        var dir = new Vector2Int(targetLocation.X - mover.X, targetLocation.Y - mover.Y);
 
         var myFraction = GetComponent<Entity>().Faction;
         for (var i = 0; i < GetWepAbility().GetRange(); i++)

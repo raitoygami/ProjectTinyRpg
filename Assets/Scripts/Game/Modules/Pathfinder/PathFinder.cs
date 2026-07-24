@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class PathFinder : Singleton<PathFinder>
 {
-    private readonly List<(int ax, int az)> _anchorOpen = new();
+    private readonly List<(int ax, int ay)> _anchorOpen = new();
     private readonly HashSet<(int, int)> _anchorClosed = new();
     private readonly HashSet<(int, int)> _anchorOpenSet = new();
     private readonly Dictionary<(int, int), int> _anchorG = new();
@@ -110,16 +110,16 @@ public class PathFinder : Singleton<PathFinder>
             var current = PopLowestAnchor(goal.x, goal.y);
             _anchorClosed.Add(current);
 
-            if (current.ax == goal.x && current.az == goal.y)
+            if (current.ax == goal.x && current.ay == goal.y)
                 return RetraceAnchorPath(startKey, goalKey, pathOut);
 
             var cx = current.ax;
-            var cz = current.az;
+            var cy = current.ay;
 
             foreach (var offset in NeighbourOffsets)
             {
                 var nax = cx + offset.x;
-                var naz = cz + offset.y;
+                var naz = cy + offset.y;
                 if (t_Range > 0 && Dist( start.x, start.y, nax, naz) > t_Range)
                     continue;
 
@@ -132,10 +132,10 @@ public class PathFinder : Singleton<PathFinder>
                 var isDiagonal = offset.x != 0 && offset.y != 0;
                 if (isDiagonal && canEnter)
                 {
-                    var horizontalOk = nax == goal.x && cz == goal.y ||
-                                       CanPlaceFootprint(mover, cx + offset.x, cz, goal.x, goal.y);
+                    var horizontalOk = nax == goal.x && cy == goal.y ||
+                                       CanPlaceFootprint(mover, cx + offset.x, cy, goal.x, goal.y);
                     var verticalOk = cx == goal.x && naz == goal.y ||
-                                     CanPlaceFootprint(mover, cx, cz + offset.y, goal.x, goal.y);
+                                     CanPlaceFootprint(mover, cx, cy + offset.y, goal.x, goal.y);
                     canEnter = horizontalOk || verticalOk;
                 }
 
@@ -143,12 +143,12 @@ public class PathFinder : Singleton<PathFinder>
                     continue;
 
                 var moveCost = offset.x != 0 && offset.y != 0 ? 14 : 10;
-                var tentativeG = _anchorG[(current.ax, current.az)] + moveCost;
+                var tentativeG = _anchorG[(current.ax, current.ay)] + moveCost;
                 if (_anchorG.TryGetValue(neighKey, out var oldG) && tentativeG >= oldG)
                     continue;
 
                 _anchorG[neighKey] = tentativeG;
-                _anchorParent[neighKey] = (cx, cz);
+                _anchorParent[neighKey] = (cx, cy);
                 if (_anchorOpenSet.Add(neighKey))
                     _anchorOpen.Add(neighKey);
             }
@@ -159,19 +159,19 @@ public class PathFinder : Singleton<PathFinder>
 
     // ── CanPlaceFootprint ───────────────────────────────────────────────
 
-    public bool CanPlaceFootprint(IPathNodeAgent mover, int anchorX, int anchorZ, int goalX, int goalZ)
+    public bool CanPlaceFootprint(IPathNodeAgent mover, int anchorX, int anchorZ, int goalX, int goalY)
     {
         var gw = mover.GridSize.x;
         var gh = mover.GridSize.y;
         for (var ox = 0; ox < gw; ox++)
-        for (var oz = 0; oz < gh; oz++)
+        for (var oy = 0; oy < gh; oy++)
         {
             var gx = anchorX + ox;
-            var gz = anchorZ + oz;
-            if (!Cell.Contains(gx, gz))
+            var gy = anchorZ + oy;
+            if (!Cell.Contains(gx, gy))
                 return false;
-            var cell = Cell.Get(gx, gz);
-            if (!IsWalkableCell(cell, mover, goalX, goalZ))
+            var cell = Cell.Get(gx, gy);
+            if (!IsWalkableCell(cell, mover, goalX, goalY))
                 return false;
         }
 
@@ -185,7 +185,7 @@ public class PathFinder : Singleton<PathFinder>
 
     // ── A* internals ────────────────────────────────────────────────────
 
-    private (int ax, int az) PopLowestAnchor(int gfx, int gfz)
+    private (int ax, int ay) PopLowestAnchor(int gfx, int gfy)
     {
         var best = 0;
         var bestF = int.MaxValue;
@@ -194,7 +194,7 @@ public class PathFinder : Singleton<PathFinder>
         {
             var key = _anchorOpen[i];
             var g = _anchorG[key];
-            var h = HeuristicAnchor(key.Item1, key.Item2, gfx, gfz);
+            var h = HeuristicAnchor(key.Item1, key.Item2, gfx, gfy);
             var f = g + h;
             if (f < bestF || f == bestF && h < bestH)
             {
@@ -241,33 +241,33 @@ public class PathFinder : Singleton<PathFinder>
 
     // ── Walkability ─────────────────────────────────────────────────────
 
-    public static bool IsWalkableCell(PathCell cell, IPathNodeAgent mover, int goalX, int goalZ)
+    public static bool IsWalkableCell(PathCell cell, IPathNodeAgent mover, int goalX, int goalY)
     {
         if (cell == null) return false;
         if (cell.Logical == null) return true;
         if (mover != null && ReferenceEquals(cell.Logical, mover)) return true;
         if (mover == null)
-            return cell.Logical.IsMoveabled(cell, goalX, goalZ);
-        return mover.IsMoveabled(cell, goalX, goalZ);
+            return cell.Logical.IsMoveabled(cell, goalX, goalY);
+        return mover.IsMoveabled(cell, goalX, goalY);
     }
 
     /// <summary>No separate goal — uses the cell's own position as the goal.</summary>
     public static bool IsWalkableCell(PathCell cell, IPathNodeAgent mover)
     {
         if (cell == null) return false;
-        return IsWalkableCell(cell, mover, cell.X, cell.Z);
+        return IsWalkableCell(cell, mover, cell.X, cell.Y);
     }
 
     /// <summary>
     /// Is the cell inside the goal footprint rectangle for the given agent?
     /// </summary>
-    public static bool IsCellInGoalFootprint(IPathNodeAgent nodeAgent, PathCell cell, int goalAnchorX, int goalAnchorZ)
+    public static bool IsCellInGoalFootprint(IPathNodeAgent nodeAgent, PathCell cell, int goalAnchorX, int goalAnchorY)
     {
         var sizeX = nodeAgent.GridSize.x;
-        var sizeZ = nodeAgent.GridSize.y;
+        var sizeY = nodeAgent.GridSize.y;
 
         return cell.X >= goalAnchorX && cell.X < goalAnchorX + sizeX &&
-               cell.Z >= goalAnchorZ && cell.Z < goalAnchorZ + sizeZ;
+               cell.Y >= goalAnchorY && cell.Y < goalAnchorY + sizeY;
     }
 
     // ── Distance helpers ────────────────────────────────────────────────
@@ -289,7 +289,7 @@ public class PathFinder : Singleton<PathFinder>
         var ah = Mathf.Max(1, a.GridSize.y);
         var bw = Mathf.Max(1, b.GridSize.x);
         var bh = Mathf.Max(1, b.GridSize.y);
-        return ComputeFootprintClosest(a.X, a.Z, aw, ah, b.X, b.Z, bw, bh);
+        return ComputeFootprintClosest(a.X, a.Y, aw, ah, b.X, b.Y, bw, bh);
     }
 
     /// <summary>
@@ -305,7 +305,7 @@ public class PathFinder : Singleton<PathFinder>
         var ah = Mathf.Max(1, a.GridSize.y);
         var bw = Mathf.Max(1, bGridSizeX);
         var bh = Mathf.Max(1, bGridSizeZ);
-        return ComputeFootprintClosest(a.X, a.Z, aw, ah, bAnchorX, bAnchorZ, bw, bh);
+        return ComputeFootprintClosest(a.X, a.Y, aw, ah, bAnchorX, bAnchorZ, bw, bh);
     }
 
     /// <summary>

@@ -23,6 +23,8 @@ public class Blackboard
 
     public void ClearTargetOnly() => _Target = null;
 
+    public Entity GetOwer() => m_Onwer;
+    
     /// <summary>向指定格子走一步（与 <see cref="Follow"/> 相同寻路逻辑，目标为格坐标而非实体）。</summary>
     public async UniTask<bool> MoveTowardsGrid(Vector3 goalGrid)
     {
@@ -63,16 +65,12 @@ public class Blackboard
     {
         var agentAbility = m_Onwer.GetComponent<AgentAbilities>();
         var wepAbility = agentAbility.GetWepAbility();
-
         if (wepAbility == null)
             return false;
-        
         if (_Target == null || m_Onwer == null)
             return false;
-
         if (_Target.transform == null)
             return false;
-        
         if (_Target.GridPosition.Dist(m_Onwer.GridPosition) <= wepAbility.GetRange())
         {
             _AbilitySelect = wepAbility;
@@ -94,17 +92,15 @@ public class Blackboard
         
         if (_AbilitySelect.IsTargeted())
         {
-            var selectionPoint = new Vector2Int((int) targetPoint.x, (int) targetPoint.z);
+            var selectionPoint = new Vector2Int((int) targetPoint.x, (int) targetPoint.y);
             if (!_AbilitySelect.SelectionRange().Contains(selectionPoint) ||
                 !agentAbility.GetTargets(targetPoint, _AbilitySelect, ref targets))
             {
-//                Debug.Log($"Wrong Target {t_Ability.TargetMode()}");
+                Debug.Log($"Wrong Target {_AbilitySelect.TargetMode()} - {!agentAbility.GetTargets(targetPoint, _AbilitySelect, ref targets)}");
                 _AbilitySelect.Cancel();
                 return false;
             }
         }
-        
-//        Debug.Log($"{m_Onwer.name} execute ability {_AbilitySelect.name} to {_Target.name}");
         
         return await _AbilitySelect.Execute(targets, targetPoint);
     }
@@ -112,13 +108,17 @@ public class Blackboard
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public async UniTask<bool> Follow()
     {
-        if (_Target == null)
-            return false;
-
         var mover = m_Onwer.GetComponent<AgentMover>();
 
         if (mover.IsMoving())
             await UniTask.WaitUntil(() => !mover.IsMoving());
+
+        if (_Target == null || _Target.gameObject == null)
+        {
+            ClearTargetOnly();
+            return false;
+        }
+        
         var path = mover.FindPath(_Target.GridPosition);
         if (path is not {Count : > 0})
             return false;
@@ -130,7 +130,6 @@ public class Blackboard
         }
 
         _ =  mover.Move(nextPath.GetLocation());
-        //await UniTask.DelayFrame(1);
         return true;
     }
 }

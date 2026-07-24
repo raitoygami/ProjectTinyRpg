@@ -154,17 +154,17 @@ public class AgentMover : MonoBehaviour
     }
 
     
-    public bool Moveable(Vector3 target)
+    public bool Moveable(Vector3 t_GridPosition)
     {
         var entity = GetComponent<Entity>();
-        var tx = (int) target.x;
-        var tz = (int) target.z;
-        var cell = PathFinder.Instance.GetNode(tx, tz);
-        if (!PathFinder.IsWalkableCell(cell, entity, tx, tz))
+        var tx = (int) t_GridPosition.x;
+        var ty = (int) t_GridPosition.y;
+        var cell = PathFinder.Instance.GetNode(tx, ty);
+        if (!PathFinder.IsWalkableCell(cell, entity, tx, ty))
             return false;
 
         var source = transform.position.SnapToGrid();
-        var navi = PathFinder.Instance.Navigate(entity, (int) source.x, (int) source.z, tx, tz);
+        var navi = PathFinder.Instance.Navigate(entity, (int) source.x, (int) source.y, tx, ty);
 
         return navi is {Count: 1};
     }

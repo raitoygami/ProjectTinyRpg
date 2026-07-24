@@ -12,11 +12,6 @@ public class AgentAnimations : MonoBehaviour
 
     private Animator animator;
     private Transform m_AnimationTarget;
-    public Transform m_DiceTarget;
-    public Transform[] faces = new Transform[6];
-
-    /// <summary>3D cube face direction vectors (NOT 2D plane coordinates — do not change).</summary>
-    private readonly Vector3[] localNormals = new Vector3[6];
 
     // private Vector3 m_BaseLocalPosition;
 
@@ -32,60 +27,7 @@ public class AgentAnimations : MonoBehaviour
         // _jitterPhaseY = Random.Range(0f, Mathf.PI * 2f);
         // _idleTimeOffset = Random.Range(0f, 40f);
         this.Subscribe<AgentStats.TakeDamageEvent>(OnTakeDamage);
-        localNormals[0] = new Vector3(1, 0, 0); // 右
-        localNormals[1] = new Vector3(0, -1, 0); // 下
-        localNormals[2] = new Vector3(0, 0, -1); // 后
-        localNormals[3] = new Vector3(0, 0, 1); // 前
-        localNormals[4] = new Vector3(0, 1, 0); // 上
-        localNormals[5] = new Vector3(-1, 0, 0); // 左
-
     }
-
-    public int GetIndex(int face)
-    {
-        if (face < 0 || face > 5) return 0;
-        var worldDir = localNormals[face]; // 世界方向向量
-
-        var bestFace = 0;
-        var bestDot = float.NegativeInfinity;
-        for (var i = 0; i <= 5; i++)
-        {
-            var worldNormal = m_DiceTarget.rotation * localNormals[i];
-            var dot = Vector3.Dot(worldNormal, worldDir);
-            if (dot > bestDot)
-            {
-                bestDot = dot;
-                bestFace = i;
-            }
-        }
-
-        return bestFace;
-    }
-
-    public int GetUpFaceAfterMove(Vector3 moveDir)
-    {
-        float angle = 90f;
-
-        // Rotation axis: Z (forward) is perpendicular to the XY plane
-        Vector3 axis = Vector3.Cross(Vector3.forward, moveDir).normalized;
-
-        Quaternion delta = Quaternion.AngleAxis(angle, axis);
-        Quaternion newRotation = delta * m_DiceTarget.rotation;
-
-        int bestIdx = 0;
-        float bestDot = float.NegativeInfinity;
-        for (int i = 0; i <= 5; i++)
-        {
-            float dot = Vector3.Dot(newRotation * localNormals[i], Vector3.up);
-            if (dot > bestDot)
-            {
-                bestDot = dot;
-                bestIdx = i;
-            }
-        }
-        return bestIdx;
-    }
-
 
     private async UniTask OnTakeDamage(AgentStats.TakeDamageEvent arg)
     {
@@ -124,16 +66,14 @@ public class AgentAnimations : MonoBehaviour
     /// </summary>
     public async UniTask PunchTarget(Vector3 direction, float t_Duration)
     {
-        if (m_DiceTarget  == null)
-            FaceTarget(direction);
+        FaceTarget(direction);
 
-        var sr = m_AnimationTarget.GetComponentInChildren<SpriteRenderer>();
         const float forwardRatio = 0.4f;
 
         var originalPosition = m_AnimationTarget.position;
 
         var moveDir = direction.normalized;
-        sr.sortingOrder += 5;
+        
         // 1. Forward rush + scale up
         await m_AnimationTarget.DOLocalMove(moveDir * attackMoveDistance, attackDuration * forwardRatio * t_Duration)
             .SetEase(attackEase).ToUniTask();
@@ -142,7 +82,6 @@ public class AgentAnimations : MonoBehaviour
         await m_AnimationTarget.DOMove(originalPosition, attackDuration * (1 - forwardRatio) * t_Duration)
             .SetEase(Ease.OutBounce, 1.1f).ToUniTask();
 
-        sr.sortingOrder -= 5;
     }
 
     /// <summary>
@@ -233,28 +172,6 @@ public class AgentAnimations : MonoBehaviour
             return;
 
         m_AnimationTarget.DOScaleX(t_TargetDirection.x > 0 ? 1 : -1, 0.1f).SetEase(Ease.Linear).SetTarget(gameObject);
-    }
-
-
-    public void Roll(Vector3 moveDir, float duration)
-    {
-        var absX = Mathf.Abs(moveDir.x);
-        var absY = Mathf.Abs(moveDir.y);
-
-        var angle = (absX + absY) * 90f;
-
-        // Rotation axis: Z (forward) is perpendicular to the XY plane
-        var axis = Vector3.Cross(Vector3.forward, moveDir).normalized;
-
-        var startRotation = m_DiceTarget.rotation;
-
-        var currentAngle = 0f;
-        DOTween.To(() => currentAngle, x => currentAngle = x, angle, duration)
-            .OnUpdate(() =>
-            {
-                var delta = Quaternion.AngleAxis(currentAngle, axis);
-                m_DiceTarget.rotation = delta * startRotation;
-            });
     }
 
     public void BounceOnMove(float duration)

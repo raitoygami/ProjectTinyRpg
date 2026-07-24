@@ -126,39 +126,6 @@ public class Game : Singleton<Game>
         return map;
     }
     
-    private bool _isLoading;
-    // Update is called once per frame
-    public async UniTask LoadGame()
-    {
-        if (_isLoading)
-            return;
-        
-        _isLoading = true;
-        await UIRoot.Instance.LoadingStart();
-        
-        UIRoot.Instance.OpenMainUI();
-        
-        Persist.Instance.Load(0);
-        
-        await Addressables.LoadSceneAsync("Scene/Turn1.unity").ToUniTask();
-
-        // 加载地图 根据存档
-        PathFinder.Instance.InitCells(-25, -25, 51, 51);
-
-        // 加载玩家
-        var p = EntityManager.Instance.CreatePlayer(Vector3.right, 100001);
-        Context.Instance.SetPlayer(p);
-        CameraManager.Instance.SetFollowTarget(p.transform);
-
-        await UniTask.DelayFrame(1);
-        
-        await this.PublishGlobal(new SceneChangeEvt());
-        
-        await UIRoot.Instance.LoadingFinish();
-        
-        _isLoading = false;
-    }
-
     private bool _isExiting = false;
     public async UniTask ExitToTitle()
     {

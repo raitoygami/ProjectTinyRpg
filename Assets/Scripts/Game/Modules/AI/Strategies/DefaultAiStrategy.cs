@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using cfg;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 /// <summary>
 ///     默认策略：视野内先按 ThreatTime 警觉倒计时，接战追击；追击厌倦时若目标已脱离出生点周围范围则返回出生格，否则 Idle。
@@ -47,6 +48,8 @@ public sealed class DefaultAiStrategy : IAiStrategy
     {
         if (player == null) return false;
         if (_state.PhaseDefault != AiPhaseDefault.Engaged) return false;
+        return false;
+        
         return _board != null && _board.Target == player;
     }
 
@@ -239,7 +242,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
             return UniTask.FromResult(false);
         }
 
-        public UniTask<bool> EngagedLayer()
+        private UniTask<bool> EngagedLayer()
         {
             return this.Selector(
                 t => t.ChaseTiredReset(),
@@ -274,15 +277,8 @@ public sealed class DefaultAiStrategy : IAiStrategy
 
         private async UniTask<bool> CombatAndCountTurn()
         {
-            await CombatOnBlackboard();
-            StateDefault.ChaseTurns++;
-            return true;
-        }
-
-        private async UniTask<bool> CombatOnBlackboard()
-        {
             var range = Vision;
-            return await Board.Sequencer(
+            await Board.Sequencer(
                 b => b.FindTarget(range),
                 b => b.Selector(
                     b1 => b1.If(
@@ -292,6 +288,8 @@ public sealed class DefaultAiStrategy : IAiStrategy
                     b4 => b4.Follow()
                 )
             );
+            StateDefault.ChaseTurns++;
+            return true;
         }
     }
 }

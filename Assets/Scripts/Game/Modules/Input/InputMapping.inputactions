@@ -61,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Overworld",
+                    "name": "Skip",
                     "type": "Button",
                     "id": "5a8d25ff-2583-4648-9763-2daa09ad17a1",
                     "expectedControlType": "",
@@ -195,11 +195,11 @@
                 {
                     "name": "",
                     "id": "78bbd617-d3cc-49ce-bee4-880dcbc6bc7c",
-                    "path": "<Keyboard>/m",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Overworld",
+                    "action": "Skip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

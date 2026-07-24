@@ -11,12 +11,12 @@ public class LevelManager : Singleton<LevelManager>
         public Vector2Int GridPosition { get; set; }
         public Vector2Int GridSize => Vector2Int.one;
         public int X { get; set; }
-        public int Z { get; set; }
+        public int Y { get; set; }
 
         public int GridSizeX => 1;
         public int GridSizeZ => 1;
         public LayerMask Layer { get; set; }
-        public bool IsMoveabled(PathCell cell, int goalX, int goalZ) => false;
+        public bool IsMoveabled(PathCell cell, int goalX, int goalY) => false;
     }
 
     public async UniTask LoadLevel(string levelName)
@@ -83,4 +83,13 @@ public class LevelManager : Singleton<LevelManager>
         }
         
     }
+
+    public void ClearScene()
+    {
+        EntityManager.Instance.OnClearAll();
+        TurnManager.Instance.StopLoop();
+        TurnManager.Instance.ClearAll();
+        TileSelector.Instance.ClearPath();
+    }
+    
 }

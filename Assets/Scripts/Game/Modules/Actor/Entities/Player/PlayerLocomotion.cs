@@ -72,10 +72,8 @@ public partial class Player
     private async UniTask OnMouseClickEvt(InputManager.MouseClickEvt arg)
     {
         if (_ExecutingAbility)
-        {
             return;
-        }
-
+        
         // 拾起背包块时左键由 InventoryTetris 全局处理（放下/丢弃），不应触发地面寻路与移动
         if (arg.mouseIndex == 0 && TetrisHandle.Instance.IsDragging())
             return;
@@ -109,18 +107,6 @@ public partial class Player
         await UniTask.CompletedTask;
     }
 
-    private void SkipTurn()
-    {
-        if (_PreparingAbility)
-            return;
-        if (!GetPointerInput(out var hitPoint))
-            return;
-
-        hitPoint = new Vector2(Mathf.Round(hitPoint.x), Mathf.Round(hitPoint.y));
-        var targetPoint = hitPoint.SnapToGrid();
-        if (targetPoint == transform.position.SnapToGrid())
-            GetComponent<TurnActor>().FinishTurn();
-    }
 
     private async UniTask MovePathAsync()
     {
@@ -178,11 +164,12 @@ public partial class Player
         }
 
         var decision = DetermineMovement(nextStep, finalPoint);
+        Debug.Log(decision.Result);
         switch (decision.Result)
         {
             case MovementResult.Attack:
-                await ExecuteAbility(m_AgentAbilities.GetWepAbility(), decision.AttackTargets, finalPoint.GetLocation());
                 ClearPath();
+                await ExecuteAbility(m_AgentAbilities.GetWepAbility(), decision.AttackTargets, finalPoint.GetLocation());
                 return;
             case MovementResult.None:
                 ClearPath();
@@ -263,12 +250,7 @@ public partial class Player
     {
         if (arg.Forced)
             return UniTask.CompletedTask;
-        var rollEvt = new MainUI.RollEvt
-        {
-            Direction = arg.TargetPosition - arg.StartPosition,
-            Duration = arg.Duration
-        };
-        this.PublishGlobal(rollEvt);
+
         m_AgentAnimations.FaceTarget(arg.TargetPosition - arg.StartPosition);
         m_AgentAnimations.BounceOnMove(arg.Duration);
        // m_AgentAnimations.Roll(arg.TargetPosition - arg.StartPosition, arg.Duration);

@@ -132,21 +132,19 @@ public class TurnActor : MonoBehaviour
         await UniTask.CompletedTask;
     }
 
-    public void FinishTurn()
+    public void FinishTurn(bool force = false)
     {
-
         if (!isActing)
-        {
             return;
-        }
 
         ActionPoint--;
-        if (ActionPoint > 0)
+        if (ActionPoint > 0 && !force)
         {
             ProcessTurn().Forget();
             return;
         }
 
+        ActionPoint = 0;
         isActing = false;
 
         if (this.HasSubscription<TurnEndedEvent>())

@@ -155,7 +155,7 @@ internal static class WorldExtensions
     public static int Dist(this Vector3 self, Vector3 target)
     {
         var dx = Math.Abs(self.x - target.x);
-        var dz = Math.Abs(self.z - target.z);
+        var dz = Math.Abs(self.y - target.y);
         return Mathf.RoundToInt(dx + dz);
     }
 
@@ -169,14 +169,14 @@ internal static class WorldExtensions
     public static float DistRadius(this Vector3 self, Vector3 target)
     {
         var dx = Math.Abs(self.x - target.x);
-        var dz = Math.Abs(self.z - target.z);
-        return Mathf.Sqrt(dx * dx + dz * dz);
+        var dy = Math.Abs(self.y - target.y);
+        return Mathf.Sqrt(dx * dx + dy * dy);
     }
 
     /// <summary>2D delta vector from fromGrid to toGrid (grid-container inputs).</summary>
     public static Vector2 GridDelta(Vector3 fromGrid, Vector3 toGrid)
     {
-        return new Vector2(toGrid.x - fromGrid.x, toGrid.z - fromGrid.z);
+        return new Vector2(toGrid.x - fromGrid.x, toGrid.y - fromGrid.y);
     }
 
     /// <inheritdoc cref="GridDelta"/>
@@ -192,7 +192,7 @@ internal static class WorldExtensions
     {
         a = a.Round();
         b = b.Round();
-        return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.z, b.z);
+        return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y);
     }
 
     /// <inheritdoc cref="SameGridCell(Vector3,Vector3)"/>
@@ -208,7 +208,7 @@ internal static class WorldExtensions
     {
         var ret = self;
         ret.x += Mathf.Round((t.x - ret.x) * n);
-        ret.z += Mathf.Round((t.z - ret.z) * n);
+        ret.y += Mathf.Round((t.y - ret.y) * n);
         return ret;
     }
 
@@ -226,12 +226,12 @@ internal static class WorldExtensions
         return ret;
     }
 
-    /// <summary>Round grid-container Vector3 (rounds .x and .z).</summary>
+    /// <summary>Round grid-container Vector3 (rounds .x and .y).</summary>
     public static Vector3 Round(this Vector3 self)
     {
         var ret = self;
         ret.x = Mathf.Round(self.x);
-        ret.z = Mathf.Round(self.z);
+        ret.y = Mathf.Round(self.y);
         return ret;
     }
 
@@ -247,12 +247,12 @@ internal static class WorldExtensions
     /// Fan-shaped area of grid cells on the 2D plane.
     /// </summary>
     /// <param name="start">Grid-container origin.</param>
-    /// <param name="direction">2D direction (grid-container format: .x = col, .z = row).</param>
+    /// <param name="direction">2D direction (grid-container format: .x = col, .y = row).</param>
     /// <param name="angleDegrees">Total fan angle in degrees.</param>
     /// <param name="radius">Chebyshev radius in grid units.</param>
     public static List<Vector3> GridSectorPoints(this Vector3 start, Vector3 direction, float angleDegrees, int radius)
     {
-        return GridSectorPoints(start, new Vector2(direction.x, direction.z), angleDegrees, radius);
+        return GridSectorPoints(start, new Vector2(direction.x, direction.y), angleDegrees, radius);
     }
 
     /// <inheritdoc cref="GridSectorPoints(Vector3,Vector3,float,int)"/>
@@ -270,7 +270,7 @@ internal static class WorldExtensions
             for (var dx = -radius; dx <= radius; dx++)
             for (var dy = -radius; dy <= radius; dy++)
             {
-                var point = new Vector3(origin.x + dx, origin.y, origin.z + dy);
+                var point = new Vector3(origin.x + dx, origin.y, origin.y + dy);
                 if (origin.DistRadius(point) > radius)
                     continue;
                 result.Add(point);
@@ -283,7 +283,7 @@ internal static class WorldExtensions
         for (var dx = -radius; dx <= radius; dx++)
         for (var dy = -radius; dy <= radius; dy++)
         {
-            var point = new Vector3(origin.x + dx, origin.y, origin.z + dy);
+            var point = new Vector3(origin.x + dx, origin.y, origin.y + dy);
             if (origin.DistRadius(point) > radius)
                 continue;
 
@@ -305,12 +305,12 @@ internal static class WorldExtensions
     /// OBB rectangle area of grid cells on the 2D plane.
     /// </summary>
     /// <param name="start">Grid-container origin (long-edge start, centered on width).</param>
-    /// <param name="direction">2D direction (grid-container format: .x = col, .z = row).</param>
+    /// <param name="direction">2D direction (grid-container format: .x = col, .y = row).</param>
     /// <param name="length">Length along direction in grid units.</param>
     /// <param name="width">Width perpendicular to direction.</param>
     public static List<Vector3> GridRectPoints(this Vector3 start, Vector3 direction, int length, int width)
     {
-        return GridRectPoints(start, new Vector2(direction.x, direction.z), length, width);
+        return GridRectPoints(start, new Vector2(direction.x, direction.y), length, width);
     }
 
     /// <inheritdoc cref="GridRectPoints(Vector3,Vector3,int,int)"/>
@@ -338,7 +338,7 @@ internal static class WorldExtensions
             if (u <= 0f || u > len || v < -halfW || v > halfW)
                 continue;
 
-            result.Add(new Vector3(origin.x + dx, origin.y, origin.z + dy));
+            result.Add(new Vector3(origin.x + dx, origin.y, origin.y + dy));
         }
 
         return result;

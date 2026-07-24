@@ -167,7 +167,7 @@ public class TileSelector : Singleton<TileSelector>
             return Ret;
 
         var sx = owner.X;
-        var sz = owner.Z;
+        var sy = owner.Y;
 
         if (t_ShowRange && m_Navigation == null)
         {
@@ -182,19 +182,19 @@ public class TileSelector : Singleton<TileSelector>
 
         var xMin = sx - range;
         var xMax = sx + range;
-        var zMin = sz - range;
-        var zMax = sz + range;
+        var yMin = sy - range;
+        var yMax = sy + range;
         for (var x = xMin; x <= xMax; x++)
         {
-            for (var z = zMin; z <= zMax; z++)
+            for (var y = yMin; y <= yMax; y++)
             {
-                var target = PathFinder.Instance.GetNode(x, z);
+                var target = PathFinder.Instance.GetNode(x, y);
                 if (!IsMoveableForMask(target, owner))
                     continue;
 
-                if (target.X != sx || target.Z != sz)
+                if (target.X != sx || target.Y != sy)
                 {
-                    var path = PathFinder.Instance.Navigate(owner, sx, sz, target.X, target.Z);
+                    var path = PathFinder.Instance.Navigate(owner, sx, sy, target.X, target.Y);
                     var navigate = path?.Count ?? 0;
                     if (navigate > range || navigate == 0)
                     {
@@ -202,7 +202,7 @@ public class TileSelector : Singleton<TileSelector>
                     }
                 }
 
-                var local = new Vector2Int(x, z);
+                var local = new Vector2Int(x, y);
                 nodes.Add(local, target);
                 Ret.Add(local);
             }
@@ -321,7 +321,7 @@ public class TileSelector : Singleton<TileSelector>
 
         foreach (var (key, value) in Grids)
         {
-            var originPosition = new Vector3(value.X, 0, value.Z).GridToWorld();
+            var originPosition = new Vector3(value.X, 0, value.Y).GridToWorld();
 
             for (var vertexIndex = 0; vertexIndex < 9; vertexIndex++)
             {
@@ -407,7 +407,7 @@ public class TileSelector : Singleton<TileSelector>
 
         int Index = vertexIndex / 2;
         var isCorner = vertexIndex % 2 == 0;
-        var location = new Vector2Int(grid.X, grid.Z);
+        var location = new Vector2Int(grid.X, grid.Y);
 
         if (isCorner)
         {

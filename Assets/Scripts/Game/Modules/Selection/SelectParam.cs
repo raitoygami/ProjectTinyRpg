@@ -131,9 +131,9 @@ public static class SelectParamPreview
                 var cells = new List<Vector3>();
                 var r = c.radius;
                 for (var x = (int)origin.x - r; x <= (int)origin.x + r; x++)
-                for (var z = (int)origin.z - r; z <= (int)origin.z + r; z++)
+                for (var y = (int)origin.y - r; y <= (int)origin.y + r; y++)
                 {
-                    var p = new Vector3(x, 0, z);
+                    var p = new Vector3(x, 0, y);
                     if (origin.Dist(p) <= c.radius)
                         cells.Add(p);
                 }
@@ -172,35 +172,7 @@ public static class SelectParamPreview
         RemovePreviewExcludedGrids(cells, owner, origin);
         return cells;
     }
-
-    /*/// <summary>
-    /// <see cref="SelectPointParam"/>：在施法范围内解析唯一目标格（与 <see cref="EnumeratePreviewCells"/> / 技能预览一致）。
-    /// </summary>
-    public static bool TryResolvePointCell(SelectParam param, Ability ability, Vector3 ownerGrid, Vector3 mouseGrid,
-        out Vector3 pointGrid)
-    {
-        pointGrid = default;
-        if (param is not SelectPointParam pointParam || ability == null)
-            return false;
-        if (!ability.TryGetSkillPreviewFrame(ownerGrid, mouseGrid, out var previewOrigin, out _))
-            return false;
-        pointGrid = previewOrigin.Round();
-        if (!ability.IsGridInCastRange(pointGrid))
-            return false;
-        if (!pointParam.requireMoveableInLayer)
-            return true;
-        var x = Mathf.RoundToInt(pointGrid.x);
-        var z = Mathf.RoundToInt(pointGrid.z);
-        var node = Navigation.Instance.GetNode(x, z);
-        return IsNodeSelectableForMask(node, pointParam.layerMask);
-    }*/
-
-    static bool IsNodeSelectableForMask(PathNode node, LayerMask mask)
-    {
-        if (node == null || !node.IsMoveabled())
-            return false;
-        return (mask.value & node.Layer.value) == 0;
-    }
+    
 
     static void RemovePreviewExcludedGrids(List<Vector3> cells, Vector3 ownerGrid, Vector3 mouseGrid)
     {

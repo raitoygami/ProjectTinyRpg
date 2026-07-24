@@ -66,7 +66,7 @@ public class AIEntity : Entity
         m_AgentMover = gameObject.AddComponent<AgentMover>();
         m_AgentStats = gameObject.AddComponent<AgentStats>();
         m_AgentAbilities = gameObject.AddComponent<AgentAbilities>();
-        var handle = Addressables.LoadAssetAsync<Ability>("A_UnArmedEnemy");
+        var handle = Addressables.LoadAssetAsync<Ability>("Ability/Enemy_UnArmed");
         handle.Completed += operationHandle => { m_AgentAbilities.SetUnArmedAbility(operationHandle.Result); };
 
         m_BlackBoard = new Blackboard(this);
@@ -79,7 +79,7 @@ public class AIEntity : Entity
         m_AgentAnimations.Setup(m_Body);
     }
 
-    protected override bool IsWalkable(PathCell cell, int goalX, int goalZ)
+    protected override bool IsWalkable(PathCell cell, int goalX, int goalY)
     {
         if (cell.Logical == null)
             return true;
@@ -87,7 +87,7 @@ public class AIEntity : Entity
         /*var layer = (int) Mathf.Log(cell.Logical.Layer.value, 2);
         Debug.Log($"Enemy cell.Logical.Layer.value-{cell.Logical.Layer.value}-{LayerMask.LayerToName(layer)}");*/
         // 判断当前 cell 是否属于 Agent 在【终点】时会占据的矩形区域
-        var isInGoalFootprint = PathFinder.IsCellInGoalFootprint(this, cell, goalX, goalZ);
+        var isInGoalFootprint = PathFinder.IsCellInGoalFootprint(this, cell, goalX, goalY);
 
         if (isInGoalFootprint)
         {
@@ -229,7 +229,7 @@ public class AIEntity : Entity
     private void OnDestroy()
     {
         EntityManager.UnRegister(this);
-        if (Context.HasInstance())
-            Player.RefreshCombatState(Context.Instance.PlayerInst);
+        /*if (Context.HasInstance())
+            Player.RefreshCombatState(Context.Instance.PlayerInst);*/
     }
 }

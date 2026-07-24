@@ -42,7 +42,7 @@ public partial class Player : Entity, IDynamicEntity
         this.SubscribeInput<InputManager.MouseClickEvt>(OnMouseClickEvt);
         this.SubscribeInput<InputManager.WASDEvt>(OnWASDEvt);
         this.SubscribeInput<InputManager.InventoryEvt>(OnInventoryInputEvt);
-        this.SubscribeInput<InputManager.OverworldEvt>(OnOverworldInputEvt);
+        this.SubscribeInput<InputManager.SkipEvt>(OnSkipTurn);
         m_TurnActor = gameObject.AddComponent<TurnActor>();
 
         m_AgentStats = gameObject.AddComponent<AgentStats>();
@@ -67,6 +67,7 @@ public partial class Player : Entity, IDynamicEntity
     private UniTask OnDefeated(AgentStats.DefeatedEvent evt)
     {
         TurnManager.UnRegister(m_TurnActor);
+        TurnManager.Instance.StopLoop();
         PathFinder.Instance.ClearLogical(this);
         
         Destroy(gameObject);
@@ -194,24 +195,23 @@ public partial class Player : Entity, IDynamicEntity
         await UIRoot.Instance.Toggle(Const.KeyUI.Inventory);
     }
     
-    private async UniTask OnOverworldInputEvt(InputManager.OverworldEvt arg)
+    private async UniTask OnSkipTurn(InputManager.SkipEvt arg)
     {
-        if (!UIRoot.HasInstance())
-        {
-            await UniTask.CompletedTask;
+        if (_PreparingAbility)
             return;
-        }
         
-        await UIRoot.Instance.Toggle(Const.KeyUI.Overworld);
+        GetComponent<TurnActor>().FinishTurn(true);
+        
+        await UniTask.CompletedTask;
     }
 
-    protected override bool IsWalkable(PathCell cell, int goalX, int goalZ)
+    protected override bool IsWalkable(PathCell cell, int goalX, int goalY)
     {
         if (cell.Logical == null)
             return true;
 
         // 判断当前 cell 是否属于 Agent 在【终点】时会占据的矩形区域
-        var isInGoalFootprint = PathFinder.IsCellInGoalFootprint(this, cell, goalX, goalZ);
+        var isInGoalFootprint = PathFinder.IsCellInGoalFootprint(this, cell, goalX, goalY);
         /*Debug.Log($"{GetComponent<IPathNode>().GridSizeX}:{GetComponent<IPathNode>().GridSizeZ}");
         Debug.Log($"goalX:{goalX}-goalZ:{goalZ} Cell {cell.X}:{cell.Z}  {isInGoalFootprint}");*/
         if (isInGoalFootprint)

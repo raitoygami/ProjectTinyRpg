@@ -103,7 +103,7 @@ public partial class Ability : ScriptableObject
     {
         if (_Onwer == null)
             return false;
-        var p = new Vector2Int((int)gridPosition.x, (int)gridPosition.z);
+        var p = new Vector2Int((int)gridPosition.x, (int)gridPosition.y);
         return SelectionRange().Contains(p);
     }
 
