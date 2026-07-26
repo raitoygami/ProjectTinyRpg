@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using JSAM;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public partial class Player
 {
     private List<PathNode> _Path = new();
-    private LootUnit _lootUnitTarget;
-
+    
     private Vector3 _LastGrid = Vector3.one;
 
     private bool keyboardInputEnabled;
@@ -39,21 +39,14 @@ public partial class Player
             return;
         
         var targetGrid = hitPoint.SnapToGrid();
-        if (!_LastGrid.Equals(targetGrid))
-        {
-            //UpdateSkillRangePreview(hitPoint, targetGrid);
-            _LastGrid = targetGrid;
-            var path = m_AgentMover.FindPath(targetGrid, Const.Layer.ObstacleForNavi);
-            TileSelector.Instance.DrawPath(targetGrid, path is { Count: > 0 });
-        }
 
+        var path = m_AgentMover.FindPath(targetGrid, Const.Layer.ObstacleForNavi);
+        TileSelector.Instance.DrawPath(targetGrid, path is { Count: > 0 });
         await UniTask.CompletedTask;
     }
 
     private void TargetToLoot()
     {
-        _lootUnitTarget = null;
-
         if (!GetPointerInput(out var hitPoint))
             return;
         var targetGrid = hitPoint.SnapToGrid();
@@ -164,11 +157,7 @@ public partial class Player
                 return;
             case MovementResult.Move:
                 await m_AgentMover.Move(nextStep.GetLocation());
-                if (!IsInCombatMode) return;
-                ClearPath();
-                if (TileSelector.HasInstance())
-                    TileSelector.Instance.ClearPath();
-
+                PlayStepSound(nextStep.GetLocation());
                 return;
             case MovementResult.Interaction:
                 ClearPath();
@@ -180,6 +169,11 @@ public partial class Player
         }
     }
 
+    private void PlayStepSound(Vector3 location)
+    {
+        AudioManager.PlaySound(GameAudioSounds.Sfx_Common_StepDirt);
+    }
+    
     private void ResetInput()
     {
         _Controllable = true;
@@ -255,13 +249,14 @@ public partial class Player
             return false;
         }
 
-        var nextPosition = GridPosition;
+        /*var nextPosition = GridPosition;
         if (Mathf.Abs(m_InputDirection.x) > 0 )
             nextPosition += new Vector3(m_InputDirection.x, 0, 0);
         else
             nextPosition += new Vector3(0, m_InputDirection.y, 0);
+            */
         
-        //var nextPosition = GridPosition + new Vector3(m_InputDirection.x, 0, m_InputDirection.y);
+        var nextPosition = GridPosition + new Vector3(m_InputDirection.x, m_InputDirection.y, 0);
         var target = new PathNode(nextPosition.x, nextPosition.y, true);
 
         keyboardInputEnabled = false;

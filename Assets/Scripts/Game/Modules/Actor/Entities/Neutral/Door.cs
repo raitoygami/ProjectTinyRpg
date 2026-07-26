@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using JSAM;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class Door : Entity
     
     [SerializeField] private GameObject _doorOpened;
     [SerializeField] private GameObject _doorClosed;
-
+    [SerializeField] private SoundFileObject _doorOpenedSound;
     [SerializeField] private List<SpriteRenderer> _FogRelateds;
     
     protected void Awake()
@@ -29,6 +30,9 @@ public class Door : Entity
     {
         _doorClosed.SetActive(false);
         _doorOpened.SetActive(true);
+        if (_doorOpenedSound != null)
+            AudioManager.PlaySound(_doorOpenedSound);
+        
         var  tasks = Enumerable.Select(_FogRelateds, related => 
                 DOTween.To(() => related.color, // getter
                     c => related.color = c, // setter

@@ -38,7 +38,6 @@ public class AgentAbilities : MonoBehaviour
         return WepAbility != null ? WepAbility : UnArmedAbility;
     }
 
-
     public bool GetTargets(Vector3 t_GridPosition, Ability t_Ability, ref List<Entity> t_Targets)
     {
         var cell = PathFinder.Instance.GetNode(t_GridPosition.x, t_GridPosition.y);
@@ -84,7 +83,7 @@ public class AgentAbilities : MonoBehaviour
         dir.y = Math.Clamp(dir.y, -1, 1);
         
         var myFraction = GetComponent<Entity>().Faction;
-        for (var i = 0; i < GetWepAbility().GetRange(); i++)
+        for (var i = 0; i < 1; i++)
         {
             var anchorX = targetLocation.X + dir.x * i;
             var anchorZ = targetLocation.Y + dir.y * i;

@@ -40,7 +40,9 @@ namespace JSAM
 
         [Tooltip("The Audio Library that this AudioManager should use")]
         [SerializeField, HideInInspector] AudioLibrary library = null;
-        public AudioLibrary Library { get { return library; } }
+        public AudioLibrary Library { get => library;
+            set => library = value;
+        }
 
         [Header("Scene AudioListener Reference")]
 

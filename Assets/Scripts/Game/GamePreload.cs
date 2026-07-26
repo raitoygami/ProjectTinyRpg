@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using JSAM;
 using UnityEngine;
 
 /// <summary>
@@ -22,4 +24,7 @@ public class GamePreload : ScriptableObject
 
     [Tooltip("列数。0 表示与 TetrisInventorySimulator 默认一致（8 列）。")]
     public int InventoryGridColumns = 8;
+    
+    public AudioLibrary AudioLibrary;
+    
 }

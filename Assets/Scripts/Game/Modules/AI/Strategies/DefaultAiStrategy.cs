@@ -36,6 +36,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
     {
         _owner = owner ?? throw new ArgumentNullException(nameof(owner));
         _board = board ?? throw new ArgumentNullException(nameof(board));
+
         ResetFullCombat();
     }
 
@@ -84,6 +85,8 @@ public sealed class DefaultAiStrategy : IAiStrategy
 
     private sealed class DefaultEnemyAiTreeContext
     {
+        private Player.EnterCombatEvt OnEnterCombatEvt;
+        
         public DefaultEnemyAiTreeContext(DefaultAiStrategy strategy, int vision, int aggro, int threatTime,
             int chaseTired)
         {
@@ -92,6 +95,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
             Aggro = aggro;
             ThreatTime = threatTime;
             ChaseTired = chaseTired;
+            OnEnterCombatEvt = new Player.EnterCombatEvt();
         }
 
         private readonly DefaultAiStrategy _s;
@@ -156,8 +160,8 @@ public sealed class DefaultAiStrategy : IAiStrategy
                 t => t.RootNoEnemyResetIdle(),
                 t => t.Sequencer(
                     t1 => t1.BindTarget(),
-                    t2 => t2.ApplyPhaseEngagement(),
-                    t3 => t3.EngagedLayer()
+                    //t2 => t2.ApplyPhaseEngagement(),
+                    t3 => t3.CombatAndCountTurn()
                 )
             );
         }
@@ -186,6 +190,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
                 Target = enemies[0];
                 Board.SetTarget(Target);
                 Dist = Owner.GridPosition.Dist(Target.GridPosition);
+                Owner.PublishGlobal(OnEnterCombatEvt);
                 return UniTask.FromResult(true);
             }
             return UniTask.FromResult(false);

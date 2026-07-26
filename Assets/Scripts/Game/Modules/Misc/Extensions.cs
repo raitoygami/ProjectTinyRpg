@@ -117,19 +117,6 @@ internal static class WorldExtensions
         return new Vector3(Mathf.Round(self.x), Mathf.Round(self.y / WorldToGridScale), 0);
     }
 
-    /// <summary>Snap world position to grid, returning pure Vector2Int grid coordinates.</summary>
-    public static Vector2Int SnapToGrid2D(this Vector3 self)
-    {
-        var c = self.GetCoordinates();
-        return new Vector2Int(Mathf.RoundToInt(c.x), Mathf.RoundToInt(c.y / WorldToGridScale));
-    }
-
-    /// <inheritdoc cref="SnapToGrid2D(Vector3)"/>
-    public static Vector2Int SnapToGrid2D(this Transform self)
-    {
-        return self.position.SnapToGrid2D();
-    }
-
     /// <summary>Convert grid-container Vector3 (gridX, 0, gridZ) to world-space position.</summary>
     public static Vector3 GridToWorld(this Vector3 self)
     {
@@ -143,26 +130,14 @@ internal static class WorldExtensions
         return new Vector3(self.x, self.y * WorldToGridScale, depth);
     }
 
-    /// <summary>Convert Vector2 grid coordinates to world-space position.</summary>
-    public static Vector3 GridToWorld(this Vector2 self, float depth = 0f)
-    {
-        return new Vector3(self.x, self.y * WorldToGridScale, depth);
-    }
-
     // ── Distance / comparison (operates on grid-container format) ───────
 
     /// <summary>Manhattan (grid) distance between two grid-container positions.</summary>
     public static int Dist(this Vector3 self, Vector3 target)
     {
         var dx = Math.Abs(self.x - target.x);
-        var dz = Math.Abs(self.y - target.y);
-        return Mathf.RoundToInt(dx + dz);
-    }
-
-    /// <summary>Manhattan distance between two Vector2Int grid positions.</summary>
-    public static int Dist(this Vector2Int self, Vector2Int target)
-    {
-        return Mathf.Abs(self.x - target.x) + Mathf.Abs(self.y - target.y);
+        var dy = Math.Abs(self.y - target.y);
+        return Mathf.RoundToInt(Mathf.Max(dx , dy));
     }
 
     /// <summary>Euclidean distance between two grid-container positions.</summary>

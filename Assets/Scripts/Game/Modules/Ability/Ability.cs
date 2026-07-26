@@ -201,14 +201,14 @@ public partial class Ability : ScriptableObject
                         Cancel = OnContextCancel,
                     }), context => TreeRoot.Apply(context))
                     .ToList();
-                try
-                {
+                /*try
+                {*/
                     await UniTask.WhenAll(effectTasks);
-                }
-                catch (Exception exception)
+                /*}*/
+                /*catch (Exception exception)
                 {
                     Debug.Log(exception.Message);
-                }
+                }*/
 
                 break;
             default:

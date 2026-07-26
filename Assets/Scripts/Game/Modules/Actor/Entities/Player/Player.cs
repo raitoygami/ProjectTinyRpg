@@ -8,12 +8,14 @@ using UnityEngine.AddressableAssets;
 // left interact
 // right menu
 //[DefaultExecutionOrder(0)]
-public partial class Player : Entity, IDynamicEntity
+public partial class Player : Entity
 {
     [SerializeField] private Transform m_AvatarRoot;
+    [SerializeField] private Transform m_SpriteRoot;
     private TurnActor m_TurnActor;
     private AgentStats m_AgentStats;
     private AgentMover m_AgentMover;
+    private AgentWeapon m_AgentWeapon;
     private AgentAbilities m_AgentAbilities;
     private AgentAnimations m_AgentAnimations;
     private AgentInteractive m_AgentInteractive;
@@ -43,23 +45,34 @@ public partial class Player : Entity, IDynamicEntity
         this.SubscribeInput<InputManager.WASDEvt>(OnWASDEvt);
         this.SubscribeInput<InputManager.InventoryEvt>(OnInventoryInputEvt);
         this.SubscribeInput<InputManager.SkipEvt>(OnSkipTurn);
+
+        this.SubscribeGlobal<EnterCombatEvt>(OnEnterCombatEvt);
+        
         m_TurnActor = gameObject.AddComponent<TurnActor>();
 
         m_AgentStats = gameObject.AddComponent<AgentStats>();
         m_AgentMover = gameObject.AddComponent<AgentMover>();
         m_AgentAbilities = gameObject.AddComponent<AgentAbilities>();
-        var handle = Addressables.LoadAssetAsync<Ability>("Ability/UnArmed");
-        handle.Completed += operationHandle => { m_AgentAbilities.SetUnArmedAbility(operationHandle.Result); };
 
         m_AgentAnimations = gameObject.GetComponent<AgentAnimations>();
         m_AgentInteractive = gameObject.AddComponent<AgentInteractive>();
+        // 加载武器
+        this.Subscribe<AgentWeapon.WeaponChangeEvt>(OnWeaponChanged);
+        m_AgentWeapon = GetComponent<AgentWeapon>();
+        m_AgentWeapon.LoadWeapon("Weapon/Wep_Hammer_01").Forget();
+        
         Faction = EntityFaction.Player;
 
-        m_AgentAnimations.Setup(m_AvatarRoot);
+        m_AgentAnimations.Setup(m_AvatarRoot, m_SpriteRoot);
         _xyPlane = new Plane(Vector3.back, Vector3.zero);   // 法线朝 -Z，点在原点
         EntityManager.Register(this);
     }
 
+    private UniTask OnWeaponChanged(AgentWeapon.WeaponChangeEvt arg)
+    {
+        m_AgentAbilities.UpdateWepAbility(arg.WepNormalAtk);
+        return UniTask.CompletedTask;
+    }
 
 
     private Vector2 m_InputDirection = Vector2.zero;
@@ -79,23 +92,19 @@ public partial class Player : Entity, IDynamicEntity
 
     private async UniTask OnWASDEvt(InputManager.WASDEvt arg)
     {
-        m_InputDirection = arg.Direction;
-        _lootUnitTarget = null;
+        if (m_InputDirection == Vector2.zero)
+        {
+            await UniTask.DelayFrame(5);
+            _InputAvailable = true;
+        }
+        else
+        if (arg.Direction == Vector2.zero)
+            _InputAvailable = false;
         await UniTask.CompletedTask;
     }
 
     private async UniTask OnTurnAction(TurnActor.TurnActionEvent arg)
     {
-        RefreshCombatState(this);
-
-        // 敌人可能在玩家上一动之后才进入 Engaged，当次 HandlePath 时 IsInCombatMode 仍为 false，路径未清；回合开始时若已在战斗则丢弃剩余多格路径，避免自动连走
-        if (IsInCombatMode)
-        {
-            ClearPath();
-            if (TileSelector.HasInstance())
-                TileSelector.Instance.ClearPath();
-        }
-
         ResetInput();
 
         if (m_NextTurnEvt.Count > 0)
@@ -159,16 +168,16 @@ public partial class Player : Entity, IDynamicEntity
 
     private void Update()
     {
-        /*m_InputDirection = Vector2.zero;
-        if (InputSystem.HasInstance())
+        m_InputDirection = Vector2.zero;
+        if (InputManager.HasInstance())
         {
-            var movement = InputSystem.Instance.GetInputMapping().PlayerInput.Movement.ReadValue<Vector2>();
+            var movement = InputManager.Instance.GetInputMapping().PlayerInput.Movement.ReadValue<Vector2>();
             if (_InputAvailable)
             {
                 ClearPath();
                 m_InputDirection = movement;
             }
-        }*/
+        }
 
         if (_Controllable && keyboardInputEnabled && HandleKeyboardControls())
         {
@@ -176,8 +185,8 @@ public partial class Player : Entity, IDynamicEntity
 
         DoNotClickUIAndGameAtSameTime();
 
-        // var velocity = m_AgentMover.IsMoving() ? 1 : 0;
-        // m_AgentAnimations.UpdateBaseAnimation(velocity);
+        var velocity = m_AgentMover.IsMoving() ? 1 : 0;
+        m_AgentAnimations.UpdateBaseAnimation(velocity);
 
         /*if (Input.GetKeyDown(KeyCode.P))
         {

@@ -13,7 +13,5 @@ public interface IAiStrategy
     void Reset();
 
     UniTask ExecuteTurn(AiContext ctx);
-
-    /// <summary>是否处于对玩家的有效威胁（用于接战判定等）。</summary>
-    bool IsThreateningPlayer(Player player);
+    
 }

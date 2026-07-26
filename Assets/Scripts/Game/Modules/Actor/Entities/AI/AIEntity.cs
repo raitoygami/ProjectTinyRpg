@@ -13,13 +13,18 @@ using UnityEngine.AddressableAssets;
 [DefaultExecutionOrder(1)]
 public class AIEntity : Entity
 {
-    [SerializeField] private Transform m_Body;
+    [SerializeField] private Transform m_AvatarRoot;
+    [SerializeField] private Transform m_SpriteRoot;
+    [SerializeField] private Weapon m_Weapon;
 
+    private Weapon _WeaponInstance;
+    
     private AgentStats m_AgentStats;
     private TurnActor m_TurnActor;
     private AgentMover m_AgentMover;
     private AgentAbilities m_AgentAbilities;
     private AgentAnimations m_AgentAnimations;
+    private AgentWeapon m_AgentWeapon;
     private Blackboard m_BlackBoard;
 
     private Vector3 m_HomeGridPosition;
@@ -44,13 +49,7 @@ public class AIEntity : Entity
         m_HomeGridPosition = spawnGridPosition;
         m_DisengageLeashRange = Mathf.Max(0, disengageLeashRange);
     }
-
-    public bool IsThreateningPlayer(Player player)
-    {
-        if (player == null) return false;
-        return _aiStrategy != null && _aiStrategy.IsThreateningPlayer(player);
-    }
-
+    
     /// <summary>强制清空当前 AI 策略的运行时状态（不改变策略类型）。</summary>
     public void ResetAi()
     {
@@ -66,9 +65,7 @@ public class AIEntity : Entity
         m_AgentMover = gameObject.AddComponent<AgentMover>();
         m_AgentStats = gameObject.AddComponent<AgentStats>();
         m_AgentAbilities = gameObject.AddComponent<AgentAbilities>();
-        var handle = Addressables.LoadAssetAsync<Ability>("Ability/Enemy_UnArmed");
-        handle.Completed += operationHandle => { m_AgentAbilities.SetUnArmedAbility(operationHandle.Result); };
-
+        
         m_BlackBoard = new Blackboard(this);
 
         this.Subscribe<TurnActor.TurnActionEvent>(OnTurnAction);
@@ -76,7 +73,11 @@ public class AIEntity : Entity
         this.Subscribe<AgentStats.DefeatedEvent>(OnDefeated);
 
         m_AgentAnimations = gameObject.AddComponent<AgentAnimations>();
-        m_AgentAnimations.Setup(m_Body);
+        m_AgentAnimations.Setup(m_AvatarRoot, m_SpriteRoot);
+        
+        m_AgentWeapon = gameObject.GetComponent<AgentWeapon>();
+        m_AgentWeapon.LoadWeapon(m_Weapon);
+        m_AgentAbilities.UpdateWepAbility(m_AgentWeapon.WeaponCurrent().AbilityNormalAtk);
     }
 
     protected override bool IsWalkable(PathCell cell, int goalX, int goalY)
@@ -141,8 +142,8 @@ public class AIEntity : Entity
 
     public override void OnUpdate()
     {
-        // var velocity = m_AgentMover.IsMoving() ? 1 : 0;
-        // m_AgentAnimations.UpdateBaseAnimation(velocity);
+        var velocity = m_AgentMover.IsMoving() ? 1 : 0;
+        m_AgentAnimations.UpdateBaseAnimation(velocity);
     }
 
     private async UniTask OnSummonTurnStarted(TurnActor.TurnStartedEvent arg)
@@ -176,8 +177,8 @@ public class AIEntity : Entity
     private void KillLocalTweensBeforeDestroy()
     {
         m_AgentAnimations?.KillAllTweens();
-        if (m_Body != null)
-            m_Body.DOKill(false);
+        if (m_AvatarRoot != null)
+            m_AvatarRoot.DOKill(false);
         transform.DOKill(false);
     }
 
@@ -200,10 +201,7 @@ public class AIEntity : Entity
             Board = m_BlackBoard,
             AiConfig = aiCfg
         });
-
-        if (Context.HasInstance())
-            Player.RefreshCombatState(Context.Instance.PlayerInst);
-
+        
         m_TurnActor.FinishTurn();
     }
 

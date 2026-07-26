@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-///     A* pathfinder operating on a 2D grid of <see cref="PathCell"/> / <see cref="IPathNodeAgent"/>.
+///     A* pathfinder operating on a 2D grid of <see cref="PathCell" /> / <see cref="IPathNodeAgent" />.
 /// </summary>
 public class PathFinder : Singleton<PathFinder>
 {
@@ -13,10 +13,12 @@ public class PathFinder : Singleton<PathFinder>
     private readonly Dictionary<(int, int), (int px, int pz)> _anchorParent = new();
 
     /// <summary>Cardinal neighbour offsets in grid space.</summary>
-    public static readonly Vector2Int[] NeighbourOffsets =
+    private static readonly Vector2Int[] NeighbourOffsets =
     {
         new(-1, 0), new(1, 0),
         new(0, -1), new(0, 1),
+        new(-1, -1), new(-1, 1),
+        new(1, 1), new(1, -1)
     };
 
     public PathCell2D Cell { get; } = new();
@@ -59,7 +61,7 @@ public class PathFinder : Singleton<PathFinder>
 
     public PathCell GetNode(float x, float z)
     {
-        return Cell.Get((int) x, (int) z);
+        return Cell.Get((int)x, (int)z);
     }
 
     // ── Move ────────────────────────────────────────────────────────────
@@ -120,7 +122,7 @@ public class PathFinder : Singleton<PathFinder>
             {
                 var nax = cx + offset.x;
                 var naz = cy + offset.y;
-                if (t_Range > 0 && Dist( start.x, start.y, nax, naz) > t_Range)
+                if (t_Range > 0 && Dist(start.x, start.y, nax, naz) > t_Range)
                     continue;
 
                 var neighKey = (nax, naz);
@@ -132,9 +134,9 @@ public class PathFinder : Singleton<PathFinder>
                 var isDiagonal = offset.x != 0 && offset.y != 0;
                 if (isDiagonal && canEnter)
                 {
-                    var horizontalOk = nax == goal.x && cy == goal.y ||
+                    var horizontalOk = (nax == goal.x && cy == goal.y) ||
                                        CanPlaceFootprint(mover, cx + offset.x, cy, goal.x, goal.y);
-                    var verticalOk = cx == goal.x && naz == goal.y ||
+                    var verticalOk = (cx == goal.x && naz == goal.y) ||
                                      CanPlaceFootprint(mover, cx, cy + offset.y, goal.x, goal.y);
                     canEnter = horizontalOk || verticalOk;
                 }
@@ -196,7 +198,7 @@ public class PathFinder : Singleton<PathFinder>
             var g = _anchorG[key];
             var h = HeuristicAnchor(key.Item1, key.Item2, gfx, gfy);
             var f = g + h;
-            if (f < bestF || f == bestF && h < bestH)
+            if (f < bestF || (f == bestF && h < bestH))
             {
                 best = i;
                 bestF = f;
@@ -259,7 +261,7 @@ public class PathFinder : Singleton<PathFinder>
     }
 
     /// <summary>
-    /// Is the cell inside the goal footprint rectangle for the given agent?
+    ///     Is the cell inside the goal footprint rectangle for the given agent?
     /// </summary>
     public static bool IsCellInGoalFootprint(IPathNodeAgent nodeAgent, PathCell cell, int goalAnchorX, int goalAnchorY)
     {
@@ -278,7 +280,7 @@ public class PathFinder : Singleton<PathFinder>
     }
 
     /// <summary>
-    ///     Closest pair of cells between two <see cref="IPathNodeAgent"/> footprints.
+    ///     Closest pair of cells between two <see cref="IPathNodeAgent" /> footprints.
     /// </summary>
     public static FootprintManhattanClosest GetFootprintManhattanClosest(IPathNodeAgent a, IPathNodeAgent b)
     {
@@ -346,7 +348,7 @@ public class PathFinder : Singleton<PathFinder>
                 var bx = bAnchorX + oxb;
                 var bz = bAnchorZ + ozb;
                 var d = Dist(ax, az, bx, bz);
-                if (d < minD || d == minD && LexLess(ax, az, bx, bz, bestAx, bestAz, bestBx, bestBz))
+                if (d < minD || (d == minD && LexLess(ax, az, bx, bz, bestAx, bestAz, bestBx, bestBz)))
                 {
                     minD = d;
                     bestAx = ax;

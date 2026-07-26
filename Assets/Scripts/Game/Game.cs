@@ -7,8 +7,6 @@ using SimpleJSON;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceProviders;
-using UnityEngine.SceneManagement;
 
 public class Game : Singleton<Game>
 {
@@ -25,7 +23,6 @@ public class Game : Singleton<Game>
     {
         try
         {
-            //try
             {
                 Physics.simulationMode = SimulationMode.Update;
                 DOTween.logBehaviour = LogBehaviour.Default;
@@ -53,6 +50,8 @@ public class Game : Singleton<Game>
                 audioManager.AddComponent<AudioManager>();
                 DontDestroyOnLoad(audioManager);
 
+                AudioManager.Instance.Library = preload.AudioLibrary;
+                
                 await PreloadSettings.Instance.LoadSettings();
                 // 加载配置文件
                 var configJson = await LoadConfigJsonFromAddressablesAsync();

@@ -1,31 +1,32 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using JSAM;
 using UnityEngine;
 
 public class AgentAnimations : MonoBehaviour
 {
-    // [SerializeField][Range(0, 30f)] private float FrequenceX = 14f;
-    // [SerializeField][Range(0, 30f)] private float MoveJitterFrequencyY = 19f;
-    // [SerializeField][Range(0, 0.15f)] private float MoveJitterAmplitude = 0.15f;
-    // [SerializeField][Range(0, 20)] private float FrequenceY = 1;
-    // [SerializeField][Range(0, 1.0f)] private float AmplitudeY = 0.01f;
+    
+    [Header("攻击动画参数")] public float attackMoveDistance = 0.75f;
+    public float attackDuration = 1f;
+    public Ease attackEase = Ease.OutQuad;
 
-    private Animator animator;
-    private Transform m_AnimationTarget;
+    [Header("受击动画参数")] public float hitKnockbackDistance = 0.3f;
+    public float hitDuration = 1f;
+    
+    [SerializeField] [Range(0, 20)] private float FrequenceX = 10f;
+    [SerializeField] [Range(0, 10.0f)] private float AmplitudeX = 5.0f;
+    [SerializeField] [Range(0, 20)] private float FrequenceY = 3;
+    [SerializeField] [Range(0, 1.0f)] private float AmplitudeY = 0.1f;
 
-    // private Vector3 m_BaseLocalPosition;
+    private float _jitterPhaseX;
+    private float _jitterPhaseY;
+    private float _idleTimeOffset;
 
-    // /// <summary>Idle jitter phase offsets, randomized per-unit to avoid synchronization.</summary>
-    // private float _jitterPhaseX;
-    // private float _jitterPhaseY;
-    // private float _idleTimeOffset;
+    private Transform m_AvatarTarget;
+    private Transform m_SpriteRoot;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        // _jitterPhaseX = Random.Range(0f, Mathf.PI * 2f);
-        // _jitterPhaseY = Random.Range(0f, Mathf.PI * 2f);
-        // _idleTimeOffset = Random.Range(0f, 40f);
         this.Subscribe<AgentStats.TakeDamageEvent>(OnTakeDamage);
     }
 
@@ -44,46 +45,161 @@ public class AgentAnimations : MonoBehaviour
     /// </summary>
     public void KillAllTweens()
     {
-        if (m_AnimationTarget != null)
-            m_AnimationTarget.DOKill();
+        if (m_AvatarTarget != null)
+            m_AvatarTarget.DOKill();
         DOTween.Kill(gameObject);
     }
 
-    public void Setup(Transform t_Target)
+    public void Setup(Transform t_AvatarRoot, Transform t_SpriteRoot)
     {
-        m_AnimationTarget = t_Target;
+        m_AvatarTarget = t_AvatarRoot;
+        m_SpriteRoot = t_SpriteRoot;
     }
-
-    [Header("攻击动画参数")] public float attackMoveDistance = 0.75f;
-    public float attackDuration = 2f;
-    public Ease attackEase = Ease.OutQuad;
-
-    [Header("受击动画参数")] public float hitKnockbackDistance = 0.3f;
-    public float hitDuration = 1f;
 
     /// <summary>
     /// Attack animation (async UniTask).
     /// </summary>
-    public async UniTask PunchTarget(Vector3 direction, float t_Duration)
+    public async UniTask PunchTarget(Vector3 direction, float t_Duration, GameAudioSounds t_Sound)
     {
         FaceTarget(direction);
 
-        const float forwardRatio = 0.4f;
-
-        var originalPosition = m_AnimationTarget.position;
+        const float windupRatio = 1.0f;          // 前摇占 attackDuration * t_Duration 的比例
+        const float forwardRatio = 0.25f;
+        
+        float windupDistance = attackMoveDistance * 0.5f; // 后撤距离，可根据需要调整
+        
+        var originalPosition = m_AvatarTarget.localPosition;
 
         var moveDir = direction.normalized;
         
+        // 0. 前摇：向反方向移动一小段，模拟蓄力
+        await m_AvatarTarget.DOLocalMove(-moveDir * windupDistance, attackDuration * windupRatio * t_Duration)
+            .SetEase(Ease.InQuad)
+            .ToUniTask();
+
+        AudioManager.PlaySound(t_Sound);
+        
         // 1. Forward rush + scale up
-        await m_AnimationTarget.DOLocalMove(moveDir * attackMoveDistance, attackDuration * forwardRatio * t_Duration)
+        await m_AvatarTarget.DOLocalMove(moveDir * attackMoveDistance, attackDuration * forwardRatio * t_Duration)
             .SetEase(attackEase).ToUniTask();
 
         // 2. Bounce back
-        await m_AnimationTarget.DOMove(originalPosition, attackDuration * (1 - forwardRatio) * t_Duration)
-            .SetEase(Ease.OutBounce, 1.1f).ToUniTask();
+        m_AvatarTarget.DOLocalMove(originalPosition, attackDuration * (1 - forwardRatio) * t_Duration)
+            .SetEase(Ease.OutBounce, 1.1f).ToUniTask().Forget();
 
     }
 
+    /// <summary>
+    /// Attack animation (async UniTask).
+    /// </summary>
+    public async UniTask SwordSlash(Vector3 direction, float t_Duration, GameAudioSounds t_Sound)
+    {
+        FaceTarget(direction);
+
+        const float windupRatio = 1.0f;          // 前摇占 attackDuration * t_Duration 的比例
+        const float forwardRatio = 0.25f;
+        
+        float windupDistance = attackMoveDistance * 0.5f; // 后撤距离，可根据需要调整
+        
+        var originalPosition = m_AvatarTarget.localPosition;
+
+        var moveDir = direction.normalized;
+
+        var agentWeapon = GetComponent<AgentWeapon>();
+        var weapon = agentWeapon.WeaponCurrent(); 
+        
+        // 0. 前摇：向反方向移动一小段，模拟蓄力
+        var startupDuration = attackDuration * windupRatio * t_Duration;
+        var t1 =  m_AvatarTarget.DOLocalMove(-moveDir * windupDistance, startupDuration)
+            .SetEase(Ease.InQuad)
+            .ToUniTask();
+        var t2 = weapon.Startup(moveDir, startupDuration);
+        await UniTask.WhenAll(t1, t2);
+        
+        await UniTask.Delay((int)(t_Duration * 1000));
+        
+        AudioManager.PlaySound(t_Sound);
+
+        var slashDuration = attackDuration * forwardRatio * t_Duration;
+        // 1. Forward rush + scale up
+        t1 =  m_AvatarTarget.DOLocalMove(moveDir * attackMoveDistance, attackDuration * forwardRatio * t_Duration)
+            .SetEase(Ease.OutQuad).ToUniTask();
+        t2 = weapon.Attack(Vector2.zero, slashDuration);
+        await UniTask.WhenAll(t1, t2);
+        
+        // 2. Bounce back
+        var recoveryDuration = attackDuration * (1 - forwardRatio) * t_Duration;
+        t1 = m_AvatarTarget.DOLocalMove(originalPosition, recoveryDuration)
+        .SetEase(Ease.OutBounce, 1.1f).ToUniTask();
+        t2 = weapon.Recovery(recoveryDuration);
+        
+        UniTask.WhenAll(t1, t2).Forget();
+    }
+
+    public async UniTask BowShot(Vector3 direction, float t_Duration, GameAudioSounds t_Sound)
+    {
+        FaceTarget(direction);
+
+        const float startupRatio = 0.25f;     // 前摇占比（拉弓时间较长）
+
+        var originalPosition = m_AvatarTarget.localPosition;
+        var moveDir = direction.normalized;
+        
+        // 播放射箭音效
+        AudioManager.PlaySound(t_Sound);
+        
+        // ==================== 1. 前摇 - 拉弓 (武器动画) ====================
+        // 角色不动，只让武器做前摇
+        var agentWeapon = GetComponent<AgentWeapon>();
+        var weapon = agentWeapon.WeaponCurrent(); 
+        if (weapon != null)
+        {
+            await agentWeapon.WeaponCurrent().Startup(moveDir, attackDuration * startupRatio * t_Duration);
+        }
+        
+        // ==================== 后续动画全部 Fire-and-Forget，但保持顺序 ====================
+        RunBowAnimationSequence(moveDir, originalPosition, weapon, t_Duration).Forget(); 
+        
+    }
+    
+    // 内部私有方法，负责后续动画序列
+    private async UniTask RunBowAnimationSequence(Vector3 moveDir, Vector3 originalPosition, Weapon weapon, float t_Duration)
+    {
+        
+        const float attackRatio = 0.5f;     // 射箭瞬间
+        const float recoveryRatio = 0.25f;   // 后摇占比
+        
+        // 2. 攻击瞬间 - 后坐力 + 武器攻击
+        var recoilDistance = attackMoveDistance * 0.5f;
+        float a_Duration = attackDuration * attackRatio * t_Duration;
+        float b_Duration = a_Duration * 0.5f;   // 你之前想要 b 是 a 的一半
+
+        var recoilTask = m_AvatarTarget.DOLocalMove(-moveDir * recoilDistance, a_Duration)
+            .SetEase(Ease.OutQuad)
+            .ToUniTask();
+
+        // a 播到一半时开始 b
+        await UniTask.Delay((int)(a_Duration * 0.5f * 1000));
+
+        var weaponAttackTask = weapon != null 
+            ? weapon.Attack(moveDir, b_Duration) 
+            : UniTask.CompletedTask;
+
+        await UniTask.WhenAll(recoilTask, weaponAttackTask);
+
+        // 3. 后摇 - 复位 + 武器收弓
+        var returnTask = m_AvatarTarget.DOLocalMove(originalPosition, 
+                attackDuration * recoveryRatio * t_Duration)
+            .SetEase(Ease.OutQuad)
+            .ToUniTask();
+
+        var weaponRecoveryTask = weapon != null 
+            ? weapon.Recovery(attackDuration * recoveryRatio * t_Duration) 
+            : UniTask.CompletedTask;
+
+        await UniTask.WhenAll(returnTask, weaponRecoveryTask);
+    }
+    
     /// <summary>
     /// Take-hit animation (async UniTask).
     /// </summary>
@@ -91,12 +207,15 @@ public class AgentAnimations : MonoBehaviour
     {
         const float knockbackRatio = 0.5f;
 
-        var originalPosition = transform.position;
+        var originalPosition = m_AvatarTarget.localPosition;
         var knockDir = hitDirection.normalized;
 
 
+        // 0. play hit sfx
+        AudioManager.PlaySound(GameAudioSounds.Sfx_Combat_Hit);
+        
         // 1. Flash red
-        var sr = m_AnimationTarget.GetComponentInChildren<SpriteRenderer>();
+        var sr = m_AvatarTarget.GetComponentInChildren<SpriteRenderer>();
         var originalColor = sr.color;
         var flashSequence = DOTween.Sequence();
         flashSequence.Append(DOTween.To(() => sr.color, x => sr.color = x, Color.red, 0.05f).SetEase(Ease.OutQuad))
@@ -106,15 +225,15 @@ public class AgentAnimations : MonoBehaviour
         flashSequence.Play().ToUniTask().Forget();
 
         // 2. Knockback
-        await m_AnimationTarget.DOMove(originalPosition + knockDir * hitKnockbackDistance,
+        await m_AvatarTarget.DOLocalMove(originalPosition + knockDir * hitKnockbackDistance,
                 hitDuration * knockbackRatio * t_Duration)
             .SetEase(Ease.OutQuad).ToUniTask();
 
         // 3. Bounce back + shake
-        await m_AnimationTarget.DOMove(originalPosition, hitDuration * (1 - knockbackRatio) * t_Duration)
+        await m_AvatarTarget.DOLocalMove(originalPosition, hitDuration * (1 - knockbackRatio) * t_Duration)
             .SetEase(Ease.OutBounce).ToUniTask();
 
-        await m_AnimationTarget.DOShakePosition(0.22f * t_Duration, 0.08f, 12).ToUniTask();
+        await m_AvatarTarget.DOShakePosition(0.22f * t_Duration, 0.08f, 12).ToUniTask();
 
         await UniTask.Delay(200);
     }
@@ -130,7 +249,10 @@ public class AgentAnimations : MonoBehaviour
         // 停止之前的动画
         currentTween?.Kill();
         
-        Vector3 originalPos = m_AnimationTarget.position;
+        // 播放音效 denied
+        AudioManager.PlaySound(GameAudioSounds.Sfx_Common_Denied);
+        
+        Vector3 originalPos = m_AvatarTarget.position;
         Vector3 direction = (targetWorldPos - originalPos).normalized;
         
         // 撞击偏移距离（可调整）
@@ -139,17 +261,17 @@ public class AgentAnimations : MonoBehaviour
         // 创建 Sequence
         Sequence sequence = DOTween.Sequence();
 
-        float bumpDuration = 0.1f;
+        float bumpDuration = 0.25f;
         // 1. 快速往前撞
-        _ = sequence.Append(m_AnimationTarget.DOMove(bumpPos, bumpDuration * 0.35f)
+        _ = sequence.Append(m_AvatarTarget.DOMove(bumpPos, bumpDuration * 0.35f)
             .SetEase(Ease.OutQuad));
 
         // 2. 弹回 + 轻微抖动
-        _ = sequence.Append(m_AnimationTarget.DOMove(originalPos, bumpDuration * 0.65f)
+        _ = sequence.Append(m_AvatarTarget.DOMove(originalPos, bumpDuration * 0.65f)
             .SetEase(Ease.OutBounce));
 
         // 3. 加入轻微位置抖动（增加撞击感）
-        _ = sequence.Join(m_AnimationTarget.DOShakePosition(bumpDuration * 0.8f, 
+        _ = sequence.Join(m_AvatarTarget.DOShakePosition(bumpDuration * 0.8f, 
             new Vector3(0.08f, 0.04f, 0), 
             vibrato: 14, 
             randomness: 80, 
@@ -160,7 +282,7 @@ public class AgentAnimations : MonoBehaviour
         // 等待动画完成
         await sequence.ToUniTask();
 
-        m_AnimationTarget.position = originalPos;
+        m_AvatarTarget.position = originalPos;
         // 动画结束后清理
         currentTween = null;
     }
@@ -168,59 +290,43 @@ public class AgentAnimations : MonoBehaviour
     
     public void FaceTarget(Vector3 t_TargetDirection)
     {
-        if (m_AnimationTarget == null || Mathf.Approximately(t_TargetDirection.x, 0.0f))
+        if (m_AvatarTarget == null || Mathf.Approximately(t_TargetDirection.x, 0.0f))
             return;
 
-        m_AnimationTarget.DOScaleX(t_TargetDirection.x > 0 ? 1 : -1, 0.1f).SetEase(Ease.Linear).SetTarget(gameObject);
+        m_AvatarTarget.DOScaleX(t_TargetDirection.x > 0 ? 1 : -1, 0.1f).SetEase(Ease.Linear).SetTarget(gameObject);
     }
 
     public void BounceOnMove(float duration)
     {
-        var originY = m_AnimationTarget.localPosition.y;
+        var originY = m_AvatarTarget.localPosition.y;
         
         DOTween.To(
             () => 0f,
             t =>
             {
-                var pos = m_AnimationTarget.localPosition;
+                var pos = m_AvatarTarget.localPosition;
                 pos.y = originY + Mathf.Sin(t) * 0.25f;
-                m_AnimationTarget.localPosition = pos;
+                m_AvatarTarget.localPosition = pos;
             },
             Mathf.PI,
             duration
-        ).SetEase(Ease.Linear).onComplete += () => { m_AnimationTarget.localPosition = Vector3.zero; };
+        ).SetEase(Ease.Linear).onComplete += () => { m_AvatarTarget.localPosition = Vector3.zero; };
     }
 
-    // public void UpdateBaseAnimation(int t_Velocity)
-    // {
-    //     if (m_AnimationTarget == null)
-    //         return;
+    public void UpdateBaseAnimation(int t_Velocity)
+    {
+        if (m_SpriteRoot == null)
+            return;
+        var t = Time.time;
 
-    //     float t = Time.time;
-    //     if (t_Velocity != 0)
-    //     {
-    //         float amp = MoveJitterAmplitude * t_Velocity;
-    //         const float xBaselineRatio = 0.06f;
-    //         float xOsc01 = Mathf.Sin(t * FrequenceX + _jitterPhaseX) * 0.5f + 0.5f;
-    //         float jxMag = amp * xBaselineRatio + xOsc01 * amp * (0.5f - xBaselineRatio);
-    //         float faceSign = Mathf.Sign(m_AnimationTarget.localScale.x);
-    //         if (Mathf.Approximately(faceSign, 0f))
-    //             faceSign = 1f;
-    //         float jx = jxMag * faceSign;
+        var idle = 1 - Mathf.Abs(Mathf.Sin(
+                                     Mathf.RoundToInt((t + _idleTimeOffset) * FrequenceY))
+                                 * AmplitudeY * (1 - t_Velocity));
 
-    //         const float yBaselineRatio = 0.08f;
-    //         float yOsc01 = Mathf.Sin(t * MoveJitterFrequencyY + 1.1f + _jitterPhaseY) * 0.5f + 0.5f;
-    //         float jy = amp * yBaselineRatio + yOsc01 * amp * (0.55f - yBaselineRatio);
-    //         m_AnimationTarget.localPosition = m_BaseLocalPosition + new Vector3(jx, jy, 0f);
-    //     }
-    //     else
-    //         m_AnimationTarget.localPosition = m_BaseLocalPosition;
-
-    //     var idle = 1 + Mathf.Abs(Mathf.Sin(
-    //             Mathf.RoundToInt((t + _idleTimeOffset) * FrequenceY * Mathf.PI * 0.2f)
-    //             * MathF.PI * 0.5f)
-    //         * AmplitudeY * (1 - t_Velocity));
-
-    //     m_AnimationTarget.localScale = new Vector3(m_AnimationTarget.localScale.x, idle, 1);
-    // }
+        var moveAnimation = Quaternion.Euler(0, 0,
+            Mathf.Sin(Mathf.Floor(Time.time * FrequenceX * t_Velocity * Mathf.PI)) * AmplitudeX);
+        transform.rotation = moveAnimation;
+        
+        m_SpriteRoot.transform.localScale = new Vector3(m_SpriteRoot.transform.localScale.x, idle, 1);
+    }
 }

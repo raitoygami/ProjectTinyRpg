@@ -70,7 +70,7 @@ public class AgentMover : MonoBehaviour
         //_MovePending = true;
 
         var worldPosition = t_GridPosition.GridToWorld();
-        var velocityMulti = Vector3.Distance(transform.position, worldPosition) / Mathf.Max(t_VelocityMulti, 1.0f) * 0.125f;
+        var velocityMulti = Vector3.Distance(transform.position, worldPosition) / Mathf.Max(t_VelocityMulti, 1.0f) * 0.2f;
 
         _MoveStartEvent.StartPosition = transform.position;
         _MoveStartEvent.TargetPosition = worldPosition;

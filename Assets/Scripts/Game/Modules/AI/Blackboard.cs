@@ -101,7 +101,6 @@ public class Blackboard
                 return false;
             }
         }
-        
         return await _AbilitySelect.Execute(targets, targetPoint);
     }
 
