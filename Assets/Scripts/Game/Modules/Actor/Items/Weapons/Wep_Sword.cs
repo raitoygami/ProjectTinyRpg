@@ -25,7 +25,7 @@ public class Wep_Sword : Weapon
     [SerializeField] private Vector3 _AttackPositionBack;
     [SerializeField] private Vector3 _AttackRotationBack;
     
-    public override void Equiped(AgentWeapon agentWeapon)
+    public override void Equipped(AgentWeapon agentWeapon)
     {
         transform.SetParent(agentWeapon.transform);
         
@@ -36,6 +36,12 @@ public class Wep_Sword : Weapon
         _WepSwordBack.SetParent(agentWeapon.BackSlot());
         _WepSwordBack.localPosition = _ArmPositionBack;
         _WepSwordBack.localRotation = Quaternion.Euler(_ArmRotationBack);
+    }
+
+    public override void Unequip(AgentWeapon agentWeapon)
+    {
+        _WepSwordFront.SetParent(transform);
+        _WepSwordBack.SetParent(transform);
     }
 
     public override async UniTask Startup(Vector2 direction, float duration)
@@ -106,4 +112,11 @@ public class Wep_Sword : Weapon
             tweenBackRot.ToUniTask()
         );
     }
+    
+    private void OnDestroy()
+    {
+        Destroy(_WepSwordBack.gameObject);
+        Destroy(_WepSwordFront.gameObject);
+    }
+    
 }

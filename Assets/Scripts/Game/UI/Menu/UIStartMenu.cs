@@ -37,13 +37,17 @@ public class UIStartMenu : PanelBase
         _isLoading = true;
         
         await UIRoot.Instance.LoadingStart();
-
+        // 构建玩家数据
+        PlayerManager.Instance.RebuildPersist();
+        
+        // 加载场景
         await LevelManager.Instance.LoadLevel("Scene/Tutorial");
         
         await UniTask.DelayFrame(1);
         
         await this.PublishGlobal(new Game.SceneChangeEvt());
         UIRoot.Instance.Hide("StartMenu");
+        UIRoot.Instance.OpenMainUI();
         await UIRoot.Instance.LoadingFinish();
         
         _isLoading = false;
@@ -54,11 +58,12 @@ public class UIStartMenu : PanelBase
         if (_isLoading)
             return;
         _isLoading = true;
-        
-        Persist.Instance.Load(0);
         // 加载数据
         await UIRoot.Instance.LoadingStart();
-        
+        Persist.Instance.Load(0);
+        // 构建玩家数据
+        PlayerManager.Instance.RebuildPersist();
+
         await LevelManager.Instance.LoadLevel("Scene/Tutorial");
 
         await UniTask.DelayFrame(1);

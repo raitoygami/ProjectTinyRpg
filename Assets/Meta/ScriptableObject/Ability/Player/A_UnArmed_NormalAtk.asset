@@ -28,13 +28,13 @@ MonoBehaviour:
   Target: 2
   Children: []
   guid: 838d6a92760adb74d916462e5ef6a36c
-  localtion: {x: -424.9626, y: 233.00002}
+  localtion: {x: -244, y: 233}
   damageType: 0
   skillMultiplier: 100
   references:
     version: 2
     RefIds: []
---- !u!114 &11400000
+--- !u!114 &-1275732767498452940
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,39 +43,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c78e44534ca35f444ab8c81e8e84e52e, type: 3}
-  m_Name: A_Sword_01_NormalAtk
+  m_Script: {fileID: 11500000, guid: 29a805cd4afdf7c4491846c553260db4, type: 3}
+  m_Name: E_PunchTarget
   m_EditorClassIdentifier: 
-  m_Range: 1
-  m_SkillDisplayParam:
-    rid: -2
-  m_TargetMode: 2
-  m_CoolDown: 0
-  m_CostMP: 0
-  m_CostSP: 0
-  TreeRoot: {fileID: 5498850296569907920}
-  Effects:
-  - {fileID: 5498850296569907920}
-  - {fileID: -7798447792669611025}
-  - {fileID: 7724933475829618684}
-  - {fileID: 3953780773226233824}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
---- !u!114 &3953780773226233824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21af7612841932a43b93574ca2f60d92, type: 3}
-  m_Name: E_SwordSlash
-  m_EditorClassIdentifier: Assembly-CSharp::E_SwordSlash
   Context: {fileID: 11400000}
   uid: 0
   Content: 
@@ -89,17 +59,57 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   DurationBased: 0
-  Target: 0
+  Target: 2
   Children:
   - {fileID: -7798447792669611025}
   - {fileID: 7724933475829618684}
-  guid: 820e67279d0cad047ac3ee8917892bd1
-  localtion: {x: -264, y: 95}
+  guid: 3371a2d128ea628408a2b1d73703c4ce
+  localtion: {x: 0, y: 95}
   Duration: 0.1
   Sounds: 4
   references:
     version: 2
     RefIds: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78e44534ca35f444ab8c81e8e84e52e, type: 3}
+  m_Name: A_UnArmed_NormalAtk
+  m_EditorClassIdentifier: 
+  AbilityName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Icon: {fileID: 21300000, guid: 3233af8746f0f904e86ddf96bc22b3e7, type: 3}
+  m_Range: 2
+  m_SkillDisplayParam:
+    rid: -2
+  m_TargetMode: 2
+  m_CoolDown: 0
+  m_CostMP: 0
+  m_CostSP: 0
+  TreeRoot: {fileID: 5498850296569907920}
+  Effects:
+  - {fileID: 5498850296569907920}
+  - {fileID: -1275732767498452940}
+  - {fileID: -7798447792669611025}
+  - {fileID: 7724933475829618684}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!114 &5498850296569907920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,9 +137,9 @@ MonoBehaviour:
   DurationBased: 0
   Target: 2
   Children:
-  - {fileID: 3953780773226233824}
+  - {fileID: -1275732767498452940}
   guid: d42dee3b6bbe3c14ebbe84d20cedeaf5
-  localtion: {x: -264, y: -6.6124964}
+  localtion: {x: NaN, y: NaN}
   references:
     version: 2
     RefIds: []
@@ -161,7 +171,7 @@ MonoBehaviour:
   Target: 2
   Children: []
   guid: d1f20326b1a4ce842b295bff872862c8
-  localtion: {x: -102.86762, y: 233.00002}
+  localtion: {x: 10, y: 233}
   Duration: 0
   Particle: {fileID: 6626678927856630263, guid: 41b4f5afd2c210949863801af2111bc2, type: 3}
   Offset: {x: 0, y: 0, z: 0}

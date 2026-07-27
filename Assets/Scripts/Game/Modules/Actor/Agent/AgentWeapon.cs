@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -8,37 +9,86 @@ public class AgentWeapon : MonoBehaviour
     [SerializeField] private Transform _weaponBack;
     [SerializeField] private Transform _weaponFront;
 
+    [SerializeField] private Weapon _unarmedWeapon;
+    
     public class WeaponChangeEvt : EventArgs
     {
         public Ability WepNormalAtk;
     }
-    
-    private Weapon _weaponCurrent;
 
-    public async UniTask LoadWeapon(string addressable)
+    private Weapon _unarmedWeaponInst;
+    private long _currentWeaponUID;
+    private readonly Dictionary<long, Weapon> _weapons = new();
+    
+    public async UniTask UpdateWeaponEquipped()
     {
-        var handle = Addressables.LoadAssetAsync<GameObject>(addressable);
-        handle.Completed += operationHandle =>
+        
+        // 1: 武器
+        var lastWeaponUIDEquipped = PlayerManager.Instance.GetLastWeaponUID(); // 默认0
+        var currWeaponUIDEquipped = PlayerManager.Instance.GetCurrWeaponUID(); // 默认1
+
+        if (lastWeaponUIDEquipped == currWeaponUIDEquipped)
+            return;
+
+        _currentWeaponUID = currWeaponUIDEquipped;
+        
+        //  卸载上次的装备
+        if (_weapons.TryGetValue(lastWeaponUIDEquipped, out var lastWeapon))
         {
-            _weaponCurrent =  Instantiate(operationHandle.Result).GetComponent<Weapon>() ;
-            _weaponCurrent.Equiped(this);
-            this.Publish(new WeaponChangeEvt()
+            lastWeapon.Unequip(this);
+        }
+
+        // 如果全部卸掉
+        if (currWeaponUIDEquipped == -1)
+        {
+            // 还没有实例化过赤手空拳
+            if (_unarmedWeaponInst == null)
             {
-                WepNormalAtk = _weaponCurrent.AbilityNormalAtk
-            });
-        };
+                _unarmedWeaponInst = Instantiate(_unarmedWeapon, transform);
+                _weapons.Add(-1, _unarmedWeaponInst);
+            }
+            _unarmedWeaponInst.Equipped(this);
+            await this.Publish(new WeaponChangeEvt() { WepNormalAtk = _unarmedWeaponInst.AbilityNormalAtk });
+            return;
+        }
+        
+        var currentWeapon = PlayerManager.Instance.GetCurrentWeapon();
+        if (currentWeapon == null)
+        {
+            Debug.LogError("不可能吧");
+            return;
+        }
+
+        if (_weapons.TryGetValue(currentWeapon.Uid, out var weapon))
+        {
+            weapon.Equipped(this);
+            await this.Publish(new WeaponChangeEvt() { WepNormalAtk = weapon.AbilityNormalAtk });
+        }
+        else
+        {
+            var handle = Addressables.LoadAssetAsync<GameObject>(currentWeapon.GetItemAddressable());
+            await handle.ToUniTask();
+        
+            var weaponInst =  Instantiate(handle.Result, transform).GetComponent<Weapon>() ;
+            weaponInst.Equipped(this);
+            _weapons.Add(currentWeapon.Uid, weaponInst);
+            await this.Publish(new WeaponChangeEvt() { WepNormalAtk = weaponInst.AbilityNormalAtk });
+        }
+        
         await UniTask.CompletedTask;
     }
 
-    public void LoadWeapon(Weapon t_Weapon)
+    public void LoadEnemyWeapon(Weapon t_Weapon)
     {
-        _weaponCurrent = Instantiate(t_Weapon) ;
-        _weaponCurrent.Equiped(this);
+        var weapon = Instantiate(t_Weapon) ;
+        weapon.Equipped(this);
+        _currentWeaponUID = 0;
+        _weapons.Add(_currentWeaponUID, weapon);
     }
-    
+
     public Weapon WeaponCurrent()
     {
-        return _weaponCurrent;
+        return _weapons.GetValueOrDefault(_currentWeaponUID, _unarmedWeaponInst);
     }
 
     public Transform FrontSlot()
@@ -50,5 +100,21 @@ public class AgentWeapon : MonoBehaviour
     {
         return _weaponBack;
     }
-    
+
+    private void OnDestroy()
+    {
+        foreach (var weapon in _weapons)
+        {
+            if (weapon.Value.gameObject != null)
+            {
+                Destroy(weapon.Value.gameObject);    
+            }
+        }
+        _weapons.Clear();
+        
+        if (_unarmedWeaponInst != null && _unarmedWeaponInst.gameObject != null)
+        {
+            Destroy(_unarmedWeaponInst.gameObject);
+        }
+    }
 }

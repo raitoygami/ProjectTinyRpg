@@ -19,7 +19,7 @@ public class Wep_Hammer : Weapon
     [SerializeField] private Vector3 _AttackPositionFront;
     [SerializeField] private Vector3 _AttackRotationFront;
 
-    public override void Equiped(AgentWeapon agentWeapon)
+    public override void Equipped(AgentWeapon agentWeapon)
     {
         transform.SetParent(agentWeapon.transform);
         
@@ -75,5 +75,10 @@ public class Wep_Hammer : Weapon
             tweenFront.ToUniTask(),
             tweenFrontRot.ToUniTask()
         );
+    }
+    
+    private void OnDestroy()
+    {
+        Destroy(_WepSwordFront.gameObject);
     }
 }

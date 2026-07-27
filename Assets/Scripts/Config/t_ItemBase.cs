@@ -30,6 +30,7 @@ public abstract partial class t_ItemBase : Luban.BeanBase
         { if(!_buf["tradeValue"].IsNumber) { throw new SerializationException(); }  TradeValue = _buf["tradeValue"]; }
         { if(!_buf["x"].IsNumber) { throw new SerializationException(); }  X = _buf["x"]; }
         { if(!_buf["y"].IsNumber) { throw new SerializationException(); }  Y = _buf["y"]; }
+        { var _j = _buf["prefab"]; if (_j.Tag != JSONNodeType.None && _j.Tag != JSONNodeType.NullValue) { { if(!_j.IsString) { throw new SerializationException(); }  Prefab = _j; } } else { Prefab = null; } }
     }
 
     public static t_ItemBase Deserializet_ItemBase(JSONNode _buf)
@@ -61,6 +62,7 @@ public abstract partial class t_ItemBase : Luban.BeanBase
     /// 竖直占格
     /// </summary>
     public readonly int Y;
+    public readonly string Prefab;
    
 
     public virtual void ResolveRef(Tables tables)
@@ -80,6 +82,7 @@ public abstract partial class t_ItemBase : Luban.BeanBase
         + "tradeValue:" + TradeValue + ","
         + "x:" + X + ","
         + "y:" + Y + ","
+        + "prefab:" + Prefab + ","
         + "}";
     }
 }

@@ -428,7 +428,7 @@ public class UIRoot : Singleton<UIRoot>
     public async UniTask FadeIn(float duration = 1.5f, Ease ease = Ease.OutQuad)
     {
         _FadingPanel.color = new Color(0, 0, 0, 0);
-        
+        _FadingPanel.gameObject.SetActive(true);
         await DOTween.To(
                 () => _FadingPanel.color,                    // getter
                 c => _FadingPanel.color = c,                 // setter
@@ -442,7 +442,7 @@ public class UIRoot : Singleton<UIRoot>
     public async UniTask FadeOut(float duration = 1.5f, Ease ease = Ease.OutQuad)
     {
         _FadingPanel.color = Color.black;
-        
+
         await DOTween.To(
                 () => _FadingPanel.color,                    // getter
                 c => _FadingPanel.color = c,                 // setter
@@ -452,12 +452,14 @@ public class UIRoot : Singleton<UIRoot>
             .SetEase(ease)
             .ToUniTask();
         _FadingPanel.color = Color.clear;
+        _FadingPanel.gameObject.SetActive(false);
     }
     
     [SerializeField] private Image _LoadingPanel;
     public async UniTask LoadingStart(float duration = 1.5f, Ease ease = Ease.OutQuad)
     {
         _LoadingPanel.material.SetFloat(DissolveThreshold, 0);
+        _LoadingPanel.gameObject.SetActive(true);
         // 使用 DOTween 动画 Material 的 _DissolveThreshold
         Tween tween = _LoadingPanel.material
             .DOFloat(1f, DissolveThreshold, duration)   // 从当前值 → 1
@@ -469,12 +471,15 @@ public class UIRoot : Singleton<UIRoot>
     public async UniTask LoadingFinish(float duration = 1.5f, Ease ease = Ease.InQuad)
     {
         _LoadingPanel.material.SetFloat(DissolveThreshold, 1);
+        
         // 使用 DOTween 动画 Material 的 _DissolveThreshold
         Tween tween = _LoadingPanel.material
             .DOFloat(0f, "_DissolveThreshold", duration)
             .SetEase(ease);
 
         await tween.ToUniTask();
+        
+        _LoadingPanel.gameObject.SetActive(false);
     }
 
     public void OpenMainUI()

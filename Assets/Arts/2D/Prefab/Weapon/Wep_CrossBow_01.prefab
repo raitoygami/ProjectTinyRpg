@@ -45,6 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69107fa3fcb93446b62f563eb65dd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wep_CrossBow
+  Type: 4
+  AbilityName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Icon: {fileID: 21300000, guid: d380f6a4c42618942b49e9ba6727a87d, type: 3}
   AbilityNormalAtk: {fileID: 11400000, guid: 7ea25d38959864146adbca8535496073, type: 2}
   _CrossBow: {fileID: 7572733046642331093}
   _ArmPosition: {x: -0.3, y: 0.5, z: 0}
@@ -52,6 +63,9 @@ MonoBehaviour:
   _StartupPosition: {x: 0, y: 0.25, z: 0}
   _RecoveryPosition: {x: -0.3, y: 1.25, z: 0}
   _RecoveryRotation: {x: 0, y: 0, z: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5598392814039728653
 GameObject:
   m_ObjectHideFlags: 0

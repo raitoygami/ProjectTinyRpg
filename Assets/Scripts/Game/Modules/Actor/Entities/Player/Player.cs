@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using cfg;
 using UnityEngine.AddressableAssets;
 
 // wasd move
@@ -49,17 +50,14 @@ public partial class Player : Entity
         this.SubscribeGlobal<EnterCombatEvt>(OnEnterCombatEvt);
         
         m_TurnActor = gameObject.AddComponent<TurnActor>();
-
         m_AgentStats = gameObject.AddComponent<AgentStats>();
         m_AgentMover = gameObject.AddComponent<AgentMover>();
+        m_AgentWeapon = gameObject.GetComponent<AgentWeapon>();
         m_AgentAbilities = gameObject.AddComponent<AgentAbilities>();
-
         m_AgentAnimations = gameObject.GetComponent<AgentAnimations>();
         m_AgentInteractive = gameObject.AddComponent<AgentInteractive>();
         // 加载武器
         this.Subscribe<AgentWeapon.WeaponChangeEvt>(OnWeaponChanged);
-        m_AgentWeapon = GetComponent<AgentWeapon>();
-        m_AgentWeapon.LoadWeapon("Weapon/Wep_Hammer_01").Forget();
         
         Faction = EntityFaction.Player;
 
@@ -68,6 +66,13 @@ public partial class Player : Entity
         EntityManager.Register(this);
     }
 
+    // 根据各种存档数据绑定
+    public async UniTask Rebind()
+    {
+       
+        await m_AgentWeapon.UpdateWeaponEquipped();
+    }
+    
     private UniTask OnWeaponChanged(AgentWeapon.WeaponChangeEvt arg)
     {
         m_AgentAbilities.UpdateWepAbility(arg.WepNormalAtk);

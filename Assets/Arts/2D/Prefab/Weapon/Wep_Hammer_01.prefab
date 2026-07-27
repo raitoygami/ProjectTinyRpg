@@ -243,6 +243,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea6c38f3c5806f4db23385bf5b43796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wep_Hammer
+  Type: 3
+  AbilityName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Icon: {fileID: 21300000, guid: 59ad9409d3e72ce4ea8d918dd893de14, type: 3}
   AbilityNormalAtk: {fileID: 11400000, guid: ad48c57482943ae43a4b72682b202378, type: 2}
   _WepSwordFront: {fileID: 1131001990494684461}
   _ArmPositionFront: {x: -0.3, y: 0.10000001, z: 0}
@@ -251,6 +262,9 @@ MonoBehaviour:
   _StartupRotationFront: {x: 0, y: 0, z: 20}
   _AttackPositionFront: {x: -0.1, y: 0.25, z: 0}
   _AttackRotationFront: {x: 0, y: 0, z: -90}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5809085767942158482
 GameObject:
   m_ObjectHideFlags: 0

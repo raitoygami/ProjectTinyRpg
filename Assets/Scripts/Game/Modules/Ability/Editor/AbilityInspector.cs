@@ -6,6 +6,10 @@ using UnityEditorInternal;
 [CustomEditor(typeof(Ability))]
 public class AbilityInspector : Editor
 {
+    private SerializedProperty m_Name;
+    private SerializedProperty m_Icon;
+    private SerializedProperty m_WeaponTypeRequire;
+    private SerializedProperty m_Desc;
     private SerializedProperty m_Range;
     private SerializedProperty m_SkillDisplayParam;
     private SerializedProperty m_TargetMode;
@@ -19,6 +23,10 @@ public class AbilityInspector : Editor
 
     private void OnEnable()
     {
+        m_Name = serializedObject.FindProperty("AbilityName");
+        m_Icon = serializedObject.FindProperty("Icon");
+        //m_Desc = serializedObject.FindProperty("");
+        m_WeaponTypeRequire = serializedObject.FindProperty("WeaponTypeRequire");
         m_Range = serializedObject.FindProperty("m_Range");
         m_SkillDisplayParam = serializedObject.FindProperty("m_SkillDisplayParam");
         m_TargetMode = serializedObject.FindProperty("m_TargetMode");
@@ -58,6 +66,10 @@ public class AbilityInspector : Editor
         EditorGUI.BeginChangeCheck();
         // properties
         EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.ExpandWidth(true));
+        
+        EditorGUILayout.PropertyField(m_Name);
+        EditorGUILayout.PropertyField(m_Icon);
+        EditorGUILayout.PropertyField(m_WeaponTypeRequire);
         EditorGUILayout.PropertyField(m_Range);
         EditorGUILayout.PropertyField(m_SkillDisplayParam, includeChildren: true);
         EditorGUILayout.PropertyField(m_TargetMode);

@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using UnityEngine.Localization;
 
 [CreateAssetMenu(menuName = "Ability/Ability", fileName = "New Ability")]
 public partial class Ability : ScriptableObject
@@ -17,6 +18,11 @@ public partial class Ability : ScriptableObject
         EmptyGround,
     }
 
+    [SerializeField] public LocalizedString AbilityName;
+    [SerializeField] public Sprite Icon;
+
+    public WeaponType WeaponTypeRequire;
+    
     // config
     [SerializeField] private int m_Range;
 

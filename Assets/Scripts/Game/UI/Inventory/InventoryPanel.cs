@@ -51,7 +51,7 @@ public class InventoryPanel : MonoBehaviour, ITetrisItemSource, ITetrisLayoutOwn
         itemNodeMap.Clear();
 
         // 从 InventoryManager 获取所有物品并创建节点
-        foreach (var item in InventoryManager.Instance.AllItems)
+        foreach (var item in InventoryMgr.Instance.AllItems)
         {
             if (item == null || item.IsEmpty) continue;
             // 只处理有有效坐标的物品（装备等可能坐标为 -1）
@@ -164,7 +164,7 @@ public class InventoryPanel : MonoBehaviour, ITetrisItemSource, ITetrisLayoutOwn
             return false;
 
         var item = node.ItemStack;
-        if (!InventoryManager.Instance.ReturnItemStackToOriginal(item))
+        if (!InventoryMgr.Instance.ReturnItemStackToOriginal(item))
             return false;
 
         // 将节点父级设置回 tetrisRoot，并重新计算位置
@@ -182,12 +182,12 @@ public class InventoryPanel : MonoBehaviour, ITetrisItemSource, ITetrisLayoutOwn
 
     public void PickupItem(long uid)
     {
-        InventoryManager.Instance.PickupItem(uid);
+        InventoryMgr.Instance.PickupItem(uid);
     }
 
     public bool RemoveItem(TetrisItemNode itemNode)
     {
-        var success = InventoryManager.Instance.RemoveItemStack(itemNode.ItemStack.Uid);
+        var success = InventoryMgr.Instance.RemoveItemStack(itemNode.ItemStack.Uid);
         if (success) itemNodeMap.Remove(itemNode.ItemStack.Uid);
         // 调用 InventoryManager 移除物品
         return success;
@@ -202,9 +202,9 @@ public class InventoryPanel : MonoBehaviour, ITetrisItemSource, ITetrisLayoutOwn
         placementContext = null;
         if (item == null || item.IsEmpty) return false;
 
-        if (InventoryManager.Instance.HasSameStack(item))
+        if (InventoryMgr.Instance.HasSameStack(item))
         {
-            var itemStack = InventoryManager.Instance.GetItem(item.Uid);
+            var itemStack = InventoryMgr.Instance.GetItem(item.Uid);
             placementContext = new GridPlacementContext {PivotCol = itemStack.PivotCol, PivotRow = itemStack.PivotRow};
             return true;
         }
@@ -215,7 +215,7 @@ public class InventoryPanel : MonoBehaviour, ITetrisItemSource, ITetrisLayoutOwn
 
         // 检查数据层是否可放置
         var state = TetrisMisc.GetDropPreviewState(
-            InventoryManager.Instance.Occupied,
+            InventoryMgr.Instance.Occupied,
             item,
             pivotCol, pivotRow);
         if (state != TetrisDropPreviewState.Valid && state != TetrisDropPreviewState.Swap)
@@ -231,10 +231,10 @@ public class InventoryPanel : MonoBehaviour, ITetrisItemSource, ITetrisLayoutOwn
         if (placementContext is not GridPlacementContext ctx)
             return false;
 
-        var hasStackableItem = InventoryManager.Instance.HasSameStack(itemNode.ItemStack);
+        var hasStackableItem = InventoryMgr.Instance.HasSameStack(itemNode.ItemStack);
         
         // 执行数据层放置（可能交换）
-        if (!InventoryManager.Instance.TryDropItem(itemNode.ItemStack, ctx.PivotCol, ctx.PivotRow, out var swappedItem , out var pivotCol, out var pivotRow))
+        if (!InventoryMgr.Instance.TryDropItem(itemNode.ItemStack, ctx.PivotCol, ctx.PivotRow, out var swappedItem , out var pivotCol, out var pivotRow))
             return false;
 
         if (hasStackableItem && itemNodeMap.TryGetValue(itemNode.ItemStack.Uid, out var item))
@@ -336,7 +336,7 @@ public class InventoryPanel : MonoBehaviour, ITetrisItemSource, ITetrisLayoutOwn
                 _pivotColLast = pivotCol;
                 _pivotRowLast = pivotRow;
                 var state = TetrisMisc.GetDropPreviewState(
-                    InventoryManager.Instance.Occupied,
+                    InventoryMgr.Instance.Occupied,
                     arg.Node.ItemStack,
                     pivotCol, pivotRow);
 
@@ -373,9 +373,9 @@ public class InventoryPanel : MonoBehaviour, ITetrisItemSource, ITetrisLayoutOwn
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (!InventoryManager.HasInstance())
+        if (!InventoryMgr.HasInstance())
             return;
-        var manager = InventoryManager.Instance;
+        var manager = InventoryMgr.Instance;
 
         var occupied = manager.Occupied;
         if (occupied == null) return;

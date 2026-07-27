@@ -10,19 +10,7 @@
     "tradeValue": 1,
     "x": 2,
     "y": 2,
-    "equipType": 2,
-    "attrModifier": [
-      {
-        "T": 0,
-        "M": 3,
-        "V": 1
-      },
-      {
-        "T": 5,
-        "M": 3,
-        "V": 20
-      }
-    ]
+    "equipType": 1
   },
   {
     "id": 540001,
@@ -35,19 +23,7 @@
     "tradeValue": 1,
     "x": 2,
     "y": 3,
-    "equipType": 3,
-    "attrModifier": [
-      {
-        "T": 0,
-        "M": 3,
-        "V": 1
-      },
-      {
-        "T": 5,
-        "M": 3,
-        "V": 20
-      }
-    ]
+    "equipType": 3
   },
   {
     "id": 540002,
@@ -60,19 +36,7 @@
     "tradeValue": 1,
     "x": 2,
     "y": 3,
-    "equipType": 4,
-    "attrModifier": [
-      {
-        "T": 0,
-        "M": 3,
-        "V": 1
-      },
-      {
-        "T": 5,
-        "M": 3,
-        "V": 20
-      }
-    ]
+    "equipType": 2
   },
   {
     "id": 560001,
@@ -85,18 +49,6 @@
     "tradeValue": 1,
     "x": 2,
     "y": 2,
-    "equipType": 5,
-    "attrModifier": [
-      {
-        "T": 0,
-        "M": 3,
-        "V": 1
-      },
-      {
-        "T": 5,
-        "M": 3,
-        "V": 20
-      }
-    ]
+    "equipType": 4
   }
 ]

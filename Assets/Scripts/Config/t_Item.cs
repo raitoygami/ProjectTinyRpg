@@ -49,6 +49,7 @@ public sealed partial class t_Item : t_ItemBase
         + "tradeValue:" + TradeValue + ","
         + "x:" + X + ","
         + "y:" + Y + ","
+        + "prefab:" + Prefab + ","
         + "}";
     }
 }

@@ -76,7 +76,7 @@ public class AIEntity : Entity
         m_AgentAnimations.Setup(m_AvatarRoot, m_SpriteRoot);
         
         m_AgentWeapon = gameObject.GetComponent<AgentWeapon>();
-        m_AgentWeapon.LoadWeapon(m_Weapon);
+        m_AgentWeapon.LoadEnemyWeapon(m_Weapon);
         m_AgentAbilities.UpdateWepAbility(m_AgentWeapon.WeaponCurrent().AbilityNormalAtk);
     }
 

@@ -14,7 +14,7 @@ public class Wep_CrossBow : Weapon
     [SerializeField] private Vector3 _RecoveryPosition;
     [SerializeField] private Vector3 _RecoveryRotation;
     
-    public override void Equiped(AgentWeapon agentWeapon)
+    public override void Equipped(AgentWeapon agentWeapon)
     {
         transform.SetParent(agentWeapon.transform);
         _CrossBow.SetParent(agentWeapon.FrontSlot());
@@ -125,6 +125,9 @@ public class Wep_CrossBow : Weapon
         
     }
     
-    
+    private void OnDestroy()
+    {
+        Destroy(_CrossBow.gameObject);
+    }
     
 }

@@ -29,6 +29,7 @@
 		<var name="tradeValue" type="int"/>
 		<var name="x" type="int" comment="水平占格"/>
 		<var name="y" type="int" comment="竖直占格"/>
+		<var name="prefab" type="string?"/>
 	</bean>
 	
 	<bean name="t_Item" parent="t_ItemBase" comment="道具类">

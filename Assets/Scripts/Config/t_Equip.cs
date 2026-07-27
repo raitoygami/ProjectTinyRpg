@@ -21,8 +21,6 @@ public sealed partial class t_Equip : t_ItemBase
     public t_Equip(JSONNode _buf)  : base(_buf) 
     {
         { if(!_buf["equipType"].IsNumber) { throw new SerializationException(); }  EquipType = (EquipType)_buf["equipType"].AsInt; }
-        { var _j = _buf["equipment"]; if (_j.Tag != JSONNodeType.None && _j.Tag != JSONNodeType.NullValue) { { if(!_j.IsString) { throw new SerializationException(); }  Equipment = _j; } } else { Equipment = null; } }
-        { var __json0 = _buf["attrModifier"]; if(!__json0.IsArray) { throw new SerializationException(); } AttrModifier = new System.Collections.Generic.List<Defination.AttributeModifier>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { Defination.AttributeModifier __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = Defination.AttributeModifier.DeserializeAttributeModifier(__e0);  }  AttrModifier.Add(__v0); }   }
     }
 
     public static t_Equip Deserializet_Equip(JSONNode _buf)
@@ -31,11 +29,6 @@ public sealed partial class t_Equip : t_ItemBase
     }
 
     public readonly EquipType EquipType;
-    /// <summary>
-    /// 换装
-    /// </summary>
-    public readonly string Equipment;
-    public readonly System.Collections.Generic.List<Defination.AttributeModifier> AttrModifier;
    
     public const int __ID__ = -1636780923;
     public override int GetTypeId() => __ID__;
@@ -43,7 +36,6 @@ public sealed partial class t_Equip : t_ItemBase
     public override void ResolveRef(Tables tables)
     {
         base.ResolveRef(tables);
-        foreach (var _e in AttrModifier) { _e?.ResolveRef(tables); }
     }
 
     public override string ToString()
@@ -59,9 +51,8 @@ public sealed partial class t_Equip : t_ItemBase
         + "tradeValue:" + TradeValue + ","
         + "x:" + X + ","
         + "y:" + Y + ","
+        + "prefab:" + Prefab + ","
         + "equipType:" + EquipType + ","
-        + "equipment:" + Equipment + ","
-        + "attrModifier:" + Luban.StringUtil.CollectionToString(AttrModifier) + ","
         + "}";
     }
 }

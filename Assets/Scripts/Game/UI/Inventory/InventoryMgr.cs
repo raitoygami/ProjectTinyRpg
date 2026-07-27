@@ -13,7 +13,7 @@ public partial class GameState
 
 }
 
-public class InventoryManager : Singleton<InventoryManager> // 使用 Odin 序列化字典
+public class InventoryMgr : Singleton<InventoryMgr> // 使用 Odin 序列化字典
 {
     // persist
     private GameState.InventoryState RuntimeData => Persist.Instance.GetState().Inventory;

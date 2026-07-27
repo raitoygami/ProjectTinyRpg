@@ -18,12 +18,12 @@ public class ItemStack
     /// <summary>当前堆叠数量（不超过 <see cref="GetMaxStackCount"/>）。</summary>
     public int Count = 1;
 
-    /// <summary>锚点格列（与 <see cref="TetrisPlacedPiece.Pivot"/>.x 一致）。</summary>
     public int PivotCol;
-
-    /// <summary>锚点格行（与 <see cref="TetrisPlacedPiece.Pivot"/>.y 一致）。装备占位等为 -1。</summary>
     public int PivotRow;
 
+    // 背包中的位置
+    public int Location;
+    
     /// <summary>可堆叠道具单格最大数量。</summary>
     public const int MaxStackableCount = 99;
 
@@ -47,7 +47,7 @@ public class ItemStack
     [JsonIgnore]
     public EquipType EquipType => GetEquipType();
     
-    private EquipType GetEquipType()
+    public EquipType GetEquipType()
     {
         var def = ConfigManager.Instance?.GetItemBase(ItemId);
         return def is t_Equip e? e.EquipType : default;
@@ -59,6 +59,12 @@ public class ItemStack
         return def?.Type ?? ItemType.None;
     }
 
+    public string GetItemAddressable()
+    {
+        var def = ConfigManager.Instance?.GetItemBase(ItemId);
+        return def?.Prefab;
+    }
+    
     public ItemRarity GetRarity()
     {
         var def = ConfigManager.Instance?.GetItemBase(ItemId);

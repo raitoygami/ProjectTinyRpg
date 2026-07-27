@@ -19,35 +19,23 @@ namespace cfg
         /// <summary>
         /// 主手
         /// </summary>
-        HandMain = 0,
-        /// <summary>
-        /// 副手
-        /// </summary>
-        HandOff = 1,
+        Weapon = 0,
         /// <summary>
         /// 头盔
         /// </summary>
-        Helmet = 2,
+        Helmet = 1,
+        /// <summary>
+        /// 护腿
+        /// </summary>
+        Mask = 2,
         /// <summary>
         /// 护甲
         /// </summary>
         Armor = 3,
         /// <summary>
-        /// 护腿
-        /// </summary>
-        Greaves = 4,
-        /// <summary>
         /// 鞋子
         /// </summary>
-        Boots = 5,
-        /// <summary>
-        /// 戒指
-        /// </summary>
-        Ring = 6,
-        /// <summary>
-        /// 项链
-        /// </summary>
-        Necklace = 7,
+        Boots = 4,
     }
 
 } 

@@ -243,6 +243,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacdf8f5ed1b9284e909c356ee1da5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wep_Sword
+  Type: 1
+  AbilityName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Icon: {fileID: 21300000, guid: 23ea29bf1c577a849a7c383f1236c460, type: 3}
   AbilityNormalAtk: {fileID: 11400000, guid: ad48c57482943ae43a4b72682b202378, type: 2}
   _WepSwordFront: {fileID: 1131001990494684461}
   _WepSwordBack: {fileID: 2125079660554025319}
@@ -258,6 +269,9 @@ MonoBehaviour:
   _AttackRotationFront: {x: 0, y: 0, z: -90}
   _AttackPositionBack: {x: -0.25, y: 0.25, z: 0}
   _AttackRotationBack: {x: 0, y: 0, z: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5809085767942158482
 GameObject:
   m_ObjectHideFlags: 0

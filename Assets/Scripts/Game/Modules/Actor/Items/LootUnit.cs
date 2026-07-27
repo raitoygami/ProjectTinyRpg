@@ -32,7 +32,7 @@ public class LootUnit : MonoBehaviour
     private readonly List<ItemStack> _stacks = new();
     private Sequence _mergePulseSequence;
 
-    /// <summary>与 <see cref="InventoryManager.AllocateItemStackUid"/> 同一规则，保证全场景堆叠 uid 唯一。</summary>
+    /// <summary>与 <see cref="InventoryMgr.AllocateItemStackUid"/> 同一规则，保证全场景堆叠 uid 唯一。</summary>
     public static long AllocateUidForNewStack(int itemId)
     {
         return UidGenerator.Generate(itemId);
@@ -148,7 +148,7 @@ public class LootUnit : MonoBehaviour
     public void Pickup(int index)
     {
         if (index < 0 || index >= _stacks.Count) return;
-        if (!InventoryManager.HasInstance())
+        if (!InventoryMgr.HasInstance())
         {
             DevLog.LogWarning("[Loot] Pickup failed: no_inventory_manager");
             return;
@@ -157,7 +157,7 @@ public class LootUnit : MonoBehaviour
         var stack = _stacks[index];
         if (stack == null || stack.IsEmpty) return;
 
-        if (!InventoryManager.Instance.TryAddItemStack(stack))
+        if (!InventoryMgr.Instance.TryAddItemStack(stack))
         {
             DevLog.LogWarning($"[Loot] Pickup failed: itemId={stack.ItemId} count={stack.Count}");
             return;

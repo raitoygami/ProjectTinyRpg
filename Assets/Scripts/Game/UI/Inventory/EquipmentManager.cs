@@ -1,19 +1,17 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using cfg;
-using UnityEngine;
 
 public partial class GameState
 {
+    public readonly EquipmentState Equipment = new ();
+
     [Serializable]
     public class EquipmentState
     {
         public Dictionary<long, ItemStack> ItemStacks = new();
     }
-    public EquipmentState Equipment = new ();
-
+    
 }
 
 public class EquipmentManager : Singleton<EquipmentManager>
@@ -66,22 +64,12 @@ public class EquipmentManager : Singleton<EquipmentManager>
     
     public bool RemoveItemStack(ItemStack holdItem)
     {
-        if (!RuntimeState.ItemStacks.ContainsKey(holdItem.Uid)) return false;
-        RuntimeState.ItemStacks.Remove(holdItem.Uid);
-        return true;
+        return RuntimeState.ItemStacks.Remove(holdItem.Uid);
     }
     
     public bool ReturnItemStackToOriginal(ItemStack item)
     {
-        if (!RuntimeState.ItemStacks.ContainsKey(item.Uid))
-            return false;
-
-        if (Occupied.ContainsKey(item.EquipType))
-            return false;
-
-        Occupied.Add(item.EquipType, item);
-        return true;
+        return RuntimeState.ItemStacks.ContainsKey(item.Uid) && Occupied.TryAdd(item.EquipType, item);
     }
-    
     
 }
