@@ -29,4 +29,10 @@ public class ConfigManager : Singleton<ConfigManager>
             return equip;
         return Tables.DataItem.GetOrDefault(itemId);
     }
+
+    public t_Drop GetDrop(int dropID)
+    {
+        return Tables?.DataDrop.GetOrDefault(dropID);
+    }
+    
 }

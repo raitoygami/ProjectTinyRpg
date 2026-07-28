@@ -77,14 +77,12 @@ public class ItemStack
     
     private int GetWidth()
     {
-        var def = ConfigManager.Instance?.GetItemBase(ItemId);
-        return def?.X ?? 0;
+        return 1;
     }
     
     private int GetHeight()
     {
-        var def = ConfigManager.Instance?.GetItemBase(ItemId);
-        return def?.Y ?? 0;
+        return 1;
     }
 
     public bool Stackable => IsStackable();
@@ -95,6 +93,12 @@ public class ItemStack
         return def != null && def.Stackable;
     }
 
+    public string GetIconAddressable()
+    {
+        var def = ConfigManager.Instance?.GetItemBase(ItemId);
+        return $"{def?.Icon}.png";
+    }
+    
     public int GetMaxStackCount()
     {
         return GetMaxStackCountForItemId(ItemId);

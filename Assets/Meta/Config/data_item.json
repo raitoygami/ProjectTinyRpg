@@ -7,9 +7,7 @@
     "rarity": 1,
     "icon": "/Game/UI/UIText/UI_TestIcon_3.UI_TestIcon_3",
     "stackable": true,
-    "tradeValue": 1,
-    "x": 1,
-    "y": 1
+    "tradeValue": 1
   },
   {
     "id": 110002,
@@ -19,9 +17,7 @@
     "rarity": 1,
     "icon": "/Game/UI/UIText/UI_TestIcon_1.UI_TestIcon_1",
     "stackable": true,
-    "tradeValue": 1,
-    "x": 1,
-    "y": 1
+    "tradeValue": 1
   },
   {
     "id": 110003,
@@ -31,9 +27,7 @@
     "rarity": 1,
     "icon": "/Game/UI/UIText/UI_TestIcon_2.UI_TestIcon_2",
     "stackable": true,
-    "tradeValue": 1,
-    "x": 1,
-    "y": 1
+    "tradeValue": 1
   },
   {
     "id": 110004,
@@ -43,9 +37,7 @@
     "rarity": 1,
     "icon": "/Game/UI/UIText/UI_TestIcon_1.UI_TestIcon_1",
     "stackable": true,
-    "tradeValue": 1,
-    "x": 1,
-    "y": 1
+    "tradeValue": 1
   },
   {
     "id": 110005,
@@ -55,9 +47,7 @@
     "rarity": 1,
     "icon": "/Game/UI/UIText/UI_TestIcon_1.UI_TestIcon_1",
     "stackable": true,
-    "tradeValue": 1,
-    "x": 1,
-    "y": 1
+    "tradeValue": 1
   },
   {
     "id": 110006,
@@ -67,9 +57,7 @@
     "rarity": 1,
     "icon": "Item/Sp_HealthPotion",
     "stackable": true,
-    "tradeValue": 1,
-    "x": 1,
-    "y": 1
+    "tradeValue": 1
   },
   {
     "id": 110007,
@@ -79,8 +67,6 @@
     "rarity": 1,
     "icon": "Item/Sp_ManaPotion",
     "stackable": true,
-    "tradeValue": 1,
-    "x": 1,
-    "y": 1
+    "tradeValue": 1
   }
 ]

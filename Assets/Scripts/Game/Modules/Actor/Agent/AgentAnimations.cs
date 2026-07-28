@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using JSAM;
@@ -37,16 +38,18 @@ public class AgentAnimations : MonoBehaviour
 
     private void OnDisable()
     {
-        KillAllTweens();
+        KillAllTween();
     }
 
     /// <summary>
     /// Kill all tweens on m_AnimationTarget and this gameObject, even if the target has been destroyed.
     /// </summary>
-    public void KillAllTweens()
+    public void KillAllTween()
     {
         if (m_AvatarTarget != null)
             m_AvatarTarget.DOKill();
+        if (m_SpriteRoot != null)
+            m_SpriteRoot.DOKill();
         DOTween.Kill(gameObject);
     }
 
@@ -328,5 +331,10 @@ public class AgentAnimations : MonoBehaviour
         transform.rotation = moveAnimation;
         
         m_SpriteRoot.transform.localScale = new Vector3(m_SpriteRoot.transform.localScale.x, idle, 1);
+    }
+
+    private void OnDestroy()
+    {
+        KillAllTween();
     }
 }

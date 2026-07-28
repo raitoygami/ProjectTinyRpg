@@ -92,11 +92,12 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   Icon: {fileID: 21300000, guid: 3233af8746f0f904e86ddf96bc22b3e7, type: 3}
+  WeaponTypeRequire: 0
   m_Range: 2
   m_SkillDisplayParam:
     rid: -2
   m_TargetMode: 2
-  m_CoolDown: 0
+  m_CoolDown: 1
   m_CostMP: 0
   m_CostSP: 0
   TreeRoot: {fileID: 5498850296569907920}

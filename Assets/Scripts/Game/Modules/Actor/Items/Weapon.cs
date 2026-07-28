@@ -15,13 +15,23 @@ public enum WeaponType
 
 public abstract class Weapon : MonoBehaviour
 {
-
     public WeaponType Type;
     
     [SerializeField] public LocalizedString AbilityName;
     [SerializeField] public Sprite Icon;
     
     public Ability AbilityNormalAtk;
+
+    private Ability _NormalAtk;
+    // 获取普通攻击实例, 普同攻击也可能有CD，切换武器的时候，也要保留武器的普通攻击状态,不能每次都实例化一个技能实体
+    public Ability GetNormalAtk()
+    {
+        if (_NormalAtk == null &&  AbilityNormalAtk != null)
+        {
+            _NormalAtk = Instantiate(AbilityNormalAtk);
+        }
+        return _NormalAtk;
+    }
     
     public virtual void Equipped(AgentWeapon agentWeapon)
     {

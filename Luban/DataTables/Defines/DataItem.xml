@@ -27,8 +27,6 @@
 		<var name="icon" type="string"/>
 		<var name="stackable" type="bool"/>
 		<var name="tradeValue" type="int"/>
-		<var name="x" type="int" comment="水平占格"/>
-		<var name="y" type="int" comment="竖直占格"/>
 		<var name="prefab" type="string?"/>
 	</bean>
 	

@@ -485,6 +485,7 @@ public class UIRoot : Singleton<UIRoot>
     public void OpenMainUI()
     {
         m_MainUI.gameObject.SetActive(true);
+        m_MainUI.OnRefresh();
     }
 
     public void CloseMainUI()

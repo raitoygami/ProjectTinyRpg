@@ -12,6 +12,11 @@ public partial class Player
 
     private bool keyboardInputEnabled;
 
+    // Update is called once per frame
+    private readonly RaycastHit2D[] hitBuffer = new RaycastHit2D[32];
+    
+    
+    
     private async UniTask OnPointerMoveEvt(InputManager.PointerMoveEvt t_Args)
     {
         // 背包拾起块：左键用于放下/丢弃，不绘制地面移动路径预览
@@ -42,6 +47,25 @@ public partial class Player
 
         var path = m_AgentMover.FindPath(targetGrid, Const.Layer.ObstacleForNavi);
         TileSelector.Instance.DrawPath(targetGrid, path is { Count: > 0 });
+        
+        // raycast for loot
+        var hitCount = Physics2D.RaycastNonAlloc(
+            hitPoint, // 起点（鼠标在世界空间中的位置）
+            Vector2.zero, // 方向（零向量表示检测该点处的所有碰撞体，相当于 Point 检测）
+            hitBuffer, // 缓存数组
+            100, // 最大检测距离（实际作用有限，因为方向为零）
+            Const.Layer.ForLootCover // 层遮罩
+        );
+        
+        _DropTarget?.Interactive(false);
+        _DropTarget = null;
+        if (hitCount > 0)
+        {
+            var hit = hitBuffer[0];
+            _DropTarget = hit.collider.GetComponent<DropItem>();
+            _DropTarget.Interactive(true);
+        }
+        
         await UniTask.CompletedTask;
     }
 
@@ -50,13 +74,9 @@ public partial class Player
         if (!GetPointerInput(out var hitPoint))
             return;
         var targetGrid = hitPoint.SnapToGrid();
-        if (_CoverTarget != null)
+        if (_DropTarget != null)
         {
-            var entity = _CoverTarget.GetComponent<Entity>();
-            if (entity != null && entity.GridPosition.Equals(targetGrid))
-            {
-                return;
-            }
+
         }
 
         // _lootUnitTarget = DropSystem.Instance.GetLootUnit(targetGrid);
@@ -83,16 +103,20 @@ public partial class Player
                 break;
             case 0:
 
-                TargetToLoot();
+                if (_DropTarget != null)
+                {
+                    _DropTarget.Pickup().Forget();
+                    _DropTarget = null;
+                    return;
+                }
 
                 if (_PreparingAbility && _AbilityPrepared != null)
                 {
-                    _ = ExecuteAbility(_AbilityPrepared);
+                    ExecuteAbility(_AbilityPrepared).Forget();
+                    return;
                 }
-                else
-                {
-                    _ = MovePathAsync();
-                }
+                
+                MovePathAsync().Forget();
 
                 break;
         }

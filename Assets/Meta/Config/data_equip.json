@@ -1,16 +1,39 @@
 [
   {
-    "id": 530001,
-    "name": 530001,
+    "id": 500001,
+    "name": 500001,
     "desc": 530001,
     "type": 3,
     "rarity": 1,
-    "icon": "Equip/Helmet/T_Helmet_001",
+    "icon": "Icons/Weapon/Sp_Icon_Weapon_Sword_01",
     "stackable": false,
     "tradeValue": 1,
-    "x": 2,
-    "y": 2,
-    "equipType": 1
+    "prefab": "Weapon/Wep_Sword_01",
+    "equipType": 0
+  },
+  {
+    "id": 500002,
+    "name": 500002,
+    "desc": 530003,
+    "type": 3,
+    "rarity": 1,
+    "icon": "Icons/Weapon/Sp_Icon_Weapon_CrossBow_01",
+    "stackable": false,
+    "tradeValue": 1,
+    "prefab": "Weapon/Wep_CrossBow_01",
+    "equipType": 0
+  },
+  {
+    "id": 500003,
+    "name": 500003,
+    "desc": 530003,
+    "type": 3,
+    "rarity": 1,
+    "icon": "Icons/Weapon/Sp_Icon_Weapon_Hammer_01",
+    "stackable": false,
+    "tradeValue": 1,
+    "prefab": "Weapon/Wep_CrossBow_01",
+    "equipType": 0
   },
   {
     "id": 540001,
@@ -21,8 +44,6 @@
     "icon": "Equip/Armor/T_Armor_001",
     "stackable": false,
     "tradeValue": 1,
-    "x": 2,
-    "y": 3,
     "equipType": 3
   },
   {
@@ -34,8 +55,6 @@
     "icon": "Equip/Armor/T_Armor_002",
     "stackable": false,
     "tradeValue": 1,
-    "x": 2,
-    "y": 3,
     "equipType": 2
   },
   {
@@ -47,8 +66,6 @@
     "icon": "Equip/Boots/T_Boots_001",
     "stackable": false,
     "tradeValue": 1,
-    "x": 2,
-    "y": 2,
     "equipType": 4
   }
 ]

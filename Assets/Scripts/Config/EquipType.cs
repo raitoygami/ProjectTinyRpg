@@ -17,7 +17,7 @@ namespace cfg
     public enum EquipType
     {
         /// <summary>
-        /// 主手
+        /// 武器
         /// </summary>
         Weapon = 0,
         /// <summary>
@@ -25,7 +25,7 @@ namespace cfg
         /// </summary>
         Helmet = 1,
         /// <summary>
-        /// 护腿
+        /// 面具
         /// </summary>
         Mask = 2,
         /// <summary>

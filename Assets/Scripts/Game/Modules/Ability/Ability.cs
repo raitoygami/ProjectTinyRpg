@@ -50,10 +50,20 @@ public partial class Ability : ScriptableObject
 
     private State _State = State.Inactive;
     private Entity _Onwer;
-    private int _CoolDown = 0;
+    private int _CoolDownRemaining = 0;
 
     private UniTaskCompletionSource<bool> _SelectionTask;
 
+    public int CoolDownRemaining()
+    {
+        return Mathf.Abs(_CoolDownRemaining - 1);
+    }
+    
+    public bool isSkillOnCooldown()
+    {
+        return _CoolDownRemaining > 0;
+    }
+    
     public int GetRange()
     {
         return m_Range;
@@ -84,9 +94,9 @@ public partial class Ability : ScriptableObject
 
     private UniTask OnTurn(TurnActor.TurnStartedEvent args)
     {
-        if (_CoolDown > 0)
+        if (_CoolDownRemaining > 0)
         {
-            _CoolDown--;
+            _CoolDownRemaining--;
         }
 
         return UniTask.CompletedTask;
@@ -157,7 +167,7 @@ public partial class Ability : ScriptableObject
             return _SelectionTask.Task;
         }
 
-        if (_CoolDown <= 0)
+        if (_CoolDownRemaining <= 0)
         {
             _State = State.Selection;
             _SelectionRange = TileSelector.Instance.Select(m_Range,_Onwer, t_ShowRange);
@@ -227,7 +237,7 @@ public partial class Ability : ScriptableObject
             return false;
         }
 
-        _CoolDown = m_CoolDown;
+        _CoolDownRemaining = m_CoolDown;
         _State = State.Inactive;
         _SelectionTask?.TrySetResult(result: true);
         _SelectionTask = null;

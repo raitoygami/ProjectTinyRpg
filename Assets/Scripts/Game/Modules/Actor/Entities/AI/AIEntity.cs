@@ -77,7 +77,7 @@ public class AIEntity : Entity
         
         m_AgentWeapon = gameObject.GetComponent<AgentWeapon>();
         m_AgentWeapon.LoadEnemyWeapon(m_Weapon);
-        m_AgentAbilities.UpdateWepAbility(m_AgentWeapon.WeaponCurrent().AbilityNormalAtk);
+        m_AgentAbilities.UpdateWepAbility(m_AgentWeapon.WeaponCurrent().GetNormalAtk());
     }
 
     protected override bool IsWalkable(PathCell cell, int goalX, int goalY)
@@ -176,7 +176,7 @@ public class AIEntity : Entity
     /// </summary>
     private void KillLocalTweensBeforeDestroy()
     {
-        m_AgentAnimations?.KillAllTweens();
+        m_AgentAnimations?.KillAllTween();
         if (m_AvatarRoot != null)
             m_AvatarRoot.DOKill(false);
         transform.DOKill(false);

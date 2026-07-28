@@ -26,7 +26,7 @@ public partial class Player : Entity
     // internal state
     private bool _InputAvailable;
     private bool _Controllable;
-    private GameObject _CoverTarget;
+    private DropItem _DropTarget;
     private bool onNextTurnSkipPlayerActions;
     private readonly Queue<Func<UniTask>> m_NextTurnEvt = new();
     protected void Awake()
@@ -56,8 +56,8 @@ public partial class Player : Entity
         m_AgentAbilities = gameObject.AddComponent<AgentAbilities>();
         m_AgentAnimations = gameObject.GetComponent<AgentAnimations>();
         m_AgentInteractive = gameObject.AddComponent<AgentInteractive>();
-        // 加载武器
-        this.Subscribe<AgentWeapon.WeaponChangeEvt>(OnWeaponChanged);
+        // 切换武器
+        this.Subscribe<AgentWeapon.EquippedWeaponChangeEvt>(OnWeaponChanged);
         
         Faction = EntityFaction.Player;
 
@@ -69,16 +69,18 @@ public partial class Player : Entity
     // 根据各种存档数据绑定
     public async UniTask Rebind()
     {
-       
-        await m_AgentWeapon.UpdateWeaponEquipped();
+        // 直接通过存档数据加载武器
+        var currWeaponUIDEquipped = PlayerManager.Instance.GetCurrWeaponUID(); // 默认-1
+        await m_AgentWeapon.SwapWeapon(0, currWeaponUIDEquipped);
     }
     
-    private UniTask OnWeaponChanged(AgentWeapon.WeaponChangeEvt arg)
+    private UniTask OnWeaponChanged(AgentWeapon.EquippedWeaponChangeEvt arg)
     {
         m_AgentAbilities.UpdateWepAbility(arg.WepNormalAtk);
+        // 全局消息 更新界面
+        this.PublishGlobal(arg);
         return UniTask.CompletedTask;
     }
-
 
     private Vector2 m_InputDirection = Vector2.zero;
 
@@ -111,7 +113,7 @@ public partial class Player : Entity
     private async UniTask OnTurnAction(TurnActor.TurnActionEvent arg)
     {
         ResetInput();
-
+        
         if (m_NextTurnEvt.Count > 0)
         {
             while (m_NextTurnEvt.Count > 0)
@@ -150,21 +152,6 @@ public partial class Player : Entity
             onNextTurnSkipPlayerActions = true;
         }
     }
-
-
-    private void CoverTarget(GameObject target, bool cover)
-    {
-        if (target == null)
-            return;
-
-        _CoverTarget = cover ? target : null;
-
-        if (target.GetComponentInParent<AgentAvatar>() != null)
-        {
-            target.GetComponentInParent<AgentAvatar>().Cover(cover);
-        }
-    }
-
 
     private void OnEnable()
     {
@@ -206,7 +193,6 @@ public partial class Player : Entity
             await UniTask.CompletedTask;
             return;
         }
-        Debug.Log("OnInventoryInputEvt");
         await UIRoot.Instance.Toggle(Const.KeyUI.Inventory);
     }
     

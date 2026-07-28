@@ -28,8 +28,6 @@ public abstract partial class t_ItemBase : Luban.BeanBase
         { if(!_buf["icon"].IsString) { throw new SerializationException(); }  Icon = _buf["icon"]; }
         { if(!_buf["stackable"].IsBoolean) { throw new SerializationException(); }  Stackable = _buf["stackable"]; }
         { if(!_buf["tradeValue"].IsNumber) { throw new SerializationException(); }  TradeValue = _buf["tradeValue"]; }
-        { if(!_buf["x"].IsNumber) { throw new SerializationException(); }  X = _buf["x"]; }
-        { if(!_buf["y"].IsNumber) { throw new SerializationException(); }  Y = _buf["y"]; }
         { var _j = _buf["prefab"]; if (_j.Tag != JSONNodeType.None && _j.Tag != JSONNodeType.NullValue) { { if(!_j.IsString) { throw new SerializationException(); }  Prefab = _j; } } else { Prefab = null; } }
     }
 
@@ -54,14 +52,6 @@ public abstract partial class t_ItemBase : Luban.BeanBase
     public readonly string Icon;
     public readonly bool Stackable;
     public readonly int TradeValue;
-    /// <summary>
-    /// 水平占格
-    /// </summary>
-    public readonly int X;
-    /// <summary>
-    /// 竖直占格
-    /// </summary>
-    public readonly int Y;
     public readonly string Prefab;
    
 
@@ -80,8 +70,6 @@ public abstract partial class t_ItemBase : Luban.BeanBase
         + "icon:" + Icon + ","
         + "stackable:" + Stackable + ","
         + "tradeValue:" + TradeValue + ","
-        + "x:" + X + ","
-        + "y:" + Y + ","
         + "prefab:" + Prefab + ","
         + "}";
     }

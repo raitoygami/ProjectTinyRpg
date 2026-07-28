@@ -11,35 +11,43 @@ public class AgentWeapon : MonoBehaviour
 
     [SerializeField] private Weapon _unarmedWeapon;
     
-    public class WeaponChangeEvt : EventArgs
+    public class EquippedWeaponChangeEvt : EventArgs
     {
+        public Weapon WeaponChanged;
         public Ability WepNormalAtk;
     }
 
     private Weapon _unarmedWeaponInst;
     private long _currentWeaponUID;
     private readonly Dictionary<long, Weapon> _weapons = new();
-    
-    public async UniTask UpdateWeaponEquipped()
-    {
-        
-        // 1: 武器
-        var lastWeaponUIDEquipped = PlayerManager.Instance.GetLastWeaponUID(); // 默认0
-        var currWeaponUIDEquipped = PlayerManager.Instance.GetCurrWeaponUID(); // 默认1
 
-        if (lastWeaponUIDEquipped == currWeaponUIDEquipped)
+    public Weapon GetWeaponActive()
+    {
+        return _weapons.GetValueOrDefault(_currentWeaponUID, null);
+    }
+    
+    // 
+    public async UniTask SwapWeapon(long lastEquippedWeaponUID, long currEquippedWeaponUID)
+    {
+        // 1: 武器
+        if (lastEquippedWeaponUID == currEquippedWeaponUID)
             return;
 
-        _currentWeaponUID = currWeaponUIDEquipped;
+        _currentWeaponUID = currEquippedWeaponUID;
         
         //  卸载上次的装备
-        if (_weapons.TryGetValue(lastWeaponUIDEquipped, out var lastWeapon))
+        if (_weapons.TryGetValue(lastEquippedWeaponUID, out var lastWeapon))
         {
             lastWeapon.Unequip(this);
         }
 
-        // 如果全部卸掉
-        if (currWeaponUIDEquipped == -1)
+        // 如果还有装备的武器，则返回false
+        if (!PlayerManager.Instance.SetCurrWeaponUID(currEquippedWeaponUID))
+            return;
+        
+        // 通过界面操作。把所有武器全部卸掉
+        // 
+        if (currEquippedWeaponUID == -1)
         {
             // 还没有实例化过赤手空拳
             if (_unarmedWeaponInst == null)
@@ -48,7 +56,7 @@ public class AgentWeapon : MonoBehaviour
                 _weapons.Add(-1, _unarmedWeaponInst);
             }
             _unarmedWeaponInst.Equipped(this);
-            await this.Publish(new WeaponChangeEvt() { WepNormalAtk = _unarmedWeaponInst.AbilityNormalAtk });
+            await this.Publish(new EquippedWeaponChangeEvt() { WepNormalAtk = _unarmedWeaponInst.GetNormalAtk(), WeaponChanged = _unarmedWeaponInst});
             return;
         }
         
@@ -62,7 +70,7 @@ public class AgentWeapon : MonoBehaviour
         if (_weapons.TryGetValue(currentWeapon.Uid, out var weapon))
         {
             weapon.Equipped(this);
-            await this.Publish(new WeaponChangeEvt() { WepNormalAtk = weapon.AbilityNormalAtk });
+            await this.Publish(new EquippedWeaponChangeEvt() { WepNormalAtk = weapon.GetNormalAtk(), WeaponChanged = weapon});
         }
         else
         {
@@ -72,7 +80,7 @@ public class AgentWeapon : MonoBehaviour
             var weaponInst =  Instantiate(handle.Result, transform).GetComponent<Weapon>() ;
             weaponInst.Equipped(this);
             _weapons.Add(currentWeapon.Uid, weaponInst);
-            await this.Publish(new WeaponChangeEvt() { WepNormalAtk = weaponInst.AbilityNormalAtk });
+            await this.Publish(new EquippedWeaponChangeEvt() { WepNormalAtk = weaponInst.GetNormalAtk(), WeaponChanged = weaponInst});
         }
         
         await UniTask.CompletedTask;

@@ -39,6 +39,8 @@ public class Game : Singleton<Game>
 
                 var preload = preloadHandle.Result;
                 
+                Context.Instance.Initialized();
+                
                 // 初始化相机
                 CameraManager.Instance.Initialized();
                 CameraManager.Instance.Setup(preload.mainCameraPrefab, preload.followCameraPrefab);
@@ -54,7 +56,7 @@ public class Game : Singleton<Game>
                 
                 await PreloadSettings.Instance.LoadSettings();
                 // 加载配置文件
-                var configJson = await LoadConfigJsonFromAddressablesAsync();
+                var configJson = await LoadConfigJsonFromAddressableAsync();
                 var tables = new cfg.Tables(file => configJson[file]);
                 ConfigManager.Instance.Init(tables);
                 
@@ -72,7 +74,7 @@ public class Game : Singleton<Game>
 
                 TetrisHandle.Instance.Initialized();
 
-                Context.Instance.Initialized();
+
                 
                 // 初始化UI
                 Instantiate(preload.uiRoot);
@@ -105,7 +107,7 @@ public class Game : Singleton<Game>
     /// <summary>
     /// 通过 Addressables 加载 Luban 导出的 JSON（与 Tables 中 loader 文件名一致：data_drop、data_entitys、data_item、data_equip、data_ai）。
     /// </summary>
-    private async UniTask<Dictionary<string, JSONNode>> LoadConfigJsonFromAddressablesAsync()
+    private async UniTask<Dictionary<string, JSONNode>> LoadConfigJsonFromAddressableAsync()
     {
         var names = new[] { "data_drop", "data_entitys", "data_item", "data_equip", "data_ai" };
         var map = new Dictionary<string, JSONNode>(names.Length);

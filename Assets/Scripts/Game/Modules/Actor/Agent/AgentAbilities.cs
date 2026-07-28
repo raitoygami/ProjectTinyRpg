@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class AgentAbilities : MonoBehaviour
@@ -11,31 +12,22 @@ public class AgentAbilities : MonoBehaviour
     }
 
     private readonly AbilityUpdateEvt _AbilityUpdateEvt = new();
-
-    private Ability UnArmedAbility;
     private Ability WepAbility;
 
     public List<Ability> Abilities = new();
-
+    
     public void UpdateWepAbility(Ability t_Ability)
     {
-        var instance = Instantiate(t_Ability);
         _AbilityUpdateEvt.Origin = WepAbility;
-        _AbilityUpdateEvt.Update = instance;
-        WepAbility = instance;
+        _AbilityUpdateEvt.Update = t_Ability;
+        WepAbility = t_Ability;
         WepAbility.SetOnwer(gameObject.GetComponent<Entity>());
         this.Publish(_AbilityUpdateEvt);
     }
 
-    public void SetUnArmedAbility(Ability t_Ability)
-    {
-        UnArmedAbility = Instantiate(t_Ability);
-        UnArmedAbility.SetOnwer(gameObject.GetComponent<Entity>());
-    }
-
     public Ability GetWepAbility()
     {
-        return WepAbility != null ? WepAbility : UnArmedAbility;
+        return WepAbility;
     }
 
     public bool GetTargets(Vector3 t_GridPosition, Ability t_Ability, ref List<Entity> t_Targets)
@@ -125,6 +117,9 @@ public class AgentAbilities : MonoBehaviour
         if (baseAttack == null || t_TargetLocation == null)
             return false;
 
+        if (baseAttack.isSkillOnCooldown())
+            return false;
+        
         var myNode = GetComponent<IPathNodeAgent>();
         if (myNode == null) return false;
 
