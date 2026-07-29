@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Localization;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
@@ -12,7 +13,6 @@ public class ToolTipUI : MonoBehaviour
     [SerializeField] private TMP_Text _Category;
 
     [SerializeField] private RectTransform _transform;
-
     private AsyncOperationHandle<Sprite> _iconHandle; // 关键：保存 handle
 
     private ItemStack _itemStack;
@@ -44,7 +44,7 @@ public class ToolTipUI : MonoBehaviour
                     Debug.LogError($"加载图标失败: {itemStack.GetIconAddressable()}");
             };
         }
-
+        
         _Name.text = itemStack.Name();
         _Category.text = itemStack.Category();
         

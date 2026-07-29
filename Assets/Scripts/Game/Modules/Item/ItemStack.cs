@@ -1,6 +1,7 @@
 using System;
 using cfg;
 using Newtonsoft.Json;
+using UnityEngine.Localization.Settings;
 
 /// <summary>
 /// 背包/存档中的道具堆（俄罗斯方块格摆放：<see cref="Uid"/>、锚点与 <see cref="Count"/>）。<br/>
@@ -43,23 +44,30 @@ public class ItemStack
         PivotCol = PivotCol,
         PivotRow = PivotRow
     };
-
+    
+    private string TableReference()
+    {
+        return IsEquip() ? Const.LocalizationTable.Equipment : Const.LocalizationTable.Item;
+    }
+    
     public string Name()
     {
         var def = ConfigManager.Instance?.GetItemBase(ItemId);
-        return def?.Name;
+        return LocalizationSettings.StringDatabase.GetLocalizedString(TableReference(), def?.Name);
     }
-
+    
     public string Description()
     {
         var def = ConfigManager.Instance?.GetItemBase(ItemId);
-        return def?.Desc;
+        return LocalizationSettings.StringDatabase.
+            GetLocalizedString(TableReference(), def?.Desc);
     }
 
     public string Category()
     {
         var def = ConfigManager.Instance?.GetItemBase(ItemId);
-        return def?.Category;
+        return LocalizationSettings.StringDatabase.
+            GetLocalizedString(TableReference(), def?.Category);
     }
     
     public bool IsEquip()

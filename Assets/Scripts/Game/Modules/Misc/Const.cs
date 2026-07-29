@@ -19,5 +19,11 @@ public static class Const
         public const string Overworld = "Overworld";
         public const string SettingPanel = "Settings";
     }
+
+    public static class LocalizationTable
+    {
+        public const string Equipment = "Equipment";
+        public const string Item =  "Item";
+    }
     
 }

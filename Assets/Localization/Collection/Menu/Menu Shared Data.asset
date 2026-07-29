@@ -27,10 +27,6 @@ MonoBehaviour:
     m_Key: Menu.ExitToMenu
     m_Metadata:
       m_Items: []
-  - m_Id: 43736362663936
-    m_Key: Menu.Option
-    m_Metadata:
-      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

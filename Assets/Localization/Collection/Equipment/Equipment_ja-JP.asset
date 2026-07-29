@@ -10,28 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Menu_zh-CN
+  m_Name: Equipment_ja-JP
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
   m_LocaleId:
-    m_Code: zh-CN
-  m_SharedData: {fileID: 11400000, guid: 36d721004ede22642bd1959d0a4f747f, type: 2}
+    m_Code: ja-JP
+  m_SharedData: {fileID: 11400000, guid: 4ce08faa7d85c4a499c09e34495b0249, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 6750486528
-    m_Localized: "\u5F00\u59CB\u6E38\u620F"
+  - m_Id: 149293907968
+    m_Localized: "\u666E\u901A\u306E\u77ED\u5263"
     m_Metadata:
       m_Items: []
-  - m_Id: 18445619707904
-    m_Localized: "\u7EE7\u7EED\u6E38\u620F"
+  - m_Id: 364465897472
+    m_Localized: "\u666E\u901A\u306E\u5F29\u77E2"
     m_Metadata:
       m_Items: []
-  - m_Id: 18445644873728
-    m_Localized: "\u9000\u51FA\u5230\u83DC\u5355"
+  - m_Id: 407704977408
+    m_Localized: "\u666E\u901A\u306E\u91CD\u69CC"
     m_Metadata:
       m_Items: []
-  - m_Id: 43736362663936
-    m_Localized: "\u8BBE\u7F6E"
+  - m_Id: 3059620790272
+    m_Localized: "\u5C04\u6483\u6B66\u5668"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2910446174208
+    m_Localized: "\u7247\u624B\u5263"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3299836968960
+    m_Localized: "\u4E21\u624B\u6B66\u5668"
     m_Metadata:
       m_Items: []
   references:
