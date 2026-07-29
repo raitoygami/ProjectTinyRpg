@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.EventSystems;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+
 
 public class InventoryPanel : MonoBehaviour, IItemIconOwner
 {
