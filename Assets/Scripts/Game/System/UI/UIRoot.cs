@@ -25,7 +25,7 @@ public class UIRoot : Singleton<UIRoot>
     public Camera GetUICamera() => UICamera;
 
     public MainUI m_MainUI;
-    
+    public ToolTipUI ToolTipUI;
     [SerializeField] private RectTransform _LayerCarry;
 
     [SerializeField] public UIDialogue Dialogue;
@@ -403,14 +403,14 @@ public class UIRoot : Singleton<UIRoot>
 
     public LootUI LootUI => GetPanel<LootUI>("Loot");
 
-    public async UniTask OpenLootPanel(LootUnit lootUnit)
+    /*public async UniTask OpenLootPanel(LootUnit lootUnit)
     {
         if (lootUnit == null)
             return;
         await Open("Loot");
         var lp = LootUI;
         //lp?.Open(lootUnit);
-    }
+    }*/
 
     public void CloseLootPanel()
     {

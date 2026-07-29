@@ -15,9 +15,7 @@ public class GamePreload : ScriptableObject
 
     public GameObject PlayerTemplate;
     public GameObject EnemyTemplate;
-
-    public LootUnit DropPrefab;
-
+    
     [Header("背包（俄罗斯方块数据层：总格位与列数；由运行时写入 InventoryModuleSave，不随 InventoryPanel UI 自动同步）")]
     [Tooltip("总格位数（如 8 列×4 行=32）。须与你在界面里摆的格子总数一致，由你自行对齐布局。")]
     public int InventorySlotCount = 32;

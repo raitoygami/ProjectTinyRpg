@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using JSAM;
-using SimpleJSON;
+using Luban;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -56,7 +56,7 @@ public class Game : Singleton<Game>
                 
                 await PreloadSettings.Instance.LoadSettings();
                 // 加载配置文件
-                var configJson = await LoadConfigJsonFromAddressableAsync();
+                var configJson = await ConfigManager.Instance.LoadConfigByteBufFromAddressableAsync();
                 var tables = new cfg.Tables(file => configJson[file]);
                 ConfigManager.Instance.Init(tables);
                 
@@ -66,15 +66,10 @@ public class Game : Singleton<Game>
                 EntityManager.Instance.SetEnemyPrefab(preload.EnemyTemplate);
 
                 TurnManager.Instance.Initialized();
-
-                InventoryMgr.Instance.Initialized();
+                
                 EquipmentManager.Instance.Initialized();
 
                 TileSelector.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
-
-                TetrisHandle.Instance.Initialized();
-
-
                 
                 // 初始化UI
                 Instantiate(preload.uiRoot);
@@ -104,28 +99,7 @@ public class Game : Singleton<Game>
         return UniTask.CompletedTask;
     }   
 
-    /// <summary>
-    /// 通过 Addressables 加载 Luban 导出的 JSON（与 Tables 中 loader 文件名一致：data_drop、data_entitys、data_item、data_equip、data_ai）。
-    /// </summary>
-    private async UniTask<Dictionary<string, JSONNode>> LoadConfigJsonFromAddressableAsync()
-    {
-        var names = new[] { "data_drop", "data_entitys", "data_item", "data_equip", "data_ai" };
-        var map = new Dictionary<string, JSONNode>(names.Length);
-        foreach (var n in names)
-        {
-            var address = $"Config/{n}.json";
-            var handle = Addressables.LoadAssetAsync<TextAsset>(address);
-            await handle;
-            if (handle.Status != AsyncOperationStatus.Succeeded || handle.Result == null)
-            {
-                Debug.LogError($"Addressables 加载配置失败: {address}");
-                throw new InvalidOperationException($"Failed to load config: {address}");
-            }
-            map[n] = JSON.Parse(handle.Result.text);
-            Addressables.Release(handle);
-        }
-        return map;
-    }
+
     
     private bool _isExiting = false;
     public async UniTask ExitToTitle()

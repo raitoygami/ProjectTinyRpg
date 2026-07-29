@@ -43,6 +43,30 @@ public class ItemStack
         PivotCol = PivotCol,
         PivotRow = PivotRow
     };
+
+    public string Name()
+    {
+        var def = ConfigManager.Instance?.GetItemBase(ItemId);
+        return def?.Name;
+    }
+
+    public string Description()
+    {
+        var def = ConfigManager.Instance?.GetItemBase(ItemId);
+        return def?.Desc;
+    }
+
+    public string Category()
+    {
+        var def = ConfigManager.Instance?.GetItemBase(ItemId);
+        return def?.Category;
+    }
+    
+    public bool IsEquip()
+    {
+        var def = ConfigManager.Instance?.GetItemBase(ItemId);
+        return def is t_Equip;
+    }
     
     [JsonIgnore]
     public EquipType EquipType => GetEquipType();
@@ -85,12 +109,10 @@ public class ItemStack
         return 1;
     }
 
-    public bool Stackable => IsStackable();
-    
-    public bool IsStackable()
+    public bool Stackable()
     {
         var def = ConfigManager.Instance?.GetItemBase(ItemId);
-        return def != null && def.Stackable;
+        return def is { Stackable: false };
     }
 
     public string GetIconAddressable()

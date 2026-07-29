@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,14 +17,14 @@ namespace cfg
 /// </summary>
 public sealed partial class AiParamsBase : Luban.BeanBase
 {
-    public AiParamsBase(JSONNode _buf) 
+    public AiParamsBase(ByteBuf _buf) 
     {
-        { if(!_buf["VisionRange"].IsNumber) { throw new SerializationException(); }  VisionRange = _buf["VisionRange"]; }
-        { if(!_buf["AggroRange"].IsNumber) { throw new SerializationException(); }  AggroRange = _buf["AggroRange"]; }
-        { if(!_buf["ThreatTime"].IsNumber) { throw new SerializationException(); }  ThreatTime = _buf["ThreatTime"]; }
+        VisionRange = _buf.ReadInt();
+        AggroRange = _buf.ReadInt();
+        ThreatTime = _buf.ReadInt();
     }
 
-    public static AiParamsBase DeserializeAiParamsBase(JSONNode _buf)
+    public static AiParamsBase DeserializeAiParamsBase(ByteBuf _buf)
     {
         return new AiParamsBase(_buf);
     }

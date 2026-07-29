@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg.Defination
@@ -18,14 +17,14 @@ namespace cfg.Defination
 /// </summary>
 public sealed partial class AttributeModifier : Luban.BeanBase
 {
-    public AttributeModifier(JSONNode _buf) 
+    public AttributeModifier(ByteBuf _buf) 
     {
-        { if(!_buf["T"].IsNumber) { throw new SerializationException(); }  T = (Defination.AttributeType)_buf["T"].AsInt; }
-        { if(!_buf["M"].IsNumber) { throw new SerializationException(); }  M = (Defination.AttributeModifierType)_buf["M"].AsInt; }
-        { if(!_buf["V"].IsNumber) { throw new SerializationException(); }  V = _buf["V"]; }
+        T = (Defination.AttributeType)_buf.ReadInt();
+        M = (Defination.AttributeModifierType)_buf.ReadInt();
+        V = _buf.ReadInt();
     }
 
-    public static AttributeModifier DeserializeAttributeModifier(JSONNode _buf)
+    public static AttributeModifier DeserializeAttributeModifier(ByteBuf _buf)
     {
         return new Defination.AttributeModifier(_buf);
     }

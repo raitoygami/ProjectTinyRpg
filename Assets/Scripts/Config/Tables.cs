@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 namespace cfg
 {
@@ -35,7 +34,7 @@ public partial class Tables
     /// </summary>
     public Data_AI DataAI {get; }
 
-    public Tables(System.Func<string, JSONNode> loader)
+    public Tables(System.Func<string, ByteBuf> loader)
     {
         DataDrop = new Data_Drop(loader("data_drop"));
         DataEntitys = new Data_Entitys(loader("data_entitys"));

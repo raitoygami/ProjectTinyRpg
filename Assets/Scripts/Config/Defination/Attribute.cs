@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg.Defination
@@ -18,25 +17,25 @@ namespace cfg.Defination
 /// </summary>
 public sealed partial class Attribute : Luban.BeanBase
 {
-    public Attribute(JSONNode _buf) 
+    public Attribute(ByteBuf _buf) 
     {
-        { if(!_buf["BaseAttack"].IsNumber) { throw new SerializationException(); }  BaseAttack = _buf["BaseAttack"]; }
-        { if(!_buf["Strength"].IsNumber) { throw new SerializationException(); }  Strength = _buf["Strength"]; }
-        { if(!_buf["Dexterity"].IsNumber) { throw new SerializationException(); }  Dexterity = _buf["Dexterity"]; }
-        { if(!_buf["Intelligence"].IsNumber) { throw new SerializationException(); }  Intelligence = _buf["Intelligence"]; }
-        { if(!_buf["Vitality"].IsNumber) { throw new SerializationException(); }  Vitality = _buf["Vitality"]; }
-        { if(!_buf["Health"].IsNumber) { throw new SerializationException(); }  Health = _buf["Health"]; }
-        { if(!_buf["Mana"].IsNumber) { throw new SerializationException(); }  Mana = _buf["Mana"]; }
-        { if(!_buf["CritChance"].IsNumber) { throw new SerializationException(); }  CritChance = _buf["CritChance"]; }
-        { if(!_buf["CritMultiplier"].IsNumber) { throw new SerializationException(); }  CritMultiplier = _buf["CritMultiplier"]; }
-        { if(!_buf["Armor"].IsNumber) { throw new SerializationException(); }  Armor = _buf["Armor"]; }
-        { if(!_buf["MagicResist"].IsNumber) { throw new SerializationException(); }  MagicResist = _buf["MagicResist"]; }
-        { if(!_buf["ArmorPenetration"].IsNumber) { throw new SerializationException(); }  ArmorPenetration = _buf["ArmorPenetration"]; }
-        { if(!_buf["MagicPenetration"].IsNumber) { throw new SerializationException(); }  MagicPenetration = _buf["MagicPenetration"]; }
-        { if(!_buf["Dodge"].IsNumber) { throw new SerializationException(); }  Dodge = _buf["Dodge"]; }
+        BaseAttack = _buf.ReadInt();
+        Strength = _buf.ReadInt();
+        Dexterity = _buf.ReadInt();
+        Intelligence = _buf.ReadInt();
+        Vitality = _buf.ReadInt();
+        Health = _buf.ReadInt();
+        Mana = _buf.ReadInt();
+        CritChance = _buf.ReadInt();
+        CritMultiplier = _buf.ReadInt();
+        Armor = _buf.ReadInt();
+        MagicResist = _buf.ReadInt();
+        ArmorPenetration = _buf.ReadInt();
+        MagicPenetration = _buf.ReadInt();
+        Dodge = _buf.ReadInt();
     }
 
-    public static Attribute DeserializeAttribute(JSONNode _buf)
+    public static Attribute DeserializeAttribute(ByteBuf _buf)
     {
         return new Defination.Attribute(_buf);
     }

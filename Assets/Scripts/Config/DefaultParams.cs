@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,12 +17,12 @@ namespace cfg
 /// </summary>
 public sealed partial class DefaultParams : AiStrategyParams
 {
-    public DefaultParams(JSONNode _buf)  : base(_buf) 
+    public DefaultParams(ByteBuf _buf)  : base(_buf) 
     {
-        { if(!_buf["ChaseTiredDuration"].IsNumber) { throw new SerializationException(); }  ChaseTiredDuration = _buf["ChaseTiredDuration"]; }
+        ChaseTiredDuration = _buf.ReadInt();
     }
 
-    public static DefaultParams DeserializeDefaultParams(JSONNode _buf)
+    public static DefaultParams DeserializeDefaultParams(ByteBuf _buf)
     {
         return new DefaultParams(_buf);
     }

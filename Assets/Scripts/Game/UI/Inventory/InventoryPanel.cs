@@ -16,6 +16,8 @@ public class InventoryPanel : MonoBehaviour
     [SerializeField] private List<Transform> _InventorySlots = new();
     private readonly Dictionary<int, ItemIconObj> itemNodeMap = new();
     
+    [SerializeField] private ToolTipPanel _ToolTipPanel;
+    
     private void Awake()
     {
         this.SubscribeGlobal<DropItem.PickupItemEvt>(OnPickupItem);

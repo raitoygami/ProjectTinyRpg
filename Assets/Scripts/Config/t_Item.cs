@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,11 +17,11 @@ namespace cfg
 /// </summary>
 public sealed partial class t_Item : t_ItemBase
 {
-    public t_Item(JSONNode _buf)  : base(_buf) 
+    public t_Item(ByteBuf _buf)  : base(_buf) 
     {
     }
 
-    public static t_Item Deserializet_Item(JSONNode _buf)
+    public static t_Item Deserializet_Item(ByteBuf _buf)
     {
         return new t_Item(_buf);
     }
@@ -41,6 +40,7 @@ public sealed partial class t_Item : t_ItemBase
         return "{ "
         + "id:" + Id + ","
         + "name:" + Name + ","
+        + "category:" + Category + ","
         + "desc:" + Desc + ","
         + "type:" + Type + ","
         + "rarity:" + Rarity + ","

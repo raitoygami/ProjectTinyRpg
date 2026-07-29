@@ -20,8 +20,9 @@
 	
 	<bean name="t_ItemBase" comment="道具基类">
 		<var name="id" type="int" comment="道具id"/>
-		<var name="name" type="int"/>
-		<var name="desc" type="int"/>
+		<var name="name" type="string"/>
+		<var name="category" type="string"/>
+		<var name="desc" type="string"/>
 		<var name="type" type="ItemType"/>
 		<var name="rarity" type="ItemRarity"/>
 		<var name="icon" type="string"/>

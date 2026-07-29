@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,16 +17,16 @@ namespace cfg
 /// </summary>
 public abstract partial class AiStrategyParams : Luban.BeanBase
 {
-    public AiStrategyParams(JSONNode _buf) 
+    public AiStrategyParams(ByteBuf _buf) 
     {
     }
 
-    public static AiStrategyParams DeserializeAiStrategyParams(JSONNode _buf)
+    public static AiStrategyParams DeserializeAiStrategyParams(ByteBuf _buf)
     {
-        switch ((string)_buf["$type"])
+        switch (_buf.ReadInt())
         {
-            case "DefaultParams": return new DefaultParams(_buf);
-            case "Summon1Params": return new Summon1Params(_buf);
+            case DefaultParams.__ID__: return new DefaultParams(_buf);
+            case Summon1Params.__ID__: return new Summon1Params(_buf);
             default: throw new SerializationException();
         }
     }

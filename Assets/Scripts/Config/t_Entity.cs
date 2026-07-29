@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,20 +17,20 @@ namespace cfg
 /// </summary>
 public sealed partial class t_Entity : Luban.BeanBase
 {
-    public t_Entity(JSONNode _buf) 
+    public t_Entity(ByteBuf _buf) 
     {
-        { if(!_buf["id"].IsNumber) { throw new SerializationException(); }  Id = _buf["id"]; }
-        { if(!_buf["name"].IsNumber) { throw new SerializationException(); }  Name = _buf["name"]; }
-        { if(!_buf["desc"].IsNumber) { throw new SerializationException(); }  Desc = _buf["desc"]; }
-        { if(!_buf["type"].IsNumber) { throw new SerializationException(); }  Type = (EntityType)_buf["type"].AsInt; }
-        { if(!_buf["addressable"].IsString) { throw new SerializationException(); }  Addressable = _buf["addressable"]; }
-        { if(!_buf["attr"].IsObject) { throw new SerializationException(); }  Attr = Defination.Attribute.DeserializeAttribute(_buf["attr"]);  }
-        { var __json0 = _buf["abilities"]; if(!__json0.IsArray) { throw new SerializationException(); } Abilities = new System.Collections.Generic.List<string>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { string __v0;  { if(!__e0.IsString) { throw new SerializationException(); }  __v0 = __e0; }  Abilities.Add(__v0); }   }
-        { var _j = _buf["drop_id"]; if (_j.Tag != JSONNodeType.None && _j.Tag != JSONNodeType.NullValue) { { if(!_j.IsNumber) { throw new SerializationException(); }  DropId = _j; } } else { DropId = null; } }
-        { var _j = _buf["ai_id"]; if (_j.Tag != JSONNodeType.None && _j.Tag != JSONNodeType.NullValue) { { if(!_j.IsNumber) { throw new SerializationException(); }  AiId = _j; } } else { AiId = null; } }
+        Id = _buf.ReadInt();
+        Name = _buf.ReadInt();
+        Desc = _buf.ReadInt();
+        Type = (EntityType)_buf.ReadInt();
+        Addressable = _buf.ReadString();
+        Attr = Defination.Attribute.DeserializeAttribute(_buf);
+        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);Abilities = new System.Collections.Generic.List<string>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { string _e0;  _e0 = _buf.ReadString(); Abilities.Add(_e0);}}
+        if(_buf.ReadBool()){ DropId = _buf.ReadInt(); } else { DropId = null; }
+        if(_buf.ReadBool()){ AiId = _buf.ReadInt(); } else { AiId = null; }
     }
 
-    public static t_Entity Deserializet_Entity(JSONNode _buf)
+    public static t_Entity Deserializet_Entity(ByteBuf _buf)
     {
         return new t_Entity(_buf);
     }

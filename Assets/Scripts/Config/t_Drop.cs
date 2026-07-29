@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,14 +17,14 @@ namespace cfg
 /// </summary>
 public sealed partial class t_Drop : Luban.BeanBase
 {
-    public t_Drop(JSONNode _buf) 
+    public t_Drop(ByteBuf _buf) 
     {
-        { if(!_buf["drop_id"].IsNumber) { throw new SerializationException(); }  DropId = _buf["drop_id"]; }
-        { if(!_buf["darity"].IsNumber) { throw new SerializationException(); }  Darity = _buf["darity"]; }
-        { var __json0 = _buf["drops"]; if(!__json0.IsArray) { throw new SerializationException(); } Drops = new System.Collections.Generic.List<Drop>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { Drop __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = Drop.DeserializeDrop(__e0);  }  Drops.Add(__v0); }   }
+        DropId = _buf.ReadInt();
+        Darity = _buf.ReadInt();
+        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);Drops = new System.Collections.Generic.List<Drop>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Drop _e0;  _e0 = Drop.DeserializeDrop(_buf); Drops.Add(_e0);}}
     }
 
-    public static t_Drop Deserializet_Drop(JSONNode _buf)
+    public static t_Drop Deserializet_Drop(ByteBuf _buf)
     {
         return new t_Drop(_buf);
     }

@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,12 +17,12 @@ namespace cfg
 /// </summary>
 public sealed partial class Summon1Params : AiStrategyParams
 {
-    public Summon1Params(JSONNode _buf)  : base(_buf) 
+    public Summon1Params(ByteBuf _buf)  : base(_buf) 
     {
-        { if(!_buf["FollowDistance"].IsNumber) { throw new SerializationException(); }  FollowDistance = _buf["FollowDistance"]; }
+        FollowDistance = _buf.ReadInt();
     }
 
-    public static Summon1Params DeserializeSummon1Params(JSONNode _buf)
+    public static Summon1Params DeserializeSummon1Params(ByteBuf _buf)
     {
         return new Summon1Params(_buf);
     }

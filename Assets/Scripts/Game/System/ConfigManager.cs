@@ -1,4 +1,11 @@
+using System;
+using System.Collections.Generic;
 using cfg;
+using Cysharp.Threading.Tasks;
+using Luban;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
 /// 全局 Luban 配置表入口；在 <see cref="Game"/> 加载完 JSON 后 <see cref="Init"/> 一次。
@@ -33,6 +40,37 @@ public class ConfigManager : Singleton<ConfigManager>
     public t_Drop GetDrop(int dropID)
     {
         return Tables?.DataDrop.GetOrDefault(dropID);
+    }
+    
+    /// <summary>
+    /// 通过 Addressables 异步加载 Luban 导出的 .bytes 二进制文件
+    /// </summary>
+    public async UniTask<Dictionary<string, ByteBuf>> LoadConfigByteBufFromAddressableAsync()
+    {
+        var names = new[] { "data_drop", "data_entitys", "data_item", "data_equip", "data_ai" };
+        var map = new Dictionary<string, ByteBuf>(names.Length);
+
+        foreach (var n in names)
+        {
+            var address = $"Config/{n}.bytes";   // 注意后缀改为 .bytes
+            var handle = Addressables.LoadAssetAsync<TextAsset>(address);
+        
+            await handle.Task;   // 推荐使用 .Task
+
+            if (handle.Status != AsyncOperationStatus.Succeeded || handle.Result == null)
+            {
+                Debug.LogError($"Addressables 加载配置失败: {address}");
+                Addressables.Release(handle);
+                throw new InvalidOperationException($"Failed to load config: {address}");
+            }
+
+            // 关键修改：把 TextAsset 的 bytes 包装成 ByteBuf
+            map[n] = new ByteBuf(handle.Result.bytes);
+
+            Addressables.Release(handle);
+        }
+
+        return map;
     }
     
 }

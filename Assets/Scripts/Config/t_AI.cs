@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,15 +17,15 @@ namespace cfg
 /// </summary>
 public sealed partial class t_AI : Luban.BeanBase
 {
-    public t_AI(JSONNode _buf) 
+    public t_AI(ByteBuf _buf) 
     {
-        { if(!_buf["id"].IsNumber) { throw new SerializationException(); }  Id = _buf["id"]; }
-        { if(!_buf["aiParamsBase"].IsObject) { throw new SerializationException(); }  AiParamsBase = AiParamsBase.DeserializeAiParamsBase(_buf["aiParamsBase"]);  }
-        { if(!_buf["aiPattern"].IsNumber) { throw new SerializationException(); }  AiPattern = (AiPattern)_buf["aiPattern"].AsInt; }
-        { if(!_buf["strategyParams"].IsObject) { throw new SerializationException(); }  StrategyParams = AiStrategyParams.DeserializeAiStrategyParams(_buf["strategyParams"]);  }
+        Id = _buf.ReadInt();
+        AiParamsBase = AiParamsBase.DeserializeAiParamsBase(_buf);
+        AiPattern = (AiPattern)_buf.ReadInt();
+        StrategyParams = AiStrategyParams.DeserializeAiStrategyParams(_buf);
     }
 
-    public static t_AI Deserializet_AI(JSONNode _buf)
+    public static t_AI Deserializet_AI(ByteBuf _buf)
     {
         return new t_AI(_buf);
     }

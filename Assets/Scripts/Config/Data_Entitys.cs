@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -21,15 +20,15 @@ public partial class Data_Entitys
     private readonly System.Collections.Generic.Dictionary<int, t_Entity> _dataMap;
     private readonly System.Collections.Generic.List<t_Entity> _dataList;
     
-    public Data_Entitys(JSONNode _buf)
+    public Data_Entitys(ByteBuf _buf)
     {
         _dataMap = new System.Collections.Generic.Dictionary<int, t_Entity>();
         _dataList = new System.Collections.Generic.List<t_Entity>();
         
-        foreach(JSONNode _ele in _buf.Children)
+        for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
             t_Entity _v;
-            { if(!_ele.IsObject) { throw new SerializationException(); }  _v = t_Entity.Deserializet_Entity(_ele);  }
+            _v = t_Entity.Deserializet_Entity(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }

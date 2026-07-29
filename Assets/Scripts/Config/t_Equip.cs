@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,12 +17,12 @@ namespace cfg
 /// </summary>
 public sealed partial class t_Equip : t_ItemBase
 {
-    public t_Equip(JSONNode _buf)  : base(_buf) 
+    public t_Equip(ByteBuf _buf)  : base(_buf) 
     {
-        { if(!_buf["equipType"].IsNumber) { throw new SerializationException(); }  EquipType = (EquipType)_buf["equipType"].AsInt; }
+        EquipType = (EquipType)_buf.ReadInt();
     }
 
-    public static t_Equip Deserializet_Equip(JSONNode _buf)
+    public static t_Equip Deserializet_Equip(ByteBuf _buf)
     {
         return new t_Equip(_buf);
     }
@@ -43,6 +42,7 @@ public sealed partial class t_Equip : t_ItemBase
         return "{ "
         + "id:" + Id + ","
         + "name:" + Name + ","
+        + "category:" + Category + ","
         + "desc:" + Desc + ","
         + "type:" + Type + ","
         + "rarity:" + Rarity + ","

@@ -20,15 +20,7 @@ public partial class Player
     private async UniTask OnPointerMoveEvt(InputManager.PointerMoveEvt t_Args)
     {
         // 背包拾起块：左键用于放下/丢弃，不绘制地面移动路径预览
-        if (TetrisHandle.Instance.IsDragging())
-        {
-            if (TileSelector.HasInstance())
-            {
-                TileSelector.Instance.ClearPath();
-                TileSelector.Instance.HideSkillRangePreview();
-            }
-            return;
-        }
+
 
         // 勿在此调用 IsPointerOverGameObject()：本方法由 Input 事件链触发，该 API 会读上一帧 UI 状态并报警告。
         // 指针在 UI 上时的 ClearPath 由 Player.Update 里的 DoNotClickUIAndGameAtSameTime 处理。
@@ -88,8 +80,8 @@ public partial class Player
             return;
         
         // 拾起背包块时左键由 InventoryTetris 全局处理（放下/丢弃），不应触发地面寻路与移动
-        if (arg.mouseIndex == 0 && TetrisHandle.Instance.IsDragging())
-            return;
+        /*if (arg.mouseIndex == 0 && TetrisHandle.Instance.IsDragging())
+            return;*/
 
         switch (arg.mouseIndex)
         {

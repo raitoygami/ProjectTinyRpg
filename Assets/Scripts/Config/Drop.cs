@@ -8,22 +8,21 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
 {
 public sealed partial class Drop : Luban.BeanBase
 {
-    public Drop(JSONNode _buf) 
+    public Drop(ByteBuf _buf) 
     {
-        { if(!_buf["item_id"].IsNumber) { throw new SerializationException(); }  ItemId = _buf["item_id"]; }
-        { if(!_buf["min"].IsNumber) { throw new SerializationException(); }  Min = _buf["min"]; }
-        { if(!_buf["max"].IsNumber) { throw new SerializationException(); }  Max = _buf["max"]; }
-        { if(!_buf["chance"].IsNumber) { throw new SerializationException(); }  Chance = _buf["chance"]; }
+        ItemId = _buf.ReadInt();
+        Min = _buf.ReadInt();
+        Max = _buf.ReadInt();
+        Chance = _buf.ReadInt();
     }
 
-    public static Drop DeserializeDrop(JSONNode _buf)
+    public static Drop DeserializeDrop(ByteBuf _buf)
     {
         return new Drop(_buf);
     }

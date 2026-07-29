@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using SimpleJSON;
 
 
 namespace cfg
@@ -18,25 +17,26 @@ namespace cfg
 /// </summary>
 public abstract partial class t_ItemBase : Luban.BeanBase
 {
-    public t_ItemBase(JSONNode _buf) 
+    public t_ItemBase(ByteBuf _buf) 
     {
-        { if(!_buf["id"].IsNumber) { throw new SerializationException(); }  Id = _buf["id"]; }
-        { if(!_buf["name"].IsNumber) { throw new SerializationException(); }  Name = _buf["name"]; }
-        { if(!_buf["desc"].IsNumber) { throw new SerializationException(); }  Desc = _buf["desc"]; }
-        { if(!_buf["type"].IsNumber) { throw new SerializationException(); }  Type = (ItemType)_buf["type"].AsInt; }
-        { if(!_buf["rarity"].IsNumber) { throw new SerializationException(); }  Rarity = (ItemRarity)_buf["rarity"].AsInt; }
-        { if(!_buf["icon"].IsString) { throw new SerializationException(); }  Icon = _buf["icon"]; }
-        { if(!_buf["stackable"].IsBoolean) { throw new SerializationException(); }  Stackable = _buf["stackable"]; }
-        { if(!_buf["tradeValue"].IsNumber) { throw new SerializationException(); }  TradeValue = _buf["tradeValue"]; }
-        { var _j = _buf["prefab"]; if (_j.Tag != JSONNodeType.None && _j.Tag != JSONNodeType.NullValue) { { if(!_j.IsString) { throw new SerializationException(); }  Prefab = _j; } } else { Prefab = null; } }
+        Id = _buf.ReadInt();
+        Name = _buf.ReadString();
+        Category = _buf.ReadString();
+        Desc = _buf.ReadString();
+        Type = (ItemType)_buf.ReadInt();
+        Rarity = (ItemRarity)_buf.ReadInt();
+        Icon = _buf.ReadString();
+        Stackable = _buf.ReadBool();
+        TradeValue = _buf.ReadInt();
+        if(_buf.ReadBool()){ Prefab = _buf.ReadString(); } else { Prefab = null; }
     }
 
-    public static t_ItemBase Deserializet_ItemBase(JSONNode _buf)
+    public static t_ItemBase Deserializet_ItemBase(ByteBuf _buf)
     {
-        switch ((string)_buf["$type"])
+        switch (_buf.ReadInt())
         {
-            case "t_Equip": return new t_Equip(_buf);
-            case "t_Item": return new t_Item(_buf);
+            case t_Equip.__ID__: return new t_Equip(_buf);
+            case t_Item.__ID__: return new t_Item(_buf);
             default: throw new SerializationException();
         }
     }
@@ -45,8 +45,9 @@ public abstract partial class t_ItemBase : Luban.BeanBase
     /// 道具id
     /// </summary>
     public readonly int Id;
-    public readonly int Name;
-    public readonly int Desc;
+    public readonly string Name;
+    public readonly string Category;
+    public readonly string Desc;
     public readonly ItemType Type;
     public readonly ItemRarity Rarity;
     public readonly string Icon;
@@ -64,6 +65,7 @@ public abstract partial class t_ItemBase : Luban.BeanBase
         return "{ "
         + "id:" + Id + ","
         + "name:" + Name + ","
+        + "category:" + Category + ","
         + "desc:" + Desc + ","
         + "type:" + Type + ","
         + "rarity:" + Rarity + ","
