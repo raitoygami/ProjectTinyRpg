@@ -55,7 +55,8 @@ public class DropItem : MonoBehaviour
             return;
         }
 
-        if (PlayerManager.Instance.TryAddItemStack(_ItemID, _Amount, out var itemStack))
+        var result = PlayerManager.Instance.TryAddItemStackToInventory(_ItemID, _Amount, out var itemStack);
+        if (result is PlayerManager.AddItemStackToInventoryResult.SuccessNewInstance or PlayerManager.AddItemStackToInventoryResult.SuccessStacked)
         {
             AudioManager.PlaySound(GameAudioSounds.Sfx_Common_Pickup);
             await this.PublishGlobal(new PickupItemEvt(){ItemStack = itemStack});

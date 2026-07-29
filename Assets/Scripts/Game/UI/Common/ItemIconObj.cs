@@ -6,14 +6,36 @@ using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
-public class ItemIconObj : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ItemIconObj : MonoBehaviour, 
+    IPointerEnterHandler, 
+    IPointerExitHandler,
+    
+    IPointerClickHandler, 
+    IBeginDragHandler,              // 新增：开始拖拽
+    IDragHandler,                   // 新增：拖拽中
+    IEndDragHandler                 // 新增：拖拽结束
 {
     [SerializeField] private Image _icon;
     [SerializeField] private TMP_Text _amount;
     private AsyncOperationHandle<Sprite> _iconHandle; // 关键：保存 handle
-
+    private IItemIconOwner _Owner;
     private ItemStack _itemStack;
 
+    public IItemIconOwner GetOwner()
+    {
+        return _Owner;
+    }
+
+    public void SetOwner(IItemIconOwner owner)
+    {
+        _Owner = owner;
+    }
+
+    public ItemStack GetItemStack()
+    {
+        return  _itemStack;
+    }
+    
     public void SetItemStack(ItemStack itemStack)
     {
         if (_itemStack != itemStack)
@@ -43,7 +65,6 @@ public class ItemIconObj : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         _itemStack = itemStack;
     }
-
 
     private Coroutine _showCoroutine;
     private const float _showTipDelay = 0.3f;
@@ -101,4 +122,46 @@ public class ItemIconObj : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         var size = GetComponent<RectTransform>().sizeDelta;
         return localPos - new Vector2(size.x * 0.5f, 0);
     }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        PhysicsUtil.SetRaycastTargetRecursively(gameObject, false);
+        UIRoot.Instance.ToolTipUI?.HideTip();
+        DragManager.Instance.OnBeginDrag(eventData, this);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        DragManager.Instance.OnDrag(eventData, this);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        DragManager.Instance.OnEndDrag(eventData, this);
+        PhysicsUtil.SetRaycastTargetRecursively(gameObject, true);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            
+        }
+    }
+
+    public void Discard()
+    {
+        _Owner?.Discard(this);
+    }
+
+    public bool RemoveFromOwner()
+    {
+        return _Owner.TryRemove(this);
+    }
+
+    public void Restore()
+    {
+        
+    }
+    
 }

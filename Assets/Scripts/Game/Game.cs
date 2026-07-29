@@ -98,8 +98,6 @@ public class Game : Singleton<Game>
         UIRoot.Instance.CloseMainUI();
         return UniTask.CompletedTask;
     }   
-
-
     
     private bool _isExiting = false;
     public async UniTask ExitToTitle()
