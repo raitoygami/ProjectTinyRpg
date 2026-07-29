@@ -112,7 +112,7 @@ public class ItemStack
     public bool Stackable()
     {
         var def = ConfigManager.Instance?.GetItemBase(ItemId);
-        return def is { Stackable: false };
+        return def is { Stackable: true };
     }
 
     public string GetIconAddressable()
