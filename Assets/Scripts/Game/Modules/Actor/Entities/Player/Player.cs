@@ -48,6 +48,8 @@ public partial class Player : Entity
         this.SubscribeInput<InputManager.SkipEvt>(OnSkipTurn);
 
         this.SubscribeGlobal<EnterCombatEvt>(OnEnterCombatEvt);
+
+        this.SubscribeGlobal<DragManager.DragItemIconFinishEvt>(OnItemChanged);
         
         m_TurnActor = gameObject.AddComponent<TurnActor>();
         m_AgentStats = gameObject.AddComponent<AgentStats>();
@@ -66,13 +68,18 @@ public partial class Player : Entity
         EntityManager.Register(this);
     }
 
+    private async UniTask OnItemChanged(DragManager.DragItemIconFinishEvt arg)
+    {
+        await RebindWeapon();
+    }
+
     // 根据各种存档数据绑定
     public async UniTask Rebind()
     {
         await RebindWeapon();
     }
 
-    public async UniTask RebindWeapon()
+    private async UniTask RebindWeapon()
     {
         // 直接通过存档数据加载武器
         var currWeaponUIDEquipped = PlayerManager.Instance.GetCurrWeaponUID(); // 默认-1

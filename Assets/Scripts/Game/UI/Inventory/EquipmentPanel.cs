@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,6 +10,25 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
     [SerializeField] private ItemIconObj _itemIconTemplate;
     [SerializeField] private List<Transform> _EquipmentSlots = new();
     private readonly Dictionary<int, ItemIconObj> itemNodeMap = new();
+    [SerializeField] private GameObject _equipActiveVfx;
+
+    private void Awake()
+    {
+        this.SubscribeGlobal<DragManager.DragItemIconFinishEvt>(OnItemChanged);
+    }
+
+    private UniTask OnItemChanged(DragManager.DragItemIconFinishEvt arg)
+    {
+        var location = PlayerManager.Instance.GetCurrWeaponLocation();
+        _equipActiveVfx.gameObject.SetActive(location != -1);
+
+        if (location != -1)
+        {
+            _equipActiveVfx.transform.SetParent(_EquipmentSlots[location]);
+            _equipActiveVfx.transform.localPosition =  Vector3.zero;
+        }
+        return UniTask.CompletedTask;
+    }
 
     private void Start()
     {
@@ -37,6 +57,15 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
                 itemNodeMap.Add(itemStack.Location, iconObj);
             }
             iconObj.SetItemStack(itemStack);
+        }
+        
+        var location = PlayerManager.Instance.GetCurrWeaponLocation();
+        _equipActiveVfx.SetActive(location != -1);
+
+        if (location != -1)
+        {
+            _equipActiveVfx.transform.SetParent(_EquipmentSlots[location]);
+            _equipActiveVfx.transform.localPosition =  Vector3.zero;
         }
     }
     
@@ -150,7 +179,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
             itemIconObj.transform.SetParent(_EquipmentSlots[location]);
             itemIconObj.transform.localPosition = Vector3.zero;
             itemIconObj.SetOwner(this);
-            Debug.Log($"Try add by swap {itemIconObj.GetItemStack().Name()} - {itemIconObj.GetItemStack().Location} ");
+            // Debug.Log($"Try add by swap {itemIconObj.GetItemStack().Name()} - {itemIconObj.GetItemStack().Location} ");
             return true;
         }
         

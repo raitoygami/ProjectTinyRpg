@@ -237,7 +237,7 @@ public partial class PlayerManager
             );
     }
 
-    public long GetCurrWeaponLocation()
+    public int GetCurrWeaponLocation()
     {
         RefreshWeaponActive();
         return GetInventoryData().CurrentWeaponLocation;

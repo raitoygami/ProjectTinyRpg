@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,6 +6,13 @@ using UnityEngine.EventSystems;
 public class DragManager : Singleton<DragManager>
 {
 
+    public class DragItemIconFinishEvt : EventArgs
+    {
+        
+    }
+    private DragItemIconFinishEvt  _dragItemIconFinishEvt = new();
+    
+    
     public void OnBeginDrag(PointerEventData eventData, ItemIconObj itemIconObj)
     {
         var layer = UIRoot.Instance.GetLayerCarry();
@@ -35,10 +43,8 @@ public class DragManager : Singleton<DragManager>
                 eventData, 
                 (handler, data) => handler.OnDrop((PointerEventData)data, itemIconObj)
             );
-
-            // 重新绑定
-            Context.Instance.PlayerInst.RebindWeapon().Forget();
             
+            this.PublishGlobal(_dragItemIconFinishEvt);
             if (handled)
                 return;
         }
