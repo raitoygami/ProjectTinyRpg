@@ -58,8 +58,6 @@ public class Game : Singleton<Game>
 
             TurnManager.Instance.Initialized();
 
-            EquipmentManager.Instance.Initialized();
-
             TileSelector.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
 
             // 初始化UI
