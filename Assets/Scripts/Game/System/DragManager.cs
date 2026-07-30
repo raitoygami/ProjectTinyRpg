@@ -21,7 +21,23 @@ public class DragManager : Singleton<DragManager>
     
     public void OnDrag(PointerEventData eventData, ItemIconObj itemIconObj)
     {
-        itemIconObj.GetComponent<RectTransform>().anchoredPosition += eventData.delta;
+        // 1. 获取组件
+        var iconRect = itemIconObj.GetComponent<RectTransform>();
+        var parentRect = UIRoot.Instance.GetLayerCarry();
+        if (parentRect == null) return;
+
+        var uiCamera = UIRoot.Instance.GetUICamera();
+
+        // 2. 将当前鼠标屏幕坐标转为父节点局部坐标
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentRect, 
+            eventData.position, 
+            uiCamera, 
+            out var localMousePos
+        );
+
+        // 3. 直接设置锚点位置 = 鼠标局部坐标 + 偏移量
+        iconRect.anchoredPosition = localMousePos;
     }
 
     public void OnEndDrag(PointerEventData eventData, ItemIconObj itemIconObj)
