@@ -14,10 +14,10 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
 
     private void Awake()
     {
-        this.SubscribeGlobal<DragManager.EquipmentUpdateEvt>(OnItemChanged);
+        this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
     }
 
-    private UniTask OnItemChanged(DragManager.EquipmentUpdateEvt arg)
+    private UniTask OnItemChanged(Context.EquipmentUpdateEvt arg)
     {
         var location = PlayerManager.Instance.GetCurrWeaponLocation();
         _equipActiveVfx.gameObject.SetActive(location != -1);
@@ -52,10 +52,10 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
             if (!itemNodeMap.TryGetValue(itemStack.Location, out var iconObj))
             {
                 iconObj = Instantiate(_itemIconTemplate, _EquipmentSlots[itemStack.Location]);
-                iconObj.SetOwner(this);
                 iconObj.transform.localPosition = Vector3.zero;
                 itemNodeMap.Add(itemStack.Location, iconObj);
             }
+            iconObj.SetOwner(this);
             iconObj.SetItemStack(itemStack);
         }
         
@@ -170,19 +170,15 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
     {
         if (!itemIconObj.GetOwner().Equals(this))
             return false;
-
         var itemStack = itemIconObj.GetItemStack();
         if (!itemStack.IsEquip())
             return false;
-        
         var inventoryUI = UIRoot.Instance.InventoryUI;
         if (inventoryUI == null)
             return false;
-
         var inventoryPanel = inventoryUI.GetInventoryPanel();
         if (inventoryPanel == null)
             return false;
-        
         var location = PlayerManager.Instance.GetFirstInventoryEmptySlot();
         
         return inventoryPanel.TryAdd(itemIconObj, location);
@@ -213,7 +209,6 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
     {
         if (!itemIconObj.GetOwner().Equals(this))
             return false;
-        
         // 如果 成功从当前包裹移除item
         if (PlayerManager.Instance.RemoveItemStackFrontEquipment(itemIconObj.GetItemStack()))
         {

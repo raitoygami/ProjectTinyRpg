@@ -12,9 +12,10 @@ public class UIStartMenu : PanelBase
 
     [SerializeField] private GameObject _btnContinue;
     
-    private void Awake()
+    public override void Open()
     {
         _btnContinue.gameObject.SetActive(Persist.Instance.HasPersistentSlot(0));
+        base.Open();
     }
 
     public void OnBtnClick_Continue()
@@ -24,14 +25,14 @@ public class UIStartMenu : PanelBase
     
     public void OnBtnClick_StartGame()
     {
-        OnStartGame().Forget();
+        OnNewGame().Forget();
     }
     
     private bool _isLoading;
-    
-    private async UniTask OnStartGame()
+    // 重新开始游戏
+    // 需要删除存档
+    private async UniTask OnNewGame()
     {
-
         if (_isLoading)
             return;
         _isLoading = true;
@@ -42,10 +43,8 @@ public class UIStartMenu : PanelBase
         
         // 加载场景
         await LevelManager.Instance.LoadLevel("Scene/Tutorial");
-        
         await UniTask.DelayFrame(1);
-        
-        await this.PublishGlobal(new Game.SceneChangeEvt());
+        await this.PublishGlobal(new LevelManager.SceneChangeEvt());
         UIRoot.Instance.Hide("StartMenu");
         UIRoot.Instance.OpenMainUI();
         await UIRoot.Instance.LoadingFinish();
@@ -60,24 +59,21 @@ public class UIStartMenu : PanelBase
         _isLoading = true;
         // 加载数据
         await UIRoot.Instance.LoadingStart();
-        Persist.Instance.Load(0);
+        Persist.Instance.LoadSlot(0);
         // 构建玩家数据
         PlayerManager.Instance.RebuildPersist();
 
         await LevelManager.Instance.LoadLevel("Scene/Tutorial");
-
         await UniTask.DelayFrame(1);
-        
-        await this.PublishGlobal(new Game.SceneChangeEvt());
-        
+        await this.PublishGlobal(new LevelManager.SceneChangeEvt());
+        UIRoot.Instance.Hide("StartMenu");
+        UIRoot.Instance.OpenMainUI();
         await UIRoot.Instance.LoadingFinish();
-        
-        Debug.Log(Context.Instance.PlayerInst.GridPosition);
-        
+
         _isLoading = false;
     }
 
-    private List<string> _languageCodes = new List<string>()
+    private readonly List<string> _languageCodes = new()
     {
         "zh-cn",
         "en",

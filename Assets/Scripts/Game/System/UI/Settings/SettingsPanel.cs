@@ -24,7 +24,8 @@ public class SettingsPanel : PanelBase
         _IsLoading = true;
         
         await UIRoot.Instance.LoadingStart(0.25f);
-        
+        // 关闭所有界面
+        await UIRoot.Instance.CloseAllAsync();
         LevelManager.Instance.ClearScene();
         
         await Addressables.LoadSceneAsync("Scene/Menu").ToUniTask();
@@ -36,6 +37,11 @@ public class SettingsPanel : PanelBase
         await UIRoot.Instance.LoadingFinish(0.25f);
         
         _IsLoading = false;
+    }
+
+    public void OnBtnClick_SaveGame()
+    {
+        Persist.Instance.Save(0);
     }
     
 }

@@ -261,7 +261,6 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
             return false;
 
         var result = PlayerManager.Instance.TryAddItemStackToInventory(itemIconObj.GetItemStack(), location);
-
         if (result == PlayerManager.AddItemStackToInventoryResult.SuccessNewInstance)
         {
             itemNodeMap.Add(location, itemIconObj);

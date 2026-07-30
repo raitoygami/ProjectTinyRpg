@@ -46,10 +46,10 @@ public partial class Player : Entity
         this.SubscribeInput<InputManager.WASDEvt>(OnWASDEvt);
         this.SubscribeInput<InputManager.InventoryEvt>(OnInventoryInputEvt);
         this.SubscribeInput<InputManager.SkipEvt>(OnSkipTurn);
-
+        this.SubscribeInput<InputManager.SwitchEvt>(OnSwitchWeapon);
         this.SubscribeGlobal<EnterCombatEvt>(OnEnterCombatEvt);
 
-        this.SubscribeGlobal<DragManager.EquipmentUpdateEvt>(OnItemChanged);
+        this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
         
         m_TurnActor = gameObject.AddComponent<TurnActor>();
         m_AgentStats = gameObject.AddComponent<AgentStats>();
@@ -68,7 +68,22 @@ public partial class Player : Entity
         EntityManager.Register(this);
     }
 
-    private async UniTask OnItemChanged(DragManager.EquipmentUpdateEvt arg)
+    private async UniTask OnSwitchWeapon(InputManager.SwitchEvt arg)
+    {
+        var location = PlayerManager.Instance.GetNextWeaponLocation();
+        if (location == -1)
+            return;
+
+        var nextWeaponUID = PlayerManager.Instance.GetWeaponUID(location);
+        
+        if (PlayerManager.Instance.SetCurrWeaponUID(nextWeaponUID))
+        {
+            await this.PublishGlobal(Context.EquipmentUpdateEvtInst);
+        }
+        
+    }
+
+    private async UniTask OnItemChanged(Context.EquipmentUpdateEvt arg)
     {
         await RebindWeapon();
     }

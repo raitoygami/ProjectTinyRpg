@@ -304,7 +304,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:36d721004ede22642bd1959d0a4f747f
     m_TableEntryReference:
-      m_KeyId: 6750486528
+      m_KeyId: 18445619707904
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1295,6 +1295,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIStartMenu
   _btnContinue: {fileID: 5501297842979688621}
+  _locale:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &7565687493673789424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,7 +1587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u5F00\u59CB\u6E38\u620F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 74e5f3d7fe38db54ab64beda29d071f4, type: 2}
   m_sharedMaterial: {fileID: 1865506203227206767, guid: 74e5f3d7fe38db54ab64beda29d071f4, type: 2}
@@ -1841,7 +1853,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:36d721004ede22642bd1959d0a4f747f
     m_TableEntryReference:
-      m_KeyId: 43736362663936
+      m_KeyId: 4758827993677824
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1974,8 +1986,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.5, y: -0.5}
-  m_SizeDelta: {x: -35, y: -13}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &115864819023439724
 CanvasRenderer:

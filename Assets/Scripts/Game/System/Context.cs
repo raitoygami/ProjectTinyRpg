@@ -2,6 +2,18 @@ using System;
 
 public class Context : Singleton<Context>
 {
+    
+    
+    // 装备发生变化的时候调用
+    // UI刷新EquipmentPanel
+    // Player.刷新AgentWeapon
+    public class EquipmentUpdateEvt : EventArgs
+    {
+        
+    }
+    public static readonly EquipmentUpdateEvt  EquipmentUpdateEvtInst = new();
+
+    
     public class PlayerInitEvt : EventArgs
     {
         

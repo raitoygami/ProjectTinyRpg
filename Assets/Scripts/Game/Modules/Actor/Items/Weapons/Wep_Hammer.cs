@@ -26,6 +26,7 @@ public class Wep_Hammer : Weapon
         _WepSwordFront.SetParent(agentWeapon.FrontSlot());
         _WepSwordFront.localPosition = _ArmPositionFront;
         _WepSwordFront.localRotation = Quaternion.Euler(_ArmRotationFront);
+        _WepSwordFront.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public override void Unequip(AgentWeapon agentWeapon)

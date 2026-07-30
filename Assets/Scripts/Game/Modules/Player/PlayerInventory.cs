@@ -244,6 +244,26 @@ public partial class PlayerManager
         return GetInventoryData().CurrentWeaponLocation;
     }
 
+    public int GetNextWeaponLocation()
+    {
+        var location = GetInventoryData().CurrentWeaponLocation;
+        // 若当前没有武器，说明一定没有装备武器
+        if (location == -1)
+            return -1;
+        // 当前有武器，从下一个槽位开始循环查找
+        // 总共4个武器槽，最多检查4次（包含自己一次，若只有自己则返回-1）
+        for (var step = 1; step <= 4; step++)
+        {
+            var nextIdx = (location - 4 + step) % 4 + 4; // 循环移位
+            if (OccupiedEquipped[nextIdx] != 0)
+            {
+                return nextIdx;
+            }
+        }
+        // 没有找到其他武器（只有当前一把）
+        return -1;
+    }
+
     public long GetCurrWeaponUID()
     {
         RefreshWeaponActive();
@@ -254,6 +274,17 @@ public partial class PlayerManager
 
         var uid = OccupiedEquipped[GetInventoryData().CurrentWeaponLocation];
         return uid;
+    }
+
+    // 4,5,6,7是武器，位置错误直接返回-1
+    public long GetWeaponUID(int location)
+    {
+        if (location >= 4 && location < OccupiedEquipped.Length)
+        {
+            return OccupiedEquipped[location];    
+        }
+
+        return -1;
     }
     
     // 一定是先更新数据，在更新表现，更新表现一定要先判断是否正确
@@ -279,14 +310,13 @@ public partial class PlayerManager
         GetInventoryData().CurrentWeaponLocation = location;
         return true;
     }
-    
+
     public List<ItemStack> GetEquippedItems()
     {
         return GetInventoryData().EquippedItems;
     }
 
 
-    
     // 界面操作
     public enum AddItemStackToEquipmentResult
     {
@@ -304,24 +334,24 @@ public partial class PlayerManager
         /// 替换已经装备了的
         /// </summary>
         FailureSlotNotEmpty = 2,
-        
+
         /// <summary>
         /// 失败：装备类型与目标槽位不匹配
         /// </summary>
         FailureTypeMismatch = 3,
     }
-    
+
     // 界面拖拽操作任何装备到装备栏，都需要将已经装备的先卸下来
-    public AddItemStackToEquipmentResult TryAddItemStackToEquipment(ItemStack itemStack, int location )
+    public AddItemStackToEquipmentResult TryAddItemStackToEquipment(ItemStack itemStack, int location)
     {
         if (!EquipTypeMatch(location, itemStack))
             return AddItemStackToEquipmentResult.FailureTypeMismatch;
-        
+
         if (location >= OccupiedEquipped.Length)
             return AddItemStackToEquipmentResult.Failure;
 
         var uid = OccupiedEquipped[location];
-        
+
         // 如果当前位置为空,则直接加入背包
         if (uid == 0)
         {
@@ -330,14 +360,14 @@ public partial class PlayerManager
             GetInventoryData().EquippedItems.Add(itemStack);
             itemStack.Location = location;
             OccupiedEquipped[location] = itemStack.Uid;
-            
+
             /*if (firstWeaponLocation == -1 && IsWeaponSlot(location))
             {
                 GetInventoryData().CurrentWeaponLocation = location;
             }*/
             return AddItemStackToEquipmentResult.SuccessEquipped;
         }
-        
+
         // 更换装备的操作，一定是先把槽位上的提前卸下来，然后在把新的装备放上去
         // 所以不可能走到这一步
         // 右键点击装备道具，会先判断有没有空的槽位，所以也不会走到这一步
@@ -353,6 +383,7 @@ public partial class PlayerManager
             GetInventoryData().CurrentWeaponLocation = GetFirstWeaponLocation();
             return;
         }
+
         // 如果当前装备被换下了， 那么就更新
         if (OccupiedEquipped[location] == 0)
         {
@@ -366,9 +397,8 @@ public partial class PlayerManager
         {
             OccupiedEquipped[itemStack.Location] = 0;
             // 这个是没问题的， 非武器不会放到 武器槽位上，但是还是要加个判断
-            
             /*
-            if (IsWeaponSlot(itemStack.Location) && 
+            if (IsWeaponSlot(itemStack.Location) &&
                 GetInventoryData().CurrentWeaponLocation == itemStack.Location)
             {
                 GetInventoryData().CurrentWeaponLocation = GetFirstWeaponLocation();
@@ -390,9 +420,10 @@ public partial class PlayerManager
                     return i;
             }
         }
+
         return -1;
     }
-    
+
     private int GetFirstWeaponLocation()
     {
         for (var i = 4; i < OccupiedEquipped.Length; i++)
@@ -413,9 +444,8 @@ public partial class PlayerManager
             return -1;
 
         return (int)equipType - 1;
-
     }
-    
+
     private bool EquipTypeMatch(int slot, ItemStack itemStack)
     {
         if (!itemStack.IsEquip())
@@ -432,7 +462,6 @@ public partial class PlayerManager
         }
 
         return false;
-
     }
 
     // 4,5,6,7
@@ -440,6 +469,6 @@ public partial class PlayerManager
     {
         return slot is >= 4 and < 8;
     }
-    
+
     #endregion
 }

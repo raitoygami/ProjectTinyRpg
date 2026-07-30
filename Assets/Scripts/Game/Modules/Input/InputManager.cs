@@ -51,6 +51,12 @@ public class InputManager : Singleton<InputManager>
 
     private readonly EscPressedEvt m_EscPressedEvt = new();
 
+    public class SwitchEvt : EventArgs
+    {
+    }
+    private readonly SwitchEvt m_SwitchEvt = new();
+
+    
     public override void Initialized()
     {
         m_InputMapping = new InputMapping();
@@ -70,7 +76,7 @@ public class InputManager : Singleton<InputManager>
         m_InputMapping.PlayerInput.Inventory.performed += OnInventoryPerformed;
         m_InputMapping.PlayerInput.Skip.performed += OnSkipPerformed;
         m_InputMapping.PlayerInput.Esc.performed += OnEscPerformed;
-
+        m_InputMapping.PlayerInput.Switch.performed += OnSwitchPerformed;
 
         m_InputMapping.PlayerInput.Enable();
         LoadBindings(); // 启动时加载已保存的改键
@@ -79,6 +85,7 @@ public class InputManager : Singleton<InputManager>
         
     }
 
+  
 
 
     private bool _isKeyboardMouse;
@@ -269,8 +276,11 @@ public class InputManager : Singleton<InputManager>
     {
         this.Publish(m_EscPressedEvt);
     }
-
-
+    private void OnSwitchPerformed(InputAction.CallbackContext obj)
+    {
+        this.Publish(m_SwitchEvt);   
+    }
+    
     public void EnableInput()
     {
         m_InputMapping.PlayerInput.Enable();

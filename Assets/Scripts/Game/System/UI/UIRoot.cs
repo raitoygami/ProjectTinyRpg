@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -10,19 +9,17 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
-/// <summary>
-/// UI 根：通过 <see cref="Open"/> 按 <see cref="PanelAttribute.PanelKey"/> 用 Addressables 加载面板，父节点由 Inspector 表（Root → RectTransform）决定；
-/// 关闭时仅隐藏并缓存实例，不销毁。同 <see cref="PanelAttribute.MuteGroup"/> 的面板互斥。
-/// <see cref="PanelAttribute.EscBehavior"/>：<see cref="EscBehavior.CloseOnly"/> 参与 ESC 栈；<see cref="EscBehavior.OpenAndClose"/> 用于设置等（栈空时 ESC 打开，再按关闭）。
-/// </summary>
 public class UIRoot : Singleton<UIRoot>
 {
-    const string SettingsPanelKey = "Settings";
+    private const string SettingsPanelKey = "Settings";
 
     [SerializeField] private Camera UICamera;
     private RectTransform _Root;
 
-    public Camera GetUICamera() => UICamera;
+    public Camera GetUICamera()
+    {
+        return UICamera;
+    }
 
     public MainUI m_MainUI;
     public ToolTipUI ToolTipUI;
@@ -39,19 +36,22 @@ public class UIRoot : Singleton<UIRoot>
     private UIRootPanelParentBinding[] _panelParents;
 
     /// <summary>已加载实例（PanelKey → 根物体），关闭时不移除。</summary>
-    readonly Dictionary<string, GameObject> _instances = new();
+    private readonly Dictionary<string, GameObject> _uiOpenedTable = new();
 
-    readonly Dictionary<string, Type> _panelTypeByKey = new();
+    private readonly Dictionary<string, Type> _panelTypeByKey = new();
 
     /// <summary>同键并发加载去重。</summary>
-    readonly Dictionary<string, UniTask> _loadingByKey = new();
+    private readonly Dictionary<string, UniTask> _loadingByKey = new();
 
-    readonly object _loadLock = new();
+    private readonly object _loadLock = new();
 
-    /// <summary>仅含 <see cref="EscBehavior.CloseOnly"/> 的 ESC 顺序：栈顶为最近一次打开的一帧（单键或 <see cref="Toggle"/> 批量）。</summary>
-    readonly List<List<string>> _escCloseStack = new();
+    /// <summary>仅含 <see cref="EscBehavior.CloseOnly" /> 的 ESC 顺序：栈顶为最近一次打开的一帧（单键或 <see cref="Toggle" /> 批量）。</summary>
+    private readonly List<List<string>> _escCloseStack = new();
 
-    public RectTransform GetLayerCarry() => _LayerCarry;
+    public RectTransform GetLayerCarry()
+    {
+        return _LayerCarry;
+    }
 
     private void Awake()
     {
@@ -59,32 +59,32 @@ public class UIRoot : Singleton<UIRoot>
         this.SubscribeInput<InputManager.EscPressedEvt>(OnEscPressed);
     }
 
-    async UniTask OnEscPressed(InputManager.EscPressedEvt _)
+    private async UniTask OnEscPressed(InputManager.EscPressedEvt _)
     {
         await HandleEscAsync();
     }
 
-    async UniTask HandleEscAsync()
+    private async UniTask HandleEscAsync()
     {
         if (_escCloseStack.Count > 0)
         {
             var frame = _escCloseStack[^1];
             _escCloseStack.RemoveAt(_escCloseStack.Count - 1);
             foreach (var k in frame)
-                Hide(k, updateEscStack: false);
+                Hide(k, false);
             return;
         }
 
         if (IsPanelActive(SettingsPanelKey))
         {
-            Hide(SettingsPanelKey, updateEscStack: false);
+            Hide(SettingsPanelKey, false);
             return;
         }
 
         await Open(SettingsPanelKey);
     }
 
-    void BuildPanelTypeRegistry()
+    private void BuildPanelTypeRegistry()
     {
         _panelTypeByKey.Clear();
         foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -117,7 +117,7 @@ public class UIRoot : Singleton<UIRoot>
         }
     }
 
-    RectTransform ResolveParent(string rootKey)
+    private RectTransform ResolveParent(string rootKey)
     {
         if (string.IsNullOrEmpty(rootKey) || _panelParents == null)
             return null;
@@ -163,7 +163,7 @@ public class UIRoot : Singleton<UIRoot>
             return;
         }
 
-        if (_instances.TryGetValue(panelKey, out var existing) && existing != null)
+        if (_uiOpenedTable.TryGetValue(panelKey, out var existing) && existing != null)
         {
             var wasActive = IsPanelActive(panelKey);
             ApplyMuteGroup(panelKey, panelType);
@@ -176,7 +176,7 @@ public class UIRoot : Singleton<UIRoot>
         UniTask loadTask;
         lock (_loadLock)
         {
-            if (_instances.TryGetValue(panelKey, out existing) && existing != null)
+            if (_uiOpenedTable.TryGetValue(panelKey, out existing) && existing != null)
             {
                 var wasActive = IsPanelActive(panelKey);
                 ApplyMuteGroup(panelKey, panelType);
@@ -205,7 +205,7 @@ public class UIRoot : Singleton<UIRoot>
             }
         }
 
-        if (_instances.TryGetValue(panelKey, out existing) && existing != null)
+        if (_uiOpenedTable.TryGetValue(panelKey, out existing) && existing != null)
         {
             ApplyMuteGroup(panelKey, panelType);
             ShowInstance(existing);
@@ -214,14 +214,14 @@ public class UIRoot : Singleton<UIRoot>
         }
     }
 
-    PanelAttribute GetPanelAttributeForKey(string panelKey)
+    private PanelAttribute GetPanelAttributeForKey(string panelKey)
     {
         if (!_panelTypeByKey.TryGetValue(panelKey, out var t))
             return null;
         return t.GetCustomAttribute<PanelAttribute>();
     }
 
-    void TryRegisterEscClose(string panelKey)
+    private void TryRegisterEscClose(string panelKey)
     {
         var attr = GetPanelAttributeForKey(panelKey);
         if (attr == null || attr.EscBehavior != EscBehavior.CloseOnly)
@@ -229,7 +229,7 @@ public class UIRoot : Singleton<UIRoot>
         _escCloseStack.Add(new List<string> { panelKey });
     }
 
-    void RemoveFromEscStack(string panelKey)
+    private void RemoveFromEscStack(string panelKey)
     {
         for (var i = _escCloseStack.Count - 1; i >= 0; i--)
         {
@@ -254,7 +254,7 @@ public class UIRoot : Singleton<UIRoot>
     }
 
     /// <summary>
-    /// 若列表中界面均已打开则全部关闭；否则依次打开未就绪的界面，并作为一整帧压入 ESC 栈（一次 ESC 关闭本批全部）。
+    ///     若列表中界面均已打开则全部关闭；否则依次打开未就绪的界面，并作为一整帧压入 ESC 栈（一次 ESC 关闭本批全部）。
     /// </summary>
     public async UniTask Toggle(IReadOnlyList<string> panelKeys)
     {
@@ -270,22 +270,20 @@ public class UIRoot : Singleton<UIRoot>
             if (EscStackTopMatchesBatchInternal(keys))
                 _escCloseStack.RemoveAt(_escCloseStack.Count - 1);
             else
-            {
                 foreach (var k in keys)
                     RemoveFromEscStack(k);
-            }
 
             foreach (var k in keys)
-                Hide(k, updateEscStack: false);
+                Hide(k, false);
             return;
         }
 
         foreach (var k in keys)
-            await Open(k, skipEscStackRegistration: true);
+            await Open(k, true);
         PushEscBatchFrame(keys);
     }
 
-    bool EscStackTopMatchesBatchInternal(List<string> keys)
+    private bool EscStackTopMatchesBatchInternal(List<string> keys)
     {
         if (_escCloseStack.Count == 0)
             return false;
@@ -293,14 +291,14 @@ public class UIRoot : Singleton<UIRoot>
         return top.Count == keys.Count && new HashSet<string>(top).SetEquals(keys);
     }
 
-    void PushEscBatchFrame(List<string> keys)
+    private void PushEscBatchFrame(List<string> keys)
     {
         if (keys == null || keys.Count == 0)
             return;
         _escCloseStack.Add(new List<string>(keys));
     }
 
-    async UniTask LoadAndRegisterAsync(string panelKey, PanelAttribute attr, RectTransform parent)
+    private async UniTask LoadAndRegisterAsync(string panelKey, PanelAttribute attr, RectTransform parent)
     {
         if (string.IsNullOrEmpty(attr.Address))
         {
@@ -317,10 +315,10 @@ public class UIRoot : Singleton<UIRoot>
         }
 
         var go = handle.Result;
-        _instances[panelKey] = go;
+        _uiOpenedTable[panelKey] = go;
     }
 
-    void ShowInstance(GameObject go)
+    private void ShowInstance(GameObject go)
     {
         var pb = go.GetComponent<PanelBase>() ?? go.GetComponentInChildren<PanelBase>(true);
         if (pb != null)
@@ -329,18 +327,18 @@ public class UIRoot : Singleton<UIRoot>
             go.SetActive(true);
     }
 
-    void ApplyMuteGroup(string openingKey, Type openingType)
+    private void ApplyMuteGroup(string openingKey, Type openingType)
     {
         var targetMute = openingType.GetCustomAttribute<PanelAttribute>()?.MuteGroup;
         if (string.IsNullOrEmpty(targetMute))
             return;
 
-        var keys = new List<string>(_instances.Keys);
+        var keys = new List<string>(_uiOpenedTable.Keys);
         foreach (var otherKey in keys)
         {
             if (otherKey == openingKey)
                 continue;
-            if (!_instances.TryGetValue(otherKey, out var go) || go == null)
+            if (!_uiOpenedTable.TryGetValue(otherKey, out var go) || go == null)
                 continue;
             if (!go.activeInHierarchy)
                 continue;
@@ -352,12 +350,12 @@ public class UIRoot : Singleton<UIRoot>
                 Hide(otherKey);
         }
     }
-    
+
     public void Hide(string panelKey, bool updateEscStack = true)
     {
         if (string.IsNullOrEmpty(panelKey))
             return;
-        if (!_instances.TryGetValue(panelKey, out var go) || go == null)
+        if (!_uiOpenedTable.TryGetValue(panelKey, out var go) || go == null)
             return;
 
         if (updateEscStack)
@@ -381,7 +379,7 @@ public class UIRoot : Singleton<UIRoot>
     {
         if (string.IsNullOrEmpty(panelKey))
             return false;
-        if (!_instances.TryGetValue(panelKey, out var go) || go == null)
+        if (!_uiOpenedTable.TryGetValue(panelKey, out var go) || go == null)
             return false;
 
         var lp = go.GetComponent<LootUI>() ?? go.GetComponentInChildren<LootUI>(true);
@@ -395,13 +393,45 @@ public class UIRoot : Singleton<UIRoot>
     {
         if (string.IsNullOrEmpty(panelKey))
             return null;
-        if (!_instances.TryGetValue(panelKey, out var go) || go == null)
+        if (!_uiOpenedTable.TryGetValue(panelKey, out var go) || go == null)
             return null;
         var c = go.GetComponent<T>();
         return c != null ? c : go.GetComponentInChildren<T>(true);
     }
 
+    /// <summary>
+    ///     关闭并销毁所有已加载的面板实例，清理所有缓存和ESC栈。
+    /// </summary>
+    public async UniTask CloseAllAsync()
+    {
+        // 1. 等待所有正在进行的加载任务完成
+        List<UniTask> loadingTasks;
+        lock (_loadLock)
+        {
+            loadingTasks = _loadingByKey.Values.ToList();
+        }
+
+        if (loadingTasks.Count > 0) await UniTask.WhenAll(loadingTasks);
+
+        // 2. 收集所有有效实例并清空字典/栈
+        List<GameObject> instancesToDestroy;
+        lock (_loadLock)
+        {
+            instancesToDestroy = _uiOpenedTable.Values.Where(go => go != null).ToList();
+            _uiOpenedTable.Clear();
+            _loadingByKey.Clear();
+            _escCloseStack.Clear();
+        }
+
+        // 3. 销毁所有实例（使用 Addressables 释放）
+        foreach (var go in instancesToDestroy)
+            if (go != null)
+                Addressables.ReleaseInstance(go); // 自动 Destroy 并释放资源
+    }
+
+
     public LootUI LootUI => GetPanel<LootUI>("Loot");
+
     public InventoryUI InventoryUI => GetPanel<InventoryUI>("Inventory");
     /*public async UniTask OpenLootPanel(LootUnit lootUnit)
     {
@@ -430,55 +460,56 @@ public class UIRoot : Singleton<UIRoot>
         _FadingPanel.color = new Color(0, 0, 0, 0);
         _FadingPanel.gameObject.SetActive(true);
         await DOTween.To(
-                () => _FadingPanel.color,                    // getter
-                c => _FadingPanel.color = c,                 // setter
-                Color.black,                        // 目标颜色
-                duration                                      // 时长
+                () => _FadingPanel.color, // getter
+                c => _FadingPanel.color = c, // setter
+                Color.black, // 目标颜色
+                duration // 时长
             )
             .SetEase(ease)
             .ToUniTask();
     }
-    
+
     public async UniTask FadeOut(float duration = 1.5f, Ease ease = Ease.OutQuad)
     {
         _FadingPanel.color = Color.black;
 
         await DOTween.To(
-                () => _FadingPanel.color,                    // getter
-                c => _FadingPanel.color = c,                 // setter
-                new Color(0, 0, 0, 0),                        // 目标颜色
-                duration                                      // 时长
+                () => _FadingPanel.color, // getter
+                c => _FadingPanel.color = c, // setter
+                new Color(0, 0, 0, 0), // 目标颜色
+                duration // 时长
             )
             .SetEase(ease)
             .ToUniTask();
         _FadingPanel.color = Color.clear;
         _FadingPanel.gameObject.SetActive(false);
     }
-    
+
     [SerializeField] private Image _LoadingPanel;
+
     public async UniTask LoadingStart(float duration = 1.5f, Ease ease = Ease.OutQuad)
     {
         _LoadingPanel.material.SetFloat(DissolveThreshold, 0);
         _LoadingPanel.gameObject.SetActive(true);
         // 使用 DOTween 动画 Material 的 _DissolveThreshold
         Tween tween = _LoadingPanel.material
-            .DOFloat(1f, DissolveThreshold, duration)   // 从当前值 → 1
+            .DOFloat(1f, DissolveThreshold, duration) // 从当前值 → 1
             .SetEase(ease);
 
-        await tween.ToUniTask();   // 关键：转成 UniTask
+        await tween.ToUniTask(); // 关键：转成 UniTask
     }
-    
+
     public async UniTask LoadingFinish(float duration = 1.5f, Ease ease = Ease.InQuad)
     {
         _LoadingPanel.material.SetFloat(DissolveThreshold, 1);
-        
+
         // 使用 DOTween 动画 Material 的 _DissolveThreshold
         Tween tween = _LoadingPanel.material
             .DOFloat(0f, "_DissolveThreshold", duration)
             .SetEase(ease);
 
         await tween.ToUniTask();
-        
+
         _LoadingPanel.gameObject.SetActive(false);
     }
 
@@ -497,5 +528,4 @@ public class UIRoot : Singleton<UIRoot>
     {
         await Open("StartMenu");
     }
-    
 }

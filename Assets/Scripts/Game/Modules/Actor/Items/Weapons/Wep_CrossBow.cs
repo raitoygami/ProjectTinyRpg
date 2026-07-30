@@ -20,6 +20,7 @@ public class Wep_CrossBow : Weapon
         _CrossBow.SetParent(agentWeapon.FrontSlot());
         _CrossBow.localPosition = _ArmPosition;
         _CrossBow.localRotation = Quaternion.Euler(_ArmRotation);
+        _CrossBow.localScale = new Vector3(1f, 1f, 1f);
     }
     
     public override void Unequip(AgentWeapon agentWeapon)

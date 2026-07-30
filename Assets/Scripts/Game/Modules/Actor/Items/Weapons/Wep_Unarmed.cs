@@ -19,10 +19,13 @@ public class Wep_Unarmed : Weapon
         _WepSwordFront.SetParent(agentWeapon.FrontSlot());
         _WepSwordFront.localPosition = _ArmPositionFront;
         _WepSwordFront.localRotation = Quaternion.Euler(_ArmRotationFront);
+        _WepSwordFront.localScale = new Vector3(1f, 1f, 1f);
         
         _WepSwordBack.SetParent(agentWeapon.BackSlot());
         _WepSwordBack.localPosition = _ArmPositionBack;
         _WepSwordBack.localRotation = Quaternion.Euler(_ArmRotationBack);
+        _WepSwordBack.localScale = new Vector3(1f, 1f, 1f);
+        
     }
 
     public override void Unequip(AgentWeapon agentWeapon)

@@ -1,10 +1,16 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Tilemaps;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    
+    // 场景切换的时候调用
+    public class SceneChangeEvt : EventArgs
+    {
+    }
+    
     /// <summary>Lightweight IPathNodeAgent that marks a cell as impassable (no GameObject overhead).</summary>
     private sealed class TilemapBlocker : IPathNodeAgent
     {

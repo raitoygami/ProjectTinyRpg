@@ -79,6 +79,9 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"st: option"
+	"st: conti"
+	"st: savegam"
 	"st: optio"
 ]
 searchItemFavorites = [

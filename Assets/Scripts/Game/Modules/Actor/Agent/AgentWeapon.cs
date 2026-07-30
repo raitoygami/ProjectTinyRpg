@@ -41,11 +41,6 @@ public class AgentWeapon : MonoBehaviour
         }
 
         _currentWeaponUID = currEquippedWeaponUID;
-        
-        /*// 如果还有装备的武器，则返回false
-        if (!PlayerManager.Instance.SetCurrWeaponUID(_currentWeaponUID))
-            return;*/
-        
         // 通过界面操作。把所有武器全部卸掉
         // 
         if (_currentWeaponUID == -1)

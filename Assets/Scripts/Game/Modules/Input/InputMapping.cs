@@ -154,6 +154,15 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""e08ae20f-972b-415e-a6b1-9074a5745269"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -288,6 +297,17 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""action"": ""Skip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e45ea6d-d7a5-4334-a585-e631157b1b39"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse&Keyboard"",
+                    ""action"": ""Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -331,6 +351,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         m_PlayerInput_Inventory = m_PlayerInput.FindAction("Inventory", throwIfNotFound: true);
         m_PlayerInput_Esc = m_PlayerInput.FindAction("Esc", throwIfNotFound: true);
         m_PlayerInput_Skip = m_PlayerInput.FindAction("Skip", throwIfNotFound: true);
+        m_PlayerInput_Switch = m_PlayerInput.FindAction("Switch", throwIfNotFound: true);
     }
 
     ~@InputMapping()
@@ -418,6 +439,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInput_Inventory;
     private readonly InputAction m_PlayerInput_Esc;
     private readonly InputAction m_PlayerInput_Skip;
+    private readonly InputAction m_PlayerInput_Switch;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerInput".
     /// </summary>
@@ -457,6 +479,10 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerInput/Skip".
         /// </summary>
         public InputAction @Skip => m_Wrapper.m_PlayerInput_Skip;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerInput/Switch".
+        /// </summary>
+        public InputAction @Switch => m_Wrapper.m_PlayerInput_Switch;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -504,6 +530,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Skip.started += instance.OnSkip;
             @Skip.performed += instance.OnSkip;
             @Skip.canceled += instance.OnSkip;
+            @Switch.started += instance.OnSwitch;
+            @Switch.performed += instance.OnSwitch;
+            @Switch.canceled += instance.OnSwitch;
         }
 
         /// <summary>
@@ -536,6 +565,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Skip.started -= instance.OnSkip;
             @Skip.performed -= instance.OnSkip;
             @Skip.canceled -= instance.OnSkip;
+            @Switch.started -= instance.OnSwitch;
+            @Switch.performed -= instance.OnSwitch;
+            @Switch.canceled -= instance.OnSwitch;
         }
 
         /// <summary>
@@ -651,5 +683,12 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSkip(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Switch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSwitch(InputAction.CallbackContext context);
     }
 }

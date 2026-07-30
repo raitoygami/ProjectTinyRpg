@@ -88,7 +88,7 @@ public class Persist : Singleton<Persist>
         return File.Exists(path);
     }
     
-    public void Load(int slotIndex)
+    public void LoadSlot(int slotIndex)
     {
         var path = GetPersistPath(slotIndex);
         if (!File.Exists(path)) return;
@@ -103,6 +103,26 @@ public class Persist : Singleton<Persist>
         catch (Exception e)
         {
             Debug.LogException(e);
+        }
+    }
+    
+    public bool DeleteSlot(int slotIndex)
+    {
+        try
+        {
+            var path = GetPersistPath(slotIndex);
+            if (!File.Exists(path))
+            {
+                return false; // 文件不存在，没有可删除的
+            }
+
+            File.Delete(path);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+            return false;
         }
     }
 }

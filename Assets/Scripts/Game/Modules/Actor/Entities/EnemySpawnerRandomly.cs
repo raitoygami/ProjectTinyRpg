@@ -41,10 +41,10 @@ public class EnemySpawnerRandomly : PubSubActor
 
     private void Awake()
     {
-        this.SubscribeGlobal<Game.SceneChangeEvt>(OnSceneChanged);
+        this.SubscribeGlobal<LevelManager.SceneChangeEvt>(OnSceneChanged);
     }
 
-    private UniTask OnSceneChanged(Game.SceneChangeEvt arg)
+    private UniTask OnSceneChanged(LevelManager.SceneChangeEvt arg)
     {
         SpawnRandomly();
         return UniTask.CompletedTask;
@@ -53,16 +53,15 @@ public class EnemySpawnerRandomly : PubSubActor
     /// <summary>
     ///     在 Range 范围内随机生成不超过 min(count, Range*Range-1) 个 Enemy，位置不重复，模板随机。
     /// </summary>
-    public List<AIEntity> SpawnRandomly()
+    public void SpawnRandomly()
     {
-        var result = new List<AIEntity>();
-        if (!EntityManager.HasInstance()) return result;
+        if (!EntityManager.HasInstance()) return;
 
         var diameter = EffectiveRange;
         var halfExtent = (diameter - 1) / 2;
         var maxCount = Mathf.Max(0, diameter * diameter - 1);
         var n = Mathf.Clamp(count, 0, maxCount);
-        if (n <= 0) return result;
+        if (n <= 0) return;
 
         var baseGrid = transform.position.SnapToGrid();
         var bx = Mathf.RoundToInt(baseGrid.x);
@@ -93,11 +92,9 @@ public class EnemySpawnerRandomly : PubSubActor
             {
                 enemy.name = $"Enemy {i} : - {entityId} ";
                 enemy.SetHomeAnchor(location, disengageLeashRange);
-                result.Add(enemy);
             }
         }
-
-        return result;
+        
     }
 
     private static void Shuffle<T>(List<T> list)
