@@ -161,7 +161,7 @@ public class ItemIconObj : MonoBehaviour,
 
     public void Restore()
     {
-        
+        _Owner.Restore(this);
     }
     
 }

@@ -25,9 +25,19 @@ public class Wep_Unarmed : Weapon
         _WepSwordBack.localRotation = Quaternion.Euler(_ArmRotationBack);
     }
 
+    public override void Unequip(AgentWeapon agentWeapon)
+    {
+        _WepSwordFront.SetParent(transform);
+        _WepSwordBack.SetParent(transform);
+        gameObject.SetActive(false);
+    }
+
     private void OnDestroy()
     {
-        Destroy(_WepSwordBack.gameObject);
-        Destroy(_WepSwordFront.gameObject);
+        if (_WepSwordBack.gameObject != null)
+            Destroy(_WepSwordBack.gameObject); 
+
+        if (_WepSwordFront.gameObject != null)
+            Destroy(_WepSwordFront.gameObject);
     }
 }

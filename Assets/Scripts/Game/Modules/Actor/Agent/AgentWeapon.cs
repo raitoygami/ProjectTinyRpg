@@ -18,7 +18,7 @@ public class AgentWeapon : MonoBehaviour
     }
 
     private Weapon _unarmedWeaponInst;
-    private long _currentWeaponUID;
+    private long _currentWeaponUID = 0;
     private readonly Dictionary<long, Weapon> _weapons = new();
 
     public Weapon GetWeaponActive()
@@ -27,27 +27,28 @@ public class AgentWeapon : MonoBehaviour
     }
     
     // 
-    public async UniTask SwapWeapon(long lastEquippedWeaponUID, long currEquippedWeaponUID)
+    public async UniTask SwapWeapon(long currEquippedWeaponUID)
     {
+        var lastEquippedWeaponUID = _currentWeaponUID;
         // 1: 武器
         if (lastEquippedWeaponUID == currEquippedWeaponUID)
             return;
-
-        _currentWeaponUID = currEquippedWeaponUID;
-        
+ 
         //  卸载上次的装备
         if (_weapons.TryGetValue(lastEquippedWeaponUID, out var lastWeapon))
         {
             lastWeapon.Unequip(this);
         }
 
-        // 如果还有装备的武器，则返回false
-        if (!PlayerManager.Instance.SetCurrWeaponUID(currEquippedWeaponUID))
-            return;
+        _currentWeaponUID = currEquippedWeaponUID;
+        
+        /*// 如果还有装备的武器，则返回false
+        if (!PlayerManager.Instance.SetCurrWeaponUID(_currentWeaponUID))
+            return;*/
         
         // 通过界面操作。把所有武器全部卸掉
         // 
-        if (currEquippedWeaponUID == -1)
+        if (_currentWeaponUID == -1)
         {
             // 还没有实例化过赤手空拳
             if (_unarmedWeaponInst == null)

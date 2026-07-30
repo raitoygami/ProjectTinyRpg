@@ -42,6 +42,7 @@ public class Wep_Sword : Weapon
     {
         _WepSwordFront.SetParent(transform);
         _WepSwordBack.SetParent(transform);
+        gameObject.SetActive(false);
     }
 
     public override async UniTask Startup(Vector2 direction, float duration)
@@ -115,8 +116,10 @@ public class Wep_Sword : Weapon
     
     private void OnDestroy()
     {
-        Destroy(_WepSwordBack.gameObject);
-        Destroy(_WepSwordFront.gameObject);
+        if (_WepSwordBack.gameObject != null)
+            Destroy(_WepSwordBack.gameObject);
+        if (_WepSwordFront.gameObject != null)
+            Destroy(_WepSwordFront.gameObject);
     }
     
 }

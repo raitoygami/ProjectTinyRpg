@@ -69,10 +69,16 @@ public partial class Player : Entity
     // 根据各种存档数据绑定
     public async UniTask Rebind()
     {
+        await RebindWeapon();
+    }
+
+    public async UniTask RebindWeapon()
+    {
         // 直接通过存档数据加载武器
         var currWeaponUIDEquipped = PlayerManager.Instance.GetCurrWeaponUID(); // 默认-1
-        await m_AgentWeapon.SwapWeapon(0, currWeaponUIDEquipped);
+        await m_AgentWeapon.SwapWeapon(currWeaponUIDEquipped);
     }
+    
     
     private UniTask OnWeaponChanged(AgentWeapon.EquippedWeaponChangeEvt arg)
     {

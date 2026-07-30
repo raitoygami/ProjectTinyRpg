@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -34,6 +35,9 @@ public class DragManager : Singleton<DragManager>
                 eventData, 
                 (handler, data) => handler.OnDrop((PointerEventData)data, itemIconObj)
             );
+
+            // 重新绑定
+            Context.Instance.PlayerInst.RebindWeapon().Forget();
             
             if (handled)
                 return;

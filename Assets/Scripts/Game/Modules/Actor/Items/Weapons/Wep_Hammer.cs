@@ -26,9 +26,14 @@ public class Wep_Hammer : Weapon
         _WepSwordFront.SetParent(agentWeapon.FrontSlot());
         _WepSwordFront.localPosition = _ArmPositionFront;
         _WepSwordFront.localRotation = Quaternion.Euler(_ArmRotationFront);
-        
     }
 
+    public override void Unequip(AgentWeapon agentWeapon)
+    {
+        _WepSwordFront.SetParent(transform);
+        gameObject.SetActive(false);
+    }
+    
     public override async UniTask Startup(Vector2 direction, float duration)
     {
         var t1 = _WepSwordFront.DOLocalMove(_StartupPositionFront, duration)
@@ -79,6 +84,7 @@ public class Wep_Hammer : Weapon
     
     private void OnDestroy()
     {
-        Destroy(_WepSwordFront.gameObject);
+        if (_WepSwordFront)
+            Destroy(_WepSwordFront.gameObject);
     }
 }

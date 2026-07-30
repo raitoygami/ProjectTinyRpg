@@ -21,6 +21,12 @@ public class Wep_CrossBow : Weapon
         _CrossBow.localPosition = _ArmPosition;
         _CrossBow.localRotation = Quaternion.Euler(_ArmRotation);
     }
+    
+    public override void Unequip(AgentWeapon agentWeapon)
+    {
+        _CrossBow.SetParent(transform);
+        gameObject.SetActive(false);
+    }
 
     public override async UniTask Startup(Vector2 direction, float duration)
     {
@@ -127,7 +133,8 @@ public class Wep_CrossBow : Weapon
     
     private void OnDestroy()
     {
-        Destroy(_CrossBow.gameObject);
+        if (_CrossBow.gameObject != null)
+            Destroy(_CrossBow.gameObject);
     }
     
 }

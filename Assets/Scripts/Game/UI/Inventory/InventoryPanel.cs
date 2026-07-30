@@ -7,16 +7,10 @@ using UnityEngine.EventSystems;
 
 public class InventoryPanel : MonoBehaviour, IItemIconOwner
 {
-    [Header("拖拽预览颜色")] 
-    [SerializeField] private Color validPreviewColor = new(0f, 1f, 0f, 0.5f); // 半透明绿色
-    [SerializeField] private Color swapPreviewColor = new(1f, 0.92f, 0.016f, 0.5f); // 半透明黄色
-    [SerializeField] private Color invalidPreviewColor = new(1f, 0f, 0f, 0.5f); // 半透明红
 
     [SerializeField] private ItemIconObj _itemIconTemplate;
     [SerializeField] private List<Transform> _InventorySlots = new();
     private readonly Dictionary<int, ItemIconObj> itemNodeMap = new();
-    
-    [SerializeField] private ToolTipPanel _ToolTipPanel;
     
     private void Awake()
     {
@@ -168,7 +162,6 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
             if (itemOwner.TryAdd(targetObj, location))
             {
                 var result = PlayerManager.Instance.TryAddItemStackToInventory(itemStack, targetSlot);
-                Debug.Log(result);
                 // 加入到当前slot上
                 if (result == PlayerManager.AddItemStackToInventoryResult.SuccessNewInstance)
                 {
@@ -176,7 +169,6 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
                     itemIconObj.transform.localPosition = Vector3.zero;
                     itemNodeMap.Add(targetSlot, itemIconObj);
                     itemIconObj.SetOwner(this);
-                    Debug.Log($"After Swap {itemStack.Name()} - {itemStack.Location}");
                     return;
                 }
             }
@@ -189,9 +181,10 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
         itemIconObj.Restore();
     }
     
-   // 移除
+   
    public bool TryAdd(ItemIconObj itemIconObj, int location)
    {
+       // 移除
        if (!itemIconObj.RemoveFromOwner())
            return false;
        
@@ -203,7 +196,6 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
            itemIconObj.transform.SetParent(_InventorySlots[location]);
            itemIconObj.transform.localPosition = Vector3.zero;
            itemIconObj.SetOwner(this);
-           Debug.Log($"Try add by swap {itemIconObj.GetItemStack().Name()} - {itemIconObj.GetItemStack().Location} ");
            return true;
        }
 
@@ -233,6 +225,7 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
         
         return false;
     }
+   
     // 复位
     public void Restore(ItemIconObj itemIconObj)
     {
@@ -243,6 +236,7 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
             itemNodeMap.Add(location, itemIconObj);
             itemIconObj.transform.SetParent(_InventorySlots[location]);
             itemIconObj.transform.localPosition = Vector3.zero;
+            itemIconObj.SetOwner(this);
         }
         else if (result == PlayerManager.AddItemStackToInventoryResult.SuccessStacked)
         {
