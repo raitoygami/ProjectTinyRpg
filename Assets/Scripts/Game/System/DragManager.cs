@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 public class DragManager : Singleton<DragManager>
 {
 
-    public class DragItemIconFinishEvt : EventArgs
+    public class EquipmentUpdateEvt : EventArgs
     {
         
     }
-    private DragItemIconFinishEvt  _dragItemIconFinishEvt = new();
+    private readonly EquipmentUpdateEvt  _equipmentUpdateEvt = new();
     
     
     public void OnBeginDrag(PointerEventData eventData, ItemIconObj itemIconObj)
@@ -60,7 +60,12 @@ public class DragManager : Singleton<DragManager>
                 (handler, data) => handler.OnDrop((PointerEventData)data, itemIconObj)
             );
             
-            this.PublishGlobal(_dragItemIconFinishEvt);
+            // 如果拖动的是装备，不管是不是往equipment上拖动，都调用这个事件
+            if (itemIconObj.GetItemStack().IsEquip())
+            {
+                this.PublishGlobal(_equipmentUpdateEvt);    
+            }
+            
             if (handled)
                 return;
         }

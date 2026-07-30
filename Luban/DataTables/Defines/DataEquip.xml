@@ -4,7 +4,7 @@
 		<var name="Weapon" 		value="0" alias="武器"/>
 		<var name="Helmet" 		value="1" alias="头盔"/>
 		<var name="Mask" 		value="2" alias="面具"/>
-		<var name="Armor" 		value="3" alias="护甲"/>
+		<var name="Chestplate" 	value="3" alias="护甲"/>
 		<var name="Boots" 		value="4" alias="鞋子"/>
 	</enum>
 	

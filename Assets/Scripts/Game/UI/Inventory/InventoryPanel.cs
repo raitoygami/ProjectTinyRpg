@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using cfg;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,11 +8,10 @@ using UnityEngine.EventSystems;
 
 public class InventoryPanel : MonoBehaviour, IItemIconOwner
 {
-
     [SerializeField] private ItemIconObj _itemIconTemplate;
     [SerializeField] private List<Transform> _InventorySlots = new();
     private readonly Dictionary<int, ItemIconObj> itemNodeMap = new();
-    
+
     private void Awake()
     {
         this.SubscribeGlobal<DropItem.PickupItemEvt>(OnPickupItem);
@@ -27,8 +27,9 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
             iconObj.transform.localPosition = Vector3.zero;
             itemNodeMap.Add(itemStack.Location, iconObj);
         }
+
         iconObj.SetItemStack(itemStack);
-        
+
         return UniTask.CompletedTask;
     }
 
@@ -59,25 +60,26 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
                 iconObj.transform.localPosition = Vector3.zero;
                 itemNodeMap.Add(itemStack.Location, iconObj);
             }
+
             iconObj.SetItemStack(itemStack);
         }
     }
-    
+
 
     /// <summary>
     /// 根据 Drop 位置找到对应的槽位索引
     /// </summary>
     private int GetSlotIndexFromDrop(PointerEventData eventData)
     {
-        if (eventData.pointerCurrentRaycast.gameObject == null) 
+        if (eventData.pointerCurrentRaycast.gameObject == null)
             return -1;
 
         // 找到被 Drop 的槽位父物体
         var slotTransform = eventData.pointerCurrentRaycast.gameObject.transform;
-        
+
         for (var i = 0; i < _InventorySlots.Count; i++)
         {
-            if (_InventorySlots[i] == slotTransform || 
+            if (_InventorySlots[i] == slotTransform ||
                 slotTransform.IsChildOf(_InventorySlots[i]))
             {
                 return i;
@@ -86,17 +88,17 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
 
         return -1;
     }
-    
-    
+
+
     private void OnDestroy()
     {
-        foreach (var (_,itemIconObj) in itemNodeMap)
+        foreach (var (_, itemIconObj) in itemNodeMap)
         {
             Destroy(itemIconObj.gameObject);
         }
+
         itemNodeMap.Clear();
     }
-
 
 
     public void OnDrop(PointerEventData eventData, ItemIconObj itemIconObj)
@@ -118,13 +120,13 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
             itemIconObj.Discard();
             return;
         }
-        
+
         // 这时候已经成功将道具从源头移除了
         // 如果找到目标槽位, 则看目标位置有没有道具
         // 1:如果目标位置有道具
-        
+
         var itemStack = itemIconObj.GetItemStack();
-        
+
         var inventoryData = PlayerManager.Instance.GetInventoryData();
         // 查找目标位置是否已有物品
         // 即使放到原位置， 因为在之前已经从背包里将itemIconObj清除了，所以这里通过Location是找不到itemIconObj的
@@ -158,6 +160,7 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
                     return;
                 }
             }
+
             // 如果成功交换
             if (itemOwner.TryAdd(targetObj, location))
             {
@@ -172,46 +175,115 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
                     return;
                 }
             }
-            
+
             // 否则尝试将 targetStack和itemIconObj交换位置
-            
         }
-        
+
         // 所有操作都失败了，则复位        
         itemIconObj.Restore();
     }
-    
-   
-   public bool TryAdd(ItemIconObj itemIconObj, int location)
-   {
-       // 移除
-       if (!itemIconObj.RemoveFromOwner())
-           return false;
-       
-       var result  = PlayerManager.Instance.TryAddItemStackToInventory(itemIconObj.GetItemStack(), location);
 
-       if (result == PlayerManager.AddItemStackToInventoryResult.SuccessNewInstance)
-       {
-           itemNodeMap.Add(location, itemIconObj);
-           itemIconObj.transform.SetParent(_InventorySlots[location]);
-           itemIconObj.transform.localPosition = Vector3.zero;
-           itemIconObj.SetOwner(this);
-           return true;
-       }
+    public bool OnMouseRightClick(PointerEventData eventData, ItemIconObj itemIconObj)
+    {
+        if (!itemIconObj.GetOwner().Equals(this))
+            return false;
 
-       if (result == PlayerManager.AddItemStackToInventoryResult.SuccessStacked)
-       {
-           Destroy(itemIconObj.gameObject);
-           itemNodeMap[location].SetItemStack(itemNodeMap[location].GetItemStack());
-           return true;
-       }
+        var itemStack = itemIconObj.GetItemStack();
+        var originLocation = itemStack.Location;
+        if (itemStack.IsEquip())
+        {
+            var equipType = itemStack.GetEquipType();
+            //  武器右键只能放到空位置上，因为武器没有固定槽位，在4-7号都可以放, 如果想放到指定位置，只能拖拽
+            var inventoryUI = UIRoot.Instance.InventoryUI;
+            if (inventoryUI == null)
+                return false;
 
-       itemIconObj.Restore();
-       
-       return false;
-   }
+            var equipmentPanel = inventoryUI.GetEquipmentPanel();
+            if (equipType == EquipType.Weapon)
+            {
+                var location = PlayerManager.Instance.GetFirstEmptyWeaponLocation(equipType);
+                if (location == -1)
+                    return false;
 
-   public bool TryRemove(ItemIconObj itemIconObj)
+                if (!equipmentPanel.TryAdd(itemIconObj, location))
+                {
+                    itemIconObj.Restore();
+                    return false;
+                }
+            }
+            // 如果是防具, 不需要为空， 直接交换
+            else
+            {
+                var location = PlayerManager.Instance.GetArmorLocation(equipType);
+                if (location == -1)
+                    return false;
+                
+                var inventoryData = PlayerManager.Instance.GetInventoryData();
+                // 查找目标位置是否已有物品
+                // 装备槽上是否有防具
+                var targetStack = inventoryData.EquippedItems.FirstOrDefault(i => i.Location == location);
+                // 没有则直接放上去
+                if (targetStack == null)
+                {
+                    return equipmentPanel.TryAdd(itemIconObj, location);
+                }
+                
+                //  如果有, 则先将targetStack从目标移除
+                var equipArmor = equipmentPanel.GetItemIconObj(location);
+                if (!equipmentPanel.TryRemove(equipArmor))
+                    return false;
+                
+                if (!equipmentPanel.TryAdd(itemIconObj, location))
+                {
+                    itemIconObj.Restore();
+                    equipArmor.Restore();
+                    return false;
+                }
+                TryAdd(equipArmor, originLocation);
+            }
+
+            return true;
+        }
+        // 如果不是装备, 就要判断是不是消耗品
+        else
+        {
+            
+        }
+        
+        return false;
+    }
+
+
+    public bool TryAdd(ItemIconObj itemIconObj, int location)
+    {
+        // 移除
+        if (!itemIconObj.RemoveFromOwner())
+            return false;
+
+        var result = PlayerManager.Instance.TryAddItemStackToInventory(itemIconObj.GetItemStack(), location);
+
+        if (result == PlayerManager.AddItemStackToInventoryResult.SuccessNewInstance)
+        {
+            itemNodeMap.Add(location, itemIconObj);
+            itemIconObj.transform.SetParent(_InventorySlots[location]);
+            itemIconObj.transform.localPosition = Vector3.zero;
+            itemIconObj.SetOwner(this);
+            return true;
+        }
+
+        if (result == PlayerManager.AddItemStackToInventoryResult.SuccessStacked)
+        {
+            Destroy(itemIconObj.gameObject);
+            itemNodeMap[location].SetItemStack(itemNodeMap[location].GetItemStack());
+            return true;
+        }
+
+        itemIconObj.Restore();
+
+        return false;
+    }
+
+    public bool TryRemove(ItemIconObj itemIconObj)
     {
         if (!itemIconObj.GetOwner().Equals(this))
             return false;
@@ -222,10 +294,10 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
             itemNodeMap.Remove(itemIconObj.GetItemStack().Location);
             return true;
         }
-        
+
         return false;
     }
-   
+
     // 复位
     public void Restore(ItemIconObj itemIconObj)
     {
@@ -241,15 +313,13 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
         else if (result == PlayerManager.AddItemStackToInventoryResult.SuccessStacked)
         {
             // 可能是堆叠拿出一定数量仓库然后取消了
-            
         }
     }
-    
+
     public void Discard(ItemIconObj itemIconObj)
     {
         var itemStack = itemIconObj.GetItemStack();
         itemIconObj.transform.SetParent(_InventorySlots[itemStack.Location]);
         itemIconObj.transform.localPosition = Vector3.zero;
     }
-    
 }

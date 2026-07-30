@@ -18,5 +18,7 @@ public interface IItemIconOwner : IEventSystemHandler
     public void Restore(ItemIconObj itemIconObj);
     
     public void OnDrop(PointerEventData eventData, ItemIconObj itemIconObj);
+
+    public bool OnMouseRightClick(PointerEventData eventData, ItemIconObj itemIconObj);
     
 }

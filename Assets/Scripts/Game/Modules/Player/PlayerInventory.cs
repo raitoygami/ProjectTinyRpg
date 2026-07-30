@@ -121,6 +121,7 @@ public partial class PlayerManager
         if (uid == 0)
         {
             GetInventoryData().InventoryItems.Add(itemStack);
+            OccupiedInventory[location] = itemStack.Uid;
             itemStack.Location = location;
             return AddItemStackToInventoryResult.SuccessNewInstance;
         }
@@ -211,7 +212,7 @@ public partial class PlayerManager
         return false;
     }
 
-    private int GetFirstInventoryEmptySlot()
+    public int GetFirstInventoryEmptySlot()
     {
         for (var i = 0; i < OccupiedInventory.Length; i++)
         {
@@ -379,12 +380,15 @@ public partial class PlayerManager
     }
 
     // 这个要重新写
-    public int GetFirstEmptyEquipSlot(EquipType equipType)
+    public int GetFirstEmptyWeaponLocation(EquipType equipType)
     {
-        for (var i = 0; i < OccupiedEquipped.Length; i++)
+        if (equipType == EquipType.Weapon)
         {
-            if (OccupiedEquipped[i] == 0)
-                return i;
+            for (var i = 4; i < OccupiedEquipped.Length; i++)
+            {
+                if (OccupiedEquipped[i] == 0)
+                    return i;
+            }
         }
         return -1;
     }
@@ -400,6 +404,16 @@ public partial class PlayerManager
         }
 
         return -1;
+    }
+
+    // 防具位置分别在 : 0,1,2,3 
+    public int GetArmorLocation(EquipType equipType)
+    {
+        if (equipType == EquipType.Weapon)
+            return -1;
+
+        return (int)equipType - 1;
+
     }
     
     private bool EquipTypeMatch(int slot, ItemStack itemStack)

@@ -31,7 +31,7 @@ namespace cfg
         /// <summary>
         /// 护甲
         /// </summary>
-        Armor = 3,
+        Chestplate = 3,
         /// <summary>
         /// 鞋子
         /// </summary>

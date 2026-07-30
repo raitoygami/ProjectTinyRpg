@@ -402,7 +402,7 @@ public class UIRoot : Singleton<UIRoot>
     }
 
     public LootUI LootUI => GetPanel<LootUI>("Loot");
-
+    public InventoryUI InventoryUI => GetPanel<InventoryUI>("Inventory");
     /*public async UniTask OpenLootPanel(LootUnit lootUnit)
     {
         if (lootUnit == null)

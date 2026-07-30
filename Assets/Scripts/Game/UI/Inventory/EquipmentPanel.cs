@@ -14,10 +14,10 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
 
     private void Awake()
     {
-        this.SubscribeGlobal<DragManager.DragItemIconFinishEvt>(OnItemChanged);
+        this.SubscribeGlobal<DragManager.EquipmentUpdateEvt>(OnItemChanged);
     }
 
-    private UniTask OnItemChanged(DragManager.DragItemIconFinishEvt arg)
+    private UniTask OnItemChanged(DragManager.EquipmentUpdateEvt arg)
     {
         var location = PlayerManager.Instance.GetCurrWeaponLocation();
         _equipActiveVfx.gameObject.SetActive(location != -1);
@@ -166,7 +166,29 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
         itemIconObj.Restore();
     }
 
-    
+    public bool OnMouseRightClick(PointerEventData eventData, ItemIconObj itemIconObj)
+    {
+        if (!itemIconObj.GetOwner().Equals(this))
+            return false;
+
+        var itemStack = itemIconObj.GetItemStack();
+        if (!itemStack.IsEquip())
+            return false;
+        
+        var inventoryUI = UIRoot.Instance.InventoryUI;
+        if (inventoryUI == null)
+            return false;
+
+        var inventoryPanel = inventoryUI.GetInventoryPanel();
+        if (inventoryPanel == null)
+            return false;
+        
+        var location = PlayerManager.Instance.GetFirstInventoryEmptySlot();
+        
+        return inventoryPanel.TryAdd(itemIconObj, location);
+    }
+
+
     public bool TryAdd(ItemIconObj itemIconObj, int location)
     {
         if (!itemIconObj.RemoveFromOwner())
@@ -179,7 +201,6 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
             itemIconObj.transform.SetParent(_EquipmentSlots[location]);
             itemIconObj.transform.localPosition = Vector3.zero;
             itemIconObj.SetOwner(this);
-            // Debug.Log($"Try add by swap {itemIconObj.GetItemStack().Name()} - {itemIconObj.GetItemStack().Location} ");
             return true;
         }
         
@@ -204,6 +225,11 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
         
     }
 
+    public ItemIconObj GetItemIconObj(int location)
+    {
+        return itemNodeMap.GetValueOrDefault(location);
+    }
+    
     public void Discard(ItemIconObj itemIconObj)
     {
         var itemStack = itemIconObj.GetItemStack();

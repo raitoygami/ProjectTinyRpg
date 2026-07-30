@@ -141,11 +141,20 @@ public class ItemIconObj : MonoBehaviour,
         PhysicsUtil.SetRaycastTargetRecursively(gameObject, true);
     }
 
+    private readonly DragManager.EquipmentUpdateEvt _equipmentUpdateEvt = new();
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            
+            // 如果是装备更新则更新表现
+            if (_Owner.OnMouseRightClick(eventData, this))
+            {
+                if (_itemStack.IsEquip())
+                {
+                    this.PublishGlobal(_equipmentUpdateEvt);
+                }
+            }
         }
     }
 

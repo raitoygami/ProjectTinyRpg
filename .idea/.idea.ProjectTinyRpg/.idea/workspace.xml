@@ -10,6 +10,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1b6535aa091d41cf8b3ca222ed9ceef0212600/f8/9001c8b5/Vector3.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7dbff5a04daf2683a492c4678441179481768ea79196f2fbfdbf3353dbedf4/SimpleJSON.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugin/UniTask/Runtime/UniTaskScheduler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/AiStrategyParams.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/Data_Drop.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/DefaultParams.cs" root0="FORCE_HIGHLIGHTING" />
@@ -189,7 +190,8 @@
       <workItem from="1785299262606" duration="9175000" />
       <workItem from="1785323320314" duration="12013000" />
       <workItem from="1785341582634" duration="345000" />
-      <workItem from="1785383663890" duration="11771000" />
+      <workItem from="1785383663890" duration="12373000" />
+      <workItem from="1785404855468" duration="4606000" />
     </task>
     <servers />
   </component>

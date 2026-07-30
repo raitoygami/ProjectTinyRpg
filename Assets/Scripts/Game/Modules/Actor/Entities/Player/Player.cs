@@ -49,7 +49,7 @@ public partial class Player : Entity
 
         this.SubscribeGlobal<EnterCombatEvt>(OnEnterCombatEvt);
 
-        this.SubscribeGlobal<DragManager.DragItemIconFinishEvt>(OnItemChanged);
+        this.SubscribeGlobal<DragManager.EquipmentUpdateEvt>(OnItemChanged);
         
         m_TurnActor = gameObject.AddComponent<TurnActor>();
         m_AgentStats = gameObject.AddComponent<AgentStats>();
@@ -68,7 +68,7 @@ public partial class Player : Entity
         EntityManager.Register(this);
     }
 
-    private async UniTask OnItemChanged(DragManager.DragItemIconFinishEvt arg)
+    private async UniTask OnItemChanged(DragManager.EquipmentUpdateEvt arg)
     {
         await RebindWeapon();
     }
