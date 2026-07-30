@@ -54,8 +54,21 @@ public class InputManager : Singleton<InputManager>
     public class SwitchEvt : EventArgs
     {
     }
+
     private readonly SwitchEvt m_SwitchEvt = new();
 
+    public class HotkeyEvt : EventArgs
+    {
+        public int Index;
+    }
+
+    private readonly HotkeyEvt m_HotkeyEvt = new();
+
+    public class QuickBarEvt : EventArgs
+    {
+        public int Index;
+    }
+    private readonly QuickBarEvt m_QuickBarEvt = new();
     
     public override void Initialized()
     {
@@ -76,16 +89,36 @@ public class InputManager : Singleton<InputManager>
         m_InputMapping.PlayerInput.Inventory.performed += OnInventoryPerformed;
         m_InputMapping.PlayerInput.Skip.performed += OnSkipPerformed;
         m_InputMapping.PlayerInput.Esc.performed += OnEscPerformed;
+        // action panel hot key
         m_InputMapping.PlayerInput.Switch.performed += OnSwitchPerformed;
+        
+        m_InputMapping.PlayerInput.Hotkey1.performed += _ => { OnHotkeyPerformed(1); };
+        m_InputMapping.PlayerInput.Hotkey2.performed += _ => { OnHotkeyPerformed(2); };
+        m_InputMapping.PlayerInput.Hotkey3.performed += _ => { OnHotkeyPerformed(3); };
+        m_InputMapping.PlayerInput.Hotkey4.performed += _ => { OnHotkeyPerformed(4); };
+        m_InputMapping.PlayerInput.Hotkey5.performed += _ => { OnHotkeyPerformed(5); };
+        m_InputMapping.PlayerInput.Hotkey6.performed += _ => { OnHotkeyPerformed(6); };
 
+        m_InputMapping.PlayerInput.QuickBar1.performed += _ => { OnQuickBarPerformed(1);};
+        m_InputMapping.PlayerInput.QuickBar2.performed += _ => { OnQuickBarPerformed(2);}; 
+        
         m_InputMapping.PlayerInput.Enable();
         LoadBindings(); // 启动时加载已保存的改键
-        
-        InputSystem.onActionChange  += OnActionChange;
-        
+
+        InputSystem.onActionChange += OnActionChange;
     }
 
-  
+    private void OnQuickBarPerformed(int index)
+    {
+        m_QuickBarEvt.Index = index;
+        this.Publish(m_QuickBarEvt);
+    }
+
+    private void OnHotkeyPerformed(int index)
+    {
+        m_HotkeyEvt.Index = index;
+        this.Publish(m_HotkeyEvt);
+    }
 
 
     private bool _isKeyboardMouse;
@@ -94,15 +127,15 @@ public class InputManager : Singleton<InputManager>
     {
         return _isKeyboardMouse;
     }
-    
+
     private void OnActionChange(object obj, InputActionChange change)
     {
         if (change == InputActionChange.ActionPerformed)
         {
-            InputAction action = obj as InputAction;
+            var action = obj as InputAction;
             if (action == null) return;
 
-            InputDevice device = action.activeControl?.device;
+            var device = action.activeControl?.device;
 
             _isKeyboardMouse = IsKeyboardOrMouse(device);
         }
@@ -117,13 +150,13 @@ public class InputManager : Singleton<InputManager>
             return true;
 
         // 方法2：通过 description 判断（兼容性好）
-        string deviceClass = device.description.deviceClass;
+        var deviceClass = device.description.deviceClass;
         return deviceClass == "Keyboard" || deviceClass == "Mouse";
 
         // 方法3：通过名称判断（备用）
         // return device.name.Contains("Keyboard") || device.name.Contains("Mouse");
     }
-    
+
     /// <summary>
     ///     开始改键（支持复合绑定 + 键鼠/手柄）
     /// </summary>
@@ -276,24 +309,25 @@ public class InputManager : Singleton<InputManager>
     {
         this.Publish(m_EscPressedEvt);
     }
+
     private void OnSwitchPerformed(InputAction.CallbackContext obj)
     {
-        this.Publish(m_SwitchEvt);   
+        this.Publish(m_SwitchEvt);
     }
-    
+
     public void EnableInput()
     {
         m_InputMapping.PlayerInput.Enable();
     }
 
     /// <summary>
-    /// 屏蔽整个输入系统（切换场景时推荐调用）
+    ///     屏蔽整个输入系统（切换场景时推荐调用）
     /// </summary>
     public void DisableInput()
     {
         m_InputMapping.PlayerInput.Disable();
     }
-    
+
     public void MouseDisable()
     {
         m_InputMapping.PlayerInput.LeftMouseClick.Disable();

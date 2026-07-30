@@ -47,6 +47,8 @@ public partial class Player : Entity
         this.SubscribeInput<InputManager.InventoryEvt>(OnInventoryInputEvt);
         this.SubscribeInput<InputManager.SkipEvt>(OnSkipTurn);
         this.SubscribeInput<InputManager.SwitchEvt>(OnSwitchWeapon);
+        this.SubscribeInput<InputManager.HotkeyEvt>(OnHotKey);
+        this.SubscribeInput<InputManager.QuickBarEvt>(OnQuickBar);
         this.SubscribeGlobal<EnterCombatEvt>(OnEnterCombatEvt);
 
         this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
@@ -66,6 +68,18 @@ public partial class Player : Entity
         m_AgentAnimations.Setup(m_AvatarRoot, m_SpriteRoot);
         _xyPlane = new Plane(Vector3.back, Vector3.zero);   // 法线朝 -Z，点在原点
         EntityManager.Register(this);
+    }
+
+    private UniTask OnQuickBar(InputManager.QuickBarEvt arg)
+    {
+        Debug.Log($"QuickBar {arg.Index}");
+        return UniTask.CompletedTask;
+    }
+
+    private UniTask OnHotKey(InputManager.HotkeyEvt arg)
+    {
+        Debug.Log($"HotKey {arg.Index}");
+        return UniTask.CompletedTask;
     }
 
     private async UniTask OnSwitchWeapon(InputManager.SwitchEvt arg)
