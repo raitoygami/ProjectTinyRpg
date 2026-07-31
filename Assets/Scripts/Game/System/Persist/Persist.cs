@@ -105,24 +105,25 @@ public class Persist : Singleton<Persist>
             Debug.LogException(e);
         }
     }
+
+    public void ResetSlot(int slotIndex)
+    {
+        DeleteSlot(slotIndex);
+        _runtimeState = new GameState();
+    }
     
-    public bool DeleteSlot(int slotIndex)
+    public void DeleteSlot(int slotIndex)
     {
         try
         {
             var path = GetPersistPath(slotIndex);
             if (!File.Exists(path))
-            {
-                return false; // 文件不存在，没有可删除的
-            }
-
+                return; // 文件不存在，没有可删除的
             File.Delete(path);
-            return true;
         }
         catch (Exception e)
         {
             Debug.LogException(e);
-            return false;
         }
     }
 }

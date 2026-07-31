@@ -1,4 +1,6 @@
 Key,Id,Chinese (Simplified)(zh-CN),English(en),Japanese (Japan)(ja-JP),Korean (South Korea)(ko-KR)
-Menu.GameStart,6750486528,开始游戏,Start Game,ゲーム開始,게임 시작
-Menu.Continue,,继续游戏,Continue the game,ゲームを続ける,게임을 계속하세요
-Menu.ExitToMenu,,退出到菜单,Exit to menu,メニューに戻る,메뉴로 나가기
+"Menu.GameStart",6750486528,"开始游戏","New Game","ゲーム開始","게임 시작"
+"Menu.Continue",18445619707904,"继续游戏","Continue  game","続ける","계속하기"
+"Menu.ExitToMenu",18445644873728,"退出到菜单","Exit to menu","メニューに戻る","메뉴로 나가기"
+"Menu.SaveGame",4754220575899648,"保存游戏","Save Game","セーブ","저장"
+"Menu.Option",4758827993677824,"设置","Options","オプション","설정"

@@ -57,10 +57,11 @@ public class EntityManager : Singleton<EntityManager>
             stats.SetBaseFromAttribute(entity.Attr);
         stats?.SetEntityConfig(entity);
         
-        var avatar = GetComponent<AgentAvatar>();
-        if (avatar != null && !string.IsNullOrEmpty(entity?.Addressable))
-            avatar.SetDisplayFromAddressable(entity.Addressable);
-
+        var customization =go.GetComponent<AgentCustomization>();
+        customization.RefreshCustomization();
+        var avatar = go.GetComponent<AgentAvatar>();
+        avatar.SetSprite(customization.GetCombinedSprite());
+        
         return go.GetComponent<Player>();
     }
 

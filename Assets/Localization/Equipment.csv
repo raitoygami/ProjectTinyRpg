@@ -1,0 +1,13 @@
+Key,Id,Chinese (Simplified)(zh-CN),English(en),Japanese (Japan)(ja-JP),Korean (South Korea)(ko-KR)
+"Category.OneHand",2910446174208,"单手剑","One-Handed Sword","片手剣","한손 검"
+"Category.HeavyBlunt",3299836968960,"双手武器","Two-Handed Weapon","両手武器","양손 무기"
+"Category.Ranged",3059620790272,"弓箭","Ranged Weapon","射撃武器","원거리 무기"
+"Category.Accessory",707385989283840,"首饰","Accessory","アクセサリー","액세서리"
+"Category.Armor",707715397337088,"防具","Armor","防具","방어구"
+"name_500001",149293907968,"普通短剑","Short Sword","普通の短剣","일반 단검"
+"name_500002",364465897472,"普通弩箭","Crossbow Bolt","普通の弩矢","일반 석궁 볼트"
+"name_500003",407704977408,"普通重锤","Heavy Hammer","普通の重槌","일반 대형 망치"
+"name_510001",708007547387904,"破旧兜帽","Ragged Hood","破れたフード","낡은 두건"
+"name_520001",708148744437760,"破旧背心","Ragged Vest","破れたベスト","낡은 베스트"
+"name_530001",708249470648320,"破旧草鞋","Straw Sandals","ぼろぼろの草鞋","해진 짚신"
+"name_540001",708311663788032,"木制项链","Wooden Necklace","木製のネックレス","나무 목걸이"

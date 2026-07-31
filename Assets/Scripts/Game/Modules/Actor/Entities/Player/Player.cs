@@ -15,12 +15,13 @@ public partial class Player : Entity
     [SerializeField] private Transform m_SpriteRoot;
     private TurnActor m_TurnActor;
     private AgentStats m_AgentStats;
+    private AgentAvatar m_AgentAvatar;
     private AgentMover m_AgentMover;
     private AgentWeapon m_AgentWeapon;
     private AgentAbilities m_AgentAbilities;
     private AgentAnimations m_AgentAnimations;
     private AgentInteractive m_AgentInteractive;
-
+    private AgentCustomization m_AgentCustomization;
     private Vector2 pointerInput, movementInput;
 
     // internal state
@@ -54,12 +55,15 @@ public partial class Player : Entity
         this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
         
         m_TurnActor = gameObject.AddComponent<TurnActor>();
+        
         m_AgentStats = gameObject.AddComponent<AgentStats>();
         m_AgentMover = gameObject.AddComponent<AgentMover>();
+        m_AgentAvatar = gameObject.GetComponent<AgentAvatar>();
         m_AgentWeapon = gameObject.GetComponent<AgentWeapon>();
         m_AgentAbilities = gameObject.AddComponent<AgentAbilities>();
         m_AgentAnimations = gameObject.GetComponent<AgentAnimations>();
         m_AgentInteractive = gameObject.AddComponent<AgentInteractive>();
+        m_AgentCustomization = gameObject.GetComponent<AgentCustomization>();
         // 切换武器
         this.Subscribe<AgentWeapon.EquippedWeaponChangeEvt>(OnWeaponChanged);
         
@@ -100,6 +104,9 @@ public partial class Player : Entity
     private async UniTask OnItemChanged(Context.EquipmentUpdateEvt arg)
     {
         await RebindWeapon();
+        // 更新换装
+        m_AgentCustomization.RefreshCustomization();
+        m_AgentAvatar.SetSprite(m_AgentCustomization.GetCombinedSprite());
     }
 
     // 根据各种存档数据绑定

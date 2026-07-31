@@ -20,9 +20,7 @@ public abstract partial class t_ItemBase : Luban.BeanBase
     public t_ItemBase(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
-        Name = _buf.ReadString();
         Category = _buf.ReadString();
-        Desc = _buf.ReadString();
         Type = (ItemType)_buf.ReadInt();
         Rarity = (ItemRarity)_buf.ReadInt();
         Icon = _buf.ReadString();
@@ -45,9 +43,7 @@ public abstract partial class t_ItemBase : Luban.BeanBase
     /// 道具id
     /// </summary>
     public readonly int Id;
-    public readonly string Name;
     public readonly string Category;
-    public readonly string Desc;
     public readonly ItemType Type;
     public readonly ItemRarity Rarity;
     public readonly string Icon;
@@ -64,9 +60,7 @@ public abstract partial class t_ItemBase : Luban.BeanBase
     {
         return "{ "
         + "id:" + Id + ","
-        + "name:" + Name + ","
         + "category:" + Category + ","
-        + "desc:" + Desc + ","
         + "type:" + Type + ","
         + "rarity:" + Rarity + ","
         + "icon:" + Icon + ","

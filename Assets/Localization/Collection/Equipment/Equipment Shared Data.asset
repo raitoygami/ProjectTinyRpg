@@ -27,6 +27,14 @@ MonoBehaviour:
     m_Key: Category.Ranged
     m_Metadata:
       m_Items: []
+  - m_Id: 707385989283840
+    m_Key: Category.Accessory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 707715397337088
+    m_Key: Category.Armor
+    m_Metadata:
+      m_Items: []
   - m_Id: 149293907968
     m_Key: name_500001
     m_Metadata:
@@ -37,6 +45,22 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 407704977408
     m_Key: name_500003
+    m_Metadata:
+      m_Items: []
+  - m_Id: 708007547387904
+    m_Key: name_510001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 708148744437760
+    m_Key: name_520001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 708249470648320
+    m_Key: name_530001
+    m_Metadata:
+      m_Items: []
+  - m_Id: 708311663788032
+    m_Key: name_540001
     m_Metadata:
       m_Items: []
   m_Metadata:

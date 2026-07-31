@@ -25,17 +25,17 @@ namespace cfg
         /// </summary>
         Helmet = 1,
         /// <summary>
-        /// 面具
-        /// </summary>
-        Mask = 2,
-        /// <summary>
         /// 护甲
         /// </summary>
-        Chestplate = 3,
+        Chestplate = 2,
         /// <summary>
         /// 鞋子
         /// </summary>
-        Boots = 4,
+        Boots = 3,
+        /// <summary>
+        /// 首饰
+        /// </summary>
+        Accessory = 4,
     }
 
 } 

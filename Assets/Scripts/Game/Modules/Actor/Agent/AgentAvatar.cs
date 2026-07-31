@@ -4,14 +4,11 @@ using UnityEngine.AddressableAssets;
 
 public class AgentAvatar : MonoBehaviour
 {
-    [SerializeField] private OutfitSpriteSet outfitTest;
-    
+
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private Mesh _generatedMesh;
     private static readonly int OutlineWidth = Shader.PropertyToID("_OutlineWidth");
-
-
 
     public void SetSprite(Sprite sprite)
     {
@@ -19,7 +16,6 @@ public class AgentAvatar : MonoBehaviour
             return;
         _spriteRenderer.sprite = sprite;
     } 
-
 
     public void Cover(bool cover)
     {

@@ -227,19 +227,22 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
                 {
                     return equipmentPanel.TryAdd(itemIconObj, location);
                 }
-                
-                //  如果有, 则先将targetStack从目标移除
-                var equipArmor = equipmentPanel.GetItemIconObj(location);
-                if (!equipmentPanel.TryRemove(equipArmor))
-                    return false;
-                
-                if (!equipmentPanel.TryAdd(itemIconObj, location))
+
+                // 先换的逻辑是，先把itemIconObj 拿起来，把equippedArmor放到originLocation上， 最后在把先把itemIconObj 放到location上
+                if (!TryRemove(itemIconObj))
                 {
-                    itemIconObj.Restore();
-                    equipArmor.Restore();
                     return false;
                 }
-                TryAdd(equipArmor, originLocation);
+                
+                //  如果有, 则先将targetStack从目标移除
+                var equippedArmor = equipmentPanel.GetItemIconObj(location);
+                if (!TryAdd(equippedArmor, originLocation))
+                {
+                    itemIconObj.Restore();
+                    return false;
+                }
+
+                equipmentPanel.Add(itemIconObj, location);
             }
 
             return true;
@@ -253,13 +256,33 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
         return false;
     }
 
+    public void Add(ItemIconObj itemIconObj, int location)
+    {
+        var result = PlayerManager.Instance.TryAddItemStackToInventory(itemIconObj.GetItemStack(), location);
+        if (result == PlayerManager.AddItemStackToInventoryResult.SuccessNewInstance)
+        {
+            itemNodeMap.Add(location, itemIconObj);
+            itemIconObj.transform.SetParent(_InventorySlots[location]);
+            itemIconObj.transform.localPosition = Vector3.zero;
+            itemIconObj.SetOwner(this);
+            return;
+        }
+
+        if (result == PlayerManager.AddItemStackToInventoryResult.SuccessStacked)
+        {
+            Destroy(itemIconObj.gameObject);
+            itemNodeMap[location].SetItemStack(itemNodeMap[location].GetItemStack());
+            return ;
+        }
+        itemIconObj.Restore();
+
+    }
 
     public bool TryAdd(ItemIconObj itemIconObj, int location)
     {
         // 移除
         if (!itemIconObj.RemoveFromOwner())
             return false;
-
         var result = PlayerManager.Instance.TryAddItemStackToInventory(itemIconObj.GetItemStack(), location);
         if (result == PlayerManager.AddItemStackToInventoryResult.SuccessNewInstance)
         {
@@ -296,6 +319,8 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
 
         return false;
     }
+
+
 
     // 复位
     public void Restore(ItemIconObj itemIconObj)

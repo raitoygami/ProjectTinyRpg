@@ -446,6 +446,13 @@ public partial class PlayerManager
         return (int)equipType - 1;
     }
 
+    public ItemStack GetArmor(EquipType equipType)
+    {
+        var location = GetArmorLocation(equipType);
+        // -1 也查不到任何armor
+        return GetInventoryData().EquippedItems.FirstOrDefault(itemStack => itemStack.Location == location);
+    }
+    
     private bool EquipTypeMatch(int slot, ItemStack itemStack)
     {
         if (!itemStack.IsEquip())

@@ -41,9 +41,7 @@ public sealed partial class t_Equip : t_ItemBase
     {
         return "{ "
         + "id:" + Id + ","
-        + "name:" + Name + ","
         + "category:" + Category + ","
-        + "desc:" + Desc + ","
         + "type:" + Type + ","
         + "rarity:" + Rarity + ","
         + "icon:" + Icon + ","

@@ -52,15 +52,15 @@ public class ItemStack
     
     public string Name()
     {
-        var def = ConfigManager.Instance?.GetItemBase(ItemId);
-        return LocalizationSettings.StringDatabase.GetLocalizedString(TableReference(), def?.Name);
+        var entryReference = $"name_{ItemId}";
+        return LocalizationSettings.StringDatabase.GetLocalizedString(TableReference(), entryReference);
     }
     
     public string Description()
     {
-        var def = ConfigManager.Instance?.GetItemBase(ItemId);
+        var entryReference = $"desc_{ItemId}";
         return LocalizationSettings.StringDatabase.
-            GetLocalizedString(TableReference(), def?.Desc);
+            GetLocalizedString(TableReference(), entryReference);
     }
 
     public string Category()

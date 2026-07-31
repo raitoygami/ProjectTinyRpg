@@ -42,6 +42,30 @@ MonoBehaviour:
     m_Localized: Ranged Weapon
     m_Metadata:
       m_Items: []
+  - m_Id: 707715397337088
+    m_Localized: Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 707385989283840
+    m_Localized: Accessory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 708007547387904
+    m_Localized: Ragged Hood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 708148744437760
+    m_Localized: Ragged Vest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 708249470648320
+    m_Localized: Straw Sandals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 708311663788032
+    m_Localized: Wooden Necklace
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -184,7 +184,21 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
         return inventoryPanel.TryAdd(itemIconObj, location);
     }
 
-
+    public void Add(ItemIconObj itemIconObj, int location)
+    {
+        var result  = PlayerManager.Instance.TryAddItemStackToEquipment(itemIconObj.GetItemStack(), location);
+        if (result == PlayerManager.AddItemStackToEquipmentResult.SuccessEquipped)
+        {
+            itemNodeMap.Add(location, itemIconObj);
+            itemIconObj.transform.SetParent(_EquipmentSlots[location]);
+            itemIconObj.transform.localPosition = Vector3.zero;
+            itemIconObj.SetOwner(this);
+            return;
+        }
+        
+        itemIconObj.Restore();
+    }
+    
     public bool TryAdd(ItemIconObj itemIconObj, int location)
     {
         if (!itemIconObj.RemoveFromOwner())
@@ -219,6 +233,8 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
         return false;
         
     }
+
+
 
     public ItemIconObj GetItemIconObj(int location)
     {

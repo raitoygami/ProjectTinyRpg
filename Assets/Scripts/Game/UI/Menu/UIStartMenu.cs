@@ -38,6 +38,7 @@ public class UIStartMenu : PanelBase
         _isLoading = true;
         
         await UIRoot.Instance.LoadingStart();
+        Persist.Instance.ResetSlot(0);
         // 构建玩家数据
         PlayerManager.Instance.RebuildPersist();
         
