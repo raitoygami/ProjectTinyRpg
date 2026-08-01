@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 636bb05b40387c549bccf44b00a553e9
+guid: ef1e3c48a9860234e964296b50e7c79e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1576032731353819393
-    second: Sp_UI_Common_Frame_0
+      213: 1129008287583169562
+    second: Sp_UI_StatsPanel_Char_Frame_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,10 +48,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sp_UI_Common_Frame_0
+      name: Sp_UI_StatsPanel_Char_Frame_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 109abb24b613fd510800000000000000
-      internalID: 1576032731353819393
+      spriteID: a1cedd94e0b0baf00800000000000000
+      internalID: 1129008287583169562
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Sp_UI_Common_Frame_0: 1576032731353819393
+      Sp_UI_StatsPanel_Char_Frame_0: 1129008287583169562
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

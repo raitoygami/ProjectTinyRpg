@@ -41,8 +41,8 @@ public class CameraManager : Singleton<CameraManager>
         }
 
         // orthographicSize 僅在 Orthographic 模式才有意義，這裡保留原邏輯
-        _mainCamera.orthographicSize = 7.5f;
-        _followCam.Lens.OrthographicSize = 7.5f;
+        _mainCamera.orthographicSize = 8.4375f;
+        _followCam.Lens.OrthographicSize = 8.4375f;
         _brain = _mainCamera.GetComponent<CinemachineBrain>();
         if (_brain == null)
             _brain = _mainCamera.gameObject.AddComponent<CinemachineBrain>();
