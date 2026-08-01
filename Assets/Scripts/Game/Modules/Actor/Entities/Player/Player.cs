@@ -84,6 +84,11 @@ public partial class Player : Entity
         EntityManager.Register(this);
     }
 
+    public Transform GetAvatarRoot()
+    {
+        return m_AvatarRoot;
+    }
+    
     private void OnEquipmentChanged(int location, ItemStack itemStackOld, ItemStack itemStackNew)
     {
         if (itemStackOld != null)
@@ -121,10 +126,12 @@ public partial class Player : Entity
         
         if (PlayerManager.Instance.SetCurrWeaponUID(nextWeaponUID))
         {
-            await this.PublishGlobal(Context.EquipmentUpdateEvtInst);
+            await this.PublishGlobal(Context.EquipmentUpdate);
         }
         
     }
+    
+
 
     // 当道具发生变动的时候
     private async UniTask OnItemChanged(Context.EquipmentUpdateEvt arg)
@@ -133,6 +140,8 @@ public partial class Player : Entity
         // 更新换装
         m_AgentCustomization.RefreshCustomization();
         m_AgentAvatar.SetSprite(m_AgentCustomization.GetCombinedSprite());
+        // 更新ui界面
+        await this.PublishGlobal(Context.AvatarChanged);
     }
 
     // 第一次实例化

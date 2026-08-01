@@ -28,9 +28,6 @@ public class AgentWeapon : MonoBehaviour
     private long _currentWeaponUID = 0;
     private readonly Dictionary<long, Weapon> _weapons = new();
 
-
-
-
     public Weapon GetWeaponActive()
     {
         return _weapons.GetValueOrDefault(_currentWeaponUID, null);

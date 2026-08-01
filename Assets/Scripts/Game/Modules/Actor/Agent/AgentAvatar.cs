@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 public class AgentAvatar : MonoBehaviour
 {
-
+    
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private Mesh _generatedMesh;

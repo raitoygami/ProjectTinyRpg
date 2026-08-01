@@ -2464,18 +2464,6 @@ MonoBehaviour:
   _Name: {fileID: 2862964910314201104}
   _Category: {fileID: 5286303962707237940}
   _transform: {fileID: 3898656113012093773}
-  _localizedString:
-    m_TableReference:
-      m_TableCollectionName: GUID:4ce08faa7d85c4a499c09e34495b0249
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &3610121239930939821
 GameObject:
   m_ObjectHideFlags: 0
@@ -3069,7 +3057,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

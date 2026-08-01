@@ -12,9 +12,19 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
     private readonly Dictionary<int, ItemIconObj> itemNodeMap = new();
     [SerializeField] private GameObject _equipActiveVfx;
 
+    [SerializeField] private RectTransform _AvatarRoot;
+    private RectTransform _AvatarMirrorInst;
     private void Awake()
     {
         this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
+        this.SubscribeGlobal<Context.AvatarChangedEvt>(OnAvatarChanged);
+    }
+
+    private UniTask OnAvatarChanged(Context.AvatarChangedEvt arg)
+    {
+        // 在这里更新
+        RefreshAvatar();
+        return UniTask.CompletedTask;
     }
 
     private UniTask OnItemChanged(Context.EquipmentUpdateEvt arg)
@@ -22,18 +32,34 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
         var location = PlayerManager.Instance.GetCurrWeaponLocation();
         _equipActiveVfx.gameObject.SetActive(location != -1);
 
-        if (location != -1)
-        {
-            _equipActiveVfx.transform.SetParent(_EquipmentSlots[location]);
-            _equipActiveVfx.transform.localPosition =  Vector3.zero;
-        }
+        if (location == -1) return UniTask.CompletedTask;
+        _equipActiveVfx.transform.SetParent(_EquipmentSlots[location]);
+        _equipActiveVfx.transform.localPosition =  Vector3.zero;
+
         return UniTask.CompletedTask;
     }
 
     private void Start()
     {
         RefreshAllItems();
+        RefreshAvatar();
     }
+
+    private void RefreshAvatar()
+    {
+        // 在这里更新
+        if (!Context.HasInstance() || Context.Instance.PlayerInst == null) return;
+        if (_AvatarMirrorInst != null && _AvatarMirrorInst.gameObject != null)
+        {
+            Destroy(_AvatarMirrorInst.gameObject);
+        }
+
+        _AvatarMirrorInst = null;
+            
+        var avatarRoot = Context.Instance.PlayerInst.GetAvatarRoot();
+        _AvatarMirrorInst = Utils.CreateUIMirror(avatarRoot.gameObject, _AvatarRoot);
+    }
+    
     /// <summary>
     ///     从 InventoryManager 中读取所有物品并刷新 UI 显示。
     ///     注意：假设当前 tetrisRoot 下没有其他非物品子物体，或你将物品节点统一管理。
@@ -99,6 +125,13 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
             Destroy(itemIconObj.gameObject);
         }
         itemNodeMap.Clear();
+
+        if (_AvatarMirrorInst != null && _AvatarMirrorInst.gameObject != null)
+        {
+            Destroy(_AvatarMirrorInst.gameObject);
+        }
+        _AvatarMirrorInst = null;
+        
     }
 
     #region IItemIconOwner

@@ -57,7 +57,7 @@ public class DragManager : Singleton<DragManager>
             // 如果拖动的是装备，不管是不是往equipment上拖动，都调用这个事件
             if (itemIconObj.GetItemStack().IsEquip())
             {
-                this.PublishGlobal(Context.EquipmentUpdateEvtInst);    
+                this.PublishGlobal(Context.EquipmentUpdate);    
             }
             
             if (handled)

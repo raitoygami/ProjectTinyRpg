@@ -151,7 +151,7 @@ public class ItemIconObj : MonoBehaviour,
             {
                 if (_itemStack.IsEquip())
                 {
-                    this.PublishGlobal(Context.EquipmentUpdateEvtInst);
+                    this.PublishGlobal(Context.EquipmentUpdate);
                 }
             }
         }

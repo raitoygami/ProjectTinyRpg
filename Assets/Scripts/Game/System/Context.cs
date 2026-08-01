@@ -2,7 +2,12 @@ using System;
 
 public class Context : Singleton<Context>
 {
-    
+    // avatar更新完毕后， 推送消息更新ui界面
+    public class AvatarChangedEvt : EventArgs
+    {
+        
+    }
+    public static readonly AvatarChangedEvt AvatarChanged = new();
     
     // 装备发生变化的时候调用
     // UI刷新EquipmentPanel
@@ -11,7 +16,7 @@ public class Context : Singleton<Context>
     {
         
     }
-    public static readonly EquipmentUpdateEvt  EquipmentUpdateEvtInst = new();
+    public static readonly EquipmentUpdateEvt  EquipmentUpdate = new();
 
     
     public class PlayerInitEvt : EventArgs

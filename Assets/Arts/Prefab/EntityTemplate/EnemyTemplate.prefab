@@ -170,7 +170,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -298,14 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c7dd448b9a25640ac69f4d7deb62f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outfitTest:
-    template: {fileID: 0}
-    pants: {fileID: 0}
-    shoes: {fileID: 0}
-    top: {fileID: 0}
-    gloves: {fileID: 0}
-    helmet: {fileID: 0}
-    weapon: {fileID: 0}
   _spriteRenderer: {fileID: 8524044437279455048}
 --- !u!114 &2867066718131257605
 MonoBehaviour:
@@ -321,6 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AgentWeapon
   _weaponBack: {fileID: 8125566043291484023}
   _weaponFront: {fileID: 1408342235030686732}
+  _unarmedWeapon: {fileID: 0}
 --- !u!1 &9176069725907962306
 GameObject:
   m_ObjectHideFlags: 0
