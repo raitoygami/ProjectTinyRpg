@@ -99,9 +99,8 @@ public partial class AgentStats : MonoBehaviour
     public int MaxMana => (int)(_mana.Value + VIT * 1 + INT * 2);
 
     public int PhysicalMulti => 75 + STR * 5;
-
     // 派生属性 - 攻击力（全部 int）
-    public int PhysicalAttack => BaseAttack * (int)(Mathf.Max(PhysicalMulti, 100) / 100.0f);
+    public int PhysicalAttack => (int)(BaseAttack * (PhysicalMulti / 100.0f));
 
     public int MagicalAttack => INT * 4;
 
@@ -203,16 +202,14 @@ public partial class AgentStats : MonoBehaviour
     /// <summary>调试：打印玩家当前战斗属性（仅挂载 <see cref="Player"/> 时输出）。</summary>
     public void LogPlayerAttributesDebug()
     {
-        if (GetComponent<Player>() == null)
-            return;
         DevLog.Log(
             $"{name} [Player属性] " +
-            $"STR:{STR} DEX:{DEX} INT:{INT} VIT:{VIT} | " +
-            $"BaseAtk:{BaseAttack} PhysAtk:{PhysicalAttack} MagAtk:{MagicalAttack} | " +
-            $"HP:{HealthCurrent}/{MaxHealth} MaxMP:{MaxMana} | " +
-            $"Armor:{Armor} MR:{MagicResist} | " +
-            $"Crit:{CritChance} Mult:{CritMultiplier} Dodge:{DodgeChance} | " +
-            $"Pen:{ArmorPenetration}/{MagicPenetration}");
+            $"力量:{STR} 敏捷:{DEX} 智力:{INT} 体力:{VIT} | " +
+            $"攻击:{BaseAttack} 物理攻击:{PhysicalAttack} 魔法攻击:{MagicalAttack} | " +
+            $"血量:{HealthCurrent}/{MaxHealth} 蓝量:{MaxMana} | " +
+            $"物抗:{Armor} 法抗:{MagicResist} | " +
+            $"物穿:{ArmorPenetration} 法穿{MagicPenetration} | "  +
+            $"暴击:{CritChance} 爆伤:{CritMultiplier} 闪避:{DodgeChance}");
     }
 
     /// <summary>
@@ -230,15 +227,7 @@ public partial class AgentStats : MonoBehaviour
         stat.AddModifier(new StatModifier(modifier.V, modType, source));
     }
 
-    /// <summary>
-    ///     批量添加多条 AttributeModifier（如装备/ buff 列表）。
-    /// </summary>
-    public void AddAttributes(IEnumerable<AttributeModifier> modifiers, object source)
-    {
-        if (modifiers == null) return;
-        foreach (var m in modifiers)
-            AddAttribute(m, source);
-    }
+
 
     private static StatModifierType ConfigModifierTypeToStat(AttributeModifierType m)
     {
@@ -267,6 +256,16 @@ public partial class AgentStats : MonoBehaviour
         };
     }
 
+    /// <summary>
+    ///     批量添加多条 AttributeModifier（如装备/ buff 列表）。
+    /// </summary>
+    public void AddAttributeModifiersFromSource(IEnumerable<AttributeModifier> modifiers, object source)
+    {
+        if (modifiers == null) return;
+        foreach (var m in modifiers)
+            AddAttribute(m, source);
+    }
+    
     /// <summary>
     ///     移除来自指定来源（如某次 AddAttribute 的 source）的所有属性修正。
     /// </summary>

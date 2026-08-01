@@ -54,12 +54,13 @@ public abstract class StatModifierCollector
     public virtual bool RemoveAllModifiersFromSource(object source)
     {
         m_PredicateClosure.SourceToRemove = source;
-        var numRemovels = m_StatModifiers.RemoveAll(m_PredicateClosure.Predicate);
+        var removeAll = m_StatModifiers.RemoveAll(m_PredicateClosure.Predicate);
         m_PredicateClosure.SourceToRemove = null;
-
+        
         var didRemove = false;
-        if (numRemovels > 0)
+        if (removeAll > 0)
         {
+            
             m_IsDirty = didRemove = true;
         }
 

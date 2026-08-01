@@ -20,6 +20,7 @@ public sealed partial class t_Equip : t_ItemBase
     public t_Equip(ByteBuf _buf)  : base(_buf) 
     {
         EquipType = (EquipType)_buf.ReadInt();
+        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);Modifier = new System.Collections.Generic.List<Defination.AttributeModifier>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Defination.AttributeModifier _e0;  _e0 = Defination.AttributeModifier.DeserializeAttributeModifier(_buf); Modifier.Add(_e0);}}
     }
 
     public static t_Equip Deserializet_Equip(ByteBuf _buf)
@@ -28,6 +29,7 @@ public sealed partial class t_Equip : t_ItemBase
     }
 
     public readonly EquipType EquipType;
+    public readonly System.Collections.Generic.List<Defination.AttributeModifier> Modifier;
    
     public const int __ID__ = -1636780923;
     public override int GetTypeId() => __ID__;
@@ -35,6 +37,7 @@ public sealed partial class t_Equip : t_ItemBase
     public override void ResolveRef(Tables tables)
     {
         base.ResolveRef(tables);
+        foreach (var _e in Modifier) { _e?.ResolveRef(tables); }
     }
 
     public override string ToString()
@@ -49,6 +52,7 @@ public sealed partial class t_Equip : t_ItemBase
         + "tradeValue:" + TradeValue + ","
         + "prefab:" + Prefab + ","
         + "equipType:" + EquipType + ","
+        + "Modifier:" + Luban.StringUtil.CollectionToString(Modifier) + ","
         + "}";
     }
 }

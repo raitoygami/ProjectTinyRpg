@@ -76,7 +76,7 @@ public class LevelManager : Singleton<LevelManager>
         p.InitAfterLevelLoad();
         Context.Instance.SetPlayer(p);
         CameraManager.Instance.SetFollowTarget(p.transform);
-        await p.Rebind();
+        await p.FirstBindAfterInst();
         // 初始化
         var activeAfterLoad = levelLayers.ActiveAfterLoad;
         if (activeAfterLoad != null)

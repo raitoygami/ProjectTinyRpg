@@ -10,6 +10,7 @@
 	
 	<bean name="t_Equip" parent="t_ItemBase" comment="装备">
 		<var name="equipType" type="EquipType"/>
+		<var name="Modifier"  type="list,Defination.AttributeModifier" />
 	</bean>
 	
 	<table name="Data_Equip" value="t_Equip" input="装备表@Item/装备系统表.xlsx" comment="装备"/>

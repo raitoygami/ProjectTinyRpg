@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using cfg;
+using cfg.Defination;
 using Newtonsoft.Json;
 using UnityEngine.Localization.Settings;
 
@@ -102,6 +104,14 @@ public class ItemStack
         var def = ConfigManager.Instance?.GetItemBase(ItemId);
         return def?.Rarity ?? ItemRarity.Common;
     }
+
+    public List<AttributeModifier> GetModifiers()
+    {
+        var def = ConfigManager.Instance?.GetItemBase(ItemId);
+        return def is t_Equip e? e.Modifier : null;
+    }
+    
+    
     [JsonIgnore]
     public int Width => GetWidth();
     [JsonIgnore]

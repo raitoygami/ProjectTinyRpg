@@ -57,11 +57,6 @@ public class EntityManager : Singleton<EntityManager>
             stats.SetBaseFromAttribute(entity.Attr);
         stats?.SetEntityConfig(entity);
         
-        var customization =go.GetComponent<AgentCustomization>();
-        customization.RefreshCustomization();
-        var avatar = go.GetComponent<AgentAvatar>();
-        avatar.SetSprite(customization.GetCombinedSprite());
-        
         return go.GetComponent<Player>();
     }
 

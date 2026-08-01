@@ -31,10 +31,10 @@ public class StatValue
         {
             m_ModifierCollector[i] = modifierTypes[i] switch
             {
-                StatModifierType.BaseAdd => new CollectorAdd(0.0f, StatModifierType.BaseAdd),
-                StatModifierType.PercentAdd => new CollectorAdd(1.0f, StatModifierType.PercentAdd),
-                StatModifierType.PercentMul => new CollectorMul(1.0f, StatModifierType.PercentMul),
-                StatModifierType.TotalAdd => new CollectorAdd(0.0f, StatModifierType.TotalAdd),
+                StatModifierType.AddFlat => new CollectorAdd(0.0f, StatModifierType.AddFlat),
+                StatModifierType.AddPercent => new CollectorAdd(1.0f, StatModifierType.AddPercent),
+                StatModifierType.MulPercent => new CollectorMul(1.0f, StatModifierType.MulPercent),
+                StatModifierType.AddFinal => new CollectorAdd(0.0f, StatModifierType.AddFinal),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -44,10 +44,10 @@ public class StatValue
     {
         var finalValue = m_BaseValue;
 
-        finalValue += m_ModifierCollector[(int) StatModifierType.BaseAdd].FinalValue;
-        finalValue *= m_ModifierCollector[(int) StatModifierType.PercentAdd].FinalValue;
-        finalValue *= m_ModifierCollector[(int) StatModifierType.PercentMul].FinalValue;
-        finalValue += m_ModifierCollector[(int) StatModifierType.TotalAdd].FinalValue;
+        finalValue += m_ModifierCollector[(int) StatModifierType.AddFlat].FinalValue;
+        finalValue *= m_ModifierCollector[(int) StatModifierType.AddPercent].FinalValue;
+        finalValue *= m_ModifierCollector[(int) StatModifierType.MulPercent].FinalValue;
+        finalValue += m_ModifierCollector[(int) StatModifierType.AddFinal].FinalValue;
      
         return (float) Math.Round(finalValue, 4);
     }
@@ -94,6 +94,5 @@ public class StatValue
 
         return didRemove;
     }
-
     
 }

@@ -24,6 +24,8 @@ public partial class Player : Entity
     private AgentCustomization m_AgentCustomization;
     private Vector2 pointerInput, movementInput;
 
+    private AgentWeapon.EquipChangedEvt _equipChangedEvt;
+    
     // internal state
     private bool _InputAvailable;
     private bool _Controllable;
@@ -32,6 +34,8 @@ public partial class Player : Entity
     private readonly Queue<Func<UniTask>> m_NextTurnEvt = new();
     protected void Awake()
     {
+        Debug.Log("Awake");
+        
         GridSizeX = 1;
         GridSizeZ = 1;
    
@@ -50,9 +54,13 @@ public partial class Player : Entity
         this.SubscribeInput<InputManager.SwitchEvt>(OnSwitchWeapon);
         this.SubscribeInput<InputManager.HotkeyEvt>(OnHotKey);
         this.SubscribeInput<InputManager.QuickBarEvt>(OnQuickBar);
+        
         this.SubscribeGlobal<EnterCombatEvt>(OnEnterCombatEvt);
-
+        
+        // 装备变动
         this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
+        // 切换武器
+        this.Subscribe<AgentWeapon.EquippedWeaponChangeEvt>(OnWeaponChanged);
         
         m_TurnActor = gameObject.AddComponent<TurnActor>();
         
@@ -64,8 +72,10 @@ public partial class Player : Entity
         m_AgentAnimations = gameObject.GetComponent<AgentAnimations>();
         m_AgentInteractive = gameObject.AddComponent<AgentInteractive>();
         m_AgentCustomization = gameObject.GetComponent<AgentCustomization>();
-        // 切换武器
-        this.Subscribe<AgentWeapon.EquippedWeaponChangeEvt>(OnWeaponChanged);
+  
+        _equipChangedEvt = new AgentWeapon.EquipChangedEvt();
+        // 订阅装备增删改
+        PlayerManager.Instance.OnEquipmentChanged += OnEquipmentChanged;
         
         Faction = EntityFaction.Player;
 
@@ -74,6 +84,21 @@ public partial class Player : Entity
         EntityManager.Register(this);
     }
 
+    private void OnEquipmentChanged(int location, ItemStack itemStackOld, ItemStack itemStackNew)
+    {
+        if (itemStackOld != null)
+        {
+            m_AgentStats.RemoveAttributeModifiersFromSource(itemStackOld);
+        }
+
+        if (itemStackNew != null)
+        {
+            m_AgentStats.AddAttributeModifiersFromSource(itemStackNew.GetModifiers(), itemStackNew);
+        }
+                
+        // m_AgentStats.LogPlayerAttributesDebug();
+    }
+    
     private UniTask OnQuickBar(InputManager.QuickBarEvt arg)
     {
         Debug.Log($"QuickBar {arg.Index}");
@@ -101,27 +126,47 @@ public partial class Player : Entity
         
     }
 
+    // 当道具发生变动的时候
     private async UniTask OnItemChanged(Context.EquipmentUpdateEvt arg)
     {
-        await RebindWeapon();
+        await RefreshWeapon();
         // 更新换装
         m_AgentCustomization.RefreshCustomization();
         m_AgentAvatar.SetSprite(m_AgentCustomization.GetCombinedSprite());
     }
 
-    // 根据各种存档数据绑定
-    public async UniTask Rebind()
+    // 第一次实例化
+    public async UniTask FirstBindAfterInst()
     {
-        await RebindWeapon();
+        // 更新装备外观
+        m_AgentCustomization.RefreshCustomization();
+        m_AgentAvatar.SetSprite(m_AgentCustomization.GetCombinedSprite());
+        
+        // 更新武器技能和外观
+        await RefreshWeapon();
+        
+        // 更新属性 
+        FirstAddWeaponModifiers();
     }
 
-    private async UniTask RebindWeapon()
+    private async UniTask RefreshWeapon()
     {
         // 直接通过存档数据加载武器
         var currWeaponUIDEquipped = PlayerManager.Instance.GetCurrWeaponUID(); // 默认-1
         await m_AgentWeapon.SwapWeapon(currWeaponUIDEquipped);
     }
-    
+
+    // 这个函数，只在初始化的时候调用一次
+    private void FirstAddWeaponModifiers()
+    {
+        var equippedItems = PlayerManager.Instance.GetInventoryData().EquippedItems;
+        foreach (var itemStack in equippedItems)
+        {
+            m_AgentStats.AddAttributeModifiersFromSource(itemStack.GetModifiers(), itemStack);
+        }
+
+        // m_AgentStats.LogPlayerAttributesDebug();
+    }
     
     private UniTask OnWeaponChanged(AgentWeapon.EquippedWeaponChangeEvt arg)
     {
@@ -276,6 +321,11 @@ public partial class Player : Entity
     
     private void OnDestroy()
     {
+        if (PlayerManager.HasInstance())
+        {
+            PlayerManager.Instance.OnEquipmentChanged -= OnEquipmentChanged;
+        }
+        
         EntityManager.UnRegister(this);
     }
 

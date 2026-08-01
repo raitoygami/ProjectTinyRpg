@@ -12,8 +12,11 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
     [SerializeField] private List<Transform> _InventorySlots = new();
     private readonly Dictionary<int, ItemIconObj> itemNodeMap = new();
 
+    private AgentWeapon.EquipChangedEvt _equipChangedEvt;
+    
     private void Awake()
     {
+        _equipChangedEvt = new AgentWeapon.EquipChangedEvt();
         this.SubscribeGlobal<DropItem.PickupItemEvt>(OnPickupItem);
     }
 
@@ -183,6 +186,7 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
         itemIconObj.Restore();
     }
 
+    // 这种操作的接口才会调用equip changed evt
     public bool OnMouseRightClick(PointerEventData eventData, ItemIconObj itemIconObj)
     {
         if (!itemIconObj.GetOwner().Equals(this))
@@ -319,8 +323,6 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
 
         return false;
     }
-
-
 
     // 复位
     public void Restore(ItemIconObj itemIconObj)

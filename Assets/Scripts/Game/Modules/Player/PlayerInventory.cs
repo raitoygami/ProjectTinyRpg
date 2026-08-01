@@ -42,6 +42,9 @@ public partial class PlayerManager
 
     // 背包槽位49个，暂定
     private long[] OccupiedInventory;
+    
+    // 装备增删改事件：参数 (槽位索引, 旧装备ItemStack, 新装备ItemStack)
+    public event Action<int, ItemStack, ItemStack> OnEquipmentChanged;
 
     private void RebuildInventory()
     {
@@ -238,6 +241,13 @@ public partial class PlayerManager
             );
     }
 
+    private void SetCurrentWeaponLocation(int newLocation)
+    {
+        var oldLocation = GetInventoryData().CurrentWeaponLocation;
+        if (oldLocation == newLocation) return;
+        GetInventoryData().CurrentWeaponLocation = newLocation;
+    }
+    
     public int GetCurrWeaponLocation()
     {
         RefreshWeaponActive();
@@ -290,7 +300,7 @@ public partial class PlayerManager
     // 一定是先更新数据，在更新表现，更新表现一定要先判断是否正确
     public bool SetCurrWeaponUID(long uid)
     {
-        int location = -1;
+        var location = -1;
         var hasEquipped = false;
         // 4 5 6 7
         for (var i = 4; i < OccupiedEquipped.Length; i++)
@@ -299,15 +309,14 @@ public partial class PlayerManager
             if (-1 == uid && OccupiedEquipped[i] > 0)
                 return false;
 
-            if (OccupiedEquipped[i] == uid)
-            {
-                location = i;
-                hasEquipped = true;
-            }
+            if (OccupiedEquipped[i] != uid) continue;
+            location = i;
+            hasEquipped = true;
         }
 
         if (uid != -1 && !hasEquipped) return false;
-        GetInventoryData().CurrentWeaponLocation = location;
+        SetCurrentWeaponLocation(location);
+        //GetInventoryData().CurrentWeaponLocation = location;
         return true;
     }
 
@@ -353,60 +362,46 @@ public partial class PlayerManager
         var uid = OccupiedEquipped[location];
 
         // 如果当前位置为空,则直接加入背包
-        if (uid == 0)
-        {
-            // 更新当前装备
-            // var firstWeaponLocation = GetFirstWeaponLocation();
-            GetInventoryData().EquippedItems.Add(itemStack);
-            itemStack.Location = location;
-            OccupiedEquipped[location] = itemStack.Uid;
+        if (uid != 0) return AddItemStackToEquipmentResult.FailureSlotNotEmpty;
+        // 更新当前装备
+        // var firstWeaponLocation = GetFirstWeaponLocation();
+        GetInventoryData().EquippedItems.Add(itemStack);
+        itemStack.Location = location;
+        OccupiedEquipped[location] = itemStack.Uid;
 
-            /*if (firstWeaponLocation == -1 && IsWeaponSlot(location))
-            {
-                GetInventoryData().CurrentWeaponLocation = location;
-            }*/
-            return AddItemStackToEquipmentResult.SuccessEquipped;
-        }
+        OnEquipmentChanged?.Invoke(location, null, itemStack);
+        
+        return AddItemStackToEquipmentResult.SuccessEquipped;
 
         // 更换装备的操作，一定是先把槽位上的提前卸下来，然后在把新的装备放上去
         // 所以不可能走到这一步
         // 右键点击装备道具，会先判断有没有空的槽位，所以也不会走到这一步
-        return AddItemStackToEquipmentResult.FailureSlotNotEmpty;
     }
 
     private void RefreshWeaponActive()
     {
-        var location = GetInventoryData().CurrentWeaponLocation;
-        // 如果当前是赤手空拳，那么就需要判断一下有没有装备变化
-        if (location == -1)
-        {
-            GetInventoryData().CurrentWeaponLocation = GetFirstWeaponLocation();
-            return;
-        }
-
-        // 如果当前装备被换下了， 那么就更新
-        if (OccupiedEquipped[location] == 0)
-        {
-            GetInventoryData().CurrentWeaponLocation = GetFirstWeaponLocation();
-        }
+        var current = GetInventoryData().CurrentWeaponLocation;
+        if (current != -1 && OccupiedEquipped[current] != 0) return;
+        var newLoc = GetFirstWeaponLocation();
+        SetCurrentWeaponLocation(newLoc);
     }
 
     public bool RemoveItemStackFrontEquipment(ItemStack itemStack)
     {
-        if (GetInventoryData().EquippedItems.Remove(itemStack))
-        {
-            OccupiedEquipped[itemStack.Location] = 0;
-            // 这个是没问题的， 非武器不会放到 武器槽位上，但是还是要加个判断
-            /*
+        if (!GetInventoryData().EquippedItems.Remove(itemStack)) return false;
+        
+        OnEquipmentChanged?.Invoke(itemStack.Location, itemStack, null);
+        
+        OccupiedEquipped[itemStack.Location] = 0;
+        // 这个是没问题的， 非武器不会放到 武器槽位上，但是还是要加个判断
+        /*
             if (IsWeaponSlot(itemStack.Location) &&
                 GetInventoryData().CurrentWeaponLocation == itemStack.Location)
             {
                 GetInventoryData().CurrentWeaponLocation = GetFirstWeaponLocation();
             }*/
-            return true;
-        }
+        return true;
 
-        return false;
     }
 
     // 这个要重新写

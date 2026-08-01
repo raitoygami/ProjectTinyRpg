@@ -19,19 +19,19 @@ namespace cfg.Defination
         /// <summary>
         /// 加基础
         /// </summary>
-        BaseAdd = 0,
+        AddFlat = 0,
         /// <summary>
         /// 加算百分比(1 + 10% + 10%).
         /// </summary>
-        PercentAdd = 1,
+        AddPercent = 1,
         /// <summary>
         /// 乘算百分比1 * (1 + 10%) * (1 + 10%).
         /// </summary>
-        PercentMul = 2,
+        MulPercent = 2,
         /// <summary>
         /// 加最终值
         /// </summary>
-        TotalAdd = 3,
+        AddTotal = 3,
     }
 
 } 

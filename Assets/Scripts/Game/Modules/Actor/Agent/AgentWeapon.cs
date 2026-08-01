@@ -10,7 +10,14 @@ public class AgentWeapon : MonoBehaviour
     [SerializeField] private Transform _weaponFront;
 
     [SerializeField] private Weapon _unarmedWeapon;
-    
+
+    public class EquipChangedEvt : EventArgs
+    {
+        public int Slot;
+        public ItemStack Old;
+        public ItemStack New;
+    }
+
     public class EquippedWeaponChangeEvt : EventArgs
     {
         public Weapon WeaponChanged;
@@ -20,6 +27,9 @@ public class AgentWeapon : MonoBehaviour
     private Weapon _unarmedWeaponInst;
     private long _currentWeaponUID = 0;
     private readonly Dictionary<long, Weapon> _weapons = new();
+
+
+
 
     public Weapon GetWeaponActive()
     {
