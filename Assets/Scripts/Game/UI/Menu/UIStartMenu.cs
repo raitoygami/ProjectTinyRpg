@@ -48,6 +48,10 @@ public class UIStartMenu : PanelBase
         await this.PublishGlobal(new LevelManager.SceneChangeEvt());
         UIRoot.Instance.Hide("StartMenu");
         UIRoot.Instance.OpenMainUI();
+
+        var mainUI = UIRoot.Instance.GetMainUI();
+        mainUI.BindPlayerStat();
+        
         await UIRoot.Instance.LoadingFinish();
         
         _isLoading = false;
@@ -69,6 +73,10 @@ public class UIStartMenu : PanelBase
         await this.PublishGlobal(new LevelManager.SceneChangeEvt());
         UIRoot.Instance.Hide("StartMenu");
         UIRoot.Instance.OpenMainUI();
+        
+        var mainUI = UIRoot.Instance.GetMainUI();
+        mainUI.BindPlayerStat();
+        
         await UIRoot.Instance.LoadingFinish();
 
         _isLoading = false;

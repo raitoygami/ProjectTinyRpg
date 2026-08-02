@@ -513,6 +513,8 @@ public class UIRoot : Singleton<UIRoot>
         _LoadingPanel.gameObject.SetActive(false);
     }
 
+    public MainUI GetMainUI() => m_MainUI;
+    
     public void OpenMainUI()
     {
         m_MainUI.gameObject.SetActive(true);
