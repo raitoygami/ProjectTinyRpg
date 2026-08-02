@@ -1,0 +1,60 @@
+{
+  "columns": [
+    {
+      "cards": [
+        {
+          "description": "<p>怪物配置经验掉落，玩家配置成长所需要的经验，和成长获得的技能点与属性点分配</p>",
+          "id": "zxzqb3h6vmptowq30ueh52fu",
+          "name": "经验和成长系统"
+        },
+        {
+          "description": "<p>玩家经验等级，技能点数量， 加点情况。当前所在地图和坐标等</p>",
+          "id": "j8p7vtvxwhrrvjbg9pygqkip",
+          "name": "玩家信息和存档",
+          "tags": []
+        },
+        {
+          "description": "<p>记录怪物信息（位置，死否死亡），掉落， 战斗中不能存档！！！</p>",
+          "id": "jqmqtsbdo7lreik76oni7bit",
+          "name": "地图信息支持存档"
+        },
+        {
+          "description": "<p>显示战斗信息，不同操作信息，以及各种日志</p>",
+          "id": "znj1jy78vv3a77j99iw3354k",
+          "name": "左下角的Log 面板"
+        },
+        {
+          "description": "<p>技能学习面板，技能点数，技能选取和释放表现重构（单独层级tilemap实现）</p><p>怪物攻击也有准备阶段，需要单独的tilemap展示，给玩家反应并做出决策</p>",
+          "dueDate": "2026-08-08T16:00:00.000Z",
+          "id": "cus6kfnsvsxvf37oiseiakjg",
+          "isDueDateCompleted": false,
+          "name": "玩家技能系统"
+        }
+      ],
+      "id": "diouy3w9h5j6d6bgs4zk864l",
+      "title": "Todo"
+    },
+    {
+      "cards": [],
+      "id": "us3rxb8cq0jqzo49k6f1ci11",
+      "title": "Work in progress"
+    },
+    {
+      "cards": [],
+      "id": "rsa12m1eaut1vwx5nbewgs8z",
+      "title": "Done"
+    }
+  ],
+  "globalTags": [
+    {
+      "id": "z72pcbpwrj3btpnkjo2dmf94",
+      "text": "必做",
+      "tiClasses": [
+        "ti-valid"
+      ]
+    }
+  ],
+  "id": "jllshyif8l373infqwyf57c0",
+  "lastEdited": "2026-08-02T08:57:25.995Z",
+  "title": "TinyRpg 8月第一周(03-09)"
+}
