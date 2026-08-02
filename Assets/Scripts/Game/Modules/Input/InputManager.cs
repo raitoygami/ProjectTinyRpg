@@ -39,6 +39,12 @@ public class InputManager : Singleton<InputManager>
 
     private readonly InventoryEvt m_InventoryEvt = new();
 
+    public class StatsEvt : EventArgs
+    {
+        
+    }
+    private readonly StatsEvt m_StatsEvt = new();
+    
     public class SkipEvt : EventArgs
     {
     }
@@ -87,6 +93,7 @@ public class InputManager : Singleton<InputManager>
         m_InputMapping.PlayerInput.Movement.canceled += OnMovementCanceled;
         m_InputMapping.PlayerInput.PointerPosition.performed += OnPointerPositionPerformed;
         m_InputMapping.PlayerInput.Inventory.performed += OnInventoryPerformed;
+        m_InputMapping.PlayerInput.Stats.performed += OnStatsPerformed;
         m_InputMapping.PlayerInput.Skip.performed += OnSkipPerformed;
         m_InputMapping.PlayerInput.Esc.performed += OnEscPerformed;
         // action panel hot key
@@ -107,6 +114,8 @@ public class InputManager : Singleton<InputManager>
 
         InputSystem.onActionChange += OnActionChange;
     }
+
+
 
     private void OnQuickBarPerformed(int index)
     {
@@ -300,6 +309,11 @@ public class InputManager : Singleton<InputManager>
         this.Publish(m_InventoryEvt);
     }
 
+    private void OnStatsPerformed(InputAction.CallbackContext _)
+    {
+        this.Publish(m_StatsEvt);
+    }
+    
     private void OnSkipPerformed(InputAction.CallbackContext obj)
     {
         this.Publish(_skipEvt);

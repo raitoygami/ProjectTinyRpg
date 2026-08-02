@@ -16,7 +16,7 @@ public static class Const
     public static class KeyUI
     {
         public const string Inventory = "Inventory";
-        public const string Overworld = "Overworld";
+        public const string Stats = "Stats";
         public const string SettingPanel = "Settings";
     }
 

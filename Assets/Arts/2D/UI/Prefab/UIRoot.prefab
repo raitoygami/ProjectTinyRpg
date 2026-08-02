@@ -4484,6 +4484,8 @@ MonoBehaviour:
     parent: {fileID: 5071127058936826059}
   - rootKey: HUDMid
     parent: {fileID: 298563053681481585}
+  - rootKey: HUDLeft
+    parent: {fileID: 8121246287076532691}
   - rootKey: Overlay
     parent: {fileID: 4522015854214888904}
   _FadingPanel: {fileID: 191471723297635177}

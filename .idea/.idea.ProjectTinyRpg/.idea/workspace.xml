@@ -53,6 +53,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Agent/AgentStats.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Agent/AgentStats_Damage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Agent/AgentWeapon.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Damage/DamageCalculator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/AI/AIEntity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/EnemySpawner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/Entity.cs" root0="FORCE_HIGHLIGHTING" />
@@ -71,12 +72,15 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Items/Weapons/Wep_Sword.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Items/Weapons/Wep_Unarmed.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/PubSub.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Stats/StatModifierCollector.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Stats/StatModifierType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Stats/StatValue.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/TurnActor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Input/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Item/ItemStack.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Map/LevelManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/Const.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/DevLog.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/PhysicsUtil.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/IPathNodeAgent.cs" root0="FORCE_HIGHLIGHTING" />
@@ -90,6 +94,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigManager_Item.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ScriptableObject/CustomizationTable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Context.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/DragManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/LocalizationManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Persist/Persist.cs" root0="FORCE_HIGHLIGHTING" />
@@ -108,6 +113,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/MainUI/ActionSlotIconObj.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/MainUI/MainUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/Menu/UIStartMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Util/Utils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Packages/com.brogrammist.jsam@6d93b0b505/Runtime/Scripts/AudioManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Packages/com.brogrammist.jsam@6d93b0b505/Runtime/Scripts/AudioManagerInternal.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Packages/com.brogrammist.jsam@6d93b0b505/Runtime/Scripts/BaseAudioChannelHelper.cs" root0="FORCE_HIGHLIGHTING" />
@@ -203,7 +209,8 @@
       <workItem from="1785404855468" duration="14671000" />
       <workItem from="1785468994939" duration="12590000" />
       <workItem from="1785501940192" duration="1134000" />
-      <workItem from="1785556376734" duration="26073000" />
+      <workItem from="1785556376734" duration="26767000" />
+      <workItem from="1785641804385" duration="2933000" />
     </task>
     <servers />
   </component>

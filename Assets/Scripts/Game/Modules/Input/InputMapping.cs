@@ -138,6 +138,15 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Stats"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2ce3718-1149-44a9-84f8-bb7098d7ee9e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Esc"",
                     ""type"": ""Button"",
                     ""id"": ""fc6d7465-0d94-4401-8bec-0bde5ed6d210"",
@@ -468,6 +477,17 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""action"": ""QuickBar2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4d4fb51-dd54-413c-a52d-4f0b68b7f9fb"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -509,6 +529,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         m_PlayerInput_LeftMouseClick = m_PlayerInput.FindAction("LeftMouseClick", throwIfNotFound: true);
         m_PlayerInput_RightMouseClick = m_PlayerInput.FindAction("RightMouseClick", throwIfNotFound: true);
         m_PlayerInput_Inventory = m_PlayerInput.FindAction("Inventory", throwIfNotFound: true);
+        m_PlayerInput_Stats = m_PlayerInput.FindAction("Stats", throwIfNotFound: true);
         m_PlayerInput_Esc = m_PlayerInput.FindAction("Esc", throwIfNotFound: true);
         m_PlayerInput_Skip = m_PlayerInput.FindAction("Skip", throwIfNotFound: true);
         m_PlayerInput_Switch = m_PlayerInput.FindAction("Switch", throwIfNotFound: true);
@@ -605,6 +626,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInput_LeftMouseClick;
     private readonly InputAction m_PlayerInput_RightMouseClick;
     private readonly InputAction m_PlayerInput_Inventory;
+    private readonly InputAction m_PlayerInput_Stats;
     private readonly InputAction m_PlayerInput_Esc;
     private readonly InputAction m_PlayerInput_Skip;
     private readonly InputAction m_PlayerInput_Switch;
@@ -647,6 +669,10 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerInput/Inventory".
         /// </summary>
         public InputAction @Inventory => m_Wrapper.m_PlayerInput_Inventory;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerInput/Stats".
+        /// </summary>
+        public InputAction @Stats => m_Wrapper.m_PlayerInput_Stats;
         /// <summary>
         /// Provides access to the underlying input action "PlayerInput/Esc".
         /// </summary>
@@ -732,6 +758,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @Stats.started += instance.OnStats;
+            @Stats.performed += instance.OnStats;
+            @Stats.canceled += instance.OnStats;
             @Esc.started += instance.OnEsc;
             @Esc.performed += instance.OnEsc;
             @Esc.canceled += instance.OnEsc;
@@ -791,6 +820,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @Stats.started -= instance.OnStats;
+            @Stats.performed -= instance.OnStats;
+            @Stats.canceled -= instance.OnStats;
             @Esc.started -= instance.OnEsc;
             @Esc.performed -= instance.OnEsc;
             @Esc.canceled -= instance.OnEsc;
@@ -925,6 +957,13 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Stats" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnStats(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Esc" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

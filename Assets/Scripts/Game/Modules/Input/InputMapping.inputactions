@@ -52,6 +52,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Stats",
+                    "type": "Button",
+                    "id": "a2ce3718-1149-44a9-84f8-bb7098d7ee9e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Esc",
                     "type": "Button",
                     "id": "fc6d7465-0d94-4401-8bec-0bde5ed6d210",
@@ -380,6 +389,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "QuickBar2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4d4fb51-dd54-413c-a52d-4f0b68b7f9fb",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stats",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
