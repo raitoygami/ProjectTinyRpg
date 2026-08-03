@@ -15,10 +15,19 @@ public class Door : Entity
     [SerializeField] private GameObject _doorClosed;
     [SerializeField] private SoundFileObject _doorOpenedSound;
     [SerializeField] private List<SpriteRenderer> _FogRelateds;
+
+#if UNITY_EDITOR
+    [ContextMenu("Generate UID")]
+    private void GenerateUID()
+    {
+        // 使用 GUID 确保绝对唯一，且不受位置/名称变化影响
+        uniqueID = $"{gameObject.scene.name}_{gameObject.name}_{System.Guid.NewGuid().ToString().Substring(0, 8)}";
+        UnityEditor.EditorUtility.SetDirty(this); // 标记修改
+    }
+#endif
     
     protected void Awake()
     {
-        uniqueID = $"{gameObject.scene.name}_{name}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
         Faction = EntityFaction.Neutral;
         this.Subscribe<AgentInteractive.InteractionEvent>(OnInteraction);
         this.AddComponent<AgentInteractive>();
@@ -47,5 +56,18 @@ public class Door : Entity
         PathFinder.Instance.ClearLogical(this);
         await UniTask.CompletedTask;
     }
+    
+    public override void InitAfterLevelLoad()
+    {
+        var gridPosition = transform.position.SnapToGrid();
+        transform.position = gridPosition.GridToWorld();
 
+        X = (int)gridPosition.x;
+        Y = (int)gridPosition.y;
+        if (GridSizeX < 1) GridSizeX = 1;
+        if (GridSizeZ < 1) GridSizeZ = 1;
+
+        Layer = 1 << gameObject.layer;
+        PathFinder.Instance.UpdateCell(X, Y, this);
+    }
 }

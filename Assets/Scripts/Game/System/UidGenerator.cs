@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 public static class UidGenerator
 {
-    private static GameState.UidGeneratorState State => Persist.Instance.GetState().State;
+    private static SaveData.UidGeneratorState State => Persist.Instance.GetState().State;
 
     /// <summary>
     ///     根据 itemId 生成新的全局唯一 Uid。

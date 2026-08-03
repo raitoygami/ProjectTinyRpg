@@ -1,4 +1,6 @@
 using System;
+using UnityEngine;
+
 // ReSharper disable All
 
 public class StatValue
@@ -19,6 +21,11 @@ public class StatValue
         }
     }
 
+    public bool IsDirty()
+    {
+        return m_IsDirty;
+    }
+    
     private readonly StatModifierCollector[] m_ModifierCollector;
     public StatValue(float t_BaseValue)
     {

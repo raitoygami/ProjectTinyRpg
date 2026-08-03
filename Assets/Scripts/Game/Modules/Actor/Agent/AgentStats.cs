@@ -74,7 +74,7 @@ public partial class AgentStats : MonoBehaviour
     private StatValue _magicPenetration; // 减抗（魔穿）
 
     // 闪避
-    private StatValue _dodge;
+    private StatValue _evade;
 
     // Strength
     // STR: (Strength)HP + 1 | PhysicalMulti 5% | Armor 0.2
@@ -105,7 +105,7 @@ public partial class AgentStats : MonoBehaviour
     public int MagicalAttack => INT * 4;
 
     // VIT × 2 + (STR // 2)
-    public int Armor => (int)_armor.Value + VIT / 5 + STR / 5;
+    public int ArmorResist => (int)_armor.Value + VIT / 5 + STR / 5;
 
     // INT × 2 + (VIT // 3)
     public int MagicResist => (int)_magicResist.Value + INT * 2 + VIT / 5;
@@ -116,7 +116,7 @@ public partial class AgentStats : MonoBehaviour
 
     public int CritChance => (int)(_critChance.Value + DEX);
     public int CritMultiplier => (int)(100 + _critMultiplier.Value + DEX * 2);
-    public int DodgeChance => (int)(_dodge.Value + DEX / 5.0f);
+    public int Evade => (int)(_evade.Value + DEX / 5.0f);
 
     // stats
     private int _HealthLost;
@@ -165,7 +165,7 @@ public partial class AgentStats : MonoBehaviour
         _armorPenetration = new StatValue(0);
         _magicPenetration = new StatValue(0);
 
-        _dodge = new StatValue(0);
+        _evade = new StatValue(0);
     }
 
     /// <summary>
@@ -190,7 +190,7 @@ public partial class AgentStats : MonoBehaviour
         _armor.UpdateBase(attr.Armor);
         _magicResist.UpdateBase(attr.MagicResist);
 
-        _dodge.UpdateBase(attr.Dodge);
+        _evade.UpdateBase(attr.Dodge);
 
         /*if (GetComponent<Player>() != null)
             LogPlayerAttributesDebug();
@@ -207,9 +207,9 @@ public partial class AgentStats : MonoBehaviour
             $"力量:{STR} 敏捷:{DEX} 智力:{INT} 体力:{VIT} | " +
             $"攻击:{BaseAttack} 物理攻击:{PhysicalAttack} 魔法攻击:{MagicalAttack} | " +
             $"血量:{HealthCurrent}/{MaxHealth} 蓝量:{MaxMana} | " +
-            $"物抗:{Armor} 法抗:{MagicResist} | " +
-            $"物穿:{ArmorPenetration} 法穿{MagicPenetration} | "  +
-            $"暴击:{CritChance} 爆伤:{CritMultiplier} 闪避:{DodgeChance}");
+            $"物抗:{ArmorResist} 法抗:{MagicResist} | " +
+            $"物穿:{ArmorPenetration}-{ArmorPenetration} 法穿{MagicPenetration} | "  +
+            $"暴击:{CritChance} 爆伤:{CritMultiplier} 闪避:{Evade}");
     }
 
     /// <summary>
@@ -251,7 +251,7 @@ public partial class AgentStats : MonoBehaviour
             AttributeType.MagicResist => _magicResist,
             AttributeType.ArmorPenetration => _armorPenetration,
             AttributeType.MagicPenetration => _magicPenetration,
-            AttributeType.Dodge => _dodge,
+            AttributeType.Dodge => _evade,
             _ => null
         };
     }
@@ -271,20 +271,21 @@ public partial class AgentStats : MonoBehaviour
     /// </summary>
     public bool RemoveAttributeModifiersFromSource(object source)
     {
-        var any = _baseAttack.RemoveAllModifiersFromSource(source)
-                  || _strength.RemoveAllModifiersFromSource(source)
-                  || _dexterity.RemoveAllModifiersFromSource(source)
-                  || _intelligence.RemoveAllModifiersFromSource(source)
-                  || _vitality.RemoveAllModifiersFromSource(source)
-                  || _health.RemoveAllModifiersFromSource(source)
-                  || _mana.RemoveAllModifiersFromSource(source)
-                  || _critChance.RemoveAllModifiersFromSource(source)
-                  || _critMultiplier.RemoveAllModifiersFromSource(source)
-                  || _armor.RemoveAllModifiersFromSource(source)
-                  || _magicResist.RemoveAllModifiersFromSource(source)
-                  || _armorPenetration.RemoveAllModifiersFromSource(source)
-                  || _magicPenetration.RemoveAllModifiersFromSource(source)
-                  || _dodge.RemoveAllModifiersFromSource(source);
+        var any = false;
+        any |= _baseAttack.RemoveAllModifiersFromSource(source);
+        any |= _strength.RemoveAllModifiersFromSource(source);
+        any |= _dexterity.RemoveAllModifiersFromSource(source);
+        any |= _intelligence.RemoveAllModifiersFromSource(source);
+        any |= _vitality.RemoveAllModifiersFromSource(source);
+        any |= _health.RemoveAllModifiersFromSource(source);
+        any |= _mana.RemoveAllModifiersFromSource(source);
+        any |= _critChance.RemoveAllModifiersFromSource(source);
+        any |= _critMultiplier.RemoveAllModifiersFromSource(source);
+        any |= _armor.RemoveAllModifiersFromSource(source);
+        any |= _magicResist.RemoveAllModifiersFromSource(source);
+        any |= _armorPenetration.RemoveAllModifiersFromSource(source);
+        any |= _magicPenetration.RemoveAllModifiersFromSource(source);
+        any |= _evade.RemoveAllModifiersFromSource(source);
         return any;
     }
 

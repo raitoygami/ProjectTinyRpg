@@ -14,6 +14,8 @@ public class MainUI : MonoBehaviour
     [SerializeField] private Transform _quickItemSlot1;
     [SerializeField] private Transform _quickItemSlot2;
 
+
+    [SerializeField] private Image _Portrait;
     [SerializeField] private Image _Health;
     [SerializeField] private Image _Mana;
     [SerializeField] private TMP_Text _HealthValue;
@@ -22,19 +24,33 @@ public class MainUI : MonoBehaviour
     public void Start()
     {
         this.SubscribeGlobal<AgentWeapon.EquippedWeaponChangeEvt>(OnEquippedWeaponChangeEvt);
+        this.SubscribeGlobal<Context.AvatarChangedEvt>(OnAvatarChanged);
+    }
+
+    private UniTask OnAvatarChanged(Context.AvatarChangedEvt arg)
+    {
+        if (!Context.HasInstance() || Context.Instance.PlayerInst == null) return UniTask.CompletedTask;;
+        var customization = Context.Instance.PlayerInst.GetComponent<AgentCustomization>();
+        if (customization == null) return UniTask.CompletedTask;
+        _Portrait.sprite =  customization.GetCombinedSprite();
+        return UniTask.CompletedTask;
     }
 
     public void BindPlayerStat()
     {
         var player = Context.Instance.PlayerInst;
+        if (player == null) return;
+        
         var agentStat =  player.GetComponent<AgentStats>();
-       
         _HealthValue.text = $"{agentStat.HealthCurrent}/{agentStat.MaxHealth}";
         _Health.fillAmount = (float)agentStat.HealthCurrent / agentStat.MaxHealth;
-        if (player == null) return;
+        
+        var customization = Context.Instance.PlayerInst.GetComponent<AgentCustomization>();
+        _Portrait.sprite =  customization.GetCombinedSprite();
+        
         var pub = player.GetComponent<PubSubActor>();
         if (pub == null) return;
-
+        
         pub.Messager.Subscribe<AgentStats.HealthChangedEvent>(Handler);
         pub.Messager.Subscribe<AgentStats.ShieldChangedEvent>(ShieldHandler);
     }

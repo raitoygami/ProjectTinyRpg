@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class Persist : Singleton<Persist>
 {
-    private GameState _runtimeState = new();
+    private SaveData _runtimeState = new();
 
-    public GameState GetState()
+    public SaveData GetState()
     {
         return _runtimeState;
     }
@@ -98,7 +98,7 @@ public class Persist : Singleton<Persist>
 #if !UNITY_EDITOR
             json = EncryptDecrypt(json);
 #endif
-            _runtimeState = JsonConvert.DeserializeObject<GameState>(json, SerializerSettings);
+            _runtimeState = JsonConvert.DeserializeObject<SaveData>(json, SerializerSettings);
         }
         catch (Exception e)
         {
@@ -109,7 +109,7 @@ public class Persist : Singleton<Persist>
     public void ResetSlot(int slotIndex)
     {
         DeleteSlot(slotIndex);
-        _runtimeState = new GameState();
+        _runtimeState = new SaveData();
     }
     
     public void DeleteSlot(int slotIndex)

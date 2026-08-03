@@ -19,7 +19,7 @@ public class ItemIconObj : MonoBehaviour,
     [SerializeField] private TMP_Text _amount;
     private AsyncOperationHandle<Sprite> _iconHandle; // 关键：保存 handle
     private IItemIconOwner _Owner;
-    private ItemStack _itemStack;
+    private long _itemStackUID = 0;
 
     public IItemIconOwner GetOwner()
     {
@@ -33,12 +33,18 @@ public class ItemIconObj : MonoBehaviour,
 
     public ItemStack GetItemStack()
     {
-        return  _itemStack;
+        return PlayerManager.Instance.GetItemStackByUID(_itemStackUID);
+    }
+
+    public long GetItemStackUID()
+    {
+        return _itemStackUID;
     }
     
-    public void SetItemStack(ItemStack itemStack)
+    public void SetItemStackUID(long uid)
     {
-        if (_itemStack != itemStack)
+        var itemStack = PlayerManager.Instance.GetItemStackByUID(uid);
+        if (_itemStackUID != uid)
         {
             // 安全释放
             if (_iconHandle.IsValid())
@@ -63,7 +69,7 @@ public class ItemIconObj : MonoBehaviour,
         _amount.text = itemStack.Count.ToString();
         _amount.gameObject.SetActive(itemStack.Stackable());
 
-        _itemStack = itemStack;
+        _itemStackUID = uid;
     }
 
     private Coroutine _showCoroutine;
@@ -71,7 +77,7 @@ public class ItemIconObj : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (_itemStack == null) return;
+        if (_itemStackUID == 0) return;
         // 取消任何隐藏动作（如果之前触发了隐藏）
         // 启动延迟显示
         if (_showCoroutine != null) StopCoroutine(_showCoroutine);
@@ -83,7 +89,8 @@ public class ItemIconObj : MonoBehaviour,
         yield return new WaitForSeconds(_showTipDelay);
         // 显示时获取最新的位置
         var pos = GetTooltipPosition(eventData);
-        UIRoot.Instance.ToolTipUI.ShowTip(_itemStack, pos);
+        var itemStack = PlayerManager.Instance.GetItemStackByUID(_itemStackUID);
+        UIRoot.Instance.ToolTipUI.ShowTip(itemStack, pos);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -141,15 +148,17 @@ public class ItemIconObj : MonoBehaviour,
         PhysicsUtil.SetRaycastTargetRecursively(gameObject, true);
     }
 
-
     public void OnPointerClick(PointerEventData eventData)
     {
+        var itemStack  =PlayerManager.Instance.GetItemStackByUID(_itemStackUID);
+        if (itemStack == null) return;
+        
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             // 如果是装备更新则更新表现
             if (_Owner.OnMouseRightClick(eventData, this))
             {
-                if (_itemStack.IsEquip())
+                if (itemStack.IsEquip())
                 {
                     this.PublishGlobal(Context.EquipmentUpdate);
                 }

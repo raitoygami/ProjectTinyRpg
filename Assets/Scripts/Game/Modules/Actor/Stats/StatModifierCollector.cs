@@ -60,7 +60,6 @@ public abstract class StatModifierCollector
         var didRemove = false;
         if (removeAll > 0)
         {
-            
             m_IsDirty = didRemove = true;
         }
 

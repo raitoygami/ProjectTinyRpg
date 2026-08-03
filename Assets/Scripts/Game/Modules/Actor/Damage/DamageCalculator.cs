@@ -55,8 +55,8 @@ public static class DamageCalculator
             return new DamageResult { RawDamage = rawDamage, FinalDamage = 0, DamageType = type };
 
         // 1. 闪避（当前仅物理可闪避，可扩展配置）
-        if (type == DamageType.Physical && defender.DodgeChance > 0)
-            if (Random.Range(0, 100) < defender.DodgeChance)
+        if (type == DamageType.Physical && defender.Evade > 0)
+            if (Random.Range(0, 100) < defender.Evade)
                 return DamageResult.Dodged(rawDamage, type);
 
         // 2. 减伤
@@ -95,7 +95,7 @@ public class PhysicalDamageReduction : IDamageReduction
     public int Reduce(AgentStats attacker, AgentStats defender, int rawDamage)
     {
         if (defender == null) return rawDamage;
-        var effectiveArmor = Mathf.Max(0, defender.Armor - (attacker?.ArmorPenetration ?? 0));
+        var effectiveArmor = Mathf.Max(0, defender.ArmorResist - (attacker?.ArmorPenetration ?? 0));
         return Mathf.Max(rawDamage - effectiveArmor, 1);
     }
 }

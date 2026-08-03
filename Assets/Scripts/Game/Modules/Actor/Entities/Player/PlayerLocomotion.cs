@@ -254,6 +254,7 @@ public partial class Player
     public async UniTask MoveFinishEvent(AgentMover.MoveFinishEvent arg)
     {
         m_TurnActor.FinishTurn();
+        PlayerManager.Instance.SetLocation(arg.CurrPosition);
         await this.PublishGlobal(new Context.PlayerMoveFinishEvt());
         await UniTask.CompletedTask;
     }

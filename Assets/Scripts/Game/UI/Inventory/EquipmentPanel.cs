@@ -67,11 +67,12 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
     private void RefreshAllItems()
     {
         // 从 InventoryManager 获取所有物品并创建节点
-        var inventoryData = PlayerManager.Instance.GetInventoryData();
+        var inventoryData = PlayerManager.Instance.GetSavedItemContainer();
         if (inventoryData == null) return;
 
-        foreach (var itemStack in inventoryData.EquippedItems)
+        foreach (var uid in inventoryData.Equipped)
         {
+            var itemStack = PlayerManager.Instance.GetItemStackByUID(uid);
             if (itemStack.Location >= _EquipmentSlots.Count)
                 break;
 
@@ -82,7 +83,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
                 itemNodeMap.Add(itemStack.Location, iconObj);
             }
             iconObj.SetOwner(this);
-            iconObj.SetItemStack(itemStack);
+            iconObj.SetItemStackUID(uid);
         }
         
         var location = PlayerManager.Instance.GetCurrWeaponLocation();
@@ -162,13 +163,17 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
         
         var itemStack = itemIconObj.GetItemStack();
         
-        var inventoryData = PlayerManager.Instance.GetInventoryData();
+        var inventoryData = PlayerManager.Instance.GetSavedItemContainer();
         // 查找目标位置是否已有物品
         // 即使放到原位置， 因为在之前已经从背包里将itemIconObj清除了，所以这里通过Location是找不到itemIconObj的
-        var targetStack = inventoryData.EquippedItems.FirstOrDefault(i => i.Location == targetSlot);
+        var targetStack = inventoryData.Equipped.
+            Select(uid => PlayerManager.Instance.GetItemStackByUID(uid)).
+            Where(stack => stack != null).
+            FirstOrDefault(stack => stack.Location == targetSlot);
+        
         if (targetStack == null)
         {
-            var result = PlayerManager.Instance.TryAddItemStackToEquipment(itemStack, targetSlot);
+            var result = PlayerManager.Instance.TryAddItemStackToEquipment(itemStack.Uid, targetSlot);
             if (result == PlayerManager.AddItemStackToEquipmentResult.SuccessEquipped)
             {
                 itemIconObj.transform.SetParent(_EquipmentSlots[targetSlot]);
@@ -183,7 +188,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
             var targetObj = itemNodeMap[targetSlot];
             if (itemOwner.TryAdd(targetObj, location))
             {
-                var result = PlayerManager.Instance.TryAddItemStackToEquipment(itemStack, targetSlot);
+                var result = PlayerManager.Instance.TryAddItemStackToEquipment(itemStack.Uid, targetSlot);
                 if (result == PlayerManager.AddItemStackToEquipmentResult.SuccessEquipped)
                 {
                     itemIconObj.transform.SetParent(_EquipmentSlots[targetSlot]);
@@ -219,7 +224,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
 
     public void Add(ItemIconObj itemIconObj, int location)
     {
-        var result  = PlayerManager.Instance.TryAddItemStackToEquipment(itemIconObj.GetItemStack(), location);
+        var result  = PlayerManager.Instance.TryAddItemStackToEquipment(itemIconObj.GetItemStackUID(), location);
         if (result == PlayerManager.AddItemStackToEquipmentResult.SuccessEquipped)
         {
             itemNodeMap.Add(location, itemIconObj);
@@ -237,7 +242,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
         if (!itemIconObj.RemoveFromOwner())
             return false;
         
-        var result  = PlayerManager.Instance.TryAddItemStackToEquipment(itemIconObj.GetItemStack(), location);
+        var result  = PlayerManager.Instance.TryAddItemStackToEquipment(itemIconObj.GetItemStackUID(), location);
         if (result == PlayerManager.AddItemStackToEquipmentResult.SuccessEquipped)
         {
             itemNodeMap.Add(location, itemIconObj);
@@ -257,7 +262,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
         if (!itemIconObj.GetOwner().Equals(this))
             return false;
         // 如果 成功从当前包裹移除item
-        if (PlayerManager.Instance.RemoveItemStackFrontEquipment(itemIconObj.GetItemStack()))
+        if (PlayerManager.Instance.RemoveItemStackFrontEquipment(itemIconObj.GetItemStackUID()))
         {
             itemNodeMap.Remove(itemIconObj.GetItemStack().Location);
             return true;
@@ -284,7 +289,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
     public void Restore(ItemIconObj itemIconObj)
     {
         var location = itemIconObj.GetItemStack().Location;
-        var result = PlayerManager.Instance.TryAddItemStackToEquipment(itemIconObj.GetItemStack(), location);
+        var result = PlayerManager.Instance.TryAddItemStackToEquipment(itemIconObj.GetItemStackUID(), location);
         if (result == PlayerManager.AddItemStackToEquipmentResult.SuccessEquipped)
         {
             itemNodeMap.Add(location, itemIconObj);

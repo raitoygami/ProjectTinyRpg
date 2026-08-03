@@ -3,9 +3,8 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class LevelManager : Singleton<LevelManager>
+public class SceneLoader : Singleton<SceneLoader>
 {
-    
     // 场景切换的时候调用
     public class SceneChangeEvt : EventArgs
     {
@@ -66,13 +65,10 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
 
-        // ── Spawn player at PlayerSpawnPoint ───────────────────────────
-        var spawnPos = levelLayers.PlayerSpawnPoint != null
-            ? levelLayers.PlayerSpawnPoint.transform.position
-            : Vector3.zero;
         // CreatePlayer expects grid-container, not world position — convert first
-        var spawnGridPos = spawnPos.SnapToGrid();
-        var p = EntityManager.Instance.CreatePlayer(spawnGridPos, 100001);
+        var entityID = PlayerManager.Instance.GetEntityID();
+        var location = PlayerManager.Instance.GetWorldLocation();
+        var p = EntityManager.Instance.CreatePlayer(location, entityID);
         p.InitAfterLevelLoad();
         Context.Instance.SetPlayer(p);
         CameraManager.Instance.SetFollowTarget(p.transform);

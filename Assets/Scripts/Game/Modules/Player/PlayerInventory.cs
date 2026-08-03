@@ -1,36 +1,64 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using cfg;
 using UnityEngine;
 
-public partial class GameState
+public partial class SaveData
 {
     // 装备在包裹中就存放在InventoryItems
     // 装备已经在装备槽上就存放在EquippedItems
     [Serializable]
-    public class InventoryStateData
+    public class ItemContainer
     {
+        public Dictionary<long, ItemStack> LookupTable = new();
         // 已经装备的
-        public List<ItemStack> EquippedItems = new();
-
-        //
-        public int CurrentWeaponLocation = -1;
-
+        public List<long> Equipped = new();
         // 包裹中的
-        public List<ItemStack> InventoryItems = new();
+        public List<long> Inventory = new();
+        public int ActiveWeaponSlotIndex = -1;
+
+        public void AddItemStack(ItemStack itemStack)
+        {
+            LookupTable.Add(itemStack.Uid, itemStack);
+        }
+
+        public bool RemoveItemStack(ItemStack itemStack)
+        {
+            return LookupTable.Remove(itemStack.Uid);
+        }
+        
     }
 
-    public InventoryStateData InventoryData = new();
+    public ItemContainer Inventory = new();
 }
 
 public partial class PlayerManager
 {
-    public GameState.InventoryStateData GetInventoryData()
+    public SaveData.ItemContainer GetSavedItemContainer()
     {
-        return Persist.Instance.GetState().InventoryData;
+        return Persist.Instance.GetState().Inventory;
     }
 
+    public void NewItemStack(ItemStack itemStack)
+    {
+        var container = GetSavedItemContainer();
+        container.AddItemStack(itemStack);
+    }
+
+    public bool RemoveItemStack(ItemStack itemStack)
+    {
+        var container = GetSavedItemContainer();
+        return container.RemoveItemStack(itemStack);
+    }
+    
+    public ItemStack GetItemStackByUID(long uid)
+    {
+        var itemContainer = GetSavedItemContainer();
+        return itemContainer.LookupTable.GetValueOrDefault(uid);
+    }
+    
     // 列
     public const int InventorySizeCol = 7;
 
@@ -60,14 +88,22 @@ public partial class PlayerManager
             OccupiedEquipped[i] = 0;
         }
 
-        foreach (var itemStack in GetInventoryData().InventoryItems)
+        foreach (var uid in GetSavedItemContainer().Inventory)
         {
+            var itemStack = GetItemStackByUID(uid);
+            if (itemStack == null)
+                continue;
+            
             if (itemStack.Location < OccupiedInventory.Length)
                 OccupiedInventory[itemStack.Location] = itemStack.Uid;
         }
 
-        foreach (var itemStack in GetInventoryData().EquippedItems)
+        foreach (var uid in GetSavedItemContainer().Equipped)
         {
+            var itemStack = GetItemStackByUID(uid);
+            if (itemStack == null)
+                continue;
+            
             if (itemStack.Location < OccupiedEquipped.Length)
                 OccupiedEquipped[itemStack.Location] = itemStack.Uid;
         }
@@ -114,16 +150,18 @@ public partial class PlayerManager
     }
     // inventory part
 
-    public AddItemStackToInventoryResult TryAddItemStackToInventory(ItemStack itemStack, int location)
+    public AddItemStackToInventoryResult TryAddItemStackToInventory(long itemStackUID, int location)
     {
         if (location >= OccupiedInventory.Length)
             return AddItemStackToInventoryResult.InvalidArgument;
 
+        var itemStack = GetItemStackByUID(itemStackUID);
+        
         var uid = OccupiedInventory[location];
         // 如果当前位置为空,则直接加入背包
         if (uid == 0)
         {
-            GetInventoryData().InventoryItems.Add(itemStack);
+            GetSavedItemContainer().Inventory.Add(itemStackUID);
             OccupiedInventory[location] = itemStack.Uid;
             itemStack.Location = location;
             return AddItemStackToInventoryResult.SuccessNewInstance;
@@ -133,21 +171,35 @@ public partial class PlayerManager
         if (!itemStack.Stackable())
             return AddItemStackToInventoryResult.NotEmptySlot;
 
-        var existingItem = GetInventoryData().InventoryItems.FirstOrDefault(item => item.Uid == uid);
+        var existingItem = GetItemStackByUID(uid);
+                
         if (existingItem == null)
             return AddItemStackToInventoryResult.InvalidData;
 
+        if (existingItem.ItemId != itemStack.ItemId)
+            return AddItemStackToInventoryResult.Failure;
+        
         existingItem.Count += itemStack.Count;
         return AddItemStackToInventoryResult.SuccessStacked;
     }
 
-    public AddItemStackToInventoryResult TryAddItemStackToInventory(ItemStack itemStack)
+    public AddItemStackToInventoryResult TryAddItemStackToInventory(long itemStackUID)
     {
+        
+        var itemStack = GetItemStackByUID(itemStackUID);
+        if (itemStack == null)
+            return AddItemStackToInventoryResult.Failure;
+        
         //  如何可以堆叠，且包裹里有对应物体，则堆叠
         if (itemStack.Stackable())
         {
-            var existingItem = GetInventoryData().InventoryItems.First(item => item.ItemId == itemStack.ItemId);
-            existingItem.Count += itemStack.Count;
+            foreach (var uid in  GetSavedItemContainer().Inventory)
+            {
+                var existingItem = GetItemStackByUID(uid);
+                if (existingItem == null || existingItem.ItemId != itemStack.ItemId) continue;
+                existingItem.Count += itemStack.Count;
+                break;
+            }
             return AddItemStackToInventoryResult.SuccessStacked;
         }
 
@@ -155,8 +207,8 @@ public partial class PlayerManager
         var emptySlot = GetFirstInventoryEmptySlot();
         if (emptySlot == -1) return AddItemStackToInventoryResult.Failure;
 
-        GetInventoryData().InventoryItems.Add(itemStack);
-        OccupiedInventory[emptySlot] = itemStack.Uid;
+        GetSavedItemContainer().Inventory.Add(itemStackUID);
+        OccupiedInventory[emptySlot] = itemStackUID;
 
         return AddItemStackToInventoryResult.SuccessNewInstance;
     }
@@ -176,14 +228,21 @@ public partial class PlayerManager
         switch (config.Stackable)
         {
             case false when amount > 1:
-                Debug.LogError($"[AddItem] failed: too many items {itemID}");
                 return AddItemStackToInventoryResult.InvalidArgument;
-            case true when GetInventoryData().InventoryItems.Any(item => item.ItemId == itemID):
+            case true:
             {
-                var existingItem = GetInventoryData().InventoryItems.First(item => item.ItemId == itemID);
-                itemStack = existingItem;
-                existingItem.Count += amount; // 增加数量
-                return AddItemStackToInventoryResult.SuccessStacked;
+                foreach (var uid in GetSavedItemContainer().Inventory)
+                {
+                    var existingItem = GetItemStackByUID(uid);
+                    if (existingItem != null && existingItem.ItemId != itemID)
+                    {
+                        existingItem.Count += amount; // 增加数量
+                        itemStack = existingItem;
+                        return AddItemStackToInventoryResult.SuccessStacked;
+                    }
+                }
+
+                break;
             }
         }
 
@@ -199,14 +258,18 @@ public partial class PlayerManager
             Location = emptySlot,
         };
 
-        GetInventoryData().InventoryItems.Add(itemStack);
+        var itemContainer = GetSavedItemContainer();
+        itemContainer.AddItemStack(itemStack);
+        itemContainer.Inventory.Add(itemStack.Uid);
         OccupiedInventory[emptySlot] = itemStack.Uid;
         return AddItemStackToInventoryResult.SuccessNewInstance;
     }
 
-    public bool RemoveItemStackFrontInventory(ItemStack itemStack)
+    // 只从包裹中移除，不会更新 item stack 数据
+    public bool RemoveItemStackFromInventory(long itemStackUID)
     {
-        if (GetInventoryData().InventoryItems.Remove(itemStack))
+        var itemStack = GetItemStackByUID(itemStackUID);
+        if (GetSavedItemContainer().Inventory.Remove(itemStackUID))
         {
             OccupiedInventory[itemStack.Location] = 0;
             return true;
@@ -234,29 +297,35 @@ public partial class PlayerManager
     public ItemStack GetCurrentWeapon()
     {
         RefreshWeaponActive();
-        var index = GetInventoryData().CurrentWeaponLocation;
+        var itemContainer = GetSavedItemContainer(); 
+        var index = itemContainer.ActiveWeaponSlotIndex;
 
-        return GetInventoryData().EquippedItems
-            .FirstOrDefault(itemStack => itemStack.Location == index
-            );
+        foreach (var uid in itemContainer.Equipped)
+        {
+            var itemStack = GetItemStackByUID(uid);
+            if (itemStack != null && itemStack.Location == index)
+                return itemStack;
+        }
+
+        return null;
     }
 
     private void SetCurrentWeaponLocation(int newLocation)
     {
-        var oldLocation = GetInventoryData().CurrentWeaponLocation;
+        var oldLocation = GetSavedItemContainer().ActiveWeaponSlotIndex;
         if (oldLocation == newLocation) return;
-        GetInventoryData().CurrentWeaponLocation = newLocation;
+        GetSavedItemContainer().ActiveWeaponSlotIndex = newLocation;
     }
     
     public int GetCurrWeaponLocation()
     {
         RefreshWeaponActive();
-        return GetInventoryData().CurrentWeaponLocation;
+        return GetSavedItemContainer().ActiveWeaponSlotIndex;
     }
 
     public int GetNextWeaponLocation()
     {
-        var location = GetInventoryData().CurrentWeaponLocation;
+        var location = GetSavedItemContainer().ActiveWeaponSlotIndex;
         // 若当前没有武器，说明一定没有装备武器
         if (location == -1)
             return -1;
@@ -277,12 +346,12 @@ public partial class PlayerManager
     public long GetCurrWeaponUID()
     {
         RefreshWeaponActive();
-        if (GetInventoryData().CurrentWeaponLocation == -1)
+        if (GetSavedItemContainer().ActiveWeaponSlotIndex == -1)
         {
             return -1;
         }
 
-        var uid = OccupiedEquipped[GetInventoryData().CurrentWeaponLocation];
+        var uid = OccupiedEquipped[GetSavedItemContainer().ActiveWeaponSlotIndex];
         return uid;
     }
 
@@ -320,12 +389,6 @@ public partial class PlayerManager
         return true;
     }
 
-    public List<ItemStack> GetEquippedItems()
-    {
-        return GetInventoryData().EquippedItems;
-    }
-
-
     // 界面操作
     public enum AddItemStackToEquipmentResult
     {
@@ -351,8 +414,10 @@ public partial class PlayerManager
     }
 
     // 界面拖拽操作任何装备到装备栏，都需要将已经装备的先卸下来
-    public AddItemStackToEquipmentResult TryAddItemStackToEquipment(ItemStack itemStack, int location)
+    public AddItemStackToEquipmentResult TryAddItemStackToEquipment(long itemStackUID, int location)
     {
+        var itemStack = GetItemStackByUID(itemStackUID);
+        
         if (!EquipTypeMatch(location, itemStack))
             return AddItemStackToEquipmentResult.FailureTypeMismatch;
 
@@ -365,9 +430,9 @@ public partial class PlayerManager
         if (uid != 0) return AddItemStackToEquipmentResult.FailureSlotNotEmpty;
         // 更新当前装备
         // var firstWeaponLocation = GetFirstWeaponLocation();
-        GetInventoryData().EquippedItems.Add(itemStack);
+        GetSavedItemContainer().Equipped.Add(itemStackUID);
         itemStack.Location = location;
-        OccupiedEquipped[location] = itemStack.Uid;
+        OccupiedEquipped[location] = itemStackUID;
 
         OnEquipmentChanged?.Invoke(location, null, itemStack);
         
@@ -380,15 +445,16 @@ public partial class PlayerManager
 
     private void RefreshWeaponActive()
     {
-        var current = GetInventoryData().CurrentWeaponLocation;
+        var current = GetSavedItemContainer().ActiveWeaponSlotIndex;
         if (current != -1 && OccupiedEquipped[current] != 0) return;
         var newLoc = GetFirstWeaponLocation();
         SetCurrentWeaponLocation(newLoc);
     }
 
-    public bool RemoveItemStackFrontEquipment(ItemStack itemStack)
+    public bool RemoveItemStackFrontEquipment(long itemStackUID)
     {
-        if (!GetInventoryData().EquippedItems.Remove(itemStack)) return false;
+        var itemStack = GetItemStackByUID(itemStackUID);
+        if (!GetSavedItemContainer().Equipped.Remove(itemStackUID)) return false;
         
         OnEquipmentChanged?.Invoke(itemStack.Location, itemStack, null);
         
@@ -445,7 +511,10 @@ public partial class PlayerManager
     {
         var location = GetArmorLocation(equipType);
         // -1 也查不到任何armor
-        return GetInventoryData().EquippedItems.FirstOrDefault(itemStack => itemStack.Location == location);
+        var itemContainer = GetSavedItemContainer();
+        return itemContainer.Equipped.
+            Select(GetItemStackByUID).
+            FirstOrDefault(itemStack => itemStack != null && itemStack.Location == location);
     }
     
     private bool EquipTypeMatch(int slot, ItemStack itemStack)

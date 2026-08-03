@@ -18,6 +18,12 @@ public class Context : Singleton<Context>
     }
     public static readonly EquipmentUpdateEvt  EquipmentUpdate = new();
 
+
+    public class PlayerStatsChangeEvt : EventArgs
+    {
+        
+    }
+    public static readonly PlayerStatsChangeEvt PlayerStatsChange = new();
     
     public class PlayerInitEvt : EventArgs
     {

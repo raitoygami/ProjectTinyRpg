@@ -39,13 +39,17 @@ public class UIStartMenu : PanelBase
         
         await UIRoot.Instance.LoadingStart();
         Persist.Instance.ResetSlot(0);
+        // 设置玩家模板id 和出生位置
+        PlayerManager.Instance.SetEntityID(100001);
+        PlayerManager.Instance.SetWorld("Scene/Tutorial");
+        PlayerManager.Instance.SetLocation(new Vector3(-16, -11, 0));
         // 构建玩家数据
         PlayerManager.Instance.RebuildPersist();
         
         // 加载场景
-        await LevelManager.Instance.LoadLevel("Scene/Tutorial");
+        await SceneLoader.Instance.LoadLevel(PlayerManager.Instance.GetWorldName());
         await UniTask.DelayFrame(1);
-        await this.PublishGlobal(new LevelManager.SceneChangeEvt());
+        await this.PublishGlobal(new SceneLoader.SceneChangeEvt());
         UIRoot.Instance.Hide("StartMenu");
         UIRoot.Instance.OpenMainUI();
 
@@ -68,9 +72,9 @@ public class UIStartMenu : PanelBase
         // 构建玩家数据
         PlayerManager.Instance.RebuildPersist();
 
-        await LevelManager.Instance.LoadLevel("Scene/Tutorial");
+        await SceneLoader.Instance.LoadLevel(PlayerManager.Instance.GetWorldName());
         await UniTask.DelayFrame(1);
-        await this.PublishGlobal(new LevelManager.SceneChangeEvt());
+        await this.PublishGlobal(new SceneLoader.SceneChangeEvt());
         UIRoot.Instance.Hide("StartMenu");
         UIRoot.Instance.OpenMainUI();
         

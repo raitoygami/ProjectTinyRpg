@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Stats Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Stats
+  m_TableCollectionNameGuidString: 97fc928905274ab438b442a14fd212b7
+  m_Entries:
+  - m_Id: 6159089664
+    m_Key: Stats.STR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76229132288
+    m_Key: Stats.INT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95338381312
+    m_Key: Stats.VIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130713141248
+    m_Key: Stats.DEX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1410017804288
+    m_Key: Stats.Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1487906029568
+    m_Key: Stats.SP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4923510767616
+    m_Key: Stats.HpMax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5209977536512
+    m_Key: Stats.ManaMax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5233796988928
+    m_Key: Stats.PhysicsAtk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5272611078144
+    m_Key: Stats.MagicalAtk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5298250858496
+    m_Key: Stats.CritRate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5342186192896
+    m_Key: Stats.CritMulti
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5374281007104
+    m_Key: Stats.ArmorPen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5397676834816
+    m_Key: Stats.MagicPen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5428773404672
+    m_Key: Stats.ArmorResist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5472020873216
+    m_Key: Stats.MagicResist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5511426359296
+    m_Key: Stats.Evade
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 7807147260793323599
+  references:
+    version: 2
+    RefIds:
+    - rid: 7807147260793323599
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1785751285903

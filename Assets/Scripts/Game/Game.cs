@@ -65,7 +65,7 @@ public class Game : Singleton<Game>
             CameraManager.Instance.SetOverlayCamera(UIRoot.Instance.GetUICamera());
             UIRoot.Instance.CloseMainUI();
 
-            LevelManager.Instance.Initialized();
+            SceneLoader.Instance.Initialized();
 
             await UIRoot.Instance.FadeIn(0);
             await Addressables.LoadSceneAsync("Scene/Menu").ToUniTask();

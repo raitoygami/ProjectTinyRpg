@@ -85,7 +85,7 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
         return UniTask.CompletedTask;
     }
 
-    public void InitAfterLevelLoad()
+    public virtual void InitAfterLevelLoad()
     {
         if (!_updateNavigation)
             return;

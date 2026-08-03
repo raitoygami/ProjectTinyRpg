@@ -41,10 +41,10 @@ public class EnemySpawnerRandomly : PubSubActor
 
     private void Awake()
     {
-        this.SubscribeGlobal<LevelManager.SceneChangeEvt>(OnSceneChanged);
+        this.SubscribeGlobal<SceneLoader.SceneChangeEvt>(OnSceneChanged);
     }
 
-    private UniTask OnSceneChanged(LevelManager.SceneChangeEvt arg)
+    private UniTask OnSceneChanged(SceneLoader.SceneChangeEvt arg)
     {
         SpawnRandomly();
         return UniTask.CompletedTask;

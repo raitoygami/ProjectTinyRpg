@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Stats_ko-KR
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: ko-KR
+  m_SharedData: {fileID: 11400000, guid: 97fc928905274ab438b442a14fd212b7, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 6159089664
+    m_Localized: "\uD798"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76229132288
+    m_Localized: "\uC9C0\uB2A5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95338381312
+    m_Localized: "\uCCB4\uB825"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130713141248
+    m_Localized: "\uBBFC\uCCA9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1410017804288
+    m_Localized: Lv
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1487906029568
+    m_Localized: "\uC2A4\uD0EF \uD3EC\uC778\uD2B8"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4923510767616
+    m_Localized: HP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5209977536512
+    m_Localized: MP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5233796988928
+    m_Localized: "\uBB3C\uB9AC \uACF5\uACA9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5272611078144
+    m_Localized: "\uB9C8\uBC95 \uACF5\uACA9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5298250858496
+    m_Localized: "\uCE58\uBA85\uD0C0\uC728"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5342186192896
+    m_Localized: "\uCE58\uBA85\uD0C0 \uD53C\uD574"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5374281007104
+    m_Localized: "\uBB3C\uB9AC \uAD00\uD1B5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5397676834816
+    m_Localized: "\uB9C8\uBC95 \uAD00\uD1B5"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5428773404672
+    m_Localized: "\uBB3C\uB9AC \uC800\uD56D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5472020873216
+    m_Localized: "\uB9C8\uBC95 \uC800\uD56D"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5511426359296
+    m_Localized: "\uD68C\uD53C"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -93,6 +93,7 @@ public partial class Player : Entity
     
     private void OnEquipmentChanged(int location, ItemStack itemStackOld, ItemStack itemStackNew)
     {
+        
         if (itemStackOld != null)
         {
             m_AgentStats.RemoveAttributeModifiersFromSource(itemStackOld);
@@ -102,7 +103,8 @@ public partial class Player : Entity
         {
             m_AgentStats.AddAttributeModifiersFromSource(itemStackNew.GetModifiers(), itemStackNew);
         }
-                
+
+        this.PublishGlobal(Context.PlayerStatsChange);
         // m_AgentStats.LogPlayerAttributesDebug();
     }
     
@@ -170,9 +172,10 @@ public partial class Player : Entity
     // 这个函数，只在初始化的时候调用一次
     private void FirstAddWeaponModifiers()
     {
-        var equippedItems = PlayerManager.Instance.GetInventoryData().EquippedItems;
-        foreach (var itemStack in equippedItems)
+        var equippedItems = PlayerManager.Instance.GetSavedItemContainer().Equipped;
+        foreach (var uid in equippedItems)
         {
+            var itemStack = PlayerManager.Instance.GetItemStackByUID(uid);
             m_AgentStats.AddAttributeModifiersFromSource(itemStack.GetModifiers(), itemStack);
         }
 
