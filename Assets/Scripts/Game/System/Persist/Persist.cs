@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class Persist : Singleton<Persist>
 {
-    private SaveData _runtimeState = new();
+    private SaveData _runtimePlayerData = new();
 
-    public SaveData GetState()
+    public SaveData GetPlayerData()
     {
-        return _runtimeState;
+        return _runtimePlayerData;
     }
 
     #region Json Settings
@@ -68,7 +68,7 @@ public class Persist : Singleton<Persist>
                 Directory.CreateDirectory(dir);
             var path = GetPersistPath(slotIndex);
 
-            var json = JsonConvert.SerializeObject(_runtimeState, SerializerSettings);
+            var json = JsonConvert.SerializeObject(_runtimePlayerData, SerializerSettings);
 #if !UNITY_EDITOR
             json = EncryptDecrypt(json);
 #endif
@@ -98,7 +98,7 @@ public class Persist : Singleton<Persist>
 #if !UNITY_EDITOR
             json = EncryptDecrypt(json);
 #endif
-            _runtimeState = JsonConvert.DeserializeObject<SaveData>(json, SerializerSettings);
+            _runtimePlayerData = JsonConvert.DeserializeObject<SaveData>(json, SerializerSettings);
         }
         catch (Exception e)
         {
@@ -109,7 +109,7 @@ public class Persist : Singleton<Persist>
     public void ResetSlot(int slotIndex)
     {
         DeleteSlot(slotIndex);
-        _runtimeState = new SaveData();
+        _runtimePlayerData = new SaveData();
     }
     
     public void DeleteSlot(int slotIndex)

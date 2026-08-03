@@ -9,7 +9,5 @@ public partial class SaveData
         public Dictionary<int, int> NextSeqMap = new();
     }
     public UidGeneratorState State = new();
-    
-
 
 }

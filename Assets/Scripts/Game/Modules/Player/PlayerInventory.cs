@@ -38,7 +38,7 @@ public partial class PlayerManager
 {
     public SaveData.ItemContainer GetSavedItemContainer()
     {
-        return Persist.Instance.GetState().Inventory;
+        return Persist.Instance.GetPlayerData().Inventory;
     }
 
     public void NewItemStack(ItemStack itemStack)

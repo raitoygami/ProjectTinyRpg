@@ -35,7 +35,7 @@ public partial class PlayerManager
 {
     public SaveData.PlayerStats GetSavedStats()
     {
-        return Persist.Instance.GetState().Stats;
+        return Persist.Instance.GetPlayerData().Stats;
     }
 
     public int GetEntityID()
