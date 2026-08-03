@@ -1,3 +1,4 @@
+/*
 using System;
 
 /// <summary>
@@ -52,3 +53,4 @@ public abstract class QuestGoal
     {
     }
 }
+*/

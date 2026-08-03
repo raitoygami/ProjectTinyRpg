@@ -83,8 +83,8 @@ public class UIDialogue : MonoBehaviour
     {
         var questId = entry != null ? entry.questId : null;
         if (string.IsNullOrEmpty(questId)) return;
-        if (!QuestManager.HasInstance()) return;
-        QuestManager.Instance.TryAcceptQuest(questId);
+        /*if (!QuestManager.HasInstance()) return;
+        QuestManager.Instance.TryAcceptQuest(questId);*/
     }
 
     private void ShowDialogue()

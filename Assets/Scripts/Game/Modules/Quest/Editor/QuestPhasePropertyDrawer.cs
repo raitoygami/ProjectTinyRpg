@@ -1,3 +1,4 @@
+/*
 #if UNITY_EDITOR
 using System;
 using UnityEditor;
@@ -153,3 +154,4 @@ public class QuestPhasePropertyDrawer : PropertyDrawer
     static float sp => EditorGUIUtility.standardVerticalSpacing;
 }
 #endif
+*/

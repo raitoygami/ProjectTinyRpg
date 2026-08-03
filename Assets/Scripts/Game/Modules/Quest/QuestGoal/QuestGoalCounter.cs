@@ -1,3 +1,4 @@
+/*
 using System;
 
 /// <summary>
@@ -26,3 +27,4 @@ public class QuestGoalCounter : QuestGoal
         current = 0;
     }
 }
+*/

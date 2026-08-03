@@ -1,3 +1,4 @@
+/*
 using System;
 using Cysharp.Threading.Tasks;
 
@@ -45,3 +46,4 @@ public class QuestGoalKillByPubSubSample : QuestGoal
         current = 0;
     }
 }
+*/

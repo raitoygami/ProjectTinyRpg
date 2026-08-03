@@ -1,3 +1,4 @@
+/*
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -193,3 +194,4 @@ public class QuestComponent : MonoBehaviour
         return phase != null && phase.AllGoalsComplete;
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 /// <summary>
 /// 将任务整理为「模板 / 新注册用」状态：未接取、进度清零。
 /// </summary>
@@ -20,3 +21,4 @@ public static class QuestTemplateRuntime
         }
     }
 }
+*/

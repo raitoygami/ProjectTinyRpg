@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 /// <summary>
@@ -24,3 +25,4 @@ public class QuestTemplateAsset : ScriptableObject
         return copy;
     }
 }
+*/

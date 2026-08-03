@@ -1,3 +1,4 @@
+/*
 using System;
 using Cysharp.Threading.Tasks;
 
@@ -46,3 +47,4 @@ public class QuestGoalPlayerMoveSteps : QuestGoal
         current = 0;
     }
 }
+*/

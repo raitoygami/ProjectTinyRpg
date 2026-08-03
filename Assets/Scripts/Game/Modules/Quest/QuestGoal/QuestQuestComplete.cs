@@ -1,3 +1,4 @@
+/*
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -57,3 +58,4 @@ public class QuestQuestComplete : QuestGoal
         _completed = false;
     }
 }
+*/

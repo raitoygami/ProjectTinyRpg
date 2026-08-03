@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 /// <summary>
 ///     运行时根据 Inspector 中拖入的 <see cref="QuestTemplateAsset" /> 克隆任务并 <see cref="QuestManager.Register" />。
@@ -37,7 +37,7 @@ public class QuestConfigBootstrap : MonoBehaviour
     public static bool TryRegisterFromTemplate(QuestTemplateAsset template, bool skipIfQuestIdExists = true)
     {
         if (template == null) return false;
-        if (!PersistenceModule.HasInstance())
+        if (!Persist.HasInstance())
         {
             Debug.LogError("[QuestConfigBootstrap] 需要场景中存在 PersistenceModule。");
             return false;
@@ -68,4 +68,4 @@ public class QuestConfigBootstrap : MonoBehaviour
         QuestManager.Instance.Register(q);
         return true;
     }
-}
+}*/
