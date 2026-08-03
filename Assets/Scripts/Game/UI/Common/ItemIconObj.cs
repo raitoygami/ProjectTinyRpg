@@ -89,8 +89,7 @@ public class ItemIconObj : MonoBehaviour,
         yield return new WaitForSeconds(_showTipDelay);
         // 显示时获取最新的位置
         var pos = GetTooltipPosition(eventData);
-        var itemStack = PlayerManager.Instance.GetItemStackByUID(_itemStackUID);
-        UIRoot.Instance.ToolTipUI.ShowTip(itemStack, pos);
+        UIRoot.Instance.ToolTipUI.ShowTip(_itemStackUID, pos);
     }
 
     public void OnPointerExit(PointerEventData eventData)
