@@ -71,6 +71,7 @@ public class AIEntity : Entity
         this.Subscribe<TurnActor.TurnActionEvent>(OnTurnAction);
         this.Subscribe<AgentMover.MoveStartEvent>(OnMoveStart);
         this.Subscribe<AgentMover.MoveFinishEvent>(OnMoveFinish);
+        this.Subscribe<AgentMover.MoveForcedFinishEvent>(MoveForcedFinishEvent);
         this.Subscribe<AgentStats.HealthChangedEvent>(OnHealthChanged);
         this.Subscribe<AgentStats.DefeatedEvent>(OnDefeated);
 
@@ -84,13 +85,21 @@ public class AIEntity : Entity
 
 
 
-
     private EnemyStatData _runtimeStat;
     public void SetEntityState(EnemyStatData statData)
     {
-        _runtimeStat = statData;
+        
         m_AgentStats.SetHealthLost(statData.HpLost);
         m_AgentAnimations.SetDirection(statData.Direction);
+        // 初始化的时候_runtimeStat为null， 所以不会在写回到存档, 但是会通知ui界面UIStatBar更新血量信息
+        this.Publish(new AgentStats.HealthChangedEvent()
+        {
+            Stats = m_AgentStats,
+            Current = m_AgentStats.HealthCurrent,
+            Max = m_AgentStats.MaxHealth,
+        });
+        
+        _runtimeStat = statData;
     }
     
     protected override bool IsWalkable(PathCell cell, int goalX, int goalY)
@@ -226,6 +235,16 @@ public class AIEntity : Entity
         return UniTask.CompletedTask;
     }
 
+    private UniTask MoveForcedFinishEvent(AgentMover.MoveForcedFinishEvent arg)
+    {
+        if (_runtimeStat != null)
+        {
+            _runtimeStat.Location = arg.CurrPosition;
+            _runtimeStat.Direction = m_AgentAnimations.GetDirection();
+        }
+        return UniTask.CompletedTask;
+    }
+    
     private UniTask OnMoveFinish(AgentMover.MoveFinishEvent arg)
     {
         if (_runtimeStat != null)

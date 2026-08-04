@@ -252,6 +252,25 @@ public partial class Player
         return UniTask.CompletedTask;
     }
 
+    private UniTask MoveForcedFinishEvent(AgentMover.MoveForcedFinishEvent arg)
+    {
+        var playerLocation = PlayerManager.Instance.GetLocation(); 
+        playerLocation.CurrentLocation = arg.CurrPosition;
+        playerLocation.CurrentDirection = m_AgentAnimations.GetDirection();
+        
+        var sceneName = SceneManager.GetActiveScene().name;
+        var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
+        
+        // 如果当前在大地图上， 同步大地图数据位置， 方便后续从地牢出来以后回到原本位置
+        if (mapInfo is { MapType: MapConfig.MapType.WorldChunk })
+        {
+            playerLocation.CurrentWorldLocation = arg.CurrPosition;
+            playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
+        }
+        
+        return UniTask.CompletedTask;
+    }
+    
     public async UniTask MoveFinishEvent(AgentMover.MoveFinishEvent arg)
     {
         var playerLocation = PlayerManager.Instance.GetLocation(); 

@@ -22,7 +22,14 @@ public class AgentMover : MonoBehaviour
         public Vector3 CurrPosition;
     }
 
+    public class MoveForcedFinishEvent : EventArgs
+    {
+        public Vector3 LastPosition;
+        public Vector3 CurrPosition;
+    }
+    
     private readonly MoveStartEvent _MoveStartEvent = new();
+    private readonly MoveForcedFinishEvent _MoveForcedFinishEvent = new();
     private readonly MoveFinishEvent _MoveFinishEvent = new();
     private bool _IsMoving;
     private bool _MovePending;
@@ -67,7 +74,6 @@ public class AgentMover : MonoBehaviour
         }
 
         _IsMoving = true;
-        //_MovePending = true;
 
         var worldPosition = t_GridPosition.GridToWorld();
         var velocityMulti = Vector3.Distance(transform.position, worldPosition) / Mathf.Max(t_VelocityMulti, 1.0f) * 0.2f;
@@ -77,35 +83,26 @@ public class AgentMover : MonoBehaviour
         _MoveStartEvent.Forced = forced;
         _MoveStartEvent.Duration = velocityMulti;
         _MoveFinishEvent.LastPosition = transform.position;
+        _MoveForcedFinishEvent.LastPosition = transform.position;
         await this.Publish(_MoveStartEvent);
 
-        if (t_VelocityMulti <= 0.0f)
+        try
         {
-            transform.position = worldPosition;
-            _MoveFinishEvent.CurrPosition = worldPosition;
+            await transform.DOMove(worldPosition, velocityMulti).SetEase(moveEase).SetTarget(gameObject)
+                .ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, _MoveCancellation.Token);
+
             _IsMoving = false;
+            _MoveFinishEvent.CurrPosition = worldPosition;
+            _MoveForcedFinishEvent.CurrPosition = worldPosition;
         }
-        else
+        catch (Exception)
         {
-            
-            try
-            {
-                await transform.DOMove(worldPosition, velocityMulti).SetEase(moveEase).SetTarget(gameObject)
-                    .ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, _MoveCancellation.Token);
-
-                _IsMoving = false;
-                _MoveFinishEvent.CurrPosition = worldPosition;
-            }
-            catch (Exception)
-            {
-                Debug.Log("cancel.");
-                return true;
-            }
-        }
-
-        if (forced)
+            Debug.Log("cancel.");
             return true;
-
+        }
+        
+        if (forced)
+            return await this.Publish(_MoveForcedFinishEvent);
         return await this.Publish(_MoveFinishEvent);
     }
 

@@ -42,6 +42,7 @@ public partial class Player : Entity
 
         this.Subscribe<AgentMover.MoveStartEvent>(MoveStartEvent);
         this.Subscribe<AgentMover.MoveFinishEvent>(MoveFinishEvent);
+        this.Subscribe<AgentMover.MoveForcedFinishEvent>(MoveForcedFinishEvent);
         this.Subscribe<AgentStats.HealthChangedEvent>(HealthChangedEvent);
         this.Subscribe<AgentStats.DefeatedEvent>(OnDefeated);
 
@@ -85,6 +86,8 @@ public partial class Player : Entity
         _xyPlane = new Plane(Vector3.back, Vector3.zero);   // 法线朝 -Z，点在原点
         EntityManager.Register(this);
     }
+
+
 
     private UniTask HealthChangedEvent(AgentStats.HealthChangedEvent arg)
     {
