@@ -98,7 +98,7 @@ public class AIEntity : Entity
             Current = m_AgentStats.HealthCurrent,
             Max = m_AgentStats.MaxHealth,
         });
-        
+         
         _runtimeStat = statData;
     }
     
