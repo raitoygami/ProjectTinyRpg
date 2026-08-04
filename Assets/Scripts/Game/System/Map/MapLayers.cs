@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class LevelLayers : MonoBehaviour
+public class MapLayers : MonoBehaviour
 {
     public GameObject ActiveAfterLoad;
 

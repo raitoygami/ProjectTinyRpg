@@ -34,8 +34,6 @@ public partial class Player : Entity
     private readonly Queue<Func<UniTask>> m_NextTurnEvt = new();
     protected void Awake()
     {
-        Debug.Log("Awake");
-        
         GridSizeX = 1;
         GridSizeZ = 1;
    
@@ -44,8 +42,11 @@ public partial class Player : Entity
 
         this.Subscribe<AgentMover.MoveStartEvent>(MoveStartEvent);
         this.Subscribe<AgentMover.MoveFinishEvent>(MoveFinishEvent);
+        this.Subscribe<AgentStats.HealthChangedEvent>(HealthChangedEvent);
         this.Subscribe<AgentStats.DefeatedEvent>(OnDefeated);
 
+        
+        
         this.SubscribeInput<InputManager.PointerMoveEvt>(OnPointerMoveEvt);
         this.SubscribeInput<InputManager.MouseClickEvt>(OnMouseClickEvt);
         this.SubscribeInput<InputManager.WASDEvt>(OnWASDEvt);
@@ -85,6 +86,15 @@ public partial class Player : Entity
         EntityManager.Register(this);
     }
 
+    private UniTask HealthChangedEvent(AgentStats.HealthChangedEvent arg)
+    {
+        var playerStats = PlayerManager.Instance.GetStats();
+        if (playerStats != null)
+        {
+            playerStats.HpLost = arg.HpLost;    
+        }
+        return UniTask.CompletedTask;
+    }
 
     public Transform GetAvatarRoot()
     {
@@ -160,6 +170,14 @@ public partial class Player : Entity
         
         // 更新属性 
         FirstAddWeaponModifiers();
+        
+        // 读取当前血量
+        var playerStats =  PlayerManager.Instance.GetStats();
+        m_AgentStats.SetHealthLost(playerStats.HpLost);
+
+        var playerLocation = PlayerManager.Instance.GetLocation();
+        m_AgentAnimations.SetDirection(playerLocation.CurrentDirection);
+        //m_AgentStats
     }
 
     private async UniTask RefreshWeapon()

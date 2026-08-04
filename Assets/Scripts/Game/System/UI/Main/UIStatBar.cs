@@ -36,10 +36,7 @@ public class UIStatBar : MonoBehaviour
         _fillTweener?.Kill();
         _shieldFillTweener?.Kill();
     }
-
-    /// <summary>
-    ///     设置填充比例，0~1。减少时按 m_DecreaseDuration 做渐变动画，增加或相等时立即更新。
-    /// </summary>
+    
     public void SetHpBar(float fill)
     {
         if (m_HpBar == null) return;
@@ -61,10 +58,7 @@ public class UIStatBar : MonoBehaviour
             m_HpBar.fillAmount = target;
         }
     }
-
-    /// <summary>
-    ///     护盾条填充，0~1（通常相对 <see cref="AgentStats.MaxHealth"/> 比例）。无 <see cref="m_ShieldBar"/> 时忽略。
-    /// </summary>
+    
     public void SetShieldFill(float fill)
     {
         if (m_ShieldBar == null) return;

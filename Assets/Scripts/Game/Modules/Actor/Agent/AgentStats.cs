@@ -32,6 +32,10 @@ public partial class AgentStats : MonoBehaviour
         public AgentStats Stats { get; set; }
         public int Current { get; set; }
         public int Max { get; set; }
+
+        public int HpChanged;
+        public int HpLost;
+
     }
 
     public class TakeDamageEvent : EventArgs
@@ -122,25 +126,36 @@ public partial class AgentStats : MonoBehaviour
     private int _HealthLost;
     public int HealthCurrent => MaxHealth - _HealthLost;
 
+    public void SetHealthLost(int value)
+    {
+        _HealthLost = Mathf.Clamp(value, 0, MaxHealth);
+    }
+    
     /// <summary>
     /// 应用伤害结果造成的血量扣除（由 DamageCalculator 结算后调用，便于飘字/事件扩展）。
     /// </summary>
     private async UniTask ApplyHealthLoss(DamageResult result)
     {
         if (result.FinalDamage <= 0) return;
+        var lastHp = HealthCurrent;
         _HealthLost = Mathf.Clamp(_HealthLost + result.FinalDamage, 0, MaxHealth);
-
-        _ = this.Publish(new HealthChangedEvent { Stats = this, Current = HealthCurrent, Max = MaxHealth });
+        var hpChanged = HealthCurrent - lastHp;
+        _ = this.Publish(new HealthChangedEvent
+        {
+            Stats = this, 
+            Current = HealthCurrent, 
+            Max = MaxHealth,
+            HpChanged = hpChanged,
+            HpLost = _HealthLost,
+        });
         await this.Publish(new TakeDamageEvent { Damage = result.FinalDamage, HpMax = MaxHealth , Direction = result.Direction});
         if (HealthCurrent <= 0)
         {
             await UniTask.Delay(250);
             var evt = new DefeatedEvent { DefeatedStats = this, LastDamage = result };
             await this.Publish(evt);
-            /*var ent = GetComponent<Entity>();
-            if (ent != null && DropSystem.HasInstance())
-                DropSystem.Instance.Drop(ent);*/
         }
+        
 
         await UniTask.CompletedTask;
     }

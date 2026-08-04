@@ -8,17 +8,6 @@
           "name": "经验和成长系统"
         },
         {
-          "description": "<p>玩家经验等级，技能点数量， 加点情况。当前所在地图和坐标等</p>",
-          "id": "j8p7vtvxwhrrvjbg9pygqkip",
-          "name": "玩家信息和存档",
-          "tags": []
-        },
-        {
-          "description": "<p>记录怪物信息（位置，死否死亡），掉落， 战斗中不能存档！！！</p>",
-          "id": "jqmqtsbdo7lreik76oni7bit",
-          "name": "地图信息支持存档"
-        },
-        {
           "description": "<p>显示战斗信息，不同操作信息，以及各种日志</p>",
           "id": "znj1jy78vv3a77j99iw3354k",
           "name": "左下角的Log 面板"
@@ -29,6 +18,10 @@
           "id": "cus6kfnsvsxvf37oiseiakjg",
           "isDueDateCompleted": false,
           "name": "玩家技能系统"
+        },
+        {
+          "id": "gtuz6zwhzfu63xybvzo5so5o",
+          "name": "默认怪物AI修改索敌逻辑"
         }
       ],
       "id": "diouy3w9h5j6d6bgs4zk864l",
@@ -40,7 +33,24 @@
       "title": "Work in progress"
     },
     {
-      "cards": [],
+      "cards": [
+        {
+          "description": "<p>1：实现加点功能</p><p>2：属性变化的时候，同步角色属性信息</p><p>3:   ActionPanel加入玩家血量蓝量和Sp点， sp点用中间的圆圈</p>",
+          "id": "lzfyk5m9vjw0aajfi1fl1mve",
+          "name": "角色属性面板接入数据"
+        },
+        {
+          "description": "<p>玩家经验等级，技能点数量， 加点情况。当前所在地图和坐标等</p>",
+          "id": "j8p7vtvxwhrrvjbg9pygqkip",
+          "name": "玩家信息和存档",
+          "tags": []
+        },
+        {
+          "description": "<p>记录怪物信息（位置，死否死亡），掉落， 战斗中不能存档！！！</p>",
+          "id": "jqmqtsbdo7lreik76oni7bit",
+          "name": "地图信息支持存档"
+        }
+      ],
       "id": "rsa12m1eaut1vwx5nbewgs8z",
       "title": "Done"
     }
@@ -55,6 +65,6 @@
     }
   ],
   "id": "jllshyif8l373infqwyf57c0",
-  "lastEdited": "2026-08-02T08:57:25.995Z",
+  "lastEdited": "2026-08-04T11:58:01.895Z",
   "title": "TinyRpg 8月第一周(03-09)"
 }

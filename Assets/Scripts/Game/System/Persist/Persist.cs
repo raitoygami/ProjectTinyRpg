@@ -48,7 +48,7 @@ public class Persist : Singleton<Persist>
             NullValueHandling = NullValueHandling.Ignore,
             MissingMemberHandling = MissingMemberHandling.Ignore,
             Formatting = Formatting.None,
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
+            ContractResolver = new DefaultContractResolver()
         };
     }
 

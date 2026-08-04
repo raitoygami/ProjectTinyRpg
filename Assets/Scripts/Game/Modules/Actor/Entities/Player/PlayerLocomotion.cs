@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using JSAM;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public partial class Player
 {
@@ -253,8 +254,21 @@ public partial class Player
 
     public async UniTask MoveFinishEvent(AgentMover.MoveFinishEvent arg)
     {
+        var playerLocation = PlayerManager.Instance.GetLocation(); 
+        playerLocation.CurrentLocation = arg.CurrPosition;
+        playerLocation.CurrentDirection = m_AgentAnimations.GetDirection();
+        
+        var sceneName = SceneManager.GetActiveScene().name;
+        var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
+        
+        // 如果当前在大地图上， 同步大地图数据位置， 方便后续从地牢出来以后回到原本位置
+        if (mapInfo is { MapType: MapConfig.MapType.WorldChunk })
+        {
+            playerLocation.CurrentWorldLocation = arg.CurrPosition;
+            playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
+        }
+        
         m_TurnActor.FinishTurn();
-        PlayerManager.Instance.SetLocation(arg.CurrPosition);
         await this.PublishGlobal(new Context.PlayerMoveFinishEvt());
         await UniTask.CompletedTask;
     }

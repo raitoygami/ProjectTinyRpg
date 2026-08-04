@@ -289,7 +289,16 @@ public class AgentAnimations : MonoBehaviour
         // 动画结束后清理
         currentTween = null;
     }
-    
+
+    public Vector3 GetDirection()
+    {
+        return m_AvatarTarget.localScale;
+    }
+
+    public void SetDirection(Vector3 direction)
+    {
+        m_AvatarTarget.localScale = direction;
+    }
     
     public void FaceTarget(Vector3 t_TargetDirection)
     {

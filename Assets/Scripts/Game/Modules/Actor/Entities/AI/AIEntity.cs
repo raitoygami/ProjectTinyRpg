@@ -70,6 +70,8 @@ public class AIEntity : Entity
 
         this.Subscribe<TurnActor.TurnActionEvent>(OnTurnAction);
         this.Subscribe<AgentMover.MoveStartEvent>(OnMoveStart);
+        this.Subscribe<AgentMover.MoveFinishEvent>(OnMoveFinish);
+        this.Subscribe<AgentStats.HealthChangedEvent>(OnHealthChanged);
         this.Subscribe<AgentStats.DefeatedEvent>(OnDefeated);
 
         m_AgentAnimations = gameObject.AddComponent<AgentAnimations>();
@@ -80,6 +82,17 @@ public class AIEntity : Entity
         m_AgentAbilities.UpdateWepAbility(m_AgentWeapon.WeaponCurrent().GetNormalAtk());
     }
 
+
+
+
+    private EnemyStatData _runtimeStat;
+    public void SetEntityState(EnemyStatData statData)
+    {
+        _runtimeStat = statData;
+        m_AgentStats.SetHealthLost(statData.HpLost);
+        m_AgentAnimations.SetDirection(statData.Direction);
+    }
+    
     protected override bool IsWalkable(PathCell cell, int goalX, int goalY)
     {
         if (cell.Logical == null)
@@ -213,8 +226,32 @@ public class AIEntity : Entity
         return UniTask.CompletedTask;
     }
 
+    private UniTask OnMoveFinish(AgentMover.MoveFinishEvent arg)
+    {
+        if (_runtimeStat != null)
+        {
+            _runtimeStat.Location = arg.CurrPosition;
+            _runtimeStat.Direction = m_AgentAnimations.GetDirection();
+        }
+        return UniTask.CompletedTask;
+    }
+    
+    private UniTask OnHealthChanged(AgentStats.HealthChangedEvent arg)
+    {
+        if (_runtimeStat != null)
+        {
+            _runtimeStat.HpLost = arg.HpLost;
+        }
+        return UniTask.CompletedTask;
+    }
+    
     private UniTask OnDefeated(AgentStats.DefeatedEvent evt)
     {
+        if (_runtimeStat != null)
+        {
+            _runtimeStat.IsAlive = false;
+        }
+        
         m_UnsubscribeLifetime?.Invoke();
         m_UnsubscribeLifetime = null;
         TurnManager.UnRegister(m_TurnActor);

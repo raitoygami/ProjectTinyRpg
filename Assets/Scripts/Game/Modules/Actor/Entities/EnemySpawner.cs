@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 单个刷怪点：相对 EnemySpawner 的格子偏移 + 使用的实体配置 id（t_Entity）。
@@ -49,12 +50,47 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
 
     public void InitAfterLevelLoad()
     {
+        var sceneName = SceneManager.GetActiveScene().name;
         if (!gameObject.activeInHierarchy) return;
-        
-        if (spawnPoints == null || !EntityManager.HasInstance()) return;
-        for (var i = 0; i < spawnPoints.Count; i++)
+        var entityName = $"EnemySpawner_{sceneName}_{name}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
+
+        var entityStatData = MapManager.Instance.GetEntityStatData(sceneName, entityName);
+        var spawnerState = entityStatData as EntityStatEnemySpawner;
+        if (spawnerState is not { HasSpawned: true })
         {
-            SpawnEnemyAt(i);
+            if (spawnPoints == null || !EntityManager.HasInstance()) return;
+
+            spawnerState = new EntityStatEnemySpawner();
+            
+            for (var i = 0; i < spawnPoints.Count; i++)
+            {
+                var enemy = SpawnEnemyAt(i);
+                var enemyStat = new EnemyStatData
+                {
+                    UniqueID = $"{spawnPoints[i].EntityId}_{spawnPoints[i].Location.x}_{spawnPoints[i].Location.y}",
+                    EntityId = spawnPoints[i].EntityId,
+                    Location = spawnPoints[i].Location,
+                    HpLost = 0,
+                    IsAlive = true,
+                };
+                
+                enemy.SetEntityState(enemyStat);
+
+                spawnerState.AddEnemyStatData(enemyStat);
+            }
+
+            spawnerState.HasSpawned = true;
+
+            MapManager.Instance.SetEntityStatData(sceneName, entityName, spawnerState);
+            
+            return;
+        }
+
+        foreach (var enemyStat in spawnerState.SpawnedEnemies)
+        {
+            if (!enemyStat.IsAlive) continue;
+            var enemy = SpawnEnemy(enemyStat);
+            enemy.SetEntityState(enemyStat);            
         }
     }
 
@@ -64,19 +100,30 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
         return new Vector3(baseGrid.x + relativeLocation.x, baseGrid.y + relativeLocation.y, 0);
     }
     
+    private AIEntity SpawnEnemy(EnemyStatData spawnPoint)
+    {
+        if (!EntityManager.HasInstance())
+            return null;
+        var enemy = EntityManager.Instance.CreateEnemy(spawnPoint.Location, spawnPoint.EntityId);
+        if (enemy != null)
+            enemy.SetHomeAnchor(spawnPoint.Location, disengageLeashRange);
+        return enemy;
+    }
+    
     /// <summary>在指定刷怪点索引处创建一个 Enemy，使用该刷怪点配置的相对 Location 与 EntityId（t_Entity）。</summary>
     /// <returns>创建的 <see cref="AIEntity"/>，若索引无效或 EntityManager 未配置 enemyPrefab 则返回 null。</returns>
-    private void SpawnEnemyAt(int spawnPointIndex)
+    private AIEntity SpawnEnemyAt(int spawnPointIndex)
     {
         if (spawnPoints == null || spawnPointIndex < 0 || spawnPointIndex >= spawnPoints.Count)
-            return;
+            return null;
         var point = spawnPoints[spawnPointIndex];
         var absoluteGrid = GetAbsoluteGridPosition(point.Location);
         if (!EntityManager.HasInstance())
-            return;
+            return null;
         var enemy = EntityManager.Instance.CreateEnemy(absoluteGrid, point.EntityId);
         if (enemy != null)
             enemy.SetHomeAnchor(absoluteGrid, disengageLeashRange);
+        return enemy;
     }
     
     private void OnDrawGizmos()

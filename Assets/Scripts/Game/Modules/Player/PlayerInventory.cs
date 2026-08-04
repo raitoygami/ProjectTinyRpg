@@ -31,14 +31,20 @@ public partial class SaveData
         
     }
 
-    public ItemContainer Inventory = new();
+    public ItemContainer _itemContainer = new();
+    public ItemContainer GetItemContainer()
+    {
+        _itemContainer ??= new ItemContainer();
+        return _itemContainer;
+    }
+    
 }
 
 public partial class PlayerManager
 {
     public SaveData.ItemContainer GetSavedItemContainer()
     {
-        return Persist.Instance.GetPlayerData().Inventory;
+        return Persist.Instance.GetPlayerData().GetItemContainer();
     }
 
     public void NewItemStack(ItemStack itemStack)

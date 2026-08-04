@@ -20,118 +20,103 @@ public partial class SaveData
         public int AllocINT = 0;
         public int AllocVIT = 0;
         public int AllocDEX = 0;
-        
-        // 场景
-        public string WorldName;
-        // 位置
-        public Vector3 Location;
+
+        // runtime dynamic stats
+        public int HpLost = 0;
+        public int MpLost = 0;
 
     }
+    
+    public PlayerStats _stats;
 
-    public PlayerStats Stats = new();
+    public PlayerStats GetStats()
+    {
+        _stats ??= new PlayerStats();
+        return _stats;
+    }
 }
 
 public partial class PlayerManager
 {
-    public SaveData.PlayerStats GetSavedStats()
+    public SaveData.PlayerStats GetStats()
     {
-        return Persist.Instance.GetPlayerData().Stats;
+        return Persist.Instance.GetPlayerData().GetStats();
     }
-
+    
     public int GetEntityID()
     {
-        return GetSavedStats().EntityID;
+        return GetStats().EntityID;
     }
     
     public void SetEntityID(int entityID)
     {
-        GetSavedStats().EntityID = entityID;
+        GetStats().EntityID = entityID;
     }
 
     public int GetLevel()
     {
-        return GetSavedStats().Level;
+        return GetStats().Level;
     }
 
     public int GetExperience()
     {
-        return GetSavedStats().Experience;
+        return GetStats().Experience;
     }
     
     public bool AddExp(int exp)
     {
-        GetSavedStats().Experience += exp;
+        GetStats().Experience += exp;
         return true;
     }
     
     public int GetStatPoints()
     {
-        return GetSavedStats().StatPoints;
+        return GetStats().StatPoints;
     }
 
     public void SetStatPoints(int value)
     {
-        GetSavedStats().StatPoints = value;
+        GetStats().StatPoints = value;
     }
 
     public int GetSTR()
     {
-        return GetSavedStats().AllocSTR;
+        return GetStats().AllocSTR;
     }
 
     public void SetSTR(int value)
     {
-        GetSavedStats().AllocSTR = value;
+        GetStats().AllocSTR = value;
     }
 
     public int GetINT()
     {
-        return GetSavedStats().AllocINT;
+        return GetStats().AllocINT;
     }
 
     public void SetINT(int value)
     {
-        GetSavedStats().AllocINT = value;
+        GetStats().AllocINT = value;
     }
 
     public int GetVIT()
     {
-        return GetSavedStats().AllocVIT;
+        return GetStats().AllocVIT;
     }
 
     public void SetVIT(int value)
     {
-        GetSavedStats().AllocVIT = value;
+        GetStats().AllocVIT = value;
     }
 
     public int GetDEX()
     {
-        return GetSavedStats().AllocDEX;
+        return GetStats().AllocDEX;
     }
 
     public void SetDEX(int value)
     {
-        GetSavedStats().AllocDEX = value;
+        GetStats().AllocDEX = value;
     }
 
-    public void SetWorld(string worldName)
-    {
-        GetSavedStats().WorldName = worldName;
-    }
-
-    public string GetWorldName()
-    {
-        return GetSavedStats().WorldName;
-    }
-
-    public void SetLocation(Vector3 location)
-    {
-        GetSavedStats().Location = location;
-    }
-    
-    public Vector3 GetWorldLocation()
-    {
-        return GetSavedStats().Location;
-    }
-    
 }

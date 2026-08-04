@@ -3,10 +3,10 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class SceneLoader : Singleton<SceneLoader>
+public class MapLoader : Singleton<MapLoader>
 {
     // 场景切换的时候调用
-    public class SceneChangeEvt : EventArgs
+    public class MapChangedEvt : EventArgs
     {
     }
     
@@ -24,16 +24,23 @@ public class SceneLoader : Singleton<SceneLoader>
         public bool IsMoveabled(PathCell cell, int goalX, int goalY) => false;
     }
 
-    public async UniTask LoadLevel(string levelName)
+    public async UniTask Load(string sceneName)
     {
-        await Addressables.LoadSceneAsync(levelName).ToUniTask();
+        var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
+        if (mapInfo == null)
+        {
+            Debug.LogError($"[MapLoader] Wrong there is no map info of : {sceneName}.");
+            return;
+        }
+            
+        await Addressables.LoadSceneAsync(mapInfo.AddressableName).ToUniTask();
 
-        var levelLayers = FindFirstObjectByType<LevelLayers>();
+        var levelLayers = FindFirstObjectByType<MapLayers>();
         var tilemap = levelLayers != null ? levelLayers.LayerBlocks : null;
 
         if (tilemap == null)
         {
-            Debug.LogError("[LevelManager] LayerBlocks tilemap is null — cannot init PathFinder.");
+            Debug.LogError("[MapLoader] LayerBlocks tilemap is null — cannot init PathFinder.");
             return;
         }
 
@@ -49,7 +56,7 @@ public class SceneLoader : Singleton<SceneLoader>
         Debug.Log($"{width}x{height}-{originX}-{originY}");
         
         PathFinder.Instance.InitCells(originX, originY, width, height);
-        
+         
         // ── Mark cells with tiles as impassable ────────────────────────
         for (var x = bounds.xMin; x < bounds.xMax; x++)
         for (var y = bounds.yMin; y < bounds.yMax; y++)
@@ -67,7 +74,7 @@ public class SceneLoader : Singleton<SceneLoader>
 
         // CreatePlayer expects grid-container, not world position — convert first
         var entityID = PlayerManager.Instance.GetEntityID();
-        var location = PlayerManager.Instance.GetWorldLocation();
+        var location = PlayerManager.Instance.GetCurrentLocation();
         var p = EntityManager.Instance.CreatePlayer(location, entityID);
         p.InitAfterLevelLoad();
         Context.Instance.SetPlayer(p);
@@ -82,6 +89,12 @@ public class SceneLoader : Singleton<SceneLoader>
             {
                 e.InitAfterLevelLoad();
             }
+        }
+
+        if (mapInfo.MapType == MapConfig.MapType.WorldChunk)
+        {
+            PlayerManager.Instance.SetWorld(sceneName);
+            PlayerManager.Instance.SetWorldLocation(p.transform.position);
         }
         
     }
