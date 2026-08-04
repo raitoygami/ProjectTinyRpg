@@ -5,6 +5,9 @@ using UnityEngine;
 [AbilityEffectMenu("Displacement/Pull")]
 public class E_Pull : AbilityEffect
 {
+    [Min(1.0f)]
+    [SerializeField] private float Velocity = 1.0f;
+    
     protected override async UniTask OnApply()
     {
         var mover = m_Context.Target.GetComponent<AgentMover>();
@@ -29,7 +32,7 @@ public class E_Pull : AbilityEffect
 
         if (pulledGrid.Dist(origin) == 1)
         {
-            await mover.Move(pulledGrid, true, 0.1f);
+            await mover.Move(pulledGrid, true, Velocity);
             await ApplyChildren();
         }
         else

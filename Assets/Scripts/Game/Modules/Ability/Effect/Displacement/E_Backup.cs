@@ -5,6 +5,9 @@ using UnityEngine;
 public class E_Backup : AbilityEffect
 {
     [SerializeField] private int Distance = 1;
+    [Min(1.0f)]
+    [SerializeField] private int Velocity = 1;
+
     protected override async UniTask OnApply()
     {
         var mover = m_Context.Owner.GetComponent<AgentMover>();
@@ -30,7 +33,7 @@ public class E_Backup : AbilityEffect
         
         if (target != pushPosition)
         {
-            await mover.Move(pushPosition.Round(), true, 0.1f);
+            await mover.Move(pushPosition.Round(), true, Velocity);
             await ApplyChildren();        
         }
     }

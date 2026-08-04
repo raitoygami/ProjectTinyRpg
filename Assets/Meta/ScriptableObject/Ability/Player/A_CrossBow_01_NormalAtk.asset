@@ -67,6 +67,7 @@ MonoBehaviour:
   guid: 141e2e36022101a4ea59d35383cf0eb0
   localtion: {x: -277, y: 225}
   Distance: 1
+  Velocity: 1
   references:
     version: 2
     RefIds: []
