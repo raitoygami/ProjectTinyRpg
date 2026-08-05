@@ -31,11 +31,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4754220575899648
-    m_Localized: Save Game
+    m_Localized: Save & Quit
     m_Metadata:
       m_Items: []
   - m_Id: 4758827993677824
     m_Localized: Options
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6951367467614208
+    m_Localized: Quit Game
     m_Metadata:
       m_Items: []
   references:

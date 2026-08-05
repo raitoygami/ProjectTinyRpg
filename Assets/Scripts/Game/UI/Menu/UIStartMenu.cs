@@ -114,5 +114,16 @@ public class UIStartMenu : PanelBase
     {
         //var str = _locale.GetLocalizedString("params");
     }
+
+    public void OnBtnClick_Quit()
+    {
+#if UNITY_EDITOR
+        // 在 Unity 编辑器中，停止播放模式
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+    // 在构建的游戏中，退出应用程序
+    Application.Quit();
+#endif
+    }
     
 }

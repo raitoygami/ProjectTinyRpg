@@ -28,11 +28,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4754220575899648
-    m_Key: Menu.SaveGame
+    m_Key: Menu.QuitSave
     m_Metadata:
       m_Items: []
   - m_Id: 4758827993677824
     m_Key: Menu.Option
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6951367467614208
+    m_Key: Menu.QuitGame
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -6,11 +6,6 @@ using UnityEngine.AddressableAssets;
 public class SettingsPanel : PanelBase
 {
     private bool _IsLoading = false;
-    
-    public void OnBtnClick_ExitToDesktop()
-    {
-        
-    }
 
     public void OnBtnClick_ExitToMenu()
     {
@@ -39,13 +34,14 @@ public class SettingsPanel : PanelBase
         _IsLoading = false;
     }
 
-    public void OnBtnClick_SaveGame()
+    public void OnBtnClick_QuitSave()
     {
         if (BattleManager.Instance.IsInBattle)
         {
             return;
         }
         Persist.Instance.Save(0);
+        OnExitToMenu().Forget();
     }
     
 }

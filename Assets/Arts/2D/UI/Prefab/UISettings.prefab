@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 320, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1475891092334511141
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4FDD\u5B58\u6E38\u620F"
+  m_text: "\u4FDD\u5B58\u5E76\u9000\u51FA"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 74e5f3d7fe38db54ab64beda29d071f4, type: 2}
   m_sharedMaterial: {fileID: 1865506203227206767, guid: 74e5f3d7fe38db54ab64beda29d071f4, type: 2}
@@ -482,8 +482,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4339209301116111710}
   - {fileID: 4782997298481960005}
+  - {fileID: 4339209301116111710}
   - {fileID: 807665731905938914}
   m_Father: {fileID: 8115017994287493680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 5101569871746280074}
   - component: {fileID: 8715274814717043152}
   m_Layer: 5
-  m_Name: BtnSave
+  m_Name: BtnQuit&Save
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -641,7 +641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -200}
   m_SizeDelta: {x: 320, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1059071581095246187
@@ -728,7 +728,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2869531067893214454}
         m_TargetAssemblyTypeName: SettingsPanel, Assembly-CSharp
-        m_MethodName: OnBtnClick_SaveGame
+        m_MethodName: OnBtnClick_QuitSave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 6808486757781202952}
   - component: {fileID: 3876401184494192541}
   m_Layer: 5
-  m_Name: BtnExitToMenu
+  m_Name: BtnQuitToMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -774,7 +774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -200}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 320, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2792684745706049493
