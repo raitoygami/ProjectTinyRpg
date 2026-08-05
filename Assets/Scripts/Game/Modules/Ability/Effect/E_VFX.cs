@@ -9,17 +9,15 @@ public class E_VFX : AbilityEffect
     [SerializeField] private Vector3 Offset;
 
     private int _Remaining;
-    private ParticleSystem _Instance;
+    private GameObject _Instance;
     private Action DestroyAction;
     protected override async UniTask OnApply()
     {
         _Remaining = Duration;
-        
-        _Instance = Instantiate(Particle);
-
         var parent = GetTargetPosition();
-        _Instance.transform.position = (parent != null ? parent.position : m_Context.Position) + Offset;
-        _Instance.Play();
+        var position = (parent != null ? parent.position : m_Context.Position) + Offset;
+        _Instance = PoolManager.Instance.Get(Particle.gameObject, position, Quaternion.identity, parent); 
+        _Instance.GetComponent<ParticleSystem>().Play();
 
         if (DurationBased)
         {
@@ -31,9 +29,9 @@ public class E_VFX : AbilityEffect
         {
             try
             {
-                await UniTask.WaitUntil((() => !_Instance.isPlaying));
+                await UniTask.WaitUntil((() => !_Instance.GetComponent<ParticleSystem>().isPlaying));
                 if (_Instance != null)
-                    Destroy(_Instance.gameObject);
+                    PoolManager.Instance.Return(_Instance, Particle.gameObject);
             }
             catch (Exception)
             {
@@ -62,8 +60,8 @@ public class E_VFX : AbilityEffect
 
     public override void OnRemove()
     {
-        if (_Instance.gameObject != null)
-            Destroy(_Instance.gameObject);
+        if (_Instance != null)
+            PoolManager.Instance.Return(_Instance, Particle.gameObject);
     }
 
     private Transform GetTargetPosition()

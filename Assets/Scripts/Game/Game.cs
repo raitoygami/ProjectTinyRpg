@@ -66,6 +66,7 @@ public class Game : Singleton<Game>
             MapLoader.Instance.Initialized();
             
             // In game manager
+            PoolManager.Instance.Initialized();
             TurnManager.Instance.Initialized();
             BattleManager.Instance.Initialized();
             TileSelector.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
