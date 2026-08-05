@@ -101,6 +101,13 @@ public sealed class DefaultAiStrategy : IAiStrategy
             if (!Owner.HasLeashConfigured)
                 return false;
             // 如果当前目标不为空
+
+            if (Target == null)
+            {
+                var enemies = EntityManager.Instance.FindEnemies(Owner, Vision);
+                Target = GetTargetableEntity(enemies);
+            }
+            
             if (Target != null)
             {
                 var dist = Target.GridPosition.Dist(Owner.SpawnLocation);
