@@ -168,16 +168,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
             var target =  GetTargetableEntity(enemies);
             if (target == null)
                 return UniTask.FromResult(false);
-            Debug.Log($"{Owner.name}-{Owner.GridPosition.x},{Owner.GridPosition.y}");
-            foreach (var position in Owner.GridPosition.LineTo(target.GridPosition))
-            {
-                var node = PathFinder.Instance.GetNode(position.x, position.y);
-                if (node?.Logical != null)
-                {
-                    var layerIndex = Mathf.RoundToInt(Mathf.Log(node.Logical.Layer, 2));
-                    Debug.Log($"{LayerMask.LayerToName(layerIndex)}-{node.Logical.BlockVision()}");
-                }
-            }
+   
             Target = target;
             Board.SetTarget(Target);
             Dist = Owner.GridPosition.Dist(Target.GridPosition);

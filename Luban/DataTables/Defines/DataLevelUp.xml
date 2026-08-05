@@ -1,0 +1,11 @@
+<module name="">
+
+	<bean name="t_LevelUp" comment="道具">
+		<var name="level" 				type="int" 				comment="等级"/>
+		<var name="exp" 				type="int" 				comment="Exp"/>
+	</bean>
+
+	<table name="Data_LevelUp" value="t_LevelUp" input="等级表@Common/等级表.xlsx" comment="等级表"/>
+	
+
+</module>

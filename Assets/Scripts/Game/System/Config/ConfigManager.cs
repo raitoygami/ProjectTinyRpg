@@ -28,6 +28,7 @@ public partial class ConfigManager : Singleton<ConfigManager>
         "data_equip",
         "data_ai",
         "data_ability",
+        "data_levelup"
     };
     
     public async UniTask<Dictionary<string, ByteBuf>> LoadConfigByteBufFromAddressableAsync()
@@ -36,7 +37,7 @@ public partial class ConfigManager : Singleton<ConfigManager>
 
         foreach (var n in ByteFileNames)
         {
-            var address = $"Config/{n}.bytes";
+            var address = $"Config/{n.ToLower()}.bytes";
             var handle = Addressables.LoadAssetAsync<TextAsset>(address);
             await handle.Task;
 

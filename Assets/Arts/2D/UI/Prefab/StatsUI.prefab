@@ -1917,6 +1917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PrimaryStatPanel
   statTextLevel: {fileID: 3057569569418835824}
   statTextStatPoint: {fileID: 4840143700679499315}
+  statTextExp: {fileID: 7693677530329414359}
   statTextStr: {fileID: 279198465257057567}
   statTextInt: {fileID: 6812129108419895598}
   statTextVit: {fileID: 8648606815917906041}
