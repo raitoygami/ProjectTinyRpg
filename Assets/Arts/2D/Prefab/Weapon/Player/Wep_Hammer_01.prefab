@@ -254,7 +254,7 @@ MonoBehaviour:
     m_WaitForCompletion: 0
     m_LocalVariables: []
   Icon: {fileID: 21300000, guid: 59ad9409d3e72ce4ea8d918dd893de14, type: 3}
-  AbilityNormalAtk: {fileID: 11400000, guid: ad48c57482943ae43a4b72682b202378, type: 2}
+  WepAtkAbilityId: 100003
   _WepSwordFront: {fileID: 1131001990494684461}
   _ArmPositionFront: {x: -0.3, y: 0.10000001, z: 0}
   _ArmRotationFront: {x: 0, y: 0, z: 0}

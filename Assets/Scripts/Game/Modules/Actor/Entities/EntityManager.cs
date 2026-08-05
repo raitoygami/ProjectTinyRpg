@@ -65,7 +65,7 @@ public class EntityManager : Singleton<EntityManager>
     /// </summary>
     public Player CreatePlayer(Vector3 location, int entityId)
     {
-        var entity = ConfigManager.Instance.Tables?.DataEntitys.GetOrDefault(entityId);
+        var entity = ConfigManager.Instance.Tables?.DataEntities.GetOrDefault(entityId);
         return CreatePlayer(location, entity);
     }
 
@@ -91,7 +91,7 @@ public class EntityManager : Singleton<EntityManager>
     /// </summary>
     public AIEntity CreateEnemy(Vector3 location, int entityId)
     {
-        var entity = ConfigManager.Instance.Tables?.DataEntitys.GetOrDefault(entityId);
+        var entity = ConfigManager.Instance.Tables?.DataEntities.GetOrDefault(entityId);
         return CreateEnemy(location.SnapToGrid(), entity);
     }
 
@@ -119,7 +119,7 @@ public class EntityManager : Singleton<EntityManager>
     public AIEntity CreateAIEntitySummon(Vector3 location, int entityId, EntityFaction summonFaction,
         int lifetimeTurns, Entity summonOwner)
     {
-        var entity = ConfigManager.Instance.Tables?.DataEntitys.GetOrDefault(entityId);
+        var entity = ConfigManager.Instance.Tables?.DataEntities.GetOrDefault(entityId);
         return CreateAIEntitySummon(location, entity, summonFaction, lifetimeTurns, summonOwner);
     }
 

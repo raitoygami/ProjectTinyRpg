@@ -23,10 +23,11 @@ public partial class ConfigManager : Singleton<ConfigManager>
     private static readonly string[] ByteFileNames = new[]
     {
         "data_drop",
-        "data_entitys",
+        "data_entities",
         "data_item",
         "data_equip",
-        "data_ai"
+        "data_ai",
+        "data_ability",
     };
     
     public async UniTask<Dictionary<string, ByteBuf>> LoadConfigByteBufFromAddressableAsync()

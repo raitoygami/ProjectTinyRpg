@@ -14,13 +14,17 @@ namespace cfg
 public partial class Tables
 {
     /// <summary>
+    /// 技能表
+    /// </summary>
+    public Data_Ability DataAbility {get; }
+    /// <summary>
     /// 掉落表
     /// </summary>
     public Data_Drop DataDrop {get; }
     /// <summary>
     /// 单位表
     /// </summary>
-    public Data_Entitys DataEntitys {get; }
+    public Data_Entities DataEntities {get; }
     /// <summary>
     /// 装备
     /// </summary>
@@ -36,8 +40,9 @@ public partial class Tables
 
     public Tables(System.Func<string, ByteBuf> loader)
     {
+        DataAbility = new Data_Ability(loader("data_ability"));
         DataDrop = new Data_Drop(loader("data_drop"));
-        DataEntitys = new Data_Entitys(loader("data_entitys"));
+        DataEntities = new Data_Entities(loader("data_entities"));
         DataEquip = new Data_Equip(loader("data_equip"));
         DataItem = new Data_Item(loader("data_item"));
         DataAI = new Data_AI(loader("data_ai"));
@@ -46,8 +51,9 @@ public partial class Tables
     
     private void ResolveRef()
     {
+        DataAbility.ResolveRef(this);
         DataDrop.ResolveRef(this);
-        DataEntitys.ResolveRef(this);
+        DataEntities.ResolveRef(this);
         DataEquip.ResolveRef(this);
         DataItem.ResolveRef(this);
         DataAI.ResolveRef(this);

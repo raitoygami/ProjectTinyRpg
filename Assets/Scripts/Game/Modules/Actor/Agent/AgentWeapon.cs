@@ -21,7 +21,7 @@ public class AgentWeapon : MonoBehaviour
     public class EquippedWeaponChangeEvt : EventArgs
     {
         public Weapon WeaponChanged;
-        public Ability WepNormalAtk;
+        public int WepAtkAbilityID;
     }
 
     private Weapon _unarmedWeaponInst;
@@ -59,7 +59,7 @@ public class AgentWeapon : MonoBehaviour
                 _weapons.Add(-1, _unarmedWeaponInst);
             }
             _unarmedWeaponInst.Equipped(this);
-            await this.Publish(new EquippedWeaponChangeEvt() { WepNormalAtk = _unarmedWeaponInst.GetNormalAtk(), WeaponChanged = _unarmedWeaponInst});
+            await this.Publish(new EquippedWeaponChangeEvt() { WepAtkAbilityID = _unarmedWeaponInst.WepAtkAbilityId, WeaponChanged = _unarmedWeaponInst});
             return;
         }
         
@@ -73,7 +73,7 @@ public class AgentWeapon : MonoBehaviour
         if (_weapons.TryGetValue(currentWeapon.Uid, out var weapon))
         {
             weapon.Equipped(this);
-            await this.Publish(new EquippedWeaponChangeEvt() { WepNormalAtk = weapon.GetNormalAtk(), WeaponChanged = weapon});
+            await this.Publish(new EquippedWeaponChangeEvt() { WepAtkAbilityID = weapon.WepAtkAbilityId, WeaponChanged = weapon});
         }
         else
         {
@@ -83,7 +83,7 @@ public class AgentWeapon : MonoBehaviour
             var weaponInst =  Instantiate(handle.Result, transform).GetComponent<Weapon>() ;
             weaponInst.Equipped(this);
             _weapons.Add(currentWeapon.Uid, weaponInst);
-            await this.Publish(new EquippedWeaponChangeEvt() { WepNormalAtk = weaponInst.GetNormalAtk(), WeaponChanged = weaponInst});
+            await this.Publish(new EquippedWeaponChangeEvt() { WepAtkAbilityID = weaponInst.WepAtkAbilityId, WeaponChanged = weaponInst});
         }
         
         await UniTask.CompletedTask;

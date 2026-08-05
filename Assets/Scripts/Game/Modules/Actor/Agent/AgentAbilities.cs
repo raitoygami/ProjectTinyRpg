@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class AgentAbilities : MonoBehaviour
 {
@@ -10,19 +11,36 @@ public class AgentAbilities : MonoBehaviour
         public Ability Origin;
         public Ability Update;
     }
-
+ 
     private readonly AbilityUpdateEvt _AbilityUpdateEvt = new();
     private Ability WepAbility;
 
-    public List<Ability> Abilities = new();
-    
-    public void UpdateWepAbility(Ability t_Ability)
+    private readonly Dictionary<int, Ability> _abilities = new();
+
+    public async UniTask<Ability> GetAbility(int abilityId)
     {
+        if (!_abilities.TryGetValue(abilityId, out var ability))
+        {
+            var config = ConfigManager.Instance.GetAbility(abilityId);
+            if (config == null) return null;
+            
+            var handle = Addressables.LoadAssetAsync<Ability>(config.Addressable);
+            await handle.ToUniTask();
+            ability = Instantiate(handle.Result);
+            _abilities.Add(abilityId, ability);
+        }
+        
+        return ability;
+    }
+    
+    public async UniTask UpdateWepAbility(int abilityId)
+    {
+        var ability = await GetAbility(abilityId);
         _AbilityUpdateEvt.Origin = WepAbility;
-        _AbilityUpdateEvt.Update = t_Ability;
-        WepAbility = t_Ability;
+        _AbilityUpdateEvt.Update = ability;
+        WepAbility = ability;
         WepAbility.SetOnwer(gameObject.GetComponent<Entity>());
-        this.Publish(_AbilityUpdateEvt);
+        await this.Publish(_AbilityUpdateEvt);
     }
 
     public Ability GetWepAbility()

@@ -78,10 +78,8 @@ public class AIEntity : Entity
         
         m_AgentWeapon = gameObject.GetComponent<AgentWeapon>();
         m_AgentWeapon.LoadEnemyWeapon(m_Weapon);
-        m_AgentAbilities.UpdateWepAbility(m_AgentWeapon.WeaponCurrent().GetNormalAtk());
+        m_AgentAbilities.UpdateWepAbility(m_AgentWeapon.WeaponCurrent().WepAtkAbilityId).Forget();
     }
-
-
 
     private EnemyStatData _runtimeStat;
     public void SetEntityState(EnemyStatData statData)

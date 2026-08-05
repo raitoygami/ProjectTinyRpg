@@ -19,7 +19,7 @@
 		<var name="ai_id" type="int?" comment="AI ID"/>
 	</bean>
 	
-	<table name="Data_Entitys" value="t_Entity" input="单位表1@Entity/单位表.xlsx" comment="单位表"/>
+	<table name="Data_Entities" value="t_Entity" input="单位表1@Entity/单位表.xlsx" comment="单位表"/>
 	
 
 </module>

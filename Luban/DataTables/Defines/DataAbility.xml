@@ -1,0 +1,10 @@
+<module name="">
+
+	<bean name="t_Ability" comment="道具">
+		<var name="id" 				type="int" 					comment="技能id"/>
+		<var name="addressable" 	type="string" 				comment="地址"/>
+	</bean>
+	
+	<table name="Data_Ability" value="t_Ability" input="技能表@Ability/技能表.xlsx" comment="技能表"/>
+
+</module>

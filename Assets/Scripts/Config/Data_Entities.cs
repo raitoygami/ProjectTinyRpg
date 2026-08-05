@@ -15,12 +15,12 @@ namespace cfg
 /// <summary>
 /// 单位表
 /// </summary>
-public partial class Data_Entitys
+public partial class Data_Entities
 {
     private readonly System.Collections.Generic.Dictionary<int, t_Entity> _dataMap;
     private readonly System.Collections.Generic.List<t_Entity> _dataList;
     
-    public Data_Entitys(ByteBuf _buf)
+    public Data_Entities(ByteBuf _buf)
     {
         _dataMap = new System.Collections.Generic.Dictionary<int, t_Entity>();
         _dataList = new System.Collections.Generic.List<t_Entity>();

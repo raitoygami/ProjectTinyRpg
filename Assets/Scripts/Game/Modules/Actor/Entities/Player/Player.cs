@@ -201,12 +201,11 @@ public partial class Player : Entity
         // m_AgentStats.LogPlayerAttributesDebug();
     }
     
-    private UniTask OnWeaponChanged(AgentWeapon.EquippedWeaponChangeEvt arg)
+    private async UniTask OnWeaponChanged(AgentWeapon.EquippedWeaponChangeEvt arg)
     {
-        m_AgentAbilities.UpdateWepAbility(arg.WepNormalAtk);
+        await m_AgentAbilities.UpdateWepAbility(arg.WepAtkAbilityID);
         // 全局消息 更新界面
-        this.PublishGlobal(arg);
-        return UniTask.CompletedTask;
+        await this.PublishGlobal(arg);
     }
 
     private Vector2 m_InputDirection = Vector2.zero;
