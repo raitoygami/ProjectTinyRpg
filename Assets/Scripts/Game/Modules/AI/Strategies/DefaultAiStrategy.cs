@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using cfg;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 /// <summary>
 ///     默认策略：视野内先按 ThreatTime 警觉倒计时，接战追击；追击厌倦时若目标已脱离出生点周围范围则返回出生格，否则 Idle。
@@ -22,16 +23,9 @@ public sealed class DefaultAiStrategy : IAiStrategy
 {
     private AIEntity _owner;
     private Blackboard _board;
-    private readonly DefaultState _state = new();
 
-    private sealed class DefaultState
-    {
-        public AiPhaseDefault PhaseDefault;
-        public int SuspicionRemaining;
-        public int ChaseTurns;
-        public Entity LastTrackedTarget;
-    }
-
+    public AIEntity Owner => _owner;
+    
     public void Initialize(AIEntity owner, Blackboard board)
     {
         _owner = owner ?? throw new ArgumentNullException(nameof(owner));
@@ -45,23 +39,14 @@ public sealed class DefaultAiStrategy : IAiStrategy
         ResetFullCombat();
     }
 
-    public bool IsThreateningPlayer(Player player)
-    {
-        if (player == null) return false;
-        if (_state.PhaseDefault != AiPhaseDefault.Engaged) return false;
-        
-        return _board != null && _board.Target == player;
-    }
-
     private void ResetFullCombat()
     {
-        _state.PhaseDefault = AiPhaseDefault.Idle;
-        _state.SuspicionRemaining = 0;
-        _state.ChaseTurns = 0;
-        _state.LastTrackedTarget = null;
         _board?.ClearTargetOnly();
+        BattleManager.Instance.RemoveEnemyTarget(_owner);
     }
 
+    private DefaultEnemyAiTreeContext _treeContext;
+    
     public async UniTask ExecuteTurn(AiContext ctx)
     {
         var cfg = ctx.AiConfig;
@@ -71,13 +56,10 @@ public sealed class DefaultAiStrategy : IAiStrategy
         var aggro = baseParams?.AggroRange ?? 1;
         var threatTime = baseParams?.ThreatTime ?? 0;
 
-        var chaseTired = 5;
-        if (cfg?.StrategyParams is DefaultParams dp)
-            chaseTired = dp.ChaseTiredDuration <= 0 ? int.MaxValue : dp.ChaseTiredDuration;
+ 
+        _treeContext ??= new DefaultEnemyAiTreeContext(this, vision, aggro, threatTime, 0);
 
-        var tree = new DefaultEnemyAiTreeContext(this, vision, aggro, threatTime, chaseTired);
-
-        await tree.Selector(
+        await _treeContext.Selector(
             t => t.HandleReturningHome(),
             t => t.MainTree()
         );
@@ -110,180 +92,126 @@ public sealed class DefaultAiStrategy : IAiStrategy
         public Entity Target { get; private set; }
         public int Dist { get; private set; }
 
-        private DefaultState StateDefault => _s._state;
-
+        private bool _IsReturningHome = false;
+        
         /// <summary>回巢中：玩家回到脱离范围内则交回主流程；已到家则 Idle；否则向出生格走一步。</summary>
+        /// // 往回走的时候就不在索敌，一直到回到家
         public async UniTask<bool> HandleReturningHome()
         {
-            if (!Owner.HasLeashConfigured || StateDefault.PhaseDefault != AiPhaseDefault.ReturningHome)
+            if (!Owner.HasLeashConfigured)
                 return false;
-
-            var player = FindPlayerInVision();
-            if (player != null &&
-                Owner.HomeGridPosition.Dist(player.GridPosition) <= Owner.DisengageLeashRange)
+            // 如果当前目标不为空
+            if (Target != null)
             {
-                ResumeIdleForReEngage();
+                var dist = Target.GridPosition.Dist(Owner.SpawnLocation);
+                // 没有往回走的时候，且玩家还没走出两倍的范围
+                if (!_IsReturningHome)
+                {
+                    if (dist < Owner.DisengageLeashRange * 2)
+                        return false;
+                }
+                else
+                {
+                    // 当怪物正在往回走
+                    // 当玩家重新进入刷怪点切还没有从从怪物锁定上移除的时候
+                    if (dist < Owner.DisengageLeashRange)
+                    {
+                        _IsReturningHome = false;
+                        return false;
+                    }
+                }
+            }
+            
+            if (Owner.GridPosition.Dist(Owner.SpawnLocation) <= 0)
+            {
+                OnBackToSpawnerPoint();
                 return false;
             }
-
-            if (Owner.GridPosition.Dist(Owner.HomeGridPosition) <= 0)
-            {
-                ResumeIdleForReEngage();
-                return true;
-            }
-
-            await Board.MoveTowardsGrid(Owner.HomeGridPosition);
+            
+            BattleManager.Instance.RemoveEnemyTarget(Owner);
+            await Board.MoveTowardsGrid(Owner.SpawnLocation);
+            _IsReturningHome = true;
+            
             return true;
         }
 
-        private void ResumeIdleForReEngage()
+        // 回到出生点以后, 将target清空
+        private void OnBackToSpawnerPoint()
         {
-            StateDefault.PhaseDefault = AiPhaseDefault.Idle;
-            StateDefault.ChaseTurns = 0;
-            StateDefault.SuspicionRemaining = 0;
-            StateDefault.LastTrackedTarget = null;
+            Target = null;
+            _IsReturningHome = false;
             Board.ClearTargetOnly();
         }
-
-        private Entity FindPlayerInVision()
+        
+        public UniTask<bool> FindTarget(int range)
         {
-            if (!EntityManager.HasInstance())
-                return null;
-            var raw = EntityManager.Instance.FindEnemies(Owner, Vision);
-            var list = raw ?? new List<Entity>();
-            return list.Count > 0 ? list[0] : null;
-        }
-
-        public async UniTask<bool> MainTree()
-        {
-            return await this.Selector(
-                t => t.RootNoEnemyResetIdle(),
-                t => t.Sequencer(
-                    t1 => t1.BindTarget(),
-                    //t2 => t2.ApplyPhaseEngagement(),
-                    t3 => t3.CombatAndCountTurn()
-                )
-            );
-        }
-
-        public UniTask<bool> RootNoEnemyResetIdle()
-        {
-            if (EntityManager.HasInstance())
+            if (!EntityManager.HasInstance()) return UniTask.FromResult(false);
+            // 如果当前目标还在,切可以被锁定
+            if (Target != null && Target.GetComponent<AgentStats>().Targetable())
             {
-                var raw = EntityManager.Instance.FindEnemies(Owner, Vision);
-                var enemies = raw ?? new List<Entity>();
-                if (enemies.Count != 0)
-                    return UniTask.FromResult(false);
-
-                _s.ResetFullCombat();
-                return UniTask.FromResult(true);    
-            }
-            return UniTask.FromResult(false);  
-        }
-
-        public UniTask<bool> BindTarget()
-        {
-            if (EntityManager.HasInstance())
-            {
-                var raw = EntityManager.Instance.FindEnemies(Owner, Vision);
-                var enemies = raw ?? new List<Entity>();
-                Target = enemies[0];
                 Board.SetTarget(Target);
                 Dist = Owner.GridPosition.Dist(Target.GridPosition);
                 Owner.PublishGlobal(OnEnterCombatEvt);
+                BattleManager.Instance.AddEnemyTarget(Owner);
                 return UniTask.FromResult(true);
             }
-            return UniTask.FromResult(false);
-        }
-
-        public UniTask<bool> ApplyPhaseEngagement()
-        {
-            if (Dist <= Aggro)
-            {
-                if (StateDefault.PhaseDefault != AiPhaseDefault.Engaged)
-                    StateDefault.ChaseTurns = 0;
-                StateDefault.PhaseDefault = AiPhaseDefault.Engaged;
-                StateDefault.SuspicionRemaining = 0;
-                return UniTask.FromResult(true);
-            }
-
-            if (StateDefault.PhaseDefault == AiPhaseDefault.Engaged && Dist <= Vision)
-                return UniTask.FromResult(true);
-
-            if (Dist <= Vision)
-            {
-                if (ThreatTime == 0)
-                {
-                    if (StateDefault.PhaseDefault != AiPhaseDefault.Engaged)
-                        StateDefault.ChaseTurns = 0;
-                    StateDefault.PhaseDefault = AiPhaseDefault.Engaged;
-                    return UniTask.FromResult(true);
-                }
-
-                if (StateDefault.LastTrackedTarget != Target)
-                {
-                    StateDefault.SuspicionRemaining = ThreatTime;
-                    StateDefault.LastTrackedTarget = Target;
-                }
-
-                if (StateDefault.SuspicionRemaining > 0)
-                {
-                    StateDefault.SuspicionRemaining--;
-                    if (StateDefault.SuspicionRemaining > 0)
-                    {
-                        StateDefault.PhaseDefault = AiPhaseDefault.Suspicious;
-                        return UniTask.FromResult(false);
-                    }
-                }
-
-                if (StateDefault.PhaseDefault != AiPhaseDefault.Engaged)
-                    StateDefault.ChaseTurns = 0;
-                StateDefault.PhaseDefault = AiPhaseDefault.Engaged;
-                return UniTask.FromResult(true);
-            }
-
-            _s.ResetFullCombat();
-            return UniTask.FromResult(false);
-        }
-
-        private UniTask<bool> EngagedLayer()
-        {
-            return this.Selector(
-                t => t.ChaseTiredReset(),
-                t => t.CombatAndCountTurn()
-            );
-        }
-
-        private UniTask<bool> ChaseTiredReset()
-        {
-            if (StateDefault.ChaseTurns < ChaseTired)
+            var enemies = EntityManager.Instance.FindEnemies(Owner, range);
+            if (enemies == null || enemies.Count == 0)
                 return UniTask.FromResult(false);
-
-            if (Owner.HasLeashConfigured)
+            var target =  GetTargetableEntity(enemies);
+            if (target == null)
+                return UniTask.FromResult(false);
+            Debug.Log($"{Owner.name}-{Owner.GridPosition.x},{Owner.GridPosition.y}");
+            foreach (var position in Owner.GridPosition.LineTo(target.GridPosition))
             {
-                var player = Board.Target ?? FindPlayerInVision();
-                if (player != null)
+                var node = PathFinder.Instance.GetNode(position.x, position.y);
+                if (node?.Logical != null)
                 {
-                    var d = Owner.HomeGridPosition.Dist(player.GridPosition);
-                    if (d > Owner.DisengageLeashRange)
-                    {
-                        StateDefault.PhaseDefault = AiPhaseDefault.ReturningHome;
-                        StateDefault.SuspicionRemaining = 0;
-                        Board.ClearTargetOnly();
-                        return UniTask.FromResult(true);
-                    }
+                    var layerIndex = Mathf.RoundToInt(Mathf.Log(node.Logical.Layer, 2));
+                    Debug.Log($"{LayerMask.LayerToName(layerIndex)}-{node.Logical.BlockVision()}");
                 }
             }
-
-            _s.ResetFullCombat();
+            Target = target;
+            Board.SetTarget(Target);
+            Dist = Owner.GridPosition.Dist(Target.GridPosition);
+            Owner.PublishGlobal(OnEnterCombatEvt);
+            BattleManager.Instance.AddEnemyTarget(Owner);
             return UniTask.FromResult(true);
         }
 
-        private async UniTask<bool> CombatAndCountTurn()
+        // 从事业范围里找能看到的敌人
+        private Entity GetTargetableEntity(List<Entity> enemies)
         {
-            var range = Vision;
+            var start = Owner.GridPosition;
+            foreach (var e in enemies)
+            {
+                if (!e.GetComponent<AgentStats>().Targetable()) continue;
+                
+                var target = e.GridPosition;
+                var line = start.LineTo(target);
+                var block = false;
+                for (var i = 1; i < line.Count; i++)
+                {
+                    var node = PathFinder.Instance.GetNode(line[i].x, line[i].y);
+                    if (node?.Logical == null ) continue;
+
+                    if (node.Logical.BlockVision() || (Const.Layer.ObstacleOnly.value & node.Logical.Layer.value) != 0)
+                    {
+                        block = true;
+                        break;
+                    }
+                }
+
+                if (!block)
+                    return e;
+            }
+            return null;
+        }
+        
+        public async UniTask<bool> MainTree()
+        {
             await Board.Sequencer(
-                b => b.FindTarget(range),
+                _ => FindTarget(Vision),
                 b => b.Selector(
                     b1 => b1.If(
                         b2 => b2.SelectAbility(),
@@ -292,7 +220,6 @@ public sealed class DefaultAiStrategy : IAiStrategy
                     b4 => b4.Follow()
                 )
             );
-            StateDefault.ChaseTurns++;
             return true;
         }
     }

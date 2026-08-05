@@ -64,9 +64,19 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
         return true;
     }
 
-    public bool IsMoveabled(PathCell cell, int goalX, int goalY)
+    public bool IsMoveable(PathCell cell, int goalX, int goalY)
     {
         return IsWalkable(cell, goalX, goalY);
+    }
+
+    protected virtual bool IsBlockVision()
+    {
+        return false;
+    }
+    
+    public bool BlockVision()
+    {
+        return IsBlockVision();
     }
 
     public void SetMoveable(bool moveable)

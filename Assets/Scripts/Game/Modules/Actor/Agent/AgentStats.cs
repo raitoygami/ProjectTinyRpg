@@ -418,4 +418,9 @@ public partial class AgentStats : MonoBehaviour
 
         return null;
     }
+
+    public bool Targetable()
+    {
+        return HealthCurrent > 0;
+    }
 }

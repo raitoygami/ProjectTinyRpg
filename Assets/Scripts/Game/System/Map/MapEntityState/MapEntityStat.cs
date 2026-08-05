@@ -19,6 +19,7 @@ public class EnemyStatData
 {
     public string UniqueID;
     public int EntityId;
+    public Vector3 SpawnPosition;
     public Vector3 Location;
     public Vector3 Direction =  Vector3.one;
     public int HpLost;
@@ -31,7 +32,7 @@ public class EnemyStatData
     // 状态机信息
     
 }
-
+// 当玩家切换地图的时候，刷新？
 [Serializable]
 public class EntityStatEnemySpawner : EntityStatData
 {

@@ -69,7 +69,8 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
                 {
                     UniqueID = $"{spawnPoints[i].EntityId}_{spawnPoints[i].Location.x}_{spawnPoints[i].Location.y}",
                     EntityId = spawnPoints[i].EntityId,
-                    Location = spawnPoints[i].Location,
+                    SpawnPosition =  enemy.GridPosition,
+                    Location = enemy.GridPosition,
                     HpLost = 0,
                     IsAlive = true,
                 };
@@ -106,7 +107,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
             return null;
         var enemy = EntityManager.Instance.CreateEnemy(spawnPoint.Location, spawnPoint.EntityId);
         if (enemy != null)
-            enemy.SetHomeAnchor(spawnPoint.Location, disengageLeashRange);
+            enemy.SetHomeAnchor(spawnPoint.SpawnPosition, disengageLeashRange);
         return enemy;
     }
     

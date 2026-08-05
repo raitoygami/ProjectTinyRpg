@@ -27,7 +27,7 @@ public class AIEntity : Entity
     private AgentWeapon m_AgentWeapon;
     private Blackboard m_BlackBoard;
 
-    private Vector3 m_HomeGridPosition;
+    private Vector3 _spawnLocation;
     private int m_DisengageLeashRange;
 
     private int _lifetimeTurnsRemaining;
@@ -39,14 +39,12 @@ public class AIEntity : Entity
     public Entity SummonOwner { get; private set; }
 
     public bool HasLeashConfigured => m_DisengageLeashRange > 0;
-
-    public Vector3 HomeGridPosition => m_HomeGridPosition;
-
     public int DisengageLeashRange => m_DisengageLeashRange;
+    public Vector3 SpawnLocation => _spawnLocation;
 
     public void SetHomeAnchor(Vector3 spawnGridPosition, int disengageLeashRange)
     {
-        m_HomeGridPosition = spawnGridPosition;
+        _spawnLocation = spawnGridPosition;
         m_DisengageLeashRange = Mathf.Max(0, disengageLeashRange);
     }
     
@@ -275,6 +273,7 @@ public class AIEntity : Entity
         m_UnsubscribeLifetime = null;
         TurnManager.UnRegister(m_TurnActor);
         PathFinder.Instance.ClearLogical(this);
+        BattleManager.Instance.RemoveEnemyTarget(this);
         KillLocalTweensBeforeDestroy();
         Destroy(gameObject);
         return UniTask.CompletedTask;

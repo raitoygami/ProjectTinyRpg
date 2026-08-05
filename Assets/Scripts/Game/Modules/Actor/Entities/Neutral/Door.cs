@@ -16,21 +16,26 @@ public class Door : Entity
     [SerializeField] private GameObject _doorClosed;
     [SerializeField] private SoundFileObject _doorOpenedSound;
     [SerializeField] private List<SpriteRenderer> _FogRelateds;
-    
+    private bool _isOpen;
     protected void Awake()
     {
         Faction = EntityFaction.Neutral;
         this.Subscribe<AgentInteractive.InteractionEvent>(OnInteraction);
         this.AddComponent<AgentInteractive>();
     }
-    
+
+    protected override bool IsBlockVision()
+    {
+        return !_isOpen;
+    }
+
     private async UniTask OnInteraction(AgentInteractive.InteractionEvent arg)
     {
         var sceneName = SceneManager.GetActiveScene().name;
         var entityName = $"{uniqueID}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
         if (!MapManager.Instance.SetEntityStatData(sceneName, entityName, new EntityStatDoor { IsOpen = true }))
             return;
-        
+        _isOpen = true;
         _doorClosed.SetActive(false);
         _doorOpened.SetActive(true);
         if (_doorOpenedSound != null)
@@ -63,8 +68,8 @@ public class Door : Entity
         var entityStatData = MapManager.Instance.GetEntityStatData(sceneName, entityName);
         
         var isOpen = (entityStatData as EntityStatDoor)?.IsOpen ?? false;
-        // 如果没有打开，就不要更新pathfinder
-        if (!isOpen)
+        _isOpen = isOpen;
+        if (!_isOpen)
         {
             var gridPosition = transform.position.SnapToGrid();
             transform.position = gridPosition.GridToWorld();
@@ -78,11 +83,11 @@ public class Door : Entity
             PathFinder.Instance.UpdateCell(X, Y, this);
         }
         // 更新门的状态
-        _doorClosed.SetActive(!isOpen);
-        _doorOpened.SetActive(isOpen);
+        _doorClosed.SetActive(!_isOpen);
+        _doorOpened.SetActive(_isOpen);
         foreach (var fog in _FogRelateds)
         {
-            fog.gameObject.SetActive(!isOpen);
+            fog.gameObject.SetActive(!_isOpen);
         }
     }
 }

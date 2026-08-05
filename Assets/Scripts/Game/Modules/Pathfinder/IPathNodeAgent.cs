@@ -27,7 +27,8 @@ public interface IPathNodeAgent
     /// Called by the pathfinder on the mover: can the footprint be placed on <paramref name="cell"/>?
     /// <paramref name="goalX"/> and <paramref name="goalY"/> are the pathfinding goal anchor.
     /// </summary>
-    bool IsMoveabled(PathCell cell, int goalX, int goalY);
+    public bool IsMoveable(PathCell cell, int goalX, int goalY);
+    public bool BlockVision();
 
 }
 

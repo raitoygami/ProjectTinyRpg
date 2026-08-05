@@ -2,8 +2,6 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
-using cfg;
-using UnityEngine.AddressableAssets;
 
 // wasd move
 // left interact

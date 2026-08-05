@@ -49,9 +49,9 @@ public class PathFinder : Singleton<PathFinder>
 
     // ── GetNode ─────────────────────────────────────────────────────────
 
-    public PathCell GetNode(int x, int z)
+    public PathCell GetNode(int x, int y)
     {
-        return Cell.Get(x, z);
+        return Cell.Get(x, y);
     }
 
     public PathCell GetNode(Vector2Int pos)
@@ -249,8 +249,8 @@ public class PathFinder : Singleton<PathFinder>
         if (cell.Logical == null) return true;
         if (mover != null && ReferenceEquals(cell.Logical, mover)) return true;
         if (mover == null)
-            return cell.Logical.IsMoveabled(cell, goalX, goalY);
-        return mover.IsMoveabled(cell, goalX, goalY);
+            return cell.Logical.IsMoveable(cell, goalX, goalY);
+        return mover.IsMoveable(cell, goalX, goalY);
     }
 
     /// <summary>No separate goal — uses the cell's own position as the goal.</summary>

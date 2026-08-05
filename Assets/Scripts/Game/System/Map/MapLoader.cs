@@ -21,7 +21,11 @@ public class MapLoader : Singleton<MapLoader>
         public int GridSizeX => 1;
         public int GridSizeZ => 1;
         public LayerMask Layer { get; set; }
-        public bool IsMoveabled(PathCell cell, int goalX, int goalY) => false;
+        public bool IsMoveable(PathCell cell, int goalX, int goalY) => false;
+        public bool BlockVision()
+        {
+            return true;
+        }
     }
 
     public async UniTask Load(string sceneName)

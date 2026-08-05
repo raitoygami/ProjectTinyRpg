@@ -41,6 +41,10 @@ public class SettingsPanel : PanelBase
 
     public void OnBtnClick_SaveGame()
     {
+        if (BattleManager.Instance.IsInBattle)
+        {
+            return;
+        }
         Persist.Instance.Save(0);
     }
     

@@ -38,7 +38,9 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Editor/AbilityInspector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/Displacement/E_Backup.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/Displacement/E_Dash.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/Displacement/E_Pull.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/Displacement/E_Push.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/Displacement/E_Teleport.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/E_BowShot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/E_Damage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/E_PunchTarget.cs" root0="FORCE_HIGHLIGHTING" />
@@ -120,6 +122,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/LocalizationManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Map/MapConfig.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Map/MapEntityState/MapEntityStat.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Map/MapLayers.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Map/MapLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Map/MapManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Persist/Persist.cs" root0="FORCE_HIGHLIGHTING" />
@@ -250,6 +253,7 @@
       <workItem from="1785767737737" duration="149000" />
       <workItem from="1785828739155" duration="19482000" />
       <workItem from="1785852914539" duration="1418000" />
+      <workItem from="1785899403806" duration="9002000" />
     </task>
     <servers />
   </component>
