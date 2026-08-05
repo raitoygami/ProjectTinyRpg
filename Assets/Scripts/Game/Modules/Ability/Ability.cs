@@ -31,11 +31,11 @@ public partial class Ability : ScriptableObject
 
     [SerializeField] private AbilityTargetMode m_TargetMode;
 
-    [SerializeField] private int m_CoolDown;
+    [SerializeField] private int CoolDown;
 
     //  cost
-    [SerializeField] private int m_CostMP;
-    [SerializeField] private int m_CostSP;
+    [SerializeField] private int CostHP;
+    [SerializeField] private int CostMP;
 
     public AbilityEffect TreeRoot;
     [SerializeField] public List<AbilityEffect> Effects = new();
@@ -50,18 +50,24 @@ public partial class Ability : ScriptableObject
 
     private State _State = State.Inactive;
     private Entity _Onwer;
-    private int _CoolDownRemaining = 0;
 
+    private AbilityStat _abilityStat;
+    
     private UniTaskCompletionSource<bool> _SelectionTask;
 
-    public int CoolDownRemaining()
+    public void SetAbilityStat(AbilityStat abilityStat)
     {
-        return Mathf.Abs(_CoolDownRemaining - 1);
+        _abilityStat = abilityStat;
     }
     
-    public bool isSkillOnCooldown()
+    public int CoolDownRemaining()
     {
-        return _CoolDownRemaining > 0;
+        return Mathf.Abs(_abilityStat.Cooldown - 1);
+    }
+    
+    public bool IsOnCooldown()
+    {
+        return _abilityStat.Cooldown > 0;
     }
     
     public int GetRange()
@@ -85,18 +91,18 @@ public partial class Ability : ScriptableObject
         return m_TargetMode != AbilityTargetMode.None && m_TargetMode != AbilityTargetMode.EmptyGround;
     }
 
-    public void SetOnwer(Entity t_Owner)
+    public void SetOwner(Entity owner)
     {
-        if (t_Owner == _Onwer) return;
-        _Onwer = t_Owner;
-        t_Owner.Subscribe<TurnActor.TurnStartedEvent>(OnTurn);
+        if (owner == _Onwer) return;
+        _Onwer = owner;
+        owner.Subscribe<TurnActor.TurnStartedEvent>(OnTurn);
     }
 
     private UniTask OnTurn(TurnActor.TurnStartedEvent args)
     {
-        if (_CoolDownRemaining > 0)
+        if (_abilityStat.Cooldown > 0)
         {
-            _CoolDownRemaining--;
+            _abilityStat.Cooldown--;
         }
 
         return UniTask.CompletedTask;
@@ -104,9 +110,9 @@ public partial class Ability : ScriptableObject
 
     private List<Vector2Int> _SelectionRange;
 
-    public List<Vector2Int> SelectionRange(bool t_Force = false)
+    public List<Vector2Int> SelectionRange(bool force = false)
     {
-        if (_SelectionRange == null || t_Force)
+        if (_SelectionRange == null || force)
         {
             _SelectionRange =
                 TileSelector.Instance.Select( m_Range, _Onwer, false);
@@ -167,7 +173,7 @@ public partial class Ability : ScriptableObject
             return _SelectionTask.Task;
         }
 
-        if (_CoolDownRemaining <= 0)
+        if (_abilityStat.Cooldown <= 0)
         {
             _State = State.Selection;
             _SelectionRange = TileSelector.Instance.Select(m_Range,_Onwer, t_ShowRange);
@@ -237,14 +243,14 @@ public partial class Ability : ScriptableObject
             return false;
         }
 
-        _CoolDownRemaining = m_CoolDown;
+        _abilityStat.Cooldown = CoolDown;
         _State = State.Inactive;
         _SelectionTask?.TrySetResult(result: true);
         _SelectionTask = null;
         return true;
     }
 
-    public bool InSelection()
+    public bool IsSelecting()
     {
         return _State == State.Selection;
     }

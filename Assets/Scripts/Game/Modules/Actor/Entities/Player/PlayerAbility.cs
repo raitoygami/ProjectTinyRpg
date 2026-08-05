@@ -12,7 +12,7 @@ public partial class Player
     private void UpdateSkillRangePreview(Vector3 hitPoint, Vector3 targetGrid)
     {
         var skillDisplay = _AbilityPrepared != null ? _AbilityPrepared.GetSkillDisplayParam() : null;
-        var showSkillPreview = _AbilityPrepared != null && _AbilityPrepared.InSelection() && skillDisplay != null;
+        var showSkillPreview = _AbilityPrepared != null && _AbilityPrepared.IsSelecting() && skillDisplay != null;
         if (showSkillPreview && InputManager.HasInstance() && TileSelector.HasInstance())
         {
             var mouseGrid = hitPoint.SnapToGrid();

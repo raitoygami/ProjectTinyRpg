@@ -79,13 +79,13 @@ public class PathFinder : Singleton<PathFinder>
     // ── Navigate (A*) ───────────────────────────────────────────────────
 
     public List<Vector2Int> Navigate(IPathNodeAgent mover, int sx, int sz, int tx, int tz,
-        int t_Range = -1, List<Vector2Int> pathOut = null)
+        int range = -1, List<Vector2Int> pathOut = null)
     {
-        return Navigate(mover, new Vector2Int(sx, sz), new Vector2Int(tx, tz), t_Range, pathOut);
+        return Navigate(mover, new Vector2Int(sx, sz), new Vector2Int(tx, tz), range, pathOut);
     }
 
     public List<Vector2Int> Navigate(IPathNodeAgent mover, Vector2Int start, Vector2Int goal,
-        int t_Range = -1, List<Vector2Int> pathOut = null)
+        int range = -1, List<Vector2Int> pathOut = null)
     {
         if (mover == null)
             return null;
@@ -122,7 +122,7 @@ public class PathFinder : Singleton<PathFinder>
             {
                 var nax = cx + offset.x;
                 var naz = cy + offset.y;
-                if (t_Range > 0 && Dist(start.x, start.y, nax, naz) > t_Range)
+                if (range > 0 && Dist(start.x, start.y, nax, naz) > range)
                     continue;
 
                 var neighKey = (nax, naz);

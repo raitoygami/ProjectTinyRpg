@@ -67,7 +67,7 @@ public class Blackboard
         var wepAbility = agentAbility.GetWepAbility();
         if (wepAbility == null)
             return false;
-        if (wepAbility.isSkillOnCooldown())
+        if (wepAbility.IsOnCooldown())
             return false;
 
         if (_Target == null || m_Onwer == null)

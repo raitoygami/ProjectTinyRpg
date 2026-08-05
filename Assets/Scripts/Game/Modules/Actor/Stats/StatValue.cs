@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StatValue
 {
-    private float m_BaseValue;
+    private float _baseValue;
 
     private bool m_IsDirty = true;
     private float m_Value;
@@ -27,9 +27,9 @@ public class StatValue
     }
     
     private readonly StatModifierCollector[] m_ModifierCollector;
-    public StatValue(float t_BaseValue)
+    public StatValue(float baseValue)
     {
-        m_BaseValue = t_BaseValue;
+        _baseValue = baseValue;
 
         var modifierTypes = (StatModifierType[])Enum.GetValues(typeof(StatModifierType));
         m_ModifierCollector = new StatModifierCollector[modifierTypes.Length];
@@ -49,7 +49,7 @@ public class StatValue
 
     private float CalculateFinalValue()
     {
-        var finalValue = m_BaseValue;
+        var finalValue = _baseValue;
 
         finalValue += m_ModifierCollector[(int) StatModifierType.AddFlat].FinalValue;
         finalValue *= m_ModifierCollector[(int) StatModifierType.AddPercent].FinalValue;
@@ -59,23 +59,23 @@ public class StatValue
         return (float) Math.Round(finalValue, 4);
     }
     
-    public void UpdateBase(float t_BaseValue)
+    public void UpdateBase(float baseValue)
     {
-        if (m_BaseValue == t_BaseValue)
+        if (_baseValue == baseValue)
             return;
         m_IsDirty = true;
-        m_BaseValue = t_BaseValue;
+        _baseValue = baseValue;
     }
 
-    public void AddModifier(StatModifier t_Modifier)
+    public void AddModifier(StatModifier modifier)
     {
         m_IsDirty = true;
-        m_ModifierCollector[(int)t_Modifier.ModType].AddModifier(t_Modifier);
+        m_ModifierCollector[(int)modifier.ModType].AddModifier(modifier);
     }
 
-    public bool RemoveModifier(StatModifier t_Modifier)
+    public bool RemoveModifier(StatModifier modifier)
     {
-        if (m_ModifierCollector[(int)t_Modifier.ModType].RemoveModifier(t_Modifier))
+        if (m_ModifierCollector[(int)modifier.ModType].RemoveModifier(modifier))
         {
             m_IsDirty = true;
             return true;

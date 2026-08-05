@@ -51,15 +51,15 @@ public class AgentMover : MonoBehaviour
 
 
 
-    public void SetPosition(Vector3 t_GridPosition)
+    public void SetPosition(Vector3 gridPosition)
     {
-        PathFinder.Instance.UpdateCell((int)t_GridPosition.x
-            , (int)t_GridPosition.z
+        PathFinder.Instance.UpdateCell((int)gridPosition.x
+            , (int)gridPosition.z
             , GetComponent<Entity>());
-        transform.position = t_GridPosition.GridToWorld();
+        transform.position = gridPosition.GridToWorld();
     }
 
-    public async UniTask<bool> Move(Vector3 t_GridPosition, bool forced = false, float t_VelocityMulti = 1.0f, Ease moveEase = Ease.Linear)
+    public async UniTask<bool> Move(Vector3 gridPosition, bool forced = false, float velocityMulti = 1.0f, Ease moveEase = Ease.Linear)
     {
         if (_IsMoving)
         {
@@ -75,20 +75,20 @@ public class AgentMover : MonoBehaviour
 
         _IsMoving = true;
 
-        var worldPosition = t_GridPosition.GridToWorld();
-        var velocityMulti = Vector3.Distance(transform.position, worldPosition) / Mathf.Max(t_VelocityMulti, 1.0f) * 0.2f;
+        var worldPosition = gridPosition.GridToWorld();
+        var duration = Vector3.Distance(transform.position, worldPosition) / Mathf.Max(velocityMulti, 1.0f) * 0.2f;
 
         _MoveStartEvent.StartPosition = transform.position;
         _MoveStartEvent.TargetPosition = worldPosition;
         _MoveStartEvent.Forced = forced;
-        _MoveStartEvent.Duration = velocityMulti;
+        _MoveStartEvent.Duration = duration;
         _MoveFinishEvent.LastPosition = transform.position;
         _MoveForcedFinishEvent.LastPosition = transform.position;
         await this.Publish(_MoveStartEvent);
 
         try
         {
-            await transform.DOMove(worldPosition, velocityMulti).SetEase(moveEase).SetTarget(gameObject)
+            await transform.DOMove(worldPosition, duration).SetEase(moveEase).SetTarget(gameObject)
                 .ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, _MoveCancellation.Token);
 
             _IsMoving = false;
@@ -151,11 +151,11 @@ public class AgentMover : MonoBehaviour
     }
 
     
-    public bool Moveable(Vector3 t_GridPosition)
+    public bool Moveable(Vector3 gridPosition)
     {
         var entity = GetComponent<Entity>();
-        var tx = (int) t_GridPosition.x;
-        var ty = (int) t_GridPosition.y;
+        var tx = (int) gridPosition.x;
+        var ty = (int) gridPosition.y;
         var cell = PathFinder.Instance.GetNode(tx, ty);
         if (!PathFinder.IsWalkableCell(cell, entity, tx, ty))
             return false;
@@ -166,18 +166,18 @@ public class AgentMover : MonoBehaviour
         return navi is {Count: 1};
     }
     
-    public List<PathNode> FindPath(Vector3 t_Destination, int t_Range = -1)
+    public List<PathNode> FindPath(Vector3 destination, int range = -1)
     {
         if (!PathFinder.HasInstance())
             return null;
         int sx = (int)GetComponent<Entity>().GridPosition.x;
         int sy = (int)GetComponent<Entity>().GridPosition.y;
-        int dx = (int)t_Destination.x;
-        int dy = (int)t_Destination.y;
+        int dx = (int)destination.x;
+        int dy = (int)destination.y;
         try
         {
             var pathBuffer = new List<PathNode>(); 
-            var nav = PathFinder.Instance.Navigate(GetComponent<Entity>(), sx, sy, dx, dy, t_Range);
+            var nav = PathFinder.Instance.Navigate(GetComponent<Entity>(), sx, sy, dx, dy, range);
             if (nav == null)
                 return null;
             foreach (var step in nav)

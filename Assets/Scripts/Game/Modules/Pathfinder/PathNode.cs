@@ -9,17 +9,17 @@ public class PathNode : IEquatable<PathNode>{
     }
     public PathNode(float x, float z, bool moveable) {
         Position = new Vector2Int((int)x, (int)z);
-        m_Moveable = moveable;
+        _moveable = moveable;
     }
 
     public PathNode(int x, int z, bool moveable) {
         Position = new Vector2Int(x, z);
-        m_Moveable = moveable;
+        _moveable = moveable;
     }
 
     public PathNode(int x, int z, bool moveable, Entity entity = null) {
         Position = new Vector2Int(x, z);
-        m_Moveable = moveable;
+        _moveable = moveable;
         Reference = entity;
     }
 
@@ -56,21 +56,19 @@ public class PathNode : IEquatable<PathNode>{
     public int fCost => gCost + hCost;
 
     public PathNode ParentNode;
-
-    // public bool IsMoveable => (EntityMoveable() && m_Moveable) && WithinRange;
-
-    public bool IsMoveabled()
+    
+    public bool IsMoveable()
     {
-        return m_Moveable;
+        return _moveable;
         // 摆放了道具,
     }
 
-    public void SetMoveable(bool t_Moveable)
+    public void SetMoveable(bool moveable)
     {
-        m_Moveable = t_Moveable;
+        _moveable = moveable;
     }
 
-    private bool m_Moveable;
+    private bool _moveable;
 
     public Vector3 GetLocation()
     {

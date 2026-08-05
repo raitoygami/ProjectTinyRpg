@@ -32,6 +32,27 @@ public class AgentAbilities : MonoBehaviour
         
         return ability;
     }
+
+    public async UniTask AsyncAbilityStat(int abilityId, AbilityStat stat)
+    {
+        var ability = await GetAbility(abilityId);
+        ability.SetAbilityStat(stat);
+    }
+    
+    public async UniTask AsyncAbilityStat(Dictionary<int, AbilityStat> stats)
+    {
+        foreach (var (abilityId, ability) in _abilities)
+        {
+            if (!stats.TryGetValue(abilityId, out var abilityStat)) 
+            {
+                abilityStat = new AbilityStat(){AbilityId = abilityId, Cooldown = 0};
+                stats.Add(abilityId, abilityStat);
+            }
+            ability.SetAbilityStat(abilityStat);
+        }
+
+        await UniTask.CompletedTask;
+    }
     
     public async UniTask UpdateWepAbility(int abilityId)
     {
@@ -39,7 +60,7 @@ public class AgentAbilities : MonoBehaviour
         _AbilityUpdateEvt.Origin = WepAbility;
         _AbilityUpdateEvt.Update = ability;
         WepAbility = ability;
-        WepAbility.SetOnwer(gameObject.GetComponent<Entity>());
+        WepAbility.SetOwner(gameObject.GetComponent<Entity>());
         await this.Publish(_AbilityUpdateEvt);
     }
 
@@ -135,7 +156,7 @@ public class AgentAbilities : MonoBehaviour
         if (baseAttack == null || t_TargetLocation == null)
             return false;
 
-        if (baseAttack.isSkillOnCooldown())
+        if (baseAttack.IsOnCooldown())
             return false;
         
         var myNode = GetComponent<IPathNodeAgent>();

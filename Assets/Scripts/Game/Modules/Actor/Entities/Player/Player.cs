@@ -179,6 +179,9 @@ public partial class Player : Entity
         var playerLocation = PlayerManager.Instance.GetLocation();
         m_AgentAnimations.SetDirection(playerLocation.CurrentDirection);
         //m_AgentStats
+        var abilities = PlayerManager.Instance.GetAbilities();
+        await m_AgentAbilities.AsyncAbilityStat(abilities.LookupTable);
+
     }
 
     private async UniTask RefreshWeapon()
@@ -201,9 +204,12 @@ public partial class Player : Entity
         // m_AgentStats.LogPlayerAttributesDebug();
     }
     
+    //  切换武器的时候, 同步一下 技能信息
     private async UniTask OnWeaponChanged(AgentWeapon.EquippedWeaponChangeEvt arg)
     {
         await m_AgentAbilities.UpdateWepAbility(arg.WepAtkAbilityID);
+        var abilityStat = PlayerManager.Instance.GetAbilityStat(arg.WepAtkAbilityID);
+        await m_AgentAbilities.AsyncAbilityStat(arg.WepAtkAbilityID, abilityStat);
         // 全局消息 更新界面
         await this.PublishGlobal(arg);
     }

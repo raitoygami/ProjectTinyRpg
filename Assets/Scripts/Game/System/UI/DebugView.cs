@@ -28,28 +28,28 @@ public class DebugView : PubSubActor
 
     public void TestSkill()
     {
-        if (_AbilityRef.InSelection())
+        if (_AbilityRef.IsSelecting())
         {
             _AbilityRef.Cancel();            
         }
         else
         {
             var player = Context.Instance.PlayerInst;
-            _AbilityRef.SetOnwer(player);
+            _AbilityRef.SetOwner(player);
             _ = player.PrepareAbility(_AbilityRef);
         }
     }
     
     public void TestSkill2()
     {
-        if (TestAbility2.InSelection())
+        if (TestAbility2.IsSelecting())
         {
             TestAbility2.Cancel();            
         }
         else
         {
             var player = Context.Instance.PlayerInst;
-            TestAbility2.SetOnwer(player);
+            TestAbility2.SetOwner(player);
             _ = player.PrepareAbility(TestAbility2);
         }
     }

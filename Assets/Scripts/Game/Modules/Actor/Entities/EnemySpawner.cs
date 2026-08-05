@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -75,7 +76,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
                     IsAlive = true,
                 };
                 
-                enemy.SetEntityState(enemyStat);
+                enemy.SetEntityState(enemyStat).Forget();
 
                 spawnerState.AddEnemyStatData(enemyStat);
             }
@@ -91,7 +92,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
         {
             if (!enemyStat.IsAlive) continue;
             var enemy = SpawnEnemy(enemyStat);
-            enemy.SetEntityState(enemyStat);            
+            enemy.SetEntityState(enemyStat).Forget();            
         }
     }
 

@@ -18,7 +18,7 @@ public partial class Player
     
     
     
-    private async UniTask OnPointerMoveEvt(InputManager.PointerMoveEvt t_Args)
+    private async UniTask OnPointerMoveEvt(InputManager.PointerMoveEvt args)
     {
         // 背包拾起块：左键用于放下/丢弃，不绘制地面移动路径预览
 
@@ -217,23 +217,23 @@ public partial class Player
         }
     }
 
-    private MovementDecision DetermineMovement(PathNode t_TargetLocation, PathNode t_TargetFinal)
+    private MovementDecision DetermineMovement(PathNode targetLocation, PathNode targetFinal)
     {
         // 1. 优先判断是否可以攻击（使用最终目标位置）
-        var attackTargets = m_AgentAbilities.GetTargetByMove(this, t_TargetFinal);
-        if (attackTargets.Count > 0 && m_AgentAbilities.WithinBaseAttack(t_TargetFinal))
+        var attackTargets = m_AgentAbilities.GetTargetByMove(this, targetFinal);
+        if (attackTargets.Count > 0 && m_AgentAbilities.WithinBaseAttack(targetFinal))
         {
             return new MovementDecision(MovementResult.Attack, attackTargets);
         }
 
         // 2. 判断是否可以正常移动
-        if (m_AgentMover.Moveable(t_TargetLocation))
+        if (m_AgentMover.Moveable(targetLocation))
         {
             return new MovementDecision(MovementResult.Move);
         }
 
         // 3. 判断是否可以交互
-        if (m_AgentInteractive.Interactable(t_TargetLocation))
+        if (m_AgentInteractive.Interactable(targetLocation))
         {
             return new MovementDecision(MovementResult.Interaction);
         }

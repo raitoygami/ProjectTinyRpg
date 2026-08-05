@@ -25,6 +25,32 @@ public class EnemyStatData
     public int HpLost;
     public bool IsAlive;
     
+    
+    public class EnemyAbilities
+    {
+        // 技能数据
+        public Dictionary<int, AbilityStat> LookupTable = new();
+
+        public AbilityStat GetAbilityStat(int abilityId)
+        {
+            LookupTable ??= new Dictionary<int, AbilityStat>();
+            
+            if (!LookupTable.TryGetValue(abilityId, out var abilityStat))
+            {
+                abilityStat = new AbilityStat(){Cooldown = 0, AbilityId = abilityId};
+                LookupTable.Add(abilityId, abilityStat);
+            }
+            return abilityStat;
+        }
+    }
+    
+    public EnemyAbilities _abilities;
+
+    public EnemyAbilities GetAbilities()
+    {
+        _abilities ??= new EnemyAbilities();
+        return _abilities;
+    }
     // 技能CD信息
     
     // 运行时状态
