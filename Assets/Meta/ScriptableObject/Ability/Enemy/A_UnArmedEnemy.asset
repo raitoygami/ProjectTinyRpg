@@ -132,9 +132,9 @@ MonoBehaviour:
   m_SkillDisplayParam:
     rid: -2
   m_TargetMode: 2
-  m_CoolDown: 0
-  m_CostMP: 0
-  m_CostSP: 0
+  Cooldown: 1
+  CostHP: 0
+  CostMP: 0
   TreeRoot: {fileID: 5498850296569907920}
   Effects:
   - {fileID: 5498850296569907920}

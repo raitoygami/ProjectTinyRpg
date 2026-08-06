@@ -20,7 +20,6 @@ public sealed partial class t_Drop : Luban.BeanBase
     public t_Drop(ByteBuf _buf) 
     {
         DropId = _buf.ReadInt();
-        Darity = _buf.ReadInt();
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);Drops = new System.Collections.Generic.List<Drop>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { Drop _e0;  _e0 = Drop.DeserializeDrop(_buf); Drops.Add(_e0);}}
     }
 
@@ -33,10 +32,6 @@ public sealed partial class t_Drop : Luban.BeanBase
     /// 掉落ID
     /// </summary>
     public readonly int DropId;
-    /// <summary>
-    /// 品质
-    /// </summary>
-    public readonly int Darity;
     /// <summary>
     /// 掉落列表
     /// </summary>
@@ -54,7 +49,6 @@ public sealed partial class t_Drop : Luban.BeanBase
     {
         return "{ "
         + "dropId:" + DropId + ","
-        + "darity:" + Darity + ","
         + "drops:" + Luban.StringUtil.CollectionToString(Drops) + ","
         + "}";
     }

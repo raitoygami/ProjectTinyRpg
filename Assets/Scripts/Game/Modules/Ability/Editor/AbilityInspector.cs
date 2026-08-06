@@ -13,10 +13,10 @@ public class AbilityInspector : Editor
     private SerializedProperty m_Range;
     private SerializedProperty m_SkillDisplayParam;
     private SerializedProperty m_TargetMode;
-    private SerializedProperty m_CoolDown;
+    private SerializedProperty _cooldown;
 
-    private SerializedProperty m_CostMP;
-    private SerializedProperty m_CostSP;
+    private SerializedProperty costMP;
+    private SerializedProperty costHP;
     
     private SerializedProperty m_TreeRoot;
     private ReorderableList m_ReorderableList;
@@ -30,10 +30,10 @@ public class AbilityInspector : Editor
         m_Range = serializedObject.FindProperty("m_Range");
         m_SkillDisplayParam = serializedObject.FindProperty("m_SkillDisplayParam");
         m_TargetMode = serializedObject.FindProperty("m_TargetMode");
-        m_CoolDown = serializedObject.FindProperty("m_CoolDown");
+        _cooldown = serializedObject.FindProperty("Cooldown");
         
-        m_CostMP = serializedObject.FindProperty("m_CostMP");
-        m_CostSP = serializedObject.FindProperty("m_CostSP");
+        costHP = serializedObject.FindProperty("CostHP");
+        costMP = serializedObject.FindProperty("CostMP");
         
         m_TreeRoot = serializedObject.FindProperty("TreeRoot");
         var effects = serializedObject.FindProperty("Effects");
@@ -73,13 +73,14 @@ public class AbilityInspector : Editor
         EditorGUILayout.PropertyField(m_Range);
         EditorGUILayout.PropertyField(m_SkillDisplayParam, includeChildren: true);
         EditorGUILayout.PropertyField(m_TargetMode);
-        EditorGUILayout.PropertyField(m_CoolDown);
+        EditorGUILayout.PropertyField(_cooldown);
         EditorGUILayout.EndVertical();
         
         EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.ExpandWidth(true));
         EditorGUILayout.LabelField(Styles.Cost, EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(m_CostMP);
-        EditorGUILayout.PropertyField(m_CostSP);
+        EditorGUILayout.PropertyField(costHP);
+        EditorGUILayout.PropertyField(costMP);
+        
         EditorGUILayout.EndVertical();
         
         // effect context

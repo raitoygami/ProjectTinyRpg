@@ -21,6 +21,7 @@ public sealed partial class t_Ability : Luban.BeanBase
     {
         Id = _buf.ReadInt();
         Addressable = _buf.ReadString();
+        AbilityType = (AbilityType)_buf.ReadInt();
     }
 
     public static t_Ability Deserializet_Ability(ByteBuf _buf)
@@ -36,6 +37,10 @@ public sealed partial class t_Ability : Luban.BeanBase
     /// 地址
     /// </summary>
     public readonly string Addressable;
+    /// <summary>
+    /// 地址
+    /// </summary>
+    public readonly AbilityType AbilityType;
    
     public const int __ID__ = -683917249;
     public override int GetTypeId() => __ID__;
@@ -49,6 +54,7 @@ public sealed partial class t_Ability : Luban.BeanBase
         return "{ "
         + "id:" + Id + ","
         + "addressable:" + Addressable + ","
+        + "abilityType:" + AbilityType + ","
         + "}";
     }
 }

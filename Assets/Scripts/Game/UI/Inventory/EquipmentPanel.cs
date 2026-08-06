@@ -239,6 +239,8 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
     
     public bool TryAdd(ItemIconObj itemIconObj, int location)
     {
+        if (BattleManager.Instance.IsInBattle)
+            return false;
         if (!itemIconObj.RemoveFromOwner())
             return false;
         
@@ -259,6 +261,8 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
 
     public bool TryRemove(ItemIconObj itemIconObj)
     {
+        if (BattleManager.Instance.IsInBattle)
+            return false;
         if (!itemIconObj.GetOwner().Equals(this))
             return false;
         // 如果 成功从当前包裹移除item

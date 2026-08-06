@@ -1,8 +1,15 @@
 <module name="">
 
+	
+	<enum name="AbilityType">
+		<var name="COMMON" alias="通用技能" value="1"/>
+		<var name="WEAPON" alias="武器技能" value="2"/>
+	</enum>
+
 	<bean name="t_Ability" comment="道具">
 		<var name="id" 				type="int" 					comment="技能id"/>
 		<var name="addressable" 	type="string" 				comment="地址"/>
+		<var name="abilityType" 	type="AbilityType" 				comment="地址"/>
 	</bean>
 	
 	<table name="Data_Ability" value="t_Ability" input="技能表@Ability/技能表.xlsx" comment="技能表"/>

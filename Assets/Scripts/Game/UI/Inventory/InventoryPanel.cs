@@ -129,8 +129,6 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
         // 如果找到目标槽位, 则看目标位置有没有道具
         // 1:如果目标位置有道具
 
-        var itemStack = itemIconObj.GetItemStack();
-
         var inventoryData = PlayerManager.Instance.GetSavedItemContainer();
         // 查找目标位置是否已有物品
         // 即使放到原位置， 因为在之前已经从背包里将itemIconObj清除了，所以这里通过Location是找不到itemIconObj的
@@ -164,7 +162,8 @@ public class InventoryPanel : MonoBehaviour, IItemIconOwner
                 if (result == PlayerManager.AddItemStackToInventoryResult.SuccessStacked)
                 {
                     Destroy(itemIconObj.gameObject);
-                    targetObj.SetItemStackUID(itemIconObj.GetItemStackUID());
+                    // 刷新
+                    targetObj.SetItemStackUID(targetObj.GetItemStackUID());
                     return;
                 }
             }

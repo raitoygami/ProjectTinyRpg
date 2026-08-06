@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using cfg;
 using UnityEngine;
 
@@ -45,18 +44,6 @@ public partial class PlayerManager
     public SaveData.ItemContainer GetSavedItemContainer()
     {
         return Persist.Instance.GetPlayerData().GetItemContainer();
-    }
-
-    public void NewItemStack(ItemStack itemStack)
-    {
-        var container = GetSavedItemContainer();
-        container.AddItemStack(itemStack);
-    }
-
-    public bool RemoveItemStack(ItemStack itemStack)
-    {
-        var container = GetSavedItemContainer();
-        return container.RemoveItemStack(itemStack);
     }
     
     public ItemStack GetItemStackByUID(long uid)
@@ -155,7 +142,7 @@ public partial class PlayerManager
         InvalidData = 6,
     }
     // inventory part
-
+    
     public AddItemStackToInventoryResult TryAddItemStackToInventory(long itemStackUID, int location)
     {
         if (location >= OccupiedInventory.Length)
@@ -174,6 +161,8 @@ public partial class PlayerManager
         }
         // 当前位置非空
 
+        // 正常情况下是调用不到下面这坨东西的
+        
         if (!itemStack.Stackable())
             return AddItemStackToInventoryResult.NotEmptySlot;
 
@@ -188,37 +177,6 @@ public partial class PlayerManager
         existingItem.Count += itemStack.Count;
         return AddItemStackToInventoryResult.SuccessStacked;
     }
-
-    public AddItemStackToInventoryResult TryAddItemStackToInventory(long itemStackUID)
-    {
-        
-        var itemStack = GetItemStackByUID(itemStackUID);
-        if (itemStack == null)
-            return AddItemStackToInventoryResult.Failure;
-        
-        //  如何可以堆叠，且包裹里有对应物体，则堆叠
-        if (itemStack.Stackable())
-        {
-            foreach (var uid in  GetSavedItemContainer().Inventory)
-            {
-                var existingItem = GetItemStackByUID(uid);
-                if (existingItem == null || existingItem.ItemId != itemStack.ItemId) continue;
-                existingItem.Count += itemStack.Count;
-                break;
-            }
-            return AddItemStackToInventoryResult.SuccessStacked;
-        }
-
-        // 如果没有，则找空位看看能不能加进去
-        var emptySlot = GetFirstInventoryEmptySlot();
-        if (emptySlot == -1) return AddItemStackToInventoryResult.Failure;
-
-        GetSavedItemContainer().Inventory.Add(itemStackUID);
-        OccupiedInventory[emptySlot] = itemStackUID;
-
-        return AddItemStackToInventoryResult.SuccessNewInstance;
-    }
-
 
     public AddItemStackToInventoryResult TryAddItemStackToInventory(int itemID, int amount, out ItemStack itemStack)
     {

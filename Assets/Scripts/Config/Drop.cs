@@ -32,15 +32,15 @@ public sealed partial class Drop : Luban.BeanBase
     /// </summary>
     public readonly int ItemId;
     /// <summary>
-    /// 道具id
+    /// 最小值
     /// </summary>
     public readonly int Min;
     /// <summary>
-    /// 道具id
+    /// 最大值
     /// </summary>
     public readonly int Max;
     /// <summary>
-    /// 道具id
+    /// 概率
     /// </summary>
     public readonly int Chance;
    

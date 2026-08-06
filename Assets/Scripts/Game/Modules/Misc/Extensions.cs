@@ -33,6 +33,15 @@ internal static class Extensions
         return action;
     }
 
+    // 取消订阅（新增）
+    public static void Unsubscribe<TEventArgs>(this MonoBehaviour owner, Func<TEventArgs, UniTask> handler) where TEventArgs : EventArgs
+    {
+        if (owner == null) return;
+        var pubsubActor = owner.GetComponent<PubSubActor>();
+        if (pubsubActor == null) return;
+        pubsubActor.Messager.Unsubscribe(handler);
+    }
+    
     public static bool HasSubscription<TEventArgs>(this MonoBehaviour owner) where TEventArgs : EventArgs
     {
         if (!owner)

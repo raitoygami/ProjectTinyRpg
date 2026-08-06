@@ -30,8 +30,8 @@ public partial class Ability : ScriptableObject
     private SelectParam m_SkillDisplayParam;
 
     [SerializeField] private AbilityTargetMode m_TargetMode;
-
-    [SerializeField] private int CoolDown;
+    [Min(1)]
+    [SerializeField] private int Cooldown;
 
     //  cost
     [SerializeField] private int CostHP;
@@ -94,18 +94,25 @@ public partial class Ability : ScriptableObject
     public void SetOwner(Entity owner)
     {
         if (owner == _Onwer) return;
+        _Onwer.Unsubscribe<TurnActor.TurnEndedEvent>(OnTurnFinish);
         _Onwer = owner;
-        owner.Subscribe<TurnActor.TurnStartedEvent>(OnTurn);
+        _Onwer.Subscribe<TurnActor.TurnEndedEvent>(OnTurnFinish);
     }
 
-    private UniTask OnTurn(TurnActor.TurnStartedEvent args)
+    private UniTask OnTurnFinish(TurnActor.TurnEndedEvent args)
     {
         if (_abilityStat.Cooldown > 0)
         {
             _abilityStat.Cooldown--;
+            _abilityStat.OnCooldownChanged?.Invoke();
         }
 
         return UniTask.CompletedTask;
+    }
+
+    private void OnDestroy()
+    {
+        _Onwer.Unsubscribe<TurnActor.TurnEndedEvent>(OnTurnFinish);
     }
 
     private List<Vector2Int> _SelectionRange;
@@ -243,7 +250,8 @@ public partial class Ability : ScriptableObject
             return false;
         }
 
-        _abilityStat.Cooldown = CoolDown;
+        _abilityStat.Cooldown = Cooldown;
+        _abilityStat.OnCooldownChanged?.Invoke();
         _State = State.Inactive;
         _SelectionTask?.TrySetResult(result: true);
         _SelectionTask = null;

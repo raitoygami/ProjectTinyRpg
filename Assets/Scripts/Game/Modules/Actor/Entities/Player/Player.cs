@@ -146,12 +146,10 @@ public partial class Player : Entity
         
     }
     
-
-
     // 当道具发生变动的时候
     private async UniTask OnItemChanged(Context.EquipmentUpdateEvt arg)
     {
-        await RefreshWeapon();
+        await RefreshWeapons();
         // 更新换装
         m_AgentCustomization.RefreshCustomization();
         m_AgentAvatar.SetSprite(m_AgentCustomization.GetCombinedSprite());
@@ -165,12 +163,12 @@ public partial class Player : Entity
         // 更新装备外观
         m_AgentCustomization.RefreshCustomization();
         m_AgentAvatar.SetSprite(m_AgentCustomization.GetCombinedSprite());
-        
+
         // 更新武器技能和外观
-        await RefreshWeapon();
+        await RefreshWeapons();
         
         // 更新属性 
-        FirstAddWeaponModifiers();
+        AddEquipmentModifiers();
         
         // 读取当前血量
         var playerStats =  PlayerManager.Instance.GetStats();
@@ -178,21 +176,31 @@ public partial class Player : Entity
 
         var playerLocation = PlayerManager.Instance.GetLocation();
         m_AgentAnimations.SetDirection(playerLocation.CurrentDirection);
-        //m_AgentStats
-        var abilities = PlayerManager.Instance.GetAbilities();
-        await m_AgentAbilities.AsyncAbilityStat(abilities.LookupTable);
 
     }
 
-    private async UniTask RefreshWeapon()
+    private async UniTask RefreshWeapons()
     {
+        // 这里不会移除已经缓存的武器实例
+        // 但是会移除没有装备的武器普通攻击技能
+        var wepAtkAbilityIDs = new List<int>();
+        for (var i = 4; i < 8; i++)
+        {
+            var weaponUid = PlayerManager.Instance.GetWeaponUID(i);
+            var weapon = await m_AgentWeapon.InitWeapon(weaponUid);
+            if (weapon != null)
+                wepAtkAbilityIDs.Add(weapon.WepAtkAbilityId);
+        }
+        await m_AgentAbilities.SyncWepAbilities(wepAtkAbilityIDs);
+        await m_AgentAbilities.SyncWepAtkAbilityStat(PlayerManager.Instance.GetAbilities().LookupTable);
+        
         // 直接通过存档数据加载武器
         var currWeaponUIDEquipped = PlayerManager.Instance.GetCurrWeaponUID(); // 默认-1
         await m_AgentWeapon.SwapWeapon(currWeaponUIDEquipped);
     }
 
     // 这个函数，只在初始化的时候调用一次
-    private void FirstAddWeaponModifiers()
+    private void AddEquipmentModifiers()
     {
         var equippedItems = PlayerManager.Instance.GetSavedItemContainer().Equipped;
         foreach (var uid in equippedItems)
@@ -209,7 +217,7 @@ public partial class Player : Entity
     {
         await m_AgentAbilities.UpdateWepAbility(arg.WepAtkAbilityID);
         var abilityStat = PlayerManager.Instance.GetAbilityStat(arg.WepAtkAbilityID);
-        await m_AgentAbilities.AsyncAbilityStat(arg.WepAtkAbilityID, abilityStat);
+        await m_AgentAbilities.SyncWepAtkAbilityStat(arg.WepAtkAbilityID, abilityStat);
         // 全局消息 更新界面
         await this.PublishGlobal(arg);
     }

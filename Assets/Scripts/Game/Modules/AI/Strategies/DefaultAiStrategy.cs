@@ -49,6 +49,9 @@ public sealed class DefaultAiStrategy : IAiStrategy
     
     public async UniTask ExecuteTurn(AiContext ctx)
     {
+        if (!EntityManager.HasInstance())
+            return;
+        
         var cfg = ctx.AiConfig;
 
         var baseParams = cfg?.AiParamsBase;

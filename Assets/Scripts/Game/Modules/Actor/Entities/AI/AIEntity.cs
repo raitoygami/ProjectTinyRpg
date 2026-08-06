@@ -89,7 +89,7 @@ public class AIEntity : Entity
         // 获取技能数据
         await m_AgentAbilities.UpdateWepAbility(m_AgentWeapon.WeaponCurrent().WepAtkAbilityId);
         var abilities = statData.GetAbilities();
-        await m_AgentAbilities.AsyncAbilityStat(abilities.LookupTable);
+        await m_AgentAbilities.SyncWepAtkAbilityStat(abilities.LookupTable);
         // 初始化的时候_runtimeStat为null， 所以不会在写回到存档, 但是会通知ui界面UIStatBar更新血量信息
         await this.Publish(new AgentStats.HealthChangedEvent()
         {

@@ -11,9 +11,6 @@ public class MainUI : MonoBehaviour
     [SerializeField] private Transform _currentWeaponSlot;
     
     [SerializeField] private List<Transform> _abilities = new();
-    [SerializeField] private Transform _quickItemSlot1;
-    [SerializeField] private Transform _quickItemSlot2;
-
 
     [SerializeField] private Image _Portrait;
     [SerializeField] private Image _Health;
@@ -95,12 +92,19 @@ public class MainUI : MonoBehaviour
         // 获取当前激活的武器
         var agentWeapon = player.GetComponent<AgentWeapon>();
         var weaponActive = agentWeapon.GetWeaponActive();
+
+        var abilityId = weaponActive.WepAtkAbilityId;
+        var abilityStat = PlayerManager.Instance.GetAbilityStat(abilityId);
+        _ActionSlotIconInst.UpdateAbilityInfo(abilityId, abilityStat);
         _ActionSlotIconInst.UpdateIcon(weaponActive.Icon);
     }
     
     private async UniTask OnEquippedWeaponChangeEvt(AgentWeapon.EquippedWeaponChangeEvt arg)
     {
         InstanceActionSlotIcon();
+        var abilityId = arg.WeaponChanged.WepAtkAbilityId;
+        var abilityStat = PlayerManager.Instance.GetAbilityStat(abilityId);
+        _ActionSlotIconInst.UpdateAbilityInfo(abilityId, abilityStat);
         _ActionSlotIconInst.UpdateIcon(arg.WeaponChanged.Icon);
         
         await UniTask.CompletedTask;

@@ -1,25 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using cfg;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public class AgentAbilities : MonoBehaviour
 {
-    public class AbilityUpdateEvt : EventArgs
-    {
-        public Ability Origin;
-        public Ability Update;
-    }
- 
-    private readonly AbilityUpdateEvt _AbilityUpdateEvt = new();
-    private Ability WepAbility;
+   
+    private Ability _wepAtkAbilityActive;
 
-    private readonly Dictionary<int, Ability> _abilities = new();
+    // 装备普通攻击技能,只存放装备在槽位上的武器对应技能
+    private readonly Dictionary<int, Ability> _wepAtkAbilities = new();
 
-    public async UniTask<Ability> GetAbility(int abilityId)
+    public async UniTask<Ability> GetWepAtkAbility(int abilityId)
     {
-        if (!_abilities.TryGetValue(abilityId, out var ability))
+        if (!_wepAtkAbilities.TryGetValue(abilityId, out var ability))
         {
             var config = ConfigManager.Instance.GetAbility(abilityId);
             if (config == null) return null;
@@ -27,21 +24,22 @@ public class AgentAbilities : MonoBehaviour
             var handle = Addressables.LoadAssetAsync<Ability>(config.Addressable);
             await handle.ToUniTask();
             ability = Instantiate(handle.Result);
-            _abilities.Add(abilityId, ability);
+            _wepAtkAbilities.Add(abilityId, ability);
         }
         
         return ability;
     }
 
-    public async UniTask AsyncAbilityStat(int abilityId, AbilityStat stat)
+    public async UniTask SyncWepAtkAbilityStat(int abilityId, AbilityStat stat)
     {
-        var ability = await GetAbility(abilityId);
+        var ability = await GetWepAtkAbility(abilityId);
         ability.SetAbilityStat(stat);
     }
     
-    public async UniTask AsyncAbilityStat(Dictionary<int, AbilityStat> stats)
+    public async UniTask SyncWepAtkAbilityStat(Dictionary<int, AbilityStat> stats)
     {
-        foreach (var (abilityId, ability) in _abilities)
+        var owner = gameObject.GetComponent<Entity>();
+        foreach (var (abilityId, ability) in _wepAtkAbilities)
         {
             if (!stats.TryGetValue(abilityId, out var abilityStat)) 
             {
@@ -49,24 +47,51 @@ public class AgentAbilities : MonoBehaviour
                 stats.Add(abilityId, abilityStat);
             }
             ability.SetAbilityStat(abilityStat);
+            ability.SetOwner(owner);
         }
 
         await UniTask.CompletedTask;
     }
+
+    // 同步穿戴的武器技能
+    // 没有装备的武器技能，直接卸载掉
+    public async UniTask SyncWepAbilities(List<int> wepAtkAbilityIDs)
+    {
+        // 1. 找出需要移除的武器技能 ID（不在新列表中）
+        var toRemove = _wepAtkAbilities.Keys
+            .Where(id =>
+            {
+                var config = ConfigManager.Instance.GetAbility(id);
+                return config is { AbilityType: AbilityType.WEAPON }
+                       && !wepAtkAbilityIDs.Contains(id);
+            })
+            .ToList();
+        
+        // 2. 安全移除并销毁
+        foreach (var id in toRemove)
+        {
+            if (!_wepAtkAbilities.Remove(id, out var ability)) continue;
+            if (ability != null)
+                Destroy(ability);
+        }
+
+        // 3. 添加新列表中的技能（GetAbility 会复用已存在的）
+        foreach (var abilityId in wepAtkAbilityIDs)
+        {
+            await GetWepAtkAbility(abilityId);
+        }
+    }
     
     public async UniTask UpdateWepAbility(int abilityId)
     {
-        var ability = await GetAbility(abilityId);
-        _AbilityUpdateEvt.Origin = WepAbility;
-        _AbilityUpdateEvt.Update = ability;
-        WepAbility = ability;
-        WepAbility.SetOwner(gameObject.GetComponent<Entity>());
-        await this.Publish(_AbilityUpdateEvt);
+        var ability = await GetWepAtkAbility(abilityId);
+        _wepAtkAbilityActive = ability;
+        _wepAtkAbilityActive.SetOwner(gameObject.GetComponent<Entity>());
     }
 
     public Ability GetWepAbility()
     {
-        return WepAbility;
+        return _wepAtkAbilityActive;
     }
 
     public bool GetTargets(Vector3 t_GridPosition, Ability t_Ability, ref List<Entity> t_Targets)
@@ -184,5 +209,16 @@ public class AgentAbilities : MonoBehaviour
             targetSizeZ);
 
         return dist <= baseAttack.GetRange();
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var (_, ability) in _wepAtkAbilities)
+        {
+            if (ability != null)
+                Destroy(ability);
+        }
+        _wepAtkAbilities.Clear();
+        
     }
 }

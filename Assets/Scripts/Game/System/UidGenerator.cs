@@ -15,13 +15,14 @@ public static class UidGenerator
     public static long Generate(int itemId, bool stackable = false)
     {
         var map = State.NextSeqMap;
-        if (!map.TryGetValue(itemId, out var nextSeq)) nextSeq = 1;
+        var nextSeq = map.GetValueOrDefault(itemId, 1);
 
         // 低 32 位最大值约 42.9 亿，足够无限使用
 
         var uid = ((long) itemId << 32) | (uint) nextSeq;
 
-        map[itemId] = stackable ? nextSeq : nextSeq + 1;
+        map[itemId] = nextSeq + 1;
+        /*map[itemId] = stackable ? nextSeq : nextSeq + 1;*/
         return uid;
     }
 
