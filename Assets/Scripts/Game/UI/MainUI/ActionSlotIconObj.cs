@@ -22,7 +22,6 @@ public class ActionSlotIconObj : MonoBehaviour
 
     private void OnCooldownChanged()
     {
-        Debug.Log($"Ability {_abilityReference} changed {_abilityStat is { Cooldown: > 0 }}");
         _nodeCooldown.gameObject.SetActive(_abilityStat is { Cooldown: > 0 });
         _textCooldown.text = _abilityStat != null ? _abilityStat.Cooldown.ToString() : "";
     }

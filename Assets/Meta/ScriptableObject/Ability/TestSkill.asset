@@ -15,16 +15,26 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 0
   Children: []
   guid: 1fc28528a1d5c3b4892eec17a8c4ae54
   localtion: {x: -446, y: 130}
   Duration: 0
-  Particle: {fileID: 7748268350099527173, guid: 41b4f5afd2c210949863801af2111bc2,
-    type: 3}
+  Particle: {fileID: 7748268350099527173, guid: 41b4f5afd2c210949863801af2111bc2, type: 3}
   Offset: {x: 0, y: 0, z: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-7592987589228415826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40,12 +50,23 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 0
   Children: []
   guid: 1792c78f38768a44c8c98fb3f1c77a25
   localtion: {x: 212, y: 5}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-3494881621932801483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,13 +82,24 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: TestSkill
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 0
   Children:
   - {fileID: 5121939041728187440}
   guid: 56cf570911fda11409f0909887efc7b9
   localtion: {x: -94, y: -251.92152}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &-72780082813237080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +115,15 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 0
   Children: []
@@ -91,6 +131,9 @@ MonoBehaviour:
   localtion: {x: -94, y: 147}
   entityId: 500005
   lifetimeTurns: 3
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,13 +146,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e44534ca35f444ab8c81e8e84e52e, type: 3}
   m_Name: TestSkill
   m_EditorClassIdentifier: 
+  AbilityName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  Icon: {fileID: 0}
+  WeaponTypeRequire: 0
   m_Range: 5
   m_SkillDisplayParam:
     rid: 852501998778450014
   m_TargetMode: 4
-  m_CoolDown: 0
-  m_CostMP: 0
-  m_CostSP: 0
+  Cooldown: 0
+  CostHP: 0
+  CostMP: 0
   TreeRoot: {fileID: -3494881621932801483}
   Effects:
   - {fileID: -3494881621932801483}
@@ -145,7 +199,15 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 0
   Children:
@@ -185,15 +247,26 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 0
   Children: []
   guid: f8cc419528d1ef640878f00b0c7ad8b3
   localtion: {x: -94, y: -127}
   ignoreBlocking: 0
-  moveSpeedMultiplier: 2
+  Velocity: 1
   _easeMod: 12
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &5269092864484527754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,10 +282,21 @@ MonoBehaviour:
   Context: {fileID: 11400000}
   uid: 0
   Content: 
-  Description: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   DurationBased: 0
   Target: 0
   Children: []
   guid: f331a8246ca174146b73ca9b45c49f8d
   localtion: {x: 518, y: 5}
   Distance: 2
+  references:
+    version: 2
+    RefIds: []
