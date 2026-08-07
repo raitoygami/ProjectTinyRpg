@@ -56,8 +56,6 @@ public partial class Player : Entity
         this.SubscribeInput<InputManager.HotkeyEvt>(OnHotKey);
         this.SubscribeInput<InputManager.QuickBarEvt>(OnQuickBar);
         
-        this.SubscribeGlobal<EnterCombatEvt>(OnEnterCombatEvt);
-        
         // 装备变动
         this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
         // 切换武器
@@ -253,6 +251,13 @@ public partial class Player : Entity
     private async UniTask OnTurnAction(TurnActor.TurnActionEvent arg)
     {
         ResetInput();
+
+        if (CombatManager.HasInstance() && CombatManager.Instance.IsInBattle)
+        {
+            ClearPath();
+            if (TileSelector.HasInstance())
+                TileSelector.Instance.ClearPath();
+        }
         
         if (m_NextTurnEvt.Count > 0)
         {

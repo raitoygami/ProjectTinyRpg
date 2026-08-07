@@ -22,8 +22,8 @@ public static class AiStrategyFactory
 
     public static IAIStrategy Create(AIPattern pattern)
     {
-        if (!StrategyTypes.TryGetValue(pattern, out var t))
-            t = StrategyTypes[AIPattern.Default];
-        return (IAIStrategy)Activator.CreateInstance(t);
+        if (StrategyTypes.TryGetValue(pattern, out var t))
+            return (IAIStrategy)Activator.CreateInstance(t);
+        return null;
     }
 }

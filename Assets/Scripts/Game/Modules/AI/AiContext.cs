@@ -1,7 +1,7 @@
 using cfg;
 
 /// <summary>单回合 AI 执行上下文。</summary>
-public struct AiContext
+public class AiContext
 {
     public AIEntity Owner;
     public Blackboard Board;

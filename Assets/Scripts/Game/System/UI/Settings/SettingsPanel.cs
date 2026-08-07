@@ -18,6 +18,11 @@ public class SettingsPanel : PanelBase
             return;
         _IsLoading = true;
         
+        if (CombatManager.Instance.IsInBattle)
+        {
+            CombatManager.Instance.ClearEnemiesTargetingPlayer();
+        }
+        
         await UIRoot.Instance.LoadingStart(0.25f);
         // 关闭所有界面
         await UIRoot.Instance.CloseAllAsync();

@@ -26,9 +26,10 @@ MonoBehaviour:
     m_LocalVariables: []
   DurationBased: 0
   Target: 2
-  Children: []
+  Children:
+  - {fileID: 7724933475829618684}
   guid: 838d6a92760adb74d916462e5ef6a36c
-  localtion: {x: -424.9626, y: 233.00002}
+  localtion: {x: -264, y: 221}
   damageType: 0
   skillMultiplier: 100
   references:
@@ -57,7 +58,8 @@ MonoBehaviour:
     m_LocalVariables: []
   Icon: {fileID: 21300000, guid: d609a9771ee1d8a4e90b6bb6002d50dc, type: 3}
   WeaponTypeRequire: 0
-  m_Range: 1
+  _prepareTurn: 0
+  Range: 1
   m_SkillDisplayParam:
     rid: -2
   m_TargetMode: 2
@@ -103,7 +105,6 @@ MonoBehaviour:
   Target: 0
   Children:
   - {fileID: -7798447792669611025}
-  - {fileID: 7724933475829618684}
   guid: 820e67279d0cad047ac3ee8917892bd1
   localtion: {x: -264, y: 95}
   Duration: 0.1
@@ -172,7 +173,7 @@ MonoBehaviour:
   Target: 2
   Children: []
   guid: d1f20326b1a4ce842b295bff872862c8
-  localtion: {x: -102.86762, y: 233.00002}
+  localtion: {x: -264, y: 320}
   Duration: 0
   Particle: {fileID: 6626678927856630263, guid: 41b4f5afd2c210949863801af2111bc2, type: 3}
   Offset: {x: 0, y: 0, z: 0}

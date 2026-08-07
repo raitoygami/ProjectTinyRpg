@@ -72,10 +72,12 @@ public abstract partial class AbilityEffect : ScriptableObject
     
     public UniTask Apply(AbilityContext t_Context)
     {
+        /*
         if (WrongTarget(t_Context))
         {
             return UniTask.CompletedTask;
         }
+        */
         
         var abilityEffect = this;
         if (DurationBased)
@@ -123,13 +125,11 @@ public abstract partial class AbilityEffect : ScriptableObject
         }
     }
     
-    
     protected UniTask ApplyChildren()
     {
         return ApplyChildren(m_Context);
     }
 
-    /// <summary>使用指定上下文对子效果逐个 <see cref="Apply"/>（彼此并行）。</summary>
     protected UniTask ApplyChildren(AbilityContext context)
     {
         return UniTask.WhenAll(from effect in Children select effect.Apply(context));

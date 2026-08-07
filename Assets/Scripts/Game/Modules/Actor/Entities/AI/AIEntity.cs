@@ -25,7 +25,7 @@ public class AIEntity : Entity
     private AgentAbilities m_AgentAbilities;
     private AgentAnimations m_AgentAnimations;
     private AgentWeapon m_AgentWeapon;
-    private Blackboard m_BlackBoard;
+    private Blackboard _blackBoard;
     private Vector3 _spawnPointLocation;
     private Vector3 _spawnLocation;
     private int m_DisengageLeashRange;
@@ -33,7 +33,7 @@ public class AIEntity : Entity
     private int _lifetimeTurnsRemaining;
     private Action m_UnsubscribeLifetime;
 
-    private IAIStrategy _iaiStrategy;
+    private IAIStrategy _aiStrategy;
 
     /// <summary>召唤施法者（主人）；仅召唤流程设置，关卡敌等为 null。</summary>
     public Entity SummonOwner { get; private set; }
@@ -52,7 +52,7 @@ public class AIEntity : Entity
     /// <summary>强制清空当前 AI 策略的运行时状态（不改变策略类型）。</summary>
     public void ResetAi()
     {
-        _iaiStrategy?.Reset();
+        _aiStrategy?.Reset();
     }
 
     protected void Awake()
@@ -65,7 +65,7 @@ public class AIEntity : Entity
         m_AgentStats = gameObject.AddComponent<AgentStats>();
         m_AgentAbilities = gameObject.AddComponent<AgentAbilities>();
         
-        m_BlackBoard = new Blackboard(this);
+        _blackBoard = new Blackboard(this);
 
         this.Subscribe<TurnActor.TurnActionEvent>(OnTurnAction);
         this.Subscribe<AgentMover.MoveStartEvent>(OnMoveStart);
@@ -159,8 +159,8 @@ public class AIEntity : Entity
         if (entity?.AiId != null && ConfigManager.HasInstance())
             parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(entity.AiId.Value);
         var pattern = parameterData?.Pattern ?? AIPattern.Default;
-        _iaiStrategy = AiStrategyFactory.Create(pattern);
-        _iaiStrategy.Initialize(this, m_BlackBoard);
+        _aiStrategy = AiStrategyFactory.Create(pattern);
+        _aiStrategy.Initialize(this, _blackBoard);
     }
 
     public override void OnUpdate()
@@ -205,6 +205,7 @@ public class AIEntity : Entity
         transform.DOKill(false);
     }
 
+    private AiContext _aiContext;
     private async UniTask OnTurnAction(TurnActor.TurnActionEvent arg)
     {
         AIParameterTable.AIParameterData parameterData = null;
@@ -215,15 +216,15 @@ public class AIEntity : Entity
                 parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(ec.AiId.Value);
         }
 
-        if (_iaiStrategy == null)
+        if (_aiStrategy == null)
             RebuildAiStrategy(m_AgentStats != null ? m_AgentStats.EntityConfig : null);
-
-        await _iaiStrategy.ExecuteTurn(new AiContext
+        _aiContext ??= new AiContext
         {
             Owner = this,
-            Board = m_BlackBoard,
+            Board = _blackBoard,
             Parameter = parameterData.Parameter
-        });
+        };
+        await _aiStrategy.ExecuteTurn(_aiContext);
         
         m_TurnActor.FinishTurn();
     }
@@ -285,7 +286,5 @@ public class AIEntity : Entity
     private void OnDestroy()
     {
         EntityManager.UnRegister(this);
-        /*if (Context.HasInstance())
-            Player.RefreshCombatState(Context.Instance.PlayerInst);*/
     }
 }

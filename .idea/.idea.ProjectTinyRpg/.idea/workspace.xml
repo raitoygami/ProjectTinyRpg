@@ -16,9 +16,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Arts/Audio/AudioEnums - GameAudio.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugin/UniTask/Runtime/Internal/PlayerLoopRunner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugin/UniTask/Runtime/UniTaskScheduler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/AiStrategyParams.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/Data_Drop.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/DefaultParams.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/Defination/AttributeModifier.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/Defination/AttributeType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/Drop.cs" root0="FORCE_HIGHLIGHTING" />
@@ -34,7 +32,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/BehaviorTree.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/Blackboard.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/IAiStrategy.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/Strategies/DefaultAiStrategy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Ability.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/AbilityContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/AbilityEffect.cs" root0="FORCE_HIGHLIGHTING" />
@@ -156,6 +153,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Tools/Misc/AudioClipMerger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@8460f1c9c927/Tests/Editor/Build/AddHashToBundleNameTaskTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@731b06833851/Runtime/UnifiedRayTracing/Compute/RadeonRays/kernels/block_reduce_part.compute" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@731b06833851/Runtime/UnifiedRayTracing/Compute/RadeonRays/kernels/block_scan.compute" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@e20f1880fa04/Tests/Runtime/UGUI/NestedLayout/SceneWithNestedLayoutElementsLoadScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Packages/com.brogrammist.jsam@6d93b0b505/Editor/AudioPlaybackToolEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Packages/com.brogrammist.jsam@6d93b0b505/Editor/BaseAudioFileObjectEditor.cs" root0="FORCE_HIGHLIGHTING" />
@@ -264,7 +262,7 @@
       <workItem from="1785899403806" duration="26139000" />
       <workItem from="1785983962666" duration="21271000" />
       <workItem from="1786076255894" duration="8057000" />
-      <workItem from="1786092715731" duration="3857000" />
+      <workItem from="1786092715731" duration="13792000" />
     </task>
     <servers />
   </component>

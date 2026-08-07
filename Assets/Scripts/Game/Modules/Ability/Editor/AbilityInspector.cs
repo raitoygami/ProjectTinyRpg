@@ -6,47 +6,47 @@ using UnityEditorInternal;
 [CustomEditor(typeof(Ability))]
 public class AbilityInspector : Editor
 {
-    private SerializedProperty m_Name;
-    private SerializedProperty m_Icon;
-    private SerializedProperty m_WeaponTypeRequire;
-    private SerializedProperty m_Desc;
-    private SerializedProperty m_Range;
-    private SerializedProperty m_SkillDisplayParam;
-    private SerializedProperty m_TargetMode;
+    private SerializedProperty _name;
+    private SerializedProperty _icon;
+    private SerializedProperty _weaponTypeRequire;
+    private SerializedProperty _prepareTurn;
+    private SerializedProperty _range;
+    private SerializedProperty _skillDisplayParam;
+    private SerializedProperty _targetMode;
     private SerializedProperty _cooldown;
 
     private SerializedProperty costMP;
     private SerializedProperty costHP;
     
-    private SerializedProperty m_TreeRoot;
-    private ReorderableList m_ReorderableList;
+    private SerializedProperty _treeRoot;
+    private ReorderableList _reorderableList;
 
     private void OnEnable()
     {
-        m_Name = serializedObject.FindProperty("AbilityName");
-        m_Icon = serializedObject.FindProperty("Icon");
-        //m_Desc = serializedObject.FindProperty("");
-        m_WeaponTypeRequire = serializedObject.FindProperty("WeaponTypeRequire");
-        m_Range = serializedObject.FindProperty("m_Range");
-        m_SkillDisplayParam = serializedObject.FindProperty("m_SkillDisplayParam");
-        m_TargetMode = serializedObject.FindProperty("m_TargetMode");
+        _name = serializedObject.FindProperty("AbilityName");
+        _icon = serializedObject.FindProperty("Icon");
+        _weaponTypeRequire = serializedObject.FindProperty("WeaponTypeRequire");
+        _prepareTurn = serializedObject.FindProperty("_prepareTurn"); 
+        _range = serializedObject.FindProperty("Range");
+        _skillDisplayParam = serializedObject.FindProperty("m_SkillDisplayParam");
+        _targetMode = serializedObject.FindProperty("m_TargetMode");
         _cooldown = serializedObject.FindProperty("Cooldown");
         
         costHP = serializedObject.FindProperty("CostHP");
         costMP = serializedObject.FindProperty("CostMP");
         
-        m_TreeRoot = serializedObject.FindProperty("TreeRoot");
+        _treeRoot = serializedObject.FindProperty("TreeRoot");
         var effects = serializedObject.FindProperty("Effects");
         
         // ReSharper disable once UseObjectOrCollectionInitializer
-        m_ReorderableList = new ReorderableList(serializedObject, effects);
-        m_ReorderableList.drawHeaderCallback = DrawHeader;
-        m_ReorderableList.drawElementCallback = (rect, index, _, _) =>
+        _reorderableList = new ReorderableList(serializedObject, effects);
+        _reorderableList.drawHeaderCallback = DrawHeader;
+        _reorderableList.drawElementCallback = (rect, index, _, _) =>
         {
             EditorGUI.PropertyField(rect, effects.GetArrayElementAtIndex(index));
         };
-        m_ReorderableList.displayAdd = false;
-        m_ReorderableList.displayRemove = false;
+        _reorderableList.displayAdd = false;
+        _reorderableList.displayRemove = false;
     }
     private static void DrawHeader(Rect rect)
     {
@@ -67,12 +67,13 @@ public class AbilityInspector : Editor
         // properties
         EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.ExpandWidth(true));
         
-        EditorGUILayout.PropertyField(m_Name);
-        EditorGUILayout.PropertyField(m_Icon);
-        EditorGUILayout.PropertyField(m_WeaponTypeRequire);
-        EditorGUILayout.PropertyField(m_Range);
-        EditorGUILayout.PropertyField(m_SkillDisplayParam, includeChildren: true);
-        EditorGUILayout.PropertyField(m_TargetMode);
+        EditorGUILayout.PropertyField(_name);
+        EditorGUILayout.PropertyField(_icon);
+        EditorGUILayout.PropertyField(_weaponTypeRequire);
+        EditorGUILayout.PropertyField(_prepareTurn);
+        EditorGUILayout.PropertyField(_range);
+        EditorGUILayout.PropertyField(_skillDisplayParam, includeChildren: true);
+        EditorGUILayout.PropertyField(_targetMode);
         EditorGUILayout.PropertyField(_cooldown);
         EditorGUILayout.EndVertical();
         
@@ -87,9 +88,9 @@ public class AbilityInspector : Editor
         EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.ExpandWidth(true));
         GUILayout.Label(Styles.defaultFontAssetLabel, EditorStyles.boldLabel);
         EditorGUI.BeginDisabledGroup(true);
-        EditorGUILayout.PropertyField(m_TreeRoot);
+        EditorGUILayout.PropertyField(_treeRoot);
         // EditorGUILayout.PropertyField(m_Nodes);
-        m_ReorderableList.DoLayoutList();
+        _reorderableList.DoLayoutList();
         
         EditorGUI.EndDisabledGroup();
         EditorGUILayout.EndVertical();

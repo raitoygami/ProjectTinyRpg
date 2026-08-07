@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using cfg;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -36,10 +37,21 @@ public sealed class AIStrategySummon : IAIStrategy
         await FollowOwner(ctx);
     }
 
+    private UniTask<bool> FindTarget(int range)
+    {
+        var enemies = EntityManager.Instance.FindEnemies(_owner, range);
+        if (enemies == null || enemies.Count == 0)
+            return UniTask.FromResult(false);
+
+        var _target = enemies.FirstOrDefault();
+        _board?.SetTarget(_target);
+        return UniTask.FromResult(true);
+    }
+    
     private async UniTask RunCombat(int visionRange)
     {
         await _board.Sequencer(
-            b => b.FindTarget(visionRange),
+            _ => FindTarget(visionRange),
             b => b.Selector(
                 b1 => b1.If(
                     b2 => b2.SelectAbility(),

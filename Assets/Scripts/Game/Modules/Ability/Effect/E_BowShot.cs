@@ -9,7 +9,8 @@ public class E_BowShot  : AbilityEffect
     protected override async UniTask OnApply()
     {
         var agent = m_Context.Owner.GetComponent<AgentAnimations>();
-        var gridDelta = m_Context.Target.GridPosition - m_Context.Owner.GridPosition;
+        var target = m_Context.Target != null ? m_Context.Target.GridPosition : m_Context.Position;
+        var gridDelta = target - m_Context.Owner.GridPosition;
         var worldDir = new Vector3(gridDelta.x, gridDelta.y, 0f);
         await agent.BowShot(worldDir, Duration, Sounds);
         await ApplyChildren();

@@ -52,10 +52,11 @@ public class CombatManager : Singleton<CombatManager>
         }
     }
 
+    // 切换场景的时候用到
     public void ClearEnemiesTargetingPlayer()
     {
         _enemiesTargetingPlayer.Clear();
-        OnCombatEnded();
+        OnCombatEnded(true);
     }
 
     private void OnCombatStarted()
@@ -69,13 +70,14 @@ public class CombatManager : Singleton<CombatManager>
         this.PublishGlobal(_combatStartedEvent);
     }
 
-    private void OnCombatEnded()
+    private void OnCombatEnded(bool immediate = false)
     {
-        AudioManager.FadeMusicOut(GameAudioMusic.Combat_Loop_01, 10f);
+        var fadeTime = immediate ? 0.1f : 10f;
+        AudioManager.FadeMusicOut(GameAudioMusic.Combat_Loop_01, fadeTime);
         CombatMusicDPM = 60;
         CombatMusicMul = 1;
         if (MapLoader.HasInstance())
-            MapLoader.Instance.OnCombatEnded(10f);
+            MapLoader.Instance.OnCombatEnded(fadeTime);
         this.PublishGlobal(_combatEndedEvent);
     }
     

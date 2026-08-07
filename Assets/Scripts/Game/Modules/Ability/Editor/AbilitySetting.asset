@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cace1ff5ec8ffb643b48a9391260a09e, type: 3}
   m_Name: AbilitySetting
   m_EditorClassIdentifier: Assembly-CSharp-Editor::AbilitySettings
-  instanceid: 57742
+  instanceid: 57672

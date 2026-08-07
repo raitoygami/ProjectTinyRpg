@@ -94,17 +94,17 @@ public static class BehaviorTree
         s = await f2(board);
         if (!s) return false;
         s = f3 is not null && await f3(board);
-        if (!s) return false;
+        if (f3 is not null && !s) return false;
         s = f4 is not null && await f4(board);
-        if (!s) return false;
+        if (f4 is not null && !s) return false;
         s = f5 is not null && await f5(board);
-        if (!s) return false;
+        if (f5 is not null && !s) return false;
         s = f6 is not null && await f6(board);
-        if (!s) return false;
+        if (f6 is not null && !s) return false;
         s = f7 is not null && await f7(board);
-        if (!s) return false;
+        if (f7 is not null && !s) return false;
         s = f8 is not null && await f8(board);
-        if (!s) return false;
+        if (f8 is not null && !s) return false;
 
         return true;
     }
