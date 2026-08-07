@@ -19,6 +19,7 @@ public class MapConfig : ScriptableObject
         public MapType MapType;
         public Vector2Int ChunkIndex;
         public string AddressableName;
+        public GameAudioMusic MainMusic;
     }
     [SerializeField] private List<MapInfo> _configs = new();
 

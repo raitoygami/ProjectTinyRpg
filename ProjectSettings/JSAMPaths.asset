@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.Brogrammist.JSAM.Editor::JSAM.JSAMEditor.JSAMPaths
   selectedLibrary:
     savedObject: {fileID: 0}
-  packagePath: 
+  packagePath: Packages/com.brogrammist.jsam
   presetsPath: Assets/JSAMPresets/

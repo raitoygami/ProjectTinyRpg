@@ -42,7 +42,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
     private void ResetFullCombat()
     {
         _board?.ClearTargetOnly();
-        BattleManager.Instance.RemoveEnemyTarget(_owner);
+        CombatManager.Instance.RemoveEnemyTarget(_owner);
     }
 
     private DefaultEnemyAiTreeContext _treeContext;
@@ -55,12 +55,10 @@ public sealed class DefaultAiStrategy : IAiStrategy
         var cfg = ctx.AiConfig;
 
         var baseParams = cfg?.AiParamsBase;
-        var vision = baseParams?.VisionRange ?? 8;
-        var aggro = baseParams?.AggroRange ?? 1;
+        var vision = baseParams?.VisionRange ?? 5;
         var threatTime = baseParams?.ThreatTime ?? 0;
-
  
-        _treeContext ??= new DefaultEnemyAiTreeContext(this, vision, aggro, threatTime, 0);
+        _treeContext ??= new DefaultEnemyAiTreeContext(this, vision, threatTime, 0);
 
         await _treeContext.Selector(
             t => t.HandleReturningHome(),
@@ -72,12 +70,11 @@ public sealed class DefaultAiStrategy : IAiStrategy
     {
         private Player.EnterCombatEvt OnEnterCombatEvt;
         
-        public DefaultEnemyAiTreeContext(DefaultAiStrategy strategy, int vision, int aggro, int threatTime,
+        public DefaultEnemyAiTreeContext(DefaultAiStrategy strategy, int vision, int threatTime,
             int chaseTired)
         {
             _s = strategy;
             Vision = vision;
-            Aggro = aggro;
             ThreatTime = threatTime;
             ChaseTired = chaseTired;
             OnEnterCombatEvt = new Player.EnterCombatEvt();
@@ -85,7 +82,6 @@ public sealed class DefaultAiStrategy : IAiStrategy
 
         private readonly DefaultAiStrategy _s;
         public int Vision { get; }
-        public int Aggro { get; }
         public int ThreatTime { get; }
         public int ChaseTired { get; }
 
@@ -113,15 +109,16 @@ public sealed class DefaultAiStrategy : IAiStrategy
             
             if (Target != null)
             {
-                var dist = Target.GridPosition.Dist(Owner.SpawnLocation);
+                var dist = Target.GridPosition.Dist(Owner.SpawnPointLocation);
                 // 没有往回走的时候，且玩家还没走出两倍的范围
                 if (!_IsReturningHome)
                 {
-                    if (dist < Owner.DisengageLeashRange * 2)
+                    if (dist < Owner.DisengageLeashRange * 3)
                         return false;
                 }
                 else
                 {
+                    dist = Target.GridPosition.Dist(Owner.SpawnLocation);
                     // 当怪物正在往回走
                     // 当玩家重新进入刷怪点切还没有从从怪物锁定上移除的时候
                     if (dist < Owner.DisengageLeashRange)
@@ -138,7 +135,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
                 return false;
             }
             
-            BattleManager.Instance.RemoveEnemyTarget(Owner);
+            CombatManager.Instance.RemoveEnemyTarget(Owner);
             await Board.MoveTowardsGrid(Owner.SpawnLocation);
             _IsReturningHome = true;
             
@@ -162,7 +159,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
                 Board.SetTarget(Target);
                 Dist = Owner.GridPosition.Dist(Target.GridPosition);
                 Owner.PublishGlobal(OnEnterCombatEvt);
-                BattleManager.Instance.AddEnemyTarget(Owner);
+                CombatManager.Instance.AddEnemyTarget(Owner);
                 return UniTask.FromResult(true);
             }
             var enemies = EntityManager.Instance.FindEnemies(Owner, range);
@@ -176,7 +173,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
             Board.SetTarget(Target);
             Dist = Owner.GridPosition.Dist(Target.GridPosition);
             Owner.PublishGlobal(OnEnterCombatEvt);
-            BattleManager.Instance.AddEnemyTarget(Owner);
+            CombatManager.Instance.AddEnemyTarget(Owner);
             return UniTask.FromResult(true);
         }
 

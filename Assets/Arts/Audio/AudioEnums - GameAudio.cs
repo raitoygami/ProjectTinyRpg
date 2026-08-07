@@ -7,4 +7,6 @@
         Sfx_Common_Pickup
     }
     public enum GameAudioMusic {
+        Combat_Loop_01,
+        Ambient_Dungeon01
     }

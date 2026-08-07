@@ -91,7 +91,7 @@ public class EnemySpawnerRandomly : PubSubActor
             if (enemy != null)
             {
                 enemy.name = $"Enemy {i} : - {entityId} ";
-                enemy.SetHomeAnchor(location, disengageLeashRange);
+                enemy.SetHomeAnchor(location, transform.position.SnapToGrid(), disengageLeashRange);
             }
         }
         

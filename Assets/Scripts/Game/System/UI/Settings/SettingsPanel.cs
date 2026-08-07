@@ -36,7 +36,7 @@ public class SettingsPanel : PanelBase
 
     public void OnBtnClick_QuitSave()
     {
-        if (BattleManager.Instance.IsInBattle)
+        if (CombatManager.Instance.IsInBattle)
         {
             return;
         }

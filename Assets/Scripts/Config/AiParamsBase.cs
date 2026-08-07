@@ -20,7 +20,6 @@ public sealed partial class AiParamsBase : Luban.BeanBase
     public AiParamsBase(ByteBuf _buf) 
     {
         VisionRange = _buf.ReadInt();
-        AggroRange = _buf.ReadInt();
         ThreatTime = _buf.ReadInt();
     }
 
@@ -33,10 +32,6 @@ public sealed partial class AiParamsBase : Luban.BeanBase
     /// 警觉范围 / 视野范围（格子数，触发 Suspicious 的距离）
     /// </summary>
     public readonly int VisionRange;
-    /// <summary>
-    /// 进入攻击状态范围（从警觉转为 Hostile 的距离阈值）
-    /// </summary>
-    public readonly int AggroRange;
     /// <summary>
     /// 警惕值（回合数，警觉状态持续时间，超时衰减）
     /// </summary>
@@ -53,7 +48,6 @@ public sealed partial class AiParamsBase : Luban.BeanBase
     {
         return "{ "
         + "VisionRange:" + VisionRange + ","
-        + "AggroRange:" + AggroRange + ","
         + "ThreatTime:" + ThreatTime + ","
         + "}";
     }

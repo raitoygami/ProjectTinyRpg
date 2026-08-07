@@ -240,7 +240,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
     
     public bool TryAdd(ItemIconObj itemIconObj, int location)
     {
-        if (BattleManager.Instance.IsInBattle)
+        if (CombatManager.Instance.IsInBattle)
         {
             AudioManager.PlaySound(GameAudioSounds.Sfx_Common_Denied);
             return false;
@@ -266,7 +266,7 @@ public class EquipmentPanel : MonoBehaviour, IItemIconOwner
 
     public bool TryRemove(ItemIconObj itemIconObj)
     {
-        if (BattleManager.Instance.IsInBattle)
+        if (CombatManager.Instance.IsInBattle)
         {
             AudioManager.PlaySound(GameAudioSounds.Sfx_Common_Denied);
             return false;

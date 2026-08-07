@@ -331,13 +331,16 @@ public class AgentAnimations : MonoBehaviour
             return;
         var t = Time.time;
 
+        var beatDuration = 60f / CombatManager.CombatMusicDPM; 
+        var frequency = FrequenceY / beatDuration;
+        var amplitude = AmplitudeY * CombatManager.CombatMusicMul;
         var idle = 1 - Mathf.Abs(Mathf.Sin(
-                                     Mathf.RoundToInt((t + _idleTimeOffset) * FrequenceY))
-                                 * AmplitudeY * (1 - t_Velocity));
+                                     Mathf.RoundToInt((t + _idleTimeOffset) * frequency))
+                                 * amplitude * (1 - t_Velocity));
 
         var moveAnimation = Quaternion.Euler(0, 0,
             Mathf.Sin(Mathf.Floor(Time.time * FrequenceX * t_Velocity * Mathf.PI)) * AmplitudeX);
-        transform.rotation = moveAnimation;
+        m_SpriteRoot.rotation = moveAnimation;
         
         m_SpriteRoot.transform.localScale = new Vector3(m_SpriteRoot.transform.localScale.x, idle, 1);
     }

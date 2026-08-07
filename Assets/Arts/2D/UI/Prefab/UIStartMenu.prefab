@@ -1426,6 +1426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33391b49839c2b4687a7861c69a7c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIStartMenu
+  musicFile: {fileID: 11400000, guid: 04fb06779726d11459b564dff14e273d, type: 2}
   _btnContinue: {fileID: 5501297842979688621}
   _locale:
     m_TableReference:

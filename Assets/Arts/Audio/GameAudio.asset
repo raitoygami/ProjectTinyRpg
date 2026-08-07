@@ -23,7 +23,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b6b325e6e17604544985bcd36cbce031, type: 2}
   - {fileID: 11400000, guid: 5c41b4144406bf3498c5943ac6a66db3, type: 2}
   - {fileID: 11400000, guid: bc2a03292c835e9438ac8706117072bf, type: 2}
-  Music: []
+  Music:
+  - {fileID: 11400000, guid: f9313662d22cf5a4ca10e79015ba220f, type: 2}
+  - {fileID: 11400000, guid: 7a4d62f5897ff294484fd70f8eec05c1, type: 2}
   useCustomNames: 0
   generatedName: GameAudio
   musicEnum: LibraryMusic
@@ -46,5 +48,7 @@ MonoBehaviour:
     foldout: 1
   musicCategoriesToList:
   - name: 
-    files: []
+    files:
+    - {fileID: 11400000, guid: f9313662d22cf5a4ca10e79015ba220f, type: 2}
+    - {fileID: 11400000, guid: 7a4d62f5897ff294484fd70f8eec05c1, type: 2}
     foldout: 1

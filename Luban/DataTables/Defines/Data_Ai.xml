@@ -2,15 +2,14 @@
 
 	<bean name="AiParamsBase" comment="ai 参数">
 		<var name="VisionRange" 			type="int" comment="警觉范围 / 视野范围（格子数，触发 Suspicious 的距离）"/>
-		<var name="AggroRange" 				type="int" comment="进入攻击状态范围（从警觉转为 Hostile 的距离阈值）"/>
 		<var name="ThreatTime" 				type="int" comment="警惕值（回合数，警觉状态持续时间，超时衰减）"/>
 	</bean>
 	
 	<enum name="AiPattern" >
-       <var name="Default" value="0" 		alias="默认"/>
-       <var name="Summon" value="1" 	alias="召唤物1"/>
-       <var name="Cautious" value="2" 	alias="谨慎"/>
-       <var name="PackHunter" value="3" 	alias="群猎"/>
+		<var name="Default" value="0" 		alias="默认"/>
+		<var name="Summon" value="1" 	alias="召唤物1"/>
+		<var name="Cautious" value="2" 	alias="谨慎"/>
+		<var name="PackHunter" value="3" 	alias="群猎"/>
 		<var name="Fleeing" value="4" 		alias="胆小"/>
     </enum>
 	

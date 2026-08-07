@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using JSAM;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -100,9 +101,28 @@ public class MapLoader : Singleton<MapLoader>
             PlayerManager.Instance.SetWorld(sceneName);
             PlayerManager.Instance.SetWorldLocation(p.transform.position);
         }
-        
+
+        AudioManager.FadeMainMusicOut(1f);
+        AudioManager.FadeMusicIn(mapInfo.MainMusic, 1f, true);
     }
 
+    public void OnCombatStart(float fadeOut)
+    {
+        AudioManager.FadeMainMusicOut(fadeOut);
+    }
+    
+    public void OnCombatEnded(float fadeIn)
+    {
+        var mapName = PlayerManager.Instance.GetCurrentMap();
+        var mapInfo = MapManager.Instance.GetMapInfo(mapName);
+        if (mapInfo == null)
+        {
+            Debug.LogError($"[MapLoader] Wrong there is no map info of : {mapName}.");
+            return;
+        }
+        AudioManager.FadeMusicIn(mapInfo.MainMusic, fadeIn, true);
+    }
+    
     public void ClearScene()
     {
         EntityManager.Instance.OnClearAll();

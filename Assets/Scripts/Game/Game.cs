@@ -68,7 +68,7 @@ public class Game : Singleton<Game>
             // In game manager
             PoolManager.Instance.Initialized();
             TurnManager.Instance.Initialized();
-            BattleManager.Instance.Initialized();
+            CombatManager.Instance.Initialized();
             TileSelector.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
             
             await UIRoot.Instance.FadeIn(0);

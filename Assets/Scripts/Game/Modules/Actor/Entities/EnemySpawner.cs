@@ -42,6 +42,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
 
     [Tooltip("Gizmos：脱离正方形线框颜色。")]
     [SerializeField] private Color leashGizmoColor = new Color(0.4f, 1f, 0.4f, 0.35f);
+    [SerializeField] private Color leash2GizmoColor = new Color(1, 0.4f, 0.4f, 0.35f);
 
     /// <summary>当前 EnemySpawner 所在格子坐标（世界）。</summary>
     public Vector3 SpawnerGridPosition => transform.position.SnapToGrid();
@@ -108,7 +109,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
             return null;
         var enemy = EntityManager.Instance.CreateEnemy(spawnPoint.Location, spawnPoint.EntityId);
         if (enemy != null)
-            enemy.SetHomeAnchor(spawnPoint.SpawnPosition, disengageLeashRange);
+            enemy.SetHomeAnchor(spawnPoint.SpawnPosition, transform.position.SnapToGrid(), disengageLeashRange);
         return enemy;
     }
     
@@ -124,7 +125,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
             return null;
         var enemy = EntityManager.Instance.CreateEnemy(absoluteGrid, point.EntityId);
         if (enemy != null)
-            enemy.SetHomeAnchor(absoluteGrid, disengageLeashRange);
+            enemy.SetHomeAnchor(absoluteGrid, transform.position.SnapToGrid(), disengageLeashRange);
         return enemy;
     }
     
@@ -144,9 +145,10 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
             var worldPos = absGrid.SnapToGrid();
             Gizmos.color = gizmoColor;
             Gizmos.DrawSphere(worldPos, gizmoRadius);
-
-            WorldExtensions.DrawLeashSquareGizmo(worldPos, disengageLeashRange, leashGizmoColor);
         }
+        
+        WorldExtensions.DrawLeashSquareGizmo(SpawnerGridPosition, disengageLeashRange, leashGizmoColor);
+        WorldExtensions.DrawLeashSquareGizmo(SpawnerGridPosition, disengageLeashRange * 2, leash2GizmoColor);
     }
 
 

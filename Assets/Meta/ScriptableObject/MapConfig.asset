@@ -17,3 +17,4 @@ MonoBehaviour:
     MapType: 1
     ChunkIndex: {x: 0, y: 0}
     AddressableName: Scene/Tutorial
+    MainMusic: 1

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using JSAM;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Localization;
@@ -10,10 +11,16 @@ using UnityEngine.Localization.Settings;
 public class UIStartMenu : PanelBase
 {
 
+    [SerializeField] private MusicFileObject musicFile;
+    
     [SerializeField] private GameObject _btnContinue;
     
     public override void Open()
     {
+        if (AudioManager.MainMusicEnumAsInt >= 0)
+            AudioManager.FadeMainMusicOut(2f);
+        
+        AudioManager.FadeMusicIn(musicFile, 2f, true);
         _btnContinue.gameObject.SetActive(Persist.Instance.HasPersistentSlot(0));
         base.Open();
     }
