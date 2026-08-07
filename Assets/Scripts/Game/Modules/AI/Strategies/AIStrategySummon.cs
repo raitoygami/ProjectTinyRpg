@@ -3,14 +3,8 @@ using cfg;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-/// <summary>
-/// 召唤物 AI：未发现敌对单位时在 <see cref="PlayerSummonParams.FollowDistance"/>（格）内跟随
-/// <see cref="AIEntity.SummonOwner"/>（由 <see cref="AIEntity.ConfigureAsSummon"/> / 召唤流程显式设置）；
-/// 跟随阶段不把玩家判为被本实体威胁，避免 <see cref="Player.RefreshCombatState"/> 进入接战而清掉玩家预存路径。
-/// 视野内出现敌对单位时走黑板战斗（寻敌 / 技能 / 追击）。
-/// </summary>
-[AiStrategy(AiPattern.Summon)]
-public sealed class SummonAiStrategy : IAiStrategy
+[AIStrategy(AIPattern.Summon)]
+public sealed class AIStrategySummon : IAIStrategy
 {
     private AIEntity _owner;
     private Blackboard _board;
@@ -27,17 +21,13 @@ public sealed class SummonAiStrategy : IAiStrategy
         _board?.ClearTargetOnly();
     }
 
-    /// <summary>召唤物不“威胁”玩家本人；接战与清路径由敌方 <see cref="AIEntity"/> 的判定负责。</summary>
-    public bool IsThreateningPlayer(Player player) => false;
-
     public async UniTask ExecuteTurn(AiContext ctx)
     {
-        var cfg = ctx.AiConfig;
-        var baseParams = cfg?.AiParamsBase;
-        var vision = baseParams?.VisionRange ?? 8;
+        var cfg = ctx.Parameter as AIParameterSummon;
+        var vision = cfg?.VisionRange ?? 8;
 
         var hostiles = EntityManager.Instance.FindEnemies(_owner, vision);
-        if (hostiles != null && hostiles.Count > 0)
+        if (hostiles is { Count: > 0 })
         {
             await RunCombat(vision);
             return;
@@ -66,7 +56,7 @@ public sealed class SummonAiStrategy : IAiStrategy
         if (master == null)
             return;
 
-        var followDist = ctx.AiConfig?.StrategyParams is Summon1Params p
+        var followDist = ctx.Parameter is AIParameterSummon p
             ? Mathf.Max(0, p.FollowDistance)
             : 2;
 

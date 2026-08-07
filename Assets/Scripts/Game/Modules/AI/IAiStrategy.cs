@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 /// 单个 AI 实体上的策略实例：运行时状态由策略自身维护；载体 <see cref="AIEntity"/> 只负责
 /// <see cref="Initialize"/> 与 <see cref="Reset"/>，不持有统一 AIState。
 /// </summary>
-public interface IAiStrategy
+public interface IAIStrategy
 {
     /// <summary>在载体上绑定黑板后调用一次（如 <see cref="AIEntity.ConfigureAsEnemy"/> 流程内）。</summary>
     void Initialize(AIEntity owner, Blackboard board);

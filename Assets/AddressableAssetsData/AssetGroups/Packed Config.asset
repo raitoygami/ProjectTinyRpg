@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Packed Config
   m_GUID: d261e8f01cc038949a60e68666b3aa84
   m_SerializeEntries:
+  - m_GUID: 0618e7ef003d00b48ac02b681c1ad35e
+    m_Address: Config/ScriptableContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 95ab31e5bb9480547a549034f7004bd2
     m_Address: Settings/GamePreload
     m_ReadOnly: 0

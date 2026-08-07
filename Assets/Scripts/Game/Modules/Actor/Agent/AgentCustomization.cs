@@ -5,7 +5,6 @@ public class AgentCustomization : MonoBehaviour
 {
     // 默认的sprite
     [SerializeField] private Sprite _defaultSprite;
-    [SerializeField] private CustomizationTable _customizationTable;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private Sprite _CombineSprite;
@@ -28,9 +27,9 @@ public class AgentCustomization : MonoBehaviour
 
         _ItemIdHelmet = helmet?.ItemId ?? 0;
         _ItemIdChestplate = chestplate?.ItemId ?? 0;
-
-        _SpriteHelmet = _customizationTable.GetSprite(_ItemIdHelmet);
-        _SpriteChestplate = _customizationTable.GetSprite(_ItemIdChestplate);
+        var config = ConfigManager.Instance.ScriptableContainer.CustomizationTable;
+        _SpriteHelmet = config.GetSprite(_ItemIdHelmet);
+        _SpriteChestplate = config.GetSprite(_ItemIdChestplate);
         // 合成sprite
 
         CombineAll();

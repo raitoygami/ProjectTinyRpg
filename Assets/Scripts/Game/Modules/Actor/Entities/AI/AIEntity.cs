@@ -33,7 +33,7 @@ public class AIEntity : Entity
     private int _lifetimeTurnsRemaining;
     private Action m_UnsubscribeLifetime;
 
-    private IAiStrategy _aiStrategy;
+    private IAIStrategy _iaiStrategy;
 
     /// <summary>召唤施法者（主人）；仅召唤流程设置，关卡敌等为 null。</summary>
     public Entity SummonOwner { get; private set; }
@@ -52,7 +52,7 @@ public class AIEntity : Entity
     /// <summary>强制清空当前 AI 策略的运行时状态（不改变策略类型）。</summary>
     public void ResetAi()
     {
-        _aiStrategy?.Reset();
+        _iaiStrategy?.Reset();
     }
 
     protected void Awake()
@@ -154,12 +154,13 @@ public class AIEntity : Entity
 
     private void RebuildAiStrategy(t_Entity entity)
     {
-        t_AI aiCfg = null;
+        AIParameterTable.AIParameterData parameterData = null;
+        var id = entity?.AiId!= null ? entity.AiId : 0; 
         if (entity?.AiId != null && ConfigManager.HasInstance())
-            aiCfg = ConfigManager.Instance.Tables?.DataAI?.GetOrDefault(entity.AiId.Value);
-        var pattern = aiCfg?.AiPattern ?? AiPattern.Default;
-        _aiStrategy = AiStrategyRegistry.Create(pattern);
-        _aiStrategy.Initialize(this, m_BlackBoard);
+            parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(entity.AiId.Value);
+        var pattern = parameterData?.Pattern ?? AIPattern.Default;
+        _iaiStrategy = AiStrategyFactory.Create(pattern);
+        _iaiStrategy.Initialize(this, m_BlackBoard);
     }
 
     public override void OnUpdate()
@@ -206,22 +207,22 @@ public class AIEntity : Entity
 
     private async UniTask OnTurnAction(TurnActor.TurnActionEvent arg)
     {
-        t_AI aiCfg = null;
+        AIParameterTable.AIParameterData parameterData = null;
         if (ConfigManager.HasInstance())
         {
             var ec = m_AgentStats.EntityConfig;
             if (ec?.AiId != null)
-                aiCfg = ConfigManager.Instance.Tables?.DataAI?.GetOrDefault(ec.AiId.Value);
+                parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(ec.AiId.Value);
         }
 
-        if (_aiStrategy == null)
+        if (_iaiStrategy == null)
             RebuildAiStrategy(m_AgentStats != null ? m_AgentStats.EntityConfig : null);
 
-        await _aiStrategy.ExecuteTurn(new AiContext
+        await _iaiStrategy.ExecuteTurn(new AiContext
         {
             Owner = this,
             Board = m_BlackBoard,
-            AiConfig = aiCfg
+            Parameter = parameterData.Parameter
         });
         
         m_TurnActor.FinishTurn();

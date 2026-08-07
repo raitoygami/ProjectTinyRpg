@@ -26,11 +26,10 @@ public partial class ConfigManager : Singleton<ConfigManager>
         "data_entities",
         "data_item",
         "data_equip",
-        "data_ai",
         "data_ability",
         "data_levelup"
     };
-    
+  
     public async UniTask<Dictionary<string, ByteBuf>> LoadConfigByteBufFromAddressableAsync()
     {
         var map = new Dictionary<string, ByteBuf>(ByteFileNames.Length);
@@ -54,8 +53,5 @@ public partial class ConfigManager : Singleton<ConfigManager>
 
         return map;
     }
-    
-    // 加载scriptableobject
-    
     
 }

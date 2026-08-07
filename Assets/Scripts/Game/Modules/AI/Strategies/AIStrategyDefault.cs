@@ -18,8 +18,8 @@ using UnityEngine.Rendering;
 ///         )
 ///     </para>
 /// </summary>
-[AiStrategy(AiPattern.Default)]
-public sealed class DefaultAiStrategy : IAiStrategy
+[AIStrategy(AIPattern.Default)]
+public sealed class AIStrategyDefault : IAIStrategy
 {
     private AIEntity _owner;
     private Blackboard _board;
@@ -52,11 +52,10 @@ public sealed class DefaultAiStrategy : IAiStrategy
         if (!EntityManager.HasInstance())
             return;
         
-        var cfg = ctx.AiConfig;
+        var parameter = ctx.Parameter as AIParameterDefault;
 
-        var baseParams = cfg?.AiParamsBase;
-        var vision = baseParams?.VisionRange ?? 5;
-        var threatTime = baseParams?.ThreatTime ?? 0;
+        var vision = parameter?.VisionRange ?? 5;
+        var threatTime = parameter?.ThreatTime ?? 0;
  
         _treeContext ??= new DefaultEnemyAiTreeContext(this, vision, threatTime, 0);
 
@@ -70,7 +69,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
     {
         private Player.EnterCombatEvt OnEnterCombatEvt;
         
-        public DefaultEnemyAiTreeContext(DefaultAiStrategy strategy, int vision, int threatTime,
+        public DefaultEnemyAiTreeContext(AIStrategyDefault strategy, int vision, int threatTime,
             int chaseTired)
         {
             _s = strategy;
@@ -80,7 +79,7 @@ public sealed class DefaultAiStrategy : IAiStrategy
             OnEnterCombatEvt = new Player.EnterCombatEvt();
         }
 
-        private readonly DefaultAiStrategy _s;
+        private readonly AIStrategyDefault _s;
         public int Vision { get; }
         public int ThreatTime { get; }
         public int ChaseTired { get; }

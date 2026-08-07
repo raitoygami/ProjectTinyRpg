@@ -37,10 +37,6 @@ public partial class Tables
     /// 等级表
     /// </summary>
     public Data_LevelUp DataLevelUp {get; }
-    /// <summary>
-    /// AI表
-    /// </summary>
-    public Data_AI DataAI {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
     {
@@ -50,7 +46,6 @@ public partial class Tables
         DataEquip = new Data_Equip(loader("data_equip"));
         DataItem = new Data_Item(loader("data_item"));
         DataLevelUp = new Data_LevelUp(loader("data_levelup"));
-        DataAI = new Data_AI(loader("data_ai"));
         ResolveRef();
     }
     
@@ -62,7 +57,6 @@ public partial class Tables
         DataEquip.ResolveRef(this);
         DataItem.ResolveRef(this);
         DataLevelUp.ResolveRef(this);
-        DataAI.ResolveRef(this);
     }
 }
 

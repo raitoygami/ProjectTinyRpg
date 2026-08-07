@@ -5,7 +5,7 @@ public struct AiContext
 {
     public AIEntity Owner;
     public Blackboard Board;
-    public t_AI AiConfig;
+    public AIParameter Parameter;
 }
 
 /// <summary>敌人 AI 行为阶段（与配置表策略配合，运行时状态）。</summary>

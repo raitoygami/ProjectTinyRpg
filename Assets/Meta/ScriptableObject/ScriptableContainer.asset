@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b6926c1f27bbfe4a99e4acc1b95bfb3, type: 3}
+  m_Name: ScriptableContainer
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableContainer
+  CustomizationTable: {fileID: 11400000, guid: e4fe8803375765a4db32916900d3ae03, type: 2}
+  AIParameterTable: {fileID: 11400000, guid: 0202f490545e4b7408927ef3108c42fd, type: 2}

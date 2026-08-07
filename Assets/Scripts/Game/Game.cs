@@ -46,7 +46,11 @@ public class Game : Singleton<Game>
             AudioManager.Instance.Library = preload.AudioLibrary;
 
             await PreloadSettings.Instance.LoadSettings();
+
+            
             // 加载配置文件
+            await ConfigManager.Instance.LoadScriptableTables();
+            // Luban 配置
             var configJson = await ConfigManager.Instance.LoadConfigByteBufFromAddressableAsync();
             var tables = new cfg.Tables(file => configJson[file]);
             ConfigManager.Instance.Init(tables);
