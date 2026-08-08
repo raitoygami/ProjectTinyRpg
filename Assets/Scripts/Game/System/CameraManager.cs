@@ -96,7 +96,10 @@ public class CameraManager : Singleton<CameraManager>
     protected override void OnRelease()
     {
         if (_mainCamera.gameObject != null)
-            Destroy(_mainCamera.gameObject);
+        {
+            var baseCameraData = _mainCamera.GetUniversalAdditionalCameraData();
+            baseCameraData?.cameraStack.Clear();
+        }
         if (_followCam.gameObject != null)
             Destroy(_followCam.gameObject);
     }
