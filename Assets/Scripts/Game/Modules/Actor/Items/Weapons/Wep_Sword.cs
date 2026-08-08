@@ -67,6 +67,7 @@ public class Wep_Sword : Weapon
 
     public override async UniTask Attack(Vector2 direction, float duration)
     {
+        var destroyToken = this.GetCancellationTokenOnDestroy();
         var tweenFront = _WepSwordFront.DOLocalMove(_AttackPositionFront, duration)
             .SetEase(Ease.OutQuad);   // 可自行调整Ease
         var tweenFrontRot = _WepSwordFront.DOLocalRotate(_AttackRotationFront, duration)
@@ -78,15 +79,16 @@ public class Wep_Sword : Weapon
             .SetEase(Ease.OutQuad);      // 可根据需要调整Ease
         // 3. 等待两个动画同时完成
         await UniTask.WhenAll(
-            tweenFront.ToUniTask(),
-            tweenFrontRot.ToUniTask(),
-            tweenBack.ToUniTask(),
-            tweenBackRot.ToUniTask()
+            tweenFront.ToUniTask(cancellationToken: destroyToken),
+            tweenFrontRot.ToUniTask(cancellationToken: destroyToken),
+            tweenBack.ToUniTask(cancellationToken: destroyToken),
+            tweenBackRot.ToUniTask(cancellationToken: destroyToken)
         );
     }
 
     public override async UniTask Recovery(float duration)
     {
+        var destroyToken = this.GetCancellationTokenOnDestroy();
         if (duration <= 0f)
         {
             _WepSwordFront.localPosition = _ArmPositionFront;
@@ -108,10 +110,10 @@ public class Wep_Sword : Weapon
             .SetEase(Ease.OutQuad);      // 可根据需要调整Ease
         // 3. 等待两个动画同时完成
         await UniTask.WhenAll(
-            tweenFront.ToUniTask(),
-            tweenFrontRot.ToUniTask(),
-            tweenBack.ToUniTask(),
-            tweenBackRot.ToUniTask()
+            tweenFront.ToUniTask(cancellationToken: destroyToken),
+            tweenFrontRot.ToUniTask(cancellationToken: destroyToken),
+            tweenBack.ToUniTask(cancellationToken: destroyToken),
+            tweenBackRot.ToUniTask(cancellationToken: destroyToken)
         );
     }
     

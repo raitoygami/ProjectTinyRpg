@@ -16,18 +16,17 @@ public class E_Backup : AbilityEffect
         var origin = m_Context.Owner.GridPosition;
         var target = m_Context.Target.GridPosition;
         
-        var direction = (target - origin).normalized;
+        var direction = (origin - target);
         
         var pushPosition = origin;
-        for (var i = 1; i <= Distance; i++)
-        {
-            var t = pushPosition - direction;
-            var gridNode = t.Round();
-            var cell = PathFinder.Instance.GetCell(gridNode.x, gridNode.y);
 
-            if (cell == null || !PathFinder.IsWalkableCell(cell, m_Context.Owner))
+        var line = origin.Line(direction, Distance);
+
+        foreach (var t in line)
+        {
+            var cell = PathFinder.Instance.GetCell(t.x, t.y);
+            if (cell == null || !PathFinder.IsWalkableCell(cell, m_Context.Target))
                 break;
-            
             pushPosition = t;
         }
         

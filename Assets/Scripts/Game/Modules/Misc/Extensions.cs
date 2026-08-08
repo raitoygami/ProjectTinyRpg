@@ -270,8 +270,16 @@ internal static class WorldExtensions
         return cells;
     }
 
+    public static List<Vector3Int> Line(this Vector3 start, Vector3 direction, int range)
+    {
+        var startInt = new Vector3Int((int)start.x, (int)start.y, (int)start.z);
+        var directionInt = new Vector3Int((int)direction.x, (int)direction.y, (int)direction.z);
+        return startInt.Line(directionInt, range);
+    }
+    
     public static List<Vector3Int> Line(this Vector3 start, Vector3Int direction, int range)
     {
+        
         return new Vector3Int((int)start.x, (int)start.y, (int)start.z).Line(direction, range);
     }
     public static List<Vector3Int> Line(this Vector3Int start, Vector3Int direction, int range)

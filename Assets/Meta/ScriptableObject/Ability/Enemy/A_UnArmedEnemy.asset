@@ -28,6 +28,7 @@ MonoBehaviour:
   Target: 2
   Children:
   - {fileID: -2861498743273247631}
+  - {fileID: 9107950790368301982}
   guid: 838d6a92760adb74d916462e5ef6a36c
   localtion: {x: 0, y: 213}
   damageType: 0
@@ -129,7 +130,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   WeaponTypeRequire: 0
   _prepareTurn: 1
-  Range: 1
+  Range: 2
   m_SkillDisplayParam:
     rid: -2
   m_TargetMode: 2
@@ -142,6 +143,7 @@ MonoBehaviour:
   - {fileID: -7798447792669611025}
   - {fileID: -2861498743273247631}
   - {fileID: -4982001684553412340}
+  - {fileID: 9107950790368301982}
   references:
     version: 2
     RefIds:
@@ -177,6 +179,40 @@ MonoBehaviour:
   - {fileID: -4982001684553412340}
   guid: d42dee3b6bbe3c14ebbe84d20cedeaf5
   localtion: {x: NaN, y: NaN}
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &9107950790368301982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 640c5e377a014f74c9a58dccd59fc676, type: 3}
+  m_Name: E_Push
+  m_EditorClassIdentifier: Assembly-CSharp::E_Push
+  Context: {fileID: 11400000}
+  uid: 0
+  Content: 
+  Description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  DurationBased: 0
+  Target: 0
+  Children: []
+  guid: 800b6cb7b1509a648ba5a6d20f14a651
+  localtion: {x: 272, y: 309}
+  Distance: 5
+  Velocity: 2.5
   references:
     version: 2
     RefIds: []

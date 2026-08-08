@@ -73,6 +73,8 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
     
     public void AddTelegraph(Vector3Int[] worldPositions)
     {
+        if (_indicatorGrid == null)
+            return;
         foreach (var worldPos in worldPositions)
         {
             // 将世界坐标转换为格子坐标
@@ -91,6 +93,8 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
 
     public void RemoveTelegraph(Vector3Int[] worldPositions)
     {
+        if (_indicatorGrid == null)
+            return;
         foreach (var worldPos in worldPositions)
         {
             // 将世界坐标转换为格子坐标

@@ -31,6 +31,7 @@ public class Wep_CrossBow : Weapon
 
     public override async UniTask Startup(Vector2 direction, float duration)
     {
+        var destroyToken = this.GetCancellationTokenOnDestroy();
         // 1. 计算目标角度（保持原有逻辑）
         float targetAngle = Mathf.Atan2(direction.y, Mathf.Abs(direction.x)) * Mathf.Rad2Deg;
         targetAngle -= 90f;   // 默认朝 +Y 轴修正
@@ -61,16 +62,17 @@ public class Wep_CrossBow : Weapon
             .SetEase(Ease.InQuad);
 
         await UniTask.WhenAll(
-            positionTween.ToUniTask(),
-            rotationTween.ToUniTask()
+            positionTween.ToUniTask(cancellationToken: destroyToken),
+            rotationTween.ToUniTask(cancellationToken: destroyToken)
         );
 
-        await UniTask.Delay(200);
+        await UniTask.Delay(200, cancellationToken: destroyToken);
 
     }
 
     public override async UniTask Attack(Vector2 direction, float duration)
     {
+        var destroyToken = this.GetCancellationTokenOnDestroy();
         if (duration <= 0f)
         {
             // 瞬发情况，直接旋转30度
@@ -88,14 +90,15 @@ public class Wep_CrossBow : Weapon
 
         await _CrossBow.DOLocalRotateQuaternion(targetRotation, duration)
             .SetEase(Ease.OutQuad)           // 可根据需要调整Ease
-            .ToUniTask();
+            .ToUniTask(cancellationToken: destroyToken);
         
-        await UniTask.Delay(200);
+        await UniTask.Delay(200, cancellationToken: destroyToken);
         
     }
 
     public override async UniTask Recovery(float duration)
     {
+        var destroyToken = this.GetCancellationTokenOnDestroy();
         if (duration <= 0f)
         {
             // 瞬发直接还原
@@ -114,8 +117,8 @@ public class Wep_CrossBow : Weapon
             .SetEase(Ease.OutQuad);
 
         await UniTask.WhenAll(
-            positionTween.ToUniTask(),
-            rotationTween.ToUniTask()
+            positionTween.ToUniTask(cancellationToken: destroyToken),
+            rotationTween.ToUniTask(cancellationToken: destroyToken)
         );
         
         // 同时还原位置和旋转
@@ -126,8 +129,8 @@ public class Wep_CrossBow : Weapon
             .SetEase(Ease.InQuad);
 
         await UniTask.WhenAll(
-            t1.ToUniTask(),
-            t2.ToUniTask()
+            t1.ToUniTask(cancellationToken: destroyToken),
+            t2.ToUniTask(cancellationToken: destroyToken)
         );
         
     }
