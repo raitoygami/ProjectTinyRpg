@@ -22,7 +22,7 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
     private Tile _tileAbilityTelegraph;
     
     private readonly Dictionary<Vector3Int, int> _telegraphRefCount = new();
-    
+   
     public void Setup(NavigationSettings t_Settings)
     {
         _root = new GameObject("Root").transform;
@@ -70,7 +70,9 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
 
         return tilemap;
     }
-    
+
+    private const int _maxTelegraphCount = 5; // 达到此数量时为灰色
+
     public void AddTelegraph(Vector3Int[] worldPositions)
     {
         if (_indicatorGrid == null)
@@ -88,6 +90,15 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
             {
                 _tilemapTelegraph.SetTile(cell, _tileAbilityTelegraph);
             }
+            
+            // 计算插值因子 t：0 → 白色，1 → 灰色
+            var t = Mathf.Clamp01((_telegraphRefCount[cell] - 1) / (float)_maxTelegraphCount);
+            // 从白色渐变到中性灰 (0.5, 0.5, 0.5)，可改为 Color.gray
+            var color = Color.Lerp(Color.white, Color.black, t);
+            // 可选：让透明度也随数量稍微降低（不强制）
+            // color.a = 1f - t * 0.3f; 
+            _tilemapTelegraph.SetColor(cell, color);
+            
         }
     }
 
@@ -107,6 +118,15 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
             }
 
             _telegraphRefCount[cell]--;
+            
+            // 计算插值因子 t：0 → 白色，1 → 灰色
+            var t = Mathf.Clamp01((_telegraphRefCount[cell] - 1) / (float)_maxTelegraphCount);
+            // 从白色渐变到中性灰 (0.5, 0.5, 0.5)，可改为 Color.gray
+            var color = Color.Lerp(Color.white, Color.black, t);
+            // 可选：让透明度也随数量稍微降低（不强制）
+            // color.a = 1f - t * 0.3f; 
+            _tilemapTelegraph.SetColor(cell, color);
+            
             // 计数归零时清除 Tile
             if (_telegraphRefCount[cell] > 0) continue;
             
@@ -114,9 +134,14 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
             _telegraphRefCount.Remove(cell); // 释放内存
         }
     }
+
+    public void ClearAll()
+    {
+        ClearAllTelegraphs();
+    }
     
     // 可选：紧急清理所有预警（比如战斗结束）
-    public void ClearAllTelegraphs()
+    private void ClearAllTelegraphs()
     {
         _tilemapTelegraph.ClearAllTiles();
         _telegraphRefCount.Clear();

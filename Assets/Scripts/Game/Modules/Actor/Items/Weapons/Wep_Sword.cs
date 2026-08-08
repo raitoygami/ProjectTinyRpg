@@ -48,6 +48,7 @@ public class Wep_Sword : Weapon
 
     public override async UniTask Startup(Vector2 direction, float duration)
     {
+        var destroyToken = this.GetCancellationTokenOnDestroy();
         var t1 = _WepSwordFront.DOLocalMove(_StartupPositionFront, duration)
             .SetEase(Ease.InQuad);   // 可自行调整Ease
         var t2 = _WepSwordFront.DOLocalRotate(_StartupRotationFront, duration);
@@ -58,10 +59,10 @@ public class Wep_Sword : Weapon
         
         // 3. 等待两个动画同时完成
         await UniTask.WhenAll(
-            t1.ToUniTask(),
-            t2.ToUniTask(),
-            t3.ToUniTask(),
-            t4.ToUniTask()
+            t1.ToUniTask(cancellationToken: destroyToken),
+            t2.ToUniTask(cancellationToken: destroyToken),
+            t3.ToUniTask(cancellationToken: destroyToken),
+            t4.ToUniTask(cancellationToken: destroyToken)
         );
     }
 

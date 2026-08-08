@@ -28,6 +28,7 @@ public class SettingsPanel : PanelBase
         await UIRoot.Instance.CloseAllAsync();
         MapLoader.Instance.ClearScene();
         
+        GridIndicatorManager.Instance.ClearAll();
         await Addressables.LoadSceneAsync("Scene/Menu").ToUniTask();
         UIRoot.Instance.CloseMainUI();
         await UIRoot.Instance.OpenStartMenu();

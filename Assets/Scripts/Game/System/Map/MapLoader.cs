@@ -78,7 +78,7 @@ public class MapLoader : Singleton<MapLoader>
         }
         
         // 新加载的地图 清理掉所有敌方预警
-        GridIndicatorManager.Instance.ClearAllTelegraphs();
+        GridIndicatorManager.Instance.ClearAll();
         
         // CreatePlayer expects grid-container, not world position — convert first
         var entityID = PlayerManager.Instance.GetEntityID();

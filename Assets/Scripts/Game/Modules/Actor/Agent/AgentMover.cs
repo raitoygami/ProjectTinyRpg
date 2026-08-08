@@ -33,14 +33,11 @@ public class AgentMover : MonoBehaviour
     private readonly MoveFinishEvent _MoveFinishEvent = new();
     private bool _IsMoving;
     private bool _MovePending;
-    private CancellationTokenSource _MoveCancellation;
     private Vector3 _pendingParallelMoveWorldPosition;
 
     private void Awake()
     {
         _IsMoving = false;
-        _MoveCancellation = new CancellationTokenSource();
-        //this.SubscribeGlobal<Game.SceneChangeEvt>(OnSceneChange);
     }
 
     /*private UniTask OnSceneChange(Game.SceneChangeEvt arg)
@@ -61,10 +58,11 @@ public class AgentMover : MonoBehaviour
     public async UniTask<bool> Move(Vector3 gridPosition, bool forced = false, float velocityMulti = 1.0f,
         Ease moveEase = Ease.Linear)
     {
+        var destroyToken = this.GetCancellationTokenOnDestroy();
         if (_IsMoving)
             try
             {
-                await UniTask.WaitUntil(() => !_IsMoving, cancellationToken: _MoveCancellation.Token);
+                await UniTask.WaitUntil(() => !_IsMoving, cancellationToken: destroyToken);
             }
             catch (Exception)
             {
@@ -87,7 +85,7 @@ public class AgentMover : MonoBehaviour
         try
         {
             await transform.DOMove(worldPosition, duration).SetEase(moveEase).SetTarget(gameObject)
-                .ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, _MoveCancellation.Token);
+                .ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, destroyToken);
 
             _IsMoving = false;
             _MoveFinishEvent.CurrPosition = worldPosition;
@@ -197,7 +195,5 @@ public class AgentMover : MonoBehaviour
     private void OnDestroy()
     {
         DOTween.Kill(transform);
-        _MoveCancellation.Cancel();
-        _MoveCancellation.Dispose();
     }
 }
