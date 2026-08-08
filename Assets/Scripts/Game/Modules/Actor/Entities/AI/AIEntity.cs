@@ -296,5 +296,6 @@ public class AIEntity : Entity
         EntityManager.UnRegister(this);
         _blackBoard?.Clear();
         _blackBoard = null;
+        transform.DOKill();
     }
 }

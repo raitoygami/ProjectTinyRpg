@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using DG.Tweening;
 
 // wasd move
 // left interact
@@ -387,7 +388,8 @@ public partial class Player : Entity
         {
             PlayerManager.Instance.OnEquipmentChanged -= OnEquipmentChanged;
         }
-        
+
+        transform.DOKill();
         EntityManager.UnRegister(this);
     }
 

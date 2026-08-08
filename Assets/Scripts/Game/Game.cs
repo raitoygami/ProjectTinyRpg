@@ -17,9 +17,12 @@ public class Game : Singleton<Game>
         try
         {
             Physics.simulationMode = SimulationMode.Update;
-            DOTween.logBehaviour = LogBehaviour.Default;
-            DontDestroyOnLoad(gameObject);
-
+#if UNITY_EDITOR
+            DOTween.Init(true, false, LogBehaviour.Default);
+#else
+            DOTween.Init(true, true, LogBehaviour.Default);
+#endif
+            DontDestroyOnLoad(gameObject);            
             var preloadHandle = Addressables.LoadAssetAsync<GamePreload>("Settings/GamePreload");
             await preloadHandle;
             if (preloadHandle.Status != AsyncOperationStatus.Succeeded || preloadHandle.Result == null)
