@@ -22,7 +22,7 @@ public class E_Push : AbilityEffect
         {
             var t = pushPosition + direction;
             var gridNode = t.Round();
-            var cell = PathFinder.Instance.GetNode(gridNode.x, gridNode.y);
+            var cell = PathFinder.Instance.GetCell(gridNode.x, gridNode.y);
 
             if (cell == null || !PathFinder.IsWalkableCell(cell, m_Context.Target))
                 break;

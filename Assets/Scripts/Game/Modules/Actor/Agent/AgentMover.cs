@@ -1,9 +1,9 @@
 using System;
-using DG.Tweening;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using UnityEngine;
 
 public class AgentMover : MonoBehaviour
 {
@@ -27,7 +27,7 @@ public class AgentMover : MonoBehaviour
         public Vector3 LastPosition;
         public Vector3 CurrPosition;
     }
-    
+
     private readonly MoveStartEvent _MoveStartEvent = new();
     private readonly MoveForcedFinishEvent _MoveForcedFinishEvent = new();
     private readonly MoveFinishEvent _MoveFinishEvent = new();
@@ -50,7 +50,6 @@ public class AgentMover : MonoBehaviour
     }*/
 
 
-
     public void SetPosition(Vector3 gridPosition)
     {
         PathFinder.Instance.UpdateCell((int)gridPosition.x
@@ -59,10 +58,10 @@ public class AgentMover : MonoBehaviour
         transform.position = gridPosition.GridToWorld();
     }
 
-    public async UniTask<bool> Move(Vector3 gridPosition, bool forced = false, float velocityMulti = 1.0f, Ease moveEase = Ease.Linear)
+    public async UniTask<bool> Move(Vector3 gridPosition, bool forced = false, float velocityMulti = 1.0f,
+        Ease moveEase = Ease.Linear)
     {
         if (_IsMoving)
-        {
             try
             {
                 await UniTask.WaitUntil(() => !_IsMoving, cancellationToken: _MoveCancellation.Token);
@@ -71,7 +70,6 @@ public class AgentMover : MonoBehaviour
             {
                 return true;
             }
-        }
 
         _IsMoving = true;
 
@@ -100,7 +98,7 @@ public class AgentMover : MonoBehaviour
             Debug.Log("cancel.");
             return true;
         }
-        
+
         if (forced)
             return await this.Publish(_MoveForcedFinishEvent);
         return await this.Publish(_MoveFinishEvent);
@@ -130,15 +128,15 @@ public class AgentMover : MonoBehaviour
             var checkX = anchorX + ox;
             var checkZ = anchorZ + oz;
 
-            var cell = PathFinder.Instance.GetNode(checkX, checkZ);
-           
+            var cell = PathFinder.Instance.GetCell(checkX, checkZ);
+
             if (cell == null)
                 return false;
-    
+
             // 空地可以停留
             if (cell.Logical == null)
                 continue;
-            
+
             // 自身不阻挡自身
             if (ReferenceEquals(cell.Logical, mover))
                 continue;
@@ -150,33 +148,33 @@ public class AgentMover : MonoBehaviour
         return true;
     }
 
-    
+
     public bool Moveable(Vector3 gridPosition)
     {
         var entity = GetComponent<Entity>();
-        var tx = (int) gridPosition.x;
-        var ty = (int) gridPosition.y;
-        var cell = PathFinder.Instance.GetNode(tx, ty);
+        var tx = (int)gridPosition.x;
+        var ty = (int)gridPosition.y;
+        var cell = PathFinder.Instance.GetCell(tx, ty);
         if (!PathFinder.IsWalkableCell(cell, entity, tx, ty))
             return false;
 
         var source = transform.position.SnapToGrid();
-        var navi = PathFinder.Instance.Navigate(entity, (int) source.x, (int) source.y, tx, ty);
+        var navi = PathFinder.Instance.Navigate(entity, (int)source.x, (int)source.y, tx, ty);
 
-        return navi is {Count: 1};
+        return navi is { Count: 1 };
     }
-    
+
     public List<PathNode> FindPath(Vector3 destination, int range = -1)
     {
         if (!PathFinder.HasInstance())
             return null;
-        int sx = (int)GetComponent<Entity>().GridPosition.x;
-        int sy = (int)GetComponent<Entity>().GridPosition.y;
-        int dx = (int)destination.x;
-        int dy = (int)destination.y;
+        var sx = (int)GetComponent<Entity>().GridPosition.x;
+        var sy = (int)GetComponent<Entity>().GridPosition.y;
+        var dx = (int)destination.x;
+        var dy = (int)destination.y;
         try
         {
-            var pathBuffer = new List<PathNode>(); 
+            var pathBuffer = new List<PathNode>();
             var nav = PathFinder.Instance.Navigate(GetComponent<Entity>(), sx, sy, dx, dy, range);
             if (nav == null)
                 return null;
@@ -193,12 +191,12 @@ public class AgentMover : MonoBehaviour
 
     private void OnDisable()
     {
-        DOTween.Kill(transform, false);
+        DOTween.Kill(transform);
     }
 
     private void OnDestroy()
     {
-        DOTween.Kill(transform, false);
+        DOTween.Kill(transform);
         _MoveCancellation.Cancel();
         _MoveCancellation.Dispose();
     }

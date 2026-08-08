@@ -210,7 +210,9 @@ public class AgentAnimations : MonoBehaviour
     {
         const float knockbackRatio = 0.5f;
 
-        var originalPosition = m_AvatarTarget.localPosition;
+        var originalPosition = Vector3.zero;
+        
+        //var originalPosition = m_AvatarTarget.localPosition;
         var knockDir = hitDirection.normalized;
 
 
@@ -237,8 +239,6 @@ public class AgentAnimations : MonoBehaviour
             .SetEase(Ease.OutBounce).ToUniTask();
 
         await m_AvatarTarget.DOShakePosition(0.22f * t_Duration, 0.08f, 12).ToUniTask();
-
-        await UniTask.Delay(200);
     }
 
     private Tween currentTween;

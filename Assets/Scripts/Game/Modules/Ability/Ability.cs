@@ -198,7 +198,7 @@ public partial class Ability : ScriptableObject
         return _SelectionTask.Task;
     }
 
-    public async UniTask<bool> ExecuteMiss(Vector3 position)
+    public async UniTask<bool> ExecuteMiss(Vector3 position, Entity target)
     {
         _SelectionRange = null;
         _state = State.Execution;
@@ -214,7 +214,7 @@ public partial class Ability : ScriptableObject
         var context = new AbilityContext
         {
             Owner = _owner,
-            Target = null,
+            Target = target,
             Ability = this,
             Position = position,
             Cancel = OnContextCancel,

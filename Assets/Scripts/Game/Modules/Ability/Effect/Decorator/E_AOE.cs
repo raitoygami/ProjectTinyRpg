@@ -87,7 +87,7 @@ public class E_AOE : AbilityEffect
             {
                 if (requireEmptyGround)
                 {
-                    var cellNode = PathFinder.Instance.GetNode(grid.x, grid.z);
+                    var cellNode = PathFinder.Instance.GetCell(grid.x, grid.z);
                     if (cellNode?.Logical != null)
                         return UniTask.CompletedTask;
                 }
@@ -131,7 +131,7 @@ public class E_AOE : AbilityEffect
     /// <summary>格上单位作为 Target；受 includeOwner / excludeNeutral / 阵营筛选，不通过则为 null（子效果仍对格子执行）。</summary>
     private Entity ResolveTargetOnCell(Entity owner, Vector3 grid)
     {
-        var node = PathFinder.Instance.GetNode(grid.x, grid.z);
+        var node = PathFinder.Instance.GetCell(grid.x, grid.z);
         var entity = node?.Logical as Entity;
         if (entity == null) return null;
         if (!includeOwner && entity == owner) return null;

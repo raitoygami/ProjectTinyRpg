@@ -244,6 +244,9 @@ public class AIEntity : Entity
             _runtimeStat.Location = arg.CurrPosition;
             _runtimeStat.Direction = m_AgentAnimations.GetDirection();
         }
+        // 被迫移动结束后要重新计算技能预览
+        var hasPrepared = _blackBoard.HasPrepared();
+        var ability = _blackBoard.GetAbilitySelected();
         return UniTask.CompletedTask;
     }
     

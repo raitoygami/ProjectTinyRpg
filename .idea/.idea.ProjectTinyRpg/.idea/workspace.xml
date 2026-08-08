@@ -29,9 +29,14 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/GamePreload.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/AiContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/AiStrategyFactory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/BehaviorTree.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/Blackboard.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/IAIStrategy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/IAiStrategy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/Strategies/AIParameterSummon.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/Strategies/AIStrategyDefault.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/Strategies/AIStrategySummon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Ability.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/AbilityContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/AbilityEffect.cs" root0="FORCE_HIGHLIGHTING" />
@@ -80,6 +85,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Stats/StatModifierType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Stats/StatValue.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/TurnActor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Battle/CombatManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Battle/CombatMusic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Input/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Input/InputMapping.cs" root0="FORCE_HIGHLIGHTING" />
@@ -116,6 +122,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Selection/TileSelector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/CameraManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigScriptable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ScriptableObject/CustomizationTable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Context.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/DragManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -262,7 +269,9 @@
       <workItem from="1785899403806" duration="26139000" />
       <workItem from="1785983962666" duration="21271000" />
       <workItem from="1786076255894" duration="8057000" />
-      <workItem from="1786092715731" duration="13792000" />
+      <workItem from="1786092715731" duration="13867000" />
+      <workItem from="1786107320486" duration="75000" />
+      <workItem from="1786157536010" duration="8417000" />
     </task>
     <servers />
   </component>

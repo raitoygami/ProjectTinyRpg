@@ -14,7 +14,7 @@ public class AgentInteractive : MonoBehaviour
     
     public bool Interactable(PathNode t_Target)
     {
-        var cell = PathFinder.Instance.GetNode(t_Target.X, t_Target.Y);
+        var cell = PathFinder.Instance.GetCell(t_Target.X, t_Target.Y);
 
         if (cell?.Logical == null) return false;
         
@@ -27,7 +27,7 @@ public class AgentInteractive : MonoBehaviour
 
     public async UniTask Interact(PathNode t_Target)
     {
-        var cell = PathFinder.Instance.GetNode(t_Target.X, t_Target.Y);
+        var cell = PathFinder.Instance.GetCell(t_Target.X, t_Target.Y);
 
         if (cell?.Logical == null) return;
         

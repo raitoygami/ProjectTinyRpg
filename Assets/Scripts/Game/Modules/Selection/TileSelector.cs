@@ -108,7 +108,7 @@ public class TileSelector : Singleton<TileSelector>
         {
             var x = Mathf.RoundToInt(g.x);
             var z = Mathf.RoundToInt(g.z);
-            var target = PathFinder.Instance.GetNode(x, z);
+            var target = PathFinder.Instance.GetCell(x, z);
             if (param is SelectPointParam pointParam)
             {
                 if (pointParam.requireMoveableInLayer)
@@ -188,7 +188,7 @@ public class TileSelector : Singleton<TileSelector>
         {
             for (var y = yMin; y <= yMax; y++)
             {
-                var target = PathFinder.Instance.GetNode(x, y);
+                var target = PathFinder.Instance.GetCell(x, y);
                 if (!IsMoveableForMask(target, owner))
                     continue;
 

@@ -20,7 +20,7 @@ public class E_Teleport : AbilityEffect
 
         var dest = m_Context.Position;
 
-        var node = PathFinder.Instance.GetNode((int)dest.x, (int)dest.y);
+        var node = PathFinder.Instance.GetCell((int)dest.x, (int)dest.y);
         if (node == null || !PathFinder.IsWalkableCell(node, m_Context.Owner))
         {
             m_Context.Cancel();

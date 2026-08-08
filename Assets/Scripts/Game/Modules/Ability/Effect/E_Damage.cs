@@ -8,7 +8,6 @@ public class E_Damage : AbilityEffect
     
     protected override async UniTask OnApply()
     {
-//        Debug.Log("Damage.");
         // 延迟结算或连段中目标/施法者可能已 Destroy，须先按 Unity 假 null 判断再 GetComponent。
         if (!m_Context.Owner || !m_Context.Target)
             return;

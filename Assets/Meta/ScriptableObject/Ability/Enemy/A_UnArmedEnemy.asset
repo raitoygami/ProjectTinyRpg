@@ -64,7 +64,7 @@ MonoBehaviour:
   Children:
   - {fileID: -7798447792669611025}
   guid: d0cc34c5c8d95b14ea62d8726774c5a0
-  localtion: {x: 0, y: 119}
+  localtion: {x: 0, y: 103}
   Duration: 0.2
   Sounds: 4
   references:

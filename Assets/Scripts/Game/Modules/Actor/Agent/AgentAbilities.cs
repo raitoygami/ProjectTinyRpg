@@ -96,7 +96,7 @@ public class AgentAbilities : MonoBehaviour
 
     public bool GetTargets(Vector3 t_GridPosition, Ability t_Ability, ref List<Entity> t_Targets)
     {
-        var cell = PathFinder.Instance.GetNode(t_GridPosition.x, t_GridPosition.y);
+        var cell = PathFinder.Instance.GetCell(t_GridPosition.x, t_GridPosition.y);
         var targetEntity = cell?.Logical as Entity;
         if (targetEntity == null)
             return false;
@@ -154,7 +154,7 @@ public class AgentAbilities : MonoBehaviour
                 var checkX = anchorX + ox;
                 var checkZ = anchorZ + oz;
 
-                var cell = PathFinder.Instance.GetNode(checkX, checkZ);
+                var cell = PathFinder.Instance.GetCell(checkX, checkZ);
                 if (cell?.Logical == null)
                     continue;
 
@@ -188,7 +188,7 @@ public class AgentAbilities : MonoBehaviour
         if (myNode == null) return false;
 
         // 获取目标位置的 IPathNode（支持多尺寸）
-        var targetCell = PathFinder.Instance.GetNode(t_TargetLocation.X, t_TargetLocation.Y);
+        var targetCell = PathFinder.Instance.GetCell(t_TargetLocation.X, t_TargetLocation.Y);
         var targetNode = targetCell?.Logical;
 
         var targetSizeX = 1;

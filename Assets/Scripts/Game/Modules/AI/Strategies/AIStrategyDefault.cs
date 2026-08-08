@@ -184,7 +184,7 @@ public sealed class AIStrategyDefault : IAIStrategy
                 var block = false;
                 for (var i = 1; i < line.Count; i++)
                 {
-                    var node = PathFinder.Instance.GetNode(line[i].x, line[i].y);
+                    var node = PathFinder.Instance.GetCell(line[i].x, line[i].y);
                     if (node?.Logical == null) continue;
 
                     if (node.Logical.BlockVision() || (Const.Layer.ObstacleOnly.value & node.Logical.Layer.value) != 0)

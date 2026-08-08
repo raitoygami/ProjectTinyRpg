@@ -148,12 +148,11 @@ public partial class AgentStats : MonoBehaviour
             HpChanged = hpChanged,
             HpLost = _HealthLost,
         });
-        await this.Publish(new TakeDamageEvent { Damage = result.FinalDamage, HpMax = MaxHealth , Direction = result.Direction});
+        this.Publish(new TakeDamageEvent { Damage = result.FinalDamage, HpMax = MaxHealth , Direction = result.Direction}).Forget();
         if (HealthCurrent <= 0)
         {
-            await UniTask.Delay(250);
             var evt = new DefeatedEvent { DefeatedStats = this, LastDamage = result };
-            await this.Publish(evt);
+            this.Publish(evt).Forget();
         }
         
 

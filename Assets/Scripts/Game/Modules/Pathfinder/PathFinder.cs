@@ -49,17 +49,17 @@ public class PathFinder : Singleton<PathFinder>
 
     // ── GetNode ─────────────────────────────────────────────────────────
 
-    public PathCell GetNode(int x, int y)
+    public PathCell GetCell(int x, int y)
     {
         return Cell.Get(x, y);
     }
 
-    public PathCell GetNode(Vector2Int pos)
+    public PathCell GetCell(Vector2Int pos)
     {
         return Cell.Get(pos);
     }
 
-    public PathCell GetNode(float x, float z)
+    public PathCell GetCell(float x, float z)
     {
         return Cell.Get((int)x, (int)z);
     }

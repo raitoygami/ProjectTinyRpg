@@ -46,11 +46,22 @@ public class Blackboard
 
     private int _prepareRemined;
     private bool _hasPrepared;
-    private Vector3 _targetPosition;
+    private Vector3 _targetOffset;
     public bool IsPreparing()
     {
         return _prepareRemined > 0;
     }
+
+    public bool HasPrepared()
+    {
+        return _hasPrepared;
+    }
+    
+    public Ability GetAbilitySelected()
+    {
+        return _abilitySelect;
+    }
+    
     public bool SelectAbility()
     {
         if (_abilitySelect != null)
@@ -89,8 +100,7 @@ public class Blackboard
         
         _prepareRemined = 0;
         _hasPrepared = true;
-        _targetPosition = _target.GridPosition;
-        
+        _targetOffset = _target.GridPosition - _owner.GridPosition;
         return await Prepare(_abilitySelect);
 
     }
@@ -98,8 +108,8 @@ public class Blackboard
     private async UniTask<bool> Prepare(Ability t_Ability)
     {
         Debug.Log("Preparing...");
-        
-        
+        var agentAnimations = _owner.GetComponent<AgentAnimations>();
+        agentAnimations.FaceTarget(_targetOffset);
         return true;
     }
     
@@ -109,7 +119,7 @@ public class Blackboard
     {
         List<Entity> targets = null;
         var agentAbility = _owner.GetComponent<AgentAbilities>();
-        var targetPoint = _hasPrepared ? _targetPosition :_target.GridPosition;
+        var targetPoint = _hasPrepared ? _owner.GridPosition + _targetOffset : _target.GridPosition;
 
         if (_abilitySelect.IsTargeted())
         {
@@ -120,8 +130,11 @@ public class Blackboard
                 // 如果没有找到目标
                 if (_hasPrepared)
                 {
-                    await _abilitySelect.ExecuteMiss(_targetPosition);
+                    var node = PathFinder.Instance.GetCell(targetPoint.x, targetPoint.y);
+                    var entity = node?.Logical as Entity;
+                    await _abilitySelect.ExecuteMiss(targetPoint, entity);
                     _hasPrepared = false;
+                    _targetOffset = Vector3.zero;
                     _abilitySelect = null;
                     return true;
                 }
@@ -135,6 +148,7 @@ public class Blackboard
         await _abilitySelect.Execute(targets, targetPoint);
 
         _hasPrepared = false;
+        _targetOffset = Vector3.zero;
         _abilitySelect = null; 
         return true;
     }
