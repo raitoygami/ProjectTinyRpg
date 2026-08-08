@@ -35,9 +35,6 @@ public class Game : Singleton<Game>
 
             Context.Instance.Initialized();
 
-            // 初始化相机
-            CameraManager.Instance.Initialized();
-            CameraManager.Instance.Setup(preload.mainCameraPrefab, preload.followCameraPrefab);
 
             // 初始化输入系统
             InputManager.Instance.Initialized();
@@ -49,7 +46,6 @@ public class Game : Singleton<Game>
             AudioManager.Instance.Library = preload.AudioLibrary;
 
             await PreloadSettings.Instance.LoadSettings();
-
             
             // 加载配置文件
             await ConfigManager.Instance.LoadScriptableTables();
@@ -64,6 +60,10 @@ public class Game : Singleton<Game>
             EntityManager.Instance.SetEnemyPrefab(preload.EnemyTemplate);
             // 初始化UI
             Instantiate(preload.uiRoot);
+            
+            // 初始化相机
+            CameraManager.Instance.Initialized();
+            CameraManager.Instance.Setup(preload.mainCameraPrefab, preload.followCameraPrefab);
             CameraManager.Instance.SetOverlayCamera(UIRoot.Instance.GetUICamera());
             UIRoot.Instance.CloseMainUI();
             
