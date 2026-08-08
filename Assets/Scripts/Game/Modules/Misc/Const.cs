@@ -25,5 +25,10 @@ public static class Const
         public const string Equipment = "Equipment";
         public const string Item =  "Item";
     }
+
+    public static class ShaderPropertyKey
+    {
+        public const string DissolveClip = "_DissolveClip";
+    }
     
 }

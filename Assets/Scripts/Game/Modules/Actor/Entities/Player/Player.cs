@@ -223,17 +223,16 @@ public partial class Player : Entity
 
     private Vector2 m_InputDirection = Vector2.zero;
 
-    private UniTask OnDefeated(AgentStats.DefeatedEvent evt)
+    private async UniTask OnDefeated(AgentStats.DefeatedEvent evt)
     {
         TurnManager.UnRegister(m_TurnActor);
         TurnManager.Instance.StopLoop();
         GridIndicatorManager.Instance.ClearPath();
         PathFinder.Instance.ClearLogical(this);
-        
+        await m_AgentAnimations.Death();
         Destroy(gameObject);
-
         // 玩家被击败时的处理（如结算、复活、UI 等）
-        return UniTask.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
     private async UniTask OnWASDEvt(InputManager.WASDEvt arg)

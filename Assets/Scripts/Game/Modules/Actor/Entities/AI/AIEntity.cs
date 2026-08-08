@@ -84,7 +84,6 @@ public class AIEntity : Entity
     private EnemyStatData _runtimeStat;
     public async UniTask SetEntityState(EnemyStatData statData)
     {
-        
         m_AgentStats.SetHealthLost(statData.HpLost);
         m_AgentAnimations.SetDirection(statData.Direction);
         // 获取技能数据
@@ -274,7 +273,7 @@ public class AIEntity : Entity
         return UniTask.CompletedTask;
     }
     
-    private UniTask OnDefeated(AgentStats.DefeatedEvent evt)
+    private async UniTask OnDefeated(AgentStats.DefeatedEvent evt)
     {
         if (_runtimeStat != null)
         {
@@ -287,8 +286,10 @@ public class AIEntity : Entity
         PathFinder.Instance.ClearLogical(this);
         CombatManager.Instance.RemoveEnemyTarget(this);
         KillLocalTweensBeforeDestroy();
+        await m_AgentAnimations.Death();
         Destroy(gameObject);
-        return UniTask.CompletedTask;
+        
+        await UniTask.CompletedTask;
     }
 
     private void OnDestroy()

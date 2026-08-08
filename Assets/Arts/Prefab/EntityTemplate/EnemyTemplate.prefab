@@ -96,7 +96,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6907148950371711510}
-  - {fileID: 174280304765124132}
   m_Father: {fileID: 2526219409607359132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &6217700040798282247
@@ -170,7 +169,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: c3b86bd00ff5aae43adb79fe263fa0be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -267,6 +266,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 398431596023889161}
+  - {fileID: 174280304765124132}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7487731883926281181
@@ -344,7 +344,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 398431596023889161}
+  m_Father: {fileID: 2526219409607359132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5214742175001413489
 SpriteRenderer:
@@ -372,7 +372,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: c3b86bd00ff5aae43adb79fe263fa0be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

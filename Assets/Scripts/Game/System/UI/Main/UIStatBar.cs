@@ -48,7 +48,11 @@ public class UIStatBar : MonoBehaviour
         {
             _fillTweener = DOTween.To(
                 () => m_HpBar.fillAmount,
-                x => m_HpBar.fillAmount = x,
+                x =>
+                {
+                    m_HpBar.fillAmount = x;
+                    gameObject.SetActive(x > 0);
+                },
                 target,
                 m_DecreaseDurationHp
             ).SetEase(Ease.OutQuad).SetTarget(m_HpBar);
