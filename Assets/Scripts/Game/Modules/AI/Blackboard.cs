@@ -10,6 +10,7 @@ public class Blackboard
 
     private Entity _target;
     private Ability _abilitySelect;
+    private List<Vector3Int> _telegraph;
     public Blackboard(Entity owner)
     {
         _owner = owner;
@@ -49,7 +50,7 @@ public class Blackboard
     private Vector3 _targetOffset;
     public bool IsPreparing()
     {
-        return _prepareRemined > 0;
+        return _prepareRemined > 0 && _abilitySelect != null;
     }
 
     public bool HasPrepared()
@@ -79,14 +80,18 @@ public class Blackboard
             return false;
         if (_target.transform == null)
             return false;
-        if (_target.GridPosition.Dist(_owner.GridPosition) <= wepAbility.GetRange())
-        {
-            _abilitySelect = wepAbility;
-            _prepareRemined = _abilitySelect.GetPrepareTurn();
-            return true;
-        }
         
-        return false;
+        // 这里获取的是武器技能
+        if (_target.GridPosition.Dist(_owner.GridPosition) > wepAbility.GetRange()) return false;
+        // 这里需要判断是否有 (目前实现了直线方向上的第一个目标)
+        var preview = GridIndicatorManager.Instance.Preview(_owner, _target.GridPosition, wepAbility);
+        var firstTarget = TargetSelector.GetCloseTarget(_owner, wepAbility, preview);
+        if (firstTarget == null || !EntityManager.IsEnemyFraction(firstTarget.Faction, _owner.Faction))
+            return false;
+        _abilitySelect = wepAbility;
+        _prepareRemined = _abilitySelect.GetPrepareTurn();
+        return true;
+
     }
 
     public async UniTask<bool> Prepare()
@@ -97,7 +102,8 @@ public class Blackboard
         /*if (!_abilitySelect.Available())
             return false;
             */
-        
+        _telegraph = GridIndicatorManager.Instance.Preview(_owner, targetPoint, _abilitySelect);
+        GridIndicatorManager.Instance.AddTelegraph(_telegraph.ToArray());
         _prepareRemined = 0;
         _hasPrepared = true;
         _targetOffset = _target.GridPosition - _owner.GridPosition;
@@ -107,9 +113,10 @@ public class Blackboard
 
     private async UniTask<bool> Prepare(Ability t_Ability)
     {
-        Debug.Log("Preparing...");
         var agentAnimations = _owner.GetComponent<AgentAnimations>();
         agentAnimations.FaceTarget(_targetOffset);
+        await UniTask.CompletedTask;
+        
         return true;
     }
     
@@ -128,11 +135,16 @@ public class Blackboard
                 !agentAbility.GetTargets(targetPoint, _abilitySelect, ref targets))
             {
                 // 如果没有找到目标
-                if (_hasPrepared)
+                if (_hasPrepared && _telegraph != null)
                 {
-                    var node = PathFinder.Instance.GetCell(targetPoint.x, targetPoint.y);
-                    var entity = node?.Logical as Entity;
+                    var entity = TargetSelector.GetCloseTarget(_owner, _abilitySelect, _telegraph);
+                    
+                    // 这里需要根据距离获取目标
                     await _abilitySelect.ExecuteMiss(targetPoint, entity);
+                    
+                    GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
+                    _telegraph.Clear();
+                    
                     _hasPrepared = false;
                     _targetOffset = Vector3.zero;
                     _abilitySelect = null;
@@ -146,7 +158,12 @@ public class Blackboard
         }
         
         await _abilitySelect.Execute(targets, targetPoint);
-
+        if (_telegraph != null)
+        {
+            GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
+            _telegraph.Clear();    
+        }
+        
         _hasPrepared = false;
         _targetOffset = Vector3.zero;
         _abilitySelect = null; 
@@ -180,4 +197,27 @@ public class Blackboard
         _ =  mover.Move(nextPath.GetLocation());
         return true;
     }
+
+    public void RefreshTelegraph()
+    {
+        if (!_hasPrepared || _telegraph == null) return;
+        GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
+        var targetPoint = _owner.GridPosition + _targetOffset;
+        _telegraph = GridIndicatorManager.Instance.Preview(_owner, targetPoint, _abilitySelect);
+        GridIndicatorManager.Instance.AddTelegraph(_telegraph.ToArray());
+    }
+    
+    public void Clear()
+    {
+        if (_telegraph is { Count: > 0 })
+        {
+            if (GridIndicatorManager.HasInstance())
+            {
+                GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
+            }
+            _telegraph.Clear();
+        }
+        _telegraph = null;
+    }
+    
 }

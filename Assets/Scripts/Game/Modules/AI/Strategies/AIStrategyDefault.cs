@@ -180,7 +180,7 @@ public sealed class AIStrategyDefault : IAIStrategy
                 if (!e.GetComponent<AgentStats>().Targetable()) continue;
 
                 var target = e.GridPosition;
-                var line = start.LineTo(target);
+                var line = start.Line(target);
                 var block = false;
                 for (var i = 1; i < line.Count; i++)
                 {
@@ -218,6 +218,7 @@ public sealed class AIStrategyDefault : IAIStrategy
                 )
                 // 如果攻击分支失败（找不到目标、选能力失败、动作失败），则跟随
                 , b9 => b9.Follow());
+
             return true;
         }
     }

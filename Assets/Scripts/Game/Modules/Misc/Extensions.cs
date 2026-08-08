@@ -149,6 +149,20 @@ internal static class WorldExtensions
         return Mathf.RoundToInt(Mathf.Max(dx , dy));
     }
 
+    public static int Dist(this Vector3Int self, Vector3 target)
+    {
+        var dx = Math.Abs(self.x - target.x);
+        var dy = Math.Abs(self.y - target.y);
+        return Mathf.RoundToInt(Mathf.Max(dx , dy));
+    }
+    
+    public static int Dist(this Vector3Int self, Vector3Int target)
+    {
+        var dx = Math.Abs(self.x - target.x);
+        var dy = Math.Abs(self.y - target.y);
+        return Mathf.RoundToInt(Mathf.Max(dx , dy));
+    }
+    
     /// <summary>Euclidean distance between two grid-container positions.</summary>
     public static float DistRadius(this Vector3 self, Vector3 target)
     {
@@ -196,20 +210,12 @@ internal static class WorldExtensions
         return ret;
     }
 
-    /// <summary>Bresenham-like line between two grid-container positions.</summary>
-    public static List<Vector3> LineTo(this Vector3 self, Vector3 t)
-    {
-        var ret = new List<Vector3>();
-        var dist = self.Dist(t);
-        var step = 1f / Mathf.Max(dist, 1f);
-        for (var i = 0; i <= dist; i++)
-        {
-            var newTile = self.Lerp(t, step * i);
-            ret.Add(newTile);
-        }
-        return ret;
-    }
 
+    public static Vector3Int Direction(this Vector3 start, Vector3 end)
+    {
+        return new Vector3Int((int)(end.x - start.x), (int)(end.y - start.y), 0);
+    }
+    
     /// <summary>Round grid-container Vector3 (rounds .x and .y).</summary>
     public static Vector3 Round(this Vector3 self)
     {
@@ -219,10 +225,98 @@ internal static class WorldExtensions
         return ret;
     }
 
-    /// <summary>Round a Vector2.</summary>
-    public static Vector2 Round(this Vector2 self)
+    public static List<Vector3Int> Line(this Vector3 start, Vector3Int end)
     {
-        return new Vector2(Mathf.Round(self.x), Mathf.Round(self.y));
+        var start1 = new Vector3Int((int)start.x, (int)start.y, (int)start.z);
+        return start1.Line(end);
+    }
+    
+    public static List<Vector3Int> Line(this Vector3 start, Vector3 end)
+    {
+        var start1 = new Vector3Int((int)start.x, (int)start.y, (int)start.z);
+        var end1 = new Vector3Int((int)end.x, (int)end.y, (int)end.z);
+        return start1.Line(end1);
+    }
+    
+    public static List<Vector3Int> Line(this Vector3Int start, Vector3Int end)
+    {
+        var cells = new List<Vector3Int>();
+
+        var dx = Mathf.Abs(end.x - start.x);
+        var dy = Mathf.Abs(end.y - start.y);
+        var sx = start.x < end.x ? 1 : -1;
+        var sy = start.y < end.y ? 1 : -1;
+        var err = dx - dy;
+
+        var current = start;
+
+        while (true)
+        {
+            cells.Add(current);
+            if (current == end) break;
+
+            var e2 = 2 * err;
+            if (e2 > -dy)
+            {
+                err -= dy;
+                current.x += sx;
+            }
+
+            if (e2 >= dx) continue;
+            err += dx;
+            current.y += sy;
+        }
+
+        return cells;
+    }
+
+    public static List<Vector3Int> Line(this Vector3 start, Vector3Int direction, int range)
+    {
+        return new Vector3Int((int)start.x, (int)start.y, (int)start.z).Line(direction, range);
+    }
+    public static List<Vector3Int> Line(this Vector3Int start, Vector3Int direction, int range)
+    {
+        var cells = new List<Vector3Int>();
+        if (range <= 0 || direction is { x: 0, y: 0 })
+            return cells;
+
+        var ax = Mathf.Abs(direction.x);
+        var ay = Mathf.Abs(direction.y);
+        var sx = direction.x >= 0 ? 1 : -1;
+        var sy = direction.y >= 0 ? 1 : -1;
+        var err = ax - ay; // 初始误差
+
+        var cur = start;
+        for (var i = 0; i < range; i++)
+        {
+            var e2 = 2 * err;
+            if (e2 > -ay)
+            {
+                err -= ay;
+                cur.x += sx;
+            }
+
+            if (e2 < ax)
+            {
+                err += ax;
+                cur.y += sy;
+            }
+
+            cells.Add(cur);
+        }
+        return cells;
+    }
+
+    // 最大公约数（欧几里得算法）
+    private static int GCD(int a, int b)
+    {
+        while (b != 0)
+        {
+            var temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
     }
 
     // ── Shape generators (grid space) ───────────────────────────────────

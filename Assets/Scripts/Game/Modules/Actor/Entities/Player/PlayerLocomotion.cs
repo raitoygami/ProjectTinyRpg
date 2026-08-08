@@ -28,7 +28,7 @@ public partial class Player
 
         if (!InputManager.Instance.IsKeyboardMouse())
         {
-            TileSelector.Instance.ClearPath();
+            GridIndicatorManager.Instance.ClearPath();
             return;
         }
             
@@ -39,7 +39,7 @@ public partial class Player
         var targetGrid = hitPoint.SnapToGrid();
 
         var path = m_AgentMover.FindPath(targetGrid, Const.Layer.ObstacleForNavi);
-        TileSelector.Instance.DrawPath(targetGrid, path is { Count: > 0 });
+        GridIndicatorManager.Instance.DrawCursorMark(targetGrid, path is { Count: > 0 });
         
         // raycast for loot
         var hitCount = Physics2D.RaycastNonAlloc(
@@ -334,8 +334,8 @@ public partial class Player
         if (EventSystem.current.IsPointerOverGameObject())
         {
             // 指针在 UI 上时禁用对世界的鼠标采样，并清掉地面移动路径预览（避免禁用后 OnPointerMove 不再刷新）
-            if (TileSelector.HasInstance())
-                TileSelector.Instance.ClearPath();
+            if (GridIndicatorManager.HasInstance())
+                GridIndicatorManager.Instance.ClearPath();
             InputManager.Instance.MouseDisable();
         }
         else

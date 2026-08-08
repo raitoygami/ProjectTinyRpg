@@ -129,7 +129,7 @@ public partial class Ability : ScriptableObject
         if (_SelectionRange == null || force)
         {
             _SelectionRange =
-                TileSelector.Instance.Select( Range, _owner, false);
+                GridIndicatorManager.Instance.Preview( Range, _owner, false);
         }
         return _SelectionRange;
     }
@@ -162,13 +162,12 @@ public partial class Ability : ScriptableObject
         if (skillFaceDirection.sqrMagnitude < 1e-8f)
             skillFaceDirection = Vector3.up;
 
-        var line = owner.LineTo(mouse);
+        var line = owner.Line(mouse);
         Vector3? lastInRange = null;
         foreach (var step in line)
         {
-            var g = step.Round();
-            if (IsGridInCastRange(g))
-                lastInRange = g;
+            if (IsGridInCastRange(step))
+                lastInRange = step;
         }
 
         if (lastInRange == null)
@@ -190,7 +189,7 @@ public partial class Ability : ScriptableObject
         if (_abilityStat.Cooldown <= 0)
         {
             _state = State.Selection;
-            _SelectionRange = TileSelector.Instance.Select(Range, _owner, t_ShowRange);
+            _SelectionRange = GridIndicatorManager.Instance.Preview(Range, _owner, t_ShowRange);
             return _SelectionTask.Task;
         }
 
@@ -202,7 +201,7 @@ public partial class Ability : ScriptableObject
     {
         _SelectionRange = null;
         _state = State.Execution;
-        TileSelector.Instance.Hide();
+        GridIndicatorManager.Instance.Hide();
 
         var canceledByEffect = false;
 
@@ -241,7 +240,7 @@ public partial class Ability : ScriptableObject
     {
         _SelectionRange = null;
         _state = State.Execution;
-        TileSelector.Instance.Hide();
+        GridIndicatorManager.Instance.Hide();
 
         var canceledByEffect = false;
 
@@ -312,7 +311,7 @@ public partial class Ability : ScriptableObject
     public void Cancel()
     {
         //DisableTileSelection();
-        TileSelector.Instance.Hide();
+        GridIndicatorManager.Instance.Hide();
         _state = State.Inactive;
         _SelectionTask?.TrySetResult(result: false);
         _SelectionTask = null;

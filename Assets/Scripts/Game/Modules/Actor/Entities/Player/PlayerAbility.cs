@@ -13,23 +13,23 @@ public partial class Player
     {
         var skillDisplay = _AbilityPrepared != null ? _AbilityPrepared.GetSkillDisplayParam() : null;
         var showSkillPreview = _AbilityPrepared != null && _AbilityPrepared.IsSelecting() && skillDisplay != null;
-        if (showSkillPreview && InputManager.HasInstance() && TileSelector.HasInstance())
+        if (showSkillPreview && InputManager.HasInstance() && GridIndicatorManager.HasInstance())
         {
             var mouseGrid = hitPoint.SnapToGrid();
             if (_AbilityPrepared.TryGetSkillPreviewFrame(GridPosition, mouseGrid, out var previewOrigin,
                     out var skillFace))
             {
-                TileSelector.Instance.ShowSkillRangePreview(skillDisplay, GridPosition, previewOrigin, skillFace,
+                GridIndicatorManager.Instance.ShowSkillRangePreview(skillDisplay, GridPosition, previewOrigin, skillFace,
                     Const.Layer.ObstacleForNavi);
             }
             else
             {
-                TileSelector.Instance.HideSkillRangePreview();
+                GridIndicatorManager.Instance.HideSkillRangePreview();
             }
         }
-        else if (TileSelector.HasInstance())
+        else if (GridIndicatorManager.HasInstance())
         {
-            TileSelector.Instance.HideSkillRangePreview();
+            GridIndicatorManager.Instance.HideSkillRangePreview();
         }
     }
 

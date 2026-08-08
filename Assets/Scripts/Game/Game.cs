@@ -59,7 +59,6 @@ public class Game : Singleton<Game>
             EntityManager.Instance.Init();
             EntityManager.Instance.SetPlayerPrefab(preload.PlayerTemplate);
             EntityManager.Instance.SetEnemyPrefab(preload.EnemyTemplate);
-
             // 初始化UI
             Instantiate(preload.uiRoot);
             CameraManager.Instance.SetOverlayCamera(UIRoot.Instance.GetUICamera());
@@ -73,7 +72,7 @@ public class Game : Singleton<Game>
             PoolManager.Instance.Initialized();
             TurnManager.Instance.Initialized();
             CombatManager.Instance.Initialized();
-            TileSelector.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
+            GridIndicatorManager.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
             
             await UIRoot.Instance.FadeIn(0);
             await Addressables.LoadSceneAsync("Scene/Menu").ToUniTask();

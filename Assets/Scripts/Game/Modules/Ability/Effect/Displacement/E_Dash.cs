@@ -17,7 +17,7 @@ public class E_Dash : AbilityEffect
         var animator = m_Context.Owner.GetComponent<AgentAnimations>();
         var origin = m_Context.Owner.GridPosition;
         var target = m_Context.Position;
-        var line = origin.LineTo(target);
+        var line = origin.Line(target);
 
         var pulledGrid = line[0];
 
@@ -25,7 +25,7 @@ public class E_Dash : AbilityEffect
         {
             var grid = line[i];
 
-            if (PathFinder.Instance.CanPlaceFootprint(m_Context.Owner, (int)grid.x, (int)grid.z, (int)target.x, (int)target.z))
+            if (PathFinder.Instance.CanPlaceFootprint(m_Context.Owner, grid.x, grid.z, (int)target.x, (int)target.z))
             {
                 pulledGrid = grid;
             }

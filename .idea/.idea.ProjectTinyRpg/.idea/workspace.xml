@@ -94,6 +94,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/DevLog.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/PhysicsUtil.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/TargetSelector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/IPathNodeAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/PathCell2D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/PathFinder.cs" root0="FORCE_HIGHLIGHTING" />
@@ -119,7 +120,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Quest/QuestTemplate/QuestDeepClone.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Quest/QuestTemplate/QuestTemplateAsset.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Quest/QuestTemplate/QuestTemplateRuntime.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Selection/TileSelector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/CameraManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigScriptable.cs" root0="FORCE_HIGHLIGHTING" />
@@ -271,7 +271,7 @@
       <workItem from="1786076255894" duration="8057000" />
       <workItem from="1786092715731" duration="13867000" />
       <workItem from="1786107320486" duration="75000" />
-      <workItem from="1786157536010" duration="8417000" />
+      <workItem from="1786157536010" duration="21000000" />
     </task>
     <servers />
   </component>

@@ -216,8 +216,13 @@ public class AIEntity : Entity
                 parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(ec.AiId.Value);
         }
 
+        if (parameterData == null)
+            return;
+        
         if (_aiStrategy == null)
             RebuildAiStrategy(m_AgentStats != null ? m_AgentStats.EntityConfig : null);
+        
+        
         _aiContext ??= new AiContext
         {
             Owner = this,
@@ -244,9 +249,9 @@ public class AIEntity : Entity
             _runtimeStat.Location = arg.CurrPosition;
             _runtimeStat.Direction = m_AgentAnimations.GetDirection();
         }
+        
         // 被迫移动结束后要重新计算技能预览
-        var hasPrepared = _blackBoard.HasPrepared();
-        var ability = _blackBoard.GetAbilitySelected();
+        _blackBoard?.RefreshTelegraph();
         return UniTask.CompletedTask;
     }
     
@@ -289,5 +294,7 @@ public class AIEntity : Entity
     private void OnDestroy()
     {
         EntityManager.UnRegister(this);
+        _blackBoard?.Clear();
+        _blackBoard = null;
     }
 }

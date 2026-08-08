@@ -226,7 +226,7 @@ public partial class Player : Entity
     {
         TurnManager.UnRegister(m_TurnActor);
         TurnManager.Instance.StopLoop();
-        TileSelector.Instance.ClearPath();
+        GridIndicatorManager.Instance.ClearPath();
         PathFinder.Instance.ClearLogical(this);
         
         Destroy(gameObject);
@@ -255,8 +255,8 @@ public partial class Player : Entity
         if (CombatManager.HasInstance() && CombatManager.Instance.IsInBattle)
         {
             ClearPath();
-            if (TileSelector.HasInstance())
-                TileSelector.Instance.ClearPath();
+            if (GridIndicatorManager.HasInstance())
+                GridIndicatorManager.Instance.ClearPath();
         }
         
         if (m_NextTurnEvt.Count > 0)

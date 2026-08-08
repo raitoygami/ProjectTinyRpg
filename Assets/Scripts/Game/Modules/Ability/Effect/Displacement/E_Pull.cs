@@ -16,7 +16,7 @@ public class E_Pull : AbilityEffect
         
         var origin = m_Context.Owner.GridPosition;
         var target = m_Context.Target.GridPosition;
-        var line = origin.LineTo(target);
+        var line = origin.Line(target);
         line.Reverse();
 
         var pulledGrid = line.First();

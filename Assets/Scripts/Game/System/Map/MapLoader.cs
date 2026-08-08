@@ -76,7 +76,10 @@ public class MapLoader : Singleton<MapLoader>
                 PathFinder.Instance.UpdateCell(x, y, blocker);
             }
         }
-
+        
+        // 新加载的地图 清理掉所有敌方预警
+        GridIndicatorManager.Instance.ClearAllTelegraphs();
+        
         // CreatePlayer expects grid-container, not world position — convert first
         var entityID = PlayerManager.Instance.GetEntityID();
         var location = PlayerManager.Instance.GetCurrentLocation();
@@ -128,7 +131,7 @@ public class MapLoader : Singleton<MapLoader>
         EntityManager.Instance.OnClearAll();
         TurnManager.Instance.StopLoop();
         TurnManager.Instance.ClearAll();
-        TileSelector.Instance.ClearPath();
+        GridIndicatorManager.Instance.ClearPath();
     }
     
 }

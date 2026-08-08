@@ -55,6 +55,7 @@ public class UIStartMenu : PanelBase
         
         // 加载场景
         await MapLoader.Instance.Load(PlayerManager.Instance.GetCurrentMap());
+        
         await UniTask.DelayFrame(1);
         await this.PublishGlobal(new MapLoader.MapChangedEvt());
         UIRoot.Instance.Hide("StartMenu");

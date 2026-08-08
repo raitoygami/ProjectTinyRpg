@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f880169a153484bac7b901fddd87f9, type: 3}
   m_Name: NavigationSettings
   m_EditorClassIdentifier: 
-  NavigationMaterial: {fileID: 2100000, guid: 62a9b84fd4dd71a43a09464da1d7edc3, type: 2}
-  SkillMaterial: {fileID: 2100000, guid: 7dd9ac257f066a44fbec4ccb343461da, type: 2}
-  NavigationMark: {fileID: 5029910539026112574, guid: 6d241a89eb3e7504ea41a29e6e40344d,
-    type: 3}
-  NavigationMarkEnd: {fileID: 3456413991329144155, guid: 7a692af853aed7d4e9328a3970dd7401,
-    type: 3}
+  NavigationMarkEnd: {fileID: 3456413991329144155, guid: 7a692af853aed7d4e9328a3970dd7401, type: 3}
+  TileAbilityRange: {fileID: 11400000, guid: b5141c4f487a2164dba98d88ab89b775, type: 2}
+  TileAbilityCastRange: {fileID: 11400000, guid: 404c831a971b3a84084b0f298431c558, type: 2}
+  TileAbilityTelegraph: {fileID: 11400000, guid: ede4acdab3255ca41967dd4e3ef33e24, type: 2}
