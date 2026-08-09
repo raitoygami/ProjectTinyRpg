@@ -24,15 +24,7 @@ public class Persist : Singleton<Persist>
     private const string PersistNameFormat = "Persist_{0}.json";
 #endif
 
-    private const byte Key = 0xAB; // 可换成多字节序列
-
-    public static string EncryptDecrypt(string input)
-    {
-        var result = input.ToCharArray();
-        for (var i = 0; i < result.Length; i++)
-            result[i] = (char) (result[i] ^ Key);
-        return new string(result);
-    }
+    private const string Password = "BigSmall";
 
     private static string PersistRoot => Path.Combine(Application.persistentDataPath, PersistDir);
     private static readonly UTF8Encoding Utf8NoBom = new(true);
@@ -69,8 +61,9 @@ public class Persist : Singleton<Persist>
             var path = GetPersistPath(slotIndex);
 
             var json = JsonConvert.SerializeObject(_runtimePlayerData, SerializerSettings);
+            
 #if !UNITY_EDITOR
-            json = EncryptDecrypt(json);
+            json = AesEncryption.EncryptString(json, Password);
 #endif
             File.WriteAllText(path, json, Utf8NoBom);
             return true;
@@ -87,7 +80,7 @@ public class Persist : Singleton<Persist>
         var path = GetPersistPath(slotIndex);
         return File.Exists(path);
     }
-    
+
     public void LoadSlot(int slotIndex)
     {
         var path = GetPersistPath(slotIndex);
@@ -95,8 +88,9 @@ public class Persist : Singleton<Persist>
         try
         {
             var json = File.ReadAllText(path, Utf8NoBom);
+            
 #if !UNITY_EDITOR
-            json = EncryptDecrypt(json);
+            json = AesEncryption.DecryptString(json, Password);
 #endif
             _runtimePlayerData = JsonConvert.DeserializeObject<SaveData>(json, SerializerSettings);
         }
@@ -111,7 +105,7 @@ public class Persist : Singleton<Persist>
         DeleteSlot(slotIndex);
         _runtimePlayerData = new SaveData();
     }
-    
+
     public void DeleteSlot(int slotIndex)
     {
         try

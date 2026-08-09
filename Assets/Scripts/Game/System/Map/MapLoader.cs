@@ -58,7 +58,7 @@ public class MapLoader : Singleton<MapLoader>
         var width = bounds.xMax - bounds.xMin;
         var height = bounds.yMax - bounds.yMin;
 
-        Debug.Log($"{width}x{height}-{originX}-{originY}");
+        Debug.Log($"{sceneName}-{width}x{height}-{originX}-{originY}");
         
         PathFinder.Instance.InitCells(originX, originY, width, height);
         
@@ -108,7 +108,7 @@ public class MapLoader : Singleton<MapLoader>
         }
 
         // 初始化
-        FOVManager.Instance.InitFov(mapData.GetFogTiles());
+        FOVManager.Instance.InitFov(sceneName);
         
         AudioManager.FadeMainMusicOut(1f);
         AudioManager.FadeMusicIn(mapInfo.MainMusic, 1f, true);

@@ -62,28 +62,36 @@ public class FOVManager : Singleton<FOVManager>
         return tilemap;
     }
 
-    public void InitFov(Dictionary<Vector3, MapTileData> fovData)
+    public void InitFov(string sceneName)
     {
-        ClearAll();
-        if (fovData == null)
-            return;
-
-        foreach (var (location, mapTileData) in fovData)
+        ClearAll(); // 先清空现有 Tilemap
+        
+        var mapData = MapManager.Instance.GetMapData(sceneName);
+        if (mapData == null) return;
+        // 遍历地图范围内的所有格子
+        for (var x = mapData.OriginX; x <= mapData.OriginX + mapData.Width; x++)
+        for (var y = mapData.OriginY; y <= mapData.OriginY + mapData.Height; y++)
         {
-            if (mapTileData.isExplored) continue;
+            
+            var location = new Vector3Int(x, y, 0);
+            // 如果该格子未被探索，则设置黑雾 Tile
+            if (mapData.GetFOV(location)) continue;
             var cell = _tilemapFOV.WorldToCell(location);
             _tilemapFOV.SetTile(cell, _tileFOV);
+            // 注意：已探索的格子不需要设置 Tile（或者可以设置为空以清除黑雾）
+            // 但这里 ClearAll 已经清空了所有，我们只对未探索的设置黑雾，已探索的保持空即可
         }
     }
 
     public void FovCompute(string sceneName, Vector3 location, int viewDistance)
     {
-        TileCompute(sceneName, location);
+        var playerLocation = Vector3Int.FloorToInt(location);
+        TileCompute(sceneName, playerLocation);
         for (uint octant = 0; octant <= 7; octant++)
-            Compute(sceneName, octant, location, viewDistance, 1, new Slope(1, 1), new Slope(0, 1));
+            Compute(sceneName, octant, playerLocation, viewDistance, 1, new Slope(1, 1), new Slope(0, 1));
     }
 
-    private void Compute(string sceneName, uint octant, Vector3 location, int rangeLimit, int x, Slope top,
+    private void Compute(string sceneName, uint octant, Vector3Int location, int rangeLimit, int x, Slope top,
         Slope bottom)
     {
         for (; (uint)x <= (uint)rangeLimit; x++) // rangeLimit < 0 || x <= rangeLimit
@@ -139,7 +147,7 @@ public class FOVManager : Singleton<FOVManager>
                         break;
                 }
 
-                var newLocation = new Vector3(tx, ty, 0); // the position of the tile at the top of the column
+                var newLocation = new Vector3Int(tx, ty, 0); // the position of the tile at the top of the column
                 TileCompute(sceneName, newLocation);
                 // NOTE: use the next line instead if you want the algorithm to be symmetrical
 
@@ -192,19 +200,18 @@ public class FOVManager : Singleton<FOVManager>
     }
     
 
-    private void TileCompute(string sceneName, Vector3 location)
+    private void TileCompute(string sceneName, Vector3Int location)
     {
         var mapData = MapManager.Instance.GetMapData(sceneName);
-        var tileData = mapData.GetFogTile(location);
-        if (tileData == null)
+        var hasFOV = mapData.HasFOV(location);
+        if (!hasFOV)
             return;
 
         var cell = _tilemapFOV.WorldToCell(location);
 
         _tilemapFOV.SetTileFlags(cell, TileFlags.None);
         _tilemapFOV.SetColor(cell, new Color(1.0f, 1.0f, 1.0f, 0f));
-        tileData.isVisible = true;
-        tileData.isExplored = true;
+        mapData.SetFOV(location, true);
     }
 
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -12,8 +13,13 @@ public partial class SaveData
     [Serializable]
     public class MapData
     {
-        [JsonConverter(typeof(Vector3DictionaryConverter<MapTileData>))]
-        public Dictionary<Vector3, MapTileData> _fogTiles; // The fog tiles of the map.
+        public int OriginX;
+        public int OriginY;
+        public int Width;
+        public int Height;
+        // 战争迷雾数据 tilemap的范围是 [OriginX + 1 -> OriginX + Width], 所以_fovData需要多出来一行
+        public byte[,] _fovData;
+        
         public Dictionary<string, EntityStatData> _entityStats = new();
 
         public EntityStatData GetEntityStat(string entityName)
@@ -21,11 +27,29 @@ public partial class SaveData
             return _entityStats.GetValueOrDefault(entityName);
         }
 
-        public Dictionary<Vector3, MapTileData> GetFogTiles()
+        public bool HasFOV(Vector3Int location)
         {
-            return _fogTiles;
+            // 如果 _fogData 未初始化，直接返回 false
+            if (_fovData == null) return false;
+            // 将世界坐标转换为数组索引
+            var xIndex = location.x - OriginX;
+            var yIndex = location.y - OriginY; // 使用 location.y 对应 Z 轴（因为地图是二维平面）
+            // 检查索引是否在数组边界内
+            return xIndex >= 0 && xIndex <= Width && yIndex >= 0 && yIndex <= Height;
         }
-        
+
+        public void SetFOV(Vector3Int location, bool isExplored)
+        {
+            if (!HasFOV(location))
+                return;
+            _fovData[location.x - OriginX, location.y - OriginY] = (byte)(isExplored ? 1 : 0);
+        }
+
+        public bool GetFOV(Vector3Int location)
+        {
+            return HasFOV(location) && _fovData[location.x - OriginX, location.y - OriginX] == 1;
+        }
+
         public void SetEntityStat(string entityName, EntityStatData entityStatData)
         {
             if (_entityStats.TryAdd(entityName, entityStatData)) return;
@@ -34,31 +58,19 @@ public partial class SaveData
 
         public void InitFogTiles(int originX, int originY, int width, int height)
         {
-            // 只初始化一次
-            if (_fogTiles != null)
+            if (_fovData != null)
                 return;
-            
-            _fogTiles = new Dictionary<Vector3, MapTileData>();
-            for (var i = 1; i <= width; i++)
-            {
-                for (var j = 1; j <= height; j++)
-                {
-                    var location = new Vector3Int(originX + i, originY + j, 0); // Gets the local position.
-                    // Gets the tile.
-                    var tile = new MapTileData
-                    {
-                        isExplored = false,
-                        isVisible = false,
-                        localPlace = location, // Sets the local place.
-                    };
-                    _fogTiles.Add(location, tile);
-                }
-            }
-        }
 
-        public MapTileData GetFogTile(Vector3 location)
-        {
-            return _fogTiles?.GetValueOrDefault(location);
+            OriginX = originX;
+            OriginY = originY;
+            Width = width;
+            Height = height;
+
+            _fovData = new byte[width + 1, height + 1];
+
+            for (var i = 0; i <= width; i++)
+            for (var j = 0; j <= height; j++)
+                _fovData[i, j] = 0;
         }
         
     }
