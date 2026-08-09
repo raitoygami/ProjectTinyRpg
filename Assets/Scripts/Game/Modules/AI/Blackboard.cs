@@ -82,10 +82,10 @@ public class Blackboard
             return false;
         
         // 这里获取的是武器技能
-        if (_target.GridPosition.Dist(_owner.GridPosition) > wepAbility.GetRange()) return false;
+        if (_target.GridPosition.Dist(_owner.GridPosition) > wepAbility.GetCastRange()) return false;
         // 这里需要判断是否有 (目前实现了直线方向上的第一个目标)
-        var preview = GridIndicatorManager.Instance.Preview(_owner, _target.GridPosition, wepAbility);
-        var firstTarget = TargetSelector.GetCloseTarget(_owner, wepAbility, preview);
+        var range = AbilityUtil.CalculateRange(wepAbility, _owner, _target.GridPosition);
+        var firstTarget = AbilityUtil.GetCloseTarget(_owner, wepAbility, range);
         if (firstTarget == null || !EntityManager.IsEnemyFraction(firstTarget.Faction, _owner.Faction))
             return false;
         _abilitySelect = wepAbility;
@@ -102,7 +102,7 @@ public class Blackboard
         /*if (!_abilitySelect.Available())
             return false;
             */
-        _telegraph = GridIndicatorManager.Instance.Preview(_owner, targetPoint, _abilitySelect);
+        _telegraph = AbilityUtil.CalculateRange(_abilitySelect, _owner, targetPoint);
         GridIndicatorManager.Instance.AddTelegraph(_telegraph.ToArray());
         _prepareRemined = 0;
         _hasPrepared = true;
@@ -137,7 +137,7 @@ public class Blackboard
                 // 如果没有找到目标
                 if (_hasPrepared && _telegraph != null)
                 {
-                    var entity = TargetSelector.GetCloseTarget(_owner, _abilitySelect, _telegraph);
+                    var entity = AbilityUtil.GetCloseTarget(_owner, _abilitySelect, _telegraph);
                     
                     // 这里需要根据距离获取目标
                     await _abilitySelect.ExecuteMiss(targetPoint, entity);
@@ -203,7 +203,7 @@ public class Blackboard
         if (!_hasPrepared || _telegraph == null) return;
         GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
         var targetPoint = _owner.GridPosition + _targetOffset;
-        _telegraph = GridIndicatorManager.Instance.Preview(_owner, targetPoint, _abilitySelect);
+        _telegraph = AbilityUtil.CalculateRange(_abilitySelect, _owner, targetPoint);
         GridIndicatorManager.Instance.AddTelegraph(_telegraph.ToArray());
     }
     

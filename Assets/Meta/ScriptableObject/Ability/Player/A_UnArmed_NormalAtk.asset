@@ -93,12 +93,16 @@ MonoBehaviour:
     m_LocalVariables: []
   Icon: {fileID: 21300000, guid: 3233af8746f0f904e86ddf96bc22b3e7, type: 3}
   WeaponTypeRequire: 0
+  _targetType: 2
+  _castRange: 1
+  _castTargetingMode: 1
+  _castCenterType: 0
+  _affectType: 0
+  _range: 0
   _prepareTurn: 0
-  Range: 1
   m_SkillDisplayParam:
     rid: -2
-  m_TargetMode: 2
-  Cooldown: 1
+  _cooldown: 1
   CostHP: 0
   CostMP: 0
   TreeRoot: {fileID: 5498850296569907920}

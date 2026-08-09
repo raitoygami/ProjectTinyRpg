@@ -8,32 +8,38 @@ using UnityEngine.Localization;
 [CreateAssetMenu(menuName = "Ability/Ability", fileName = "New Ability")]
 public partial class Ability : ScriptableObject
 {
-    [Serializable]
-    public enum AbilityTargetMode
-    {
-        None,
-        Self,
-        Enemy,
-        Any,
-        EmptyGround,
-    }
 
     [SerializeField] public LocalizedString AbilityName;
     [SerializeField] public Sprite Icon;
 
     public WeaponType WeaponTypeRequire;
 
+    // 技能选取目标类型
+    [SerializeField] private AbilityTargetType _targetType;
+    
+    // 技能施法范围
+    [SerializeField] private int _castRange;
+    // 技能施法类型
+    [SerializeField] private CastTargetingMode _castTargetingMode;
+    // 技能中心类型
+    [SerializeField] private CastCenterType  _castCenterType;
+    // 技能范围类型
+    [SerializeField] private AffectType  _affectType;
+    // 技能范围
+    [Min(0)]
+    [SerializeField] private int _range;
+    
+    // 是否需要准备动作
     [Min(0)]
     [SerializeField] private int _prepareTurn;
-    // config
-    [SerializeField] private int Range;
+
 
     [Tooltip("仅用于地面技能范围预览（与施法范围 m_Range 独立）；未配置则不绘制")] [SerializeReference] [SerializeField]
     private SelectParam m_SkillDisplayParam;
 
-    [SerializeField] private AbilityTargetMode m_TargetMode;
+    
     [Min(1)]
-    [SerializeField] private int Cooldown;
+    [SerializeField] private int _cooldown;
 
     //  cost
     [SerializeField] private int CostHP;
@@ -76,10 +82,15 @@ public partial class Ability : ScriptableObject
     {
         return _prepareTurn;
     }
-    
+
     public int GetRange()
     {
-        return Range;
+        return _range;
+    }
+    
+    public int GetCastRange()
+    {
+        return _castRange;
     }
 
     /// <summary>技能范围显示用参数（扇形/矩形/圆等），仅地面高亮；目标判定在子 Effect（如 <c>E_AOE</c>）中完成。</summary>
@@ -88,14 +99,14 @@ public partial class Ability : ScriptableObject
         return m_SkillDisplayParam;
     }
 
-    public AbilityTargetMode TargetMode()
+    public AbilityTargetType TargetMode()
     {
-        return m_TargetMode;
+        return _targetType;
     }
 
     public bool IsTargeted()
     {
-        return m_TargetMode != AbilityTargetMode.None && m_TargetMode != AbilityTargetMode.EmptyGround;
+        return _targetType != AbilityTargetType.None && _targetType != AbilityTargetType.EmptyGround;
     }
 
     public void SetOwner(Entity owner)
@@ -129,12 +140,12 @@ public partial class Ability : ScriptableObject
         if (_SelectionRange == null || force)
         {
             _SelectionRange =
-                GridIndicatorManager.Instance.Preview( Range, _owner, false);
+                AbilityUtil.CalculateRange( this, _owner);
         }
         return _SelectionRange;
     }
 
-    /// <summary>格点是否在施法范围内（与 <see cref="SelectionRange"/> 一致，由 <see cref="GetRange"/> 与寻路掩码计算）。</summary>
+    /// <summary>格点是否在施法范围内（与 <see cref="SelectionRange"/> 一致，由 <see cref="GetCastRange"/> 与寻路掩码计算）。</summary>
     public bool IsGridInCastRange(Vector3 gridPosition)
     {
         if (_owner == null)
@@ -144,7 +155,7 @@ public partial class Ability : ScriptableObject
     }
 
     /// <summary>
-    /// 技能范围预览用：沿玩家→鼠标路径在 <see cref="SelectionRange"/>（<see cref="GetRange"/>）内取最远格为起点；
+    /// 技能范围预览用：沿玩家→鼠标路径在 <see cref="SelectionRange"/>（<see cref="GetCastRange"/>）内取最远格为起点；
     /// <paramref name="skillFaceDirection"/> 为玩家格→鼠标格（用于扇形/矩形朝向）；同格时为 <see cref="Vector3.forward"/>。
     /// </summary>
     public bool TryGetSkillPreviewFrame(Vector3 ownerGrid, Vector3 mouseGrid, out Vector3 previewOriginGrid,
@@ -189,7 +200,7 @@ public partial class Ability : ScriptableObject
         if (_abilityStat.Cooldown <= 0)
         {
             _state = State.Selection;
-            _SelectionRange = GridIndicatorManager.Instance.Preview(Range, _owner, t_ShowRange);
+            _SelectionRange = AbilityUtil.CalculateRange(this, _owner);
             return _SelectionTask.Task;
         }
 
@@ -227,7 +238,7 @@ public partial class Ability : ScriptableObject
             return false;
         }
 
-        _abilityStat.Cooldown = Cooldown;
+        _abilityStat.Cooldown = _cooldown;
         _abilityStat.OnCooldownChanged?.Invoke();
         _state = State.Inactive;
         _SelectionTask?.TrySetResult(result: true);
@@ -249,11 +260,11 @@ public partial class Ability : ScriptableObject
             canceledByEffect = true;
         }
 
-        switch (m_TargetMode)
+        switch (_targetType)
         {
-            case AbilityTargetMode.None:
-            case AbilityTargetMode.Self:
-            case AbilityTargetMode.EmptyGround:
+            case AbilityTargetType.None:
+            case AbilityTargetType.Self:
+            case AbilityTargetType.EmptyGround:
             {
                 var context = new AbilityContext
                 {
@@ -267,8 +278,8 @@ public partial class Ability : ScriptableObject
                 await TreeRoot.Apply(context);
             }
                 break;
-            case AbilityTargetMode.Enemy:
-            case AbilityTargetMode.Any:
+            case AbilityTargetType.Enemy:
+            case AbilityTargetType.Any:
                 var effectTasks = Enumerable.Select(t_Targets.Select(target => new AbilityContext
                     {
                         Owner = _owner, Target = target, Ability = this, Position = t_Position,
@@ -295,7 +306,7 @@ public partial class Ability : ScriptableObject
             return false;
         }
 
-        _abilityStat.Cooldown = Cooldown;
+        _abilityStat.Cooldown = _cooldown;
         _abilityStat.OnCooldownChanged?.Invoke();
         _state = State.Inactive;
         _SelectionTask?.TrySetResult(result: true);

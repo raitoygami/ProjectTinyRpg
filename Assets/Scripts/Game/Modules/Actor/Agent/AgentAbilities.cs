@@ -14,7 +14,7 @@ public class AgentAbilities : MonoBehaviour
     // 装备普通攻击技能,只存放装备在槽位上的武器对应技能
     private readonly Dictionary<int, Ability> _wepAtkAbilities = new();
 
-    public async UniTask<Ability> GetWepAtkAbility(int abilityId)
+    private async UniTask<Ability> GetWepAtkAbility(int abilityId)
     {
         if (!_wepAtkAbilities.TryGetValue(abilityId, out var ability))
         {
@@ -94,9 +94,9 @@ public class AgentAbilities : MonoBehaviour
         return _wepAtkAbilityActive;
     }
 
-    public bool GetTargets(Vector3 t_GridPosition, Ability t_Ability, ref List<Entity> t_Targets)
+    public bool GetTargets(Vector3 location, Ability t_Ability, ref List<Entity> t_Targets)
     {
-        var cell = PathFinder.Instance.GetCell(t_GridPosition.x, t_GridPosition.y);
+        var cell = PathFinder.Instance.GetCell(location.x, location.y);
         var targetEntity = cell?.Logical as Entity;
         if (targetEntity == null)
             return false;
@@ -107,17 +107,17 @@ public class AgentAbilities : MonoBehaviour
         var entity = targetEntity;
         switch (t_Ability.TargetMode())
         {
-            case Ability.AbilityTargetMode.None:
+            case AbilityTargetType.None:
                 break;
-            case Ability.AbilityTargetMode.Self:
+            case AbilityTargetType.Self:
                 if (entity == GetComponent<Entity>()) t_Targets.Add(entity);
 
                 break;
-            case Ability.AbilityTargetMode.Enemy:
+            case AbilityTargetType.Enemy:
                 if (EntityManager.IsEnemyFraction(entity.Faction, fraction)) t_Targets.Add(entity);
 
                 break;
-            case Ability.AbilityTargetMode.Any:
+            case AbilityTargetType.Any:
                 t_Targets.Add(entity);
                 break;
             default:
@@ -208,7 +208,7 @@ public class AgentAbilities : MonoBehaviour
             targetSizeX,
             targetSizeZ);
 
-        return dist <= baseAttack.GetRange();
+        return dist <= baseAttack.GetCastRange();
     }
 
     private void OnDestroy()

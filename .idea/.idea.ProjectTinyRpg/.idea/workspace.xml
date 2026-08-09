@@ -43,6 +43,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/AI/Strategies/AIStrategySummon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Ability.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/AbilityContext.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/AbilityDef.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/AbilityEffect.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Editor/AbilityInspector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Ability/Effect/Displacement/E_Backup.cs" root0="FORCE_HIGHLIGHTING" />
@@ -98,7 +99,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/DevLog.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/PhysicsUtil.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Misc/TargetSelector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/IPathNodeAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/PathCell2D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/PathFinder.cs" root0="FORCE_HIGHLIGHTING" />
@@ -278,7 +278,7 @@
       <workItem from="1786157536010" duration="30219000" />
       <workItem from="1786199514220" duration="691000" />
       <workItem from="1786201924270" duration="1001000" />
-      <workItem from="1786241510682" duration="23704000" />
+      <workItem from="1786241510682" duration="29767000" />
     </task>
     <servers />
   </component>

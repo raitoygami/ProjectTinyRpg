@@ -182,63 +182,7 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
         
     }
 
-    private static bool IsMoveableForMask(PathCell cell, IPathNodeAgent owner)
-    {
-        return cell != null && PathFinder.IsWalkableCell(cell, owner);
-    }
-
-    // 目前只实现了直线方向型的技能(获取直线上的格子)
-    // 后去会根据技能类型返回技能预览
-    public List<Vector3Int> Preview(Entity owner, Vector3 targetPosition, Ability ability)
-    {
-        if (owner == null && ability == null)
-            return null;
-        var direction = owner.GridPosition.Direction(targetPosition);
-        var ret = owner.GridPosition.Line(direction, ability.GetRange());
-        return ret;
-    }
     
-    public List<Vector2Int> Preview(int range, IPathNodeAgent owner, bool t_ShowRange = true)
-    {
-        var ret = new List<Vector2Int>();
-        if (owner == null)
-            return ret;
-
-        var sx = owner.X;
-        var sy = owner.Y;
-
-        var nodes = new Dictionary<Vector2Int, PathCell>();
-        if (nodes == null) throw new ArgumentNullException(nameof(nodes));
-
-        var xMin = sx - range;
-        var xMax = sx + range;
-        var yMin = sy - range;
-        var yMax = sy + range;
-        for (var x = xMin; x <= xMax; x++)
-        {
-            for (var y = yMin; y <= yMax; y++)
-            {
-                var target = PathFinder.Instance.GetCell(x, y);
-                if (!IsMoveableForMask(target, owner))
-                    continue;
-
-                if (target.X != sx || target.Y != sy)
-                {
-                    var path = PathFinder.Instance.Navigate(owner, sx, sy, target.X, target.Y);
-                    var navigate = path?.Count ?? 0;
-                    if (navigate > range || navigate == 0)
-                    {
-                        continue;
-                    }
-                }
-
-                var local = new Vector2Int(x, y);
-                nodes.Add(local, target);
-                ret.Add(local);
-            }
-        }
-        return ret;
-    }
 
     protected override void OnRelease()
     {
