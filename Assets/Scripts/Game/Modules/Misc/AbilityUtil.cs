@@ -15,9 +15,23 @@ public static class AbilityUtil
     {
         if (owner == null && ability == null)
             return null;
-        var direction = owner.GridPosition.Direction(castPoint);
-        var ret = owner.GridPosition.Line(direction, ability.GetCastRange());
-        return ret;
+
+        var castTargetingMode = ability.GetCastTargetingMode();
+        // 指向性技能， 
+        if (castTargetingMode == CastTargetingMode.Directed)
+        {
+            var direction = owner.GridPosition.Direction(castPoint);
+            var ret = owner.GridPosition.Line(direction, ability.GetRange());
+            return ret;
+        }
+
+        // 自动释放
+        if (castTargetingMode == CastTargetingMode.Auto)
+        {
+            
+        }
+        
+        return null;
     }
     
     public static List<Vector3Int> GetCastableRange(Ability ability, Entity owner)

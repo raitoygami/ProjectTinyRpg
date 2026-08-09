@@ -100,6 +100,19 @@ public partial class Ability : ScriptableObject
         return _castRange;
     }
 
+    public CastTargetingMode GetCastTargetingMode()
+    {
+        return _castTargetingMode;
+    }
+    public CastCenterType GetCastCenterType()
+    {
+        return _castCenterType;
+    }
+    public AffectType GetAffectType()
+    {
+        return _affectType;
+    }
+    
     /// <summary>技能范围显示用参数（扇形/矩形/圆等），仅地面高亮；目标判定在子 Effect（如 <c>E_AOE</c>）中完成。</summary>
     public SelectParam GetSkillDisplayParam()
     {
@@ -171,7 +184,7 @@ public partial class Ability : ScriptableObject
         var owner = ownerLocation.Round();
         var mouse = castPoint.Round();
 
-        skillFaceDirection = WorldExtensions.GridDeltaXZ(owner, mouse);
+        skillFaceDirection = WorldExtensions.GridDelta(owner, mouse);
         if (skillFaceDirection.sqrMagnitude < 1e-8f)
             skillFaceDirection = Vector3.up;
 

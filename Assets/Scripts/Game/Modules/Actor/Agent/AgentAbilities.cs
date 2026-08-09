@@ -133,6 +133,9 @@ public class AgentAbilities : MonoBehaviour
         if (mover == null || pathNode == null)
             return targets;
 
+        var sizeX = Mathf.Max(1, mover.GridSizeX);
+        var sizeZ = Mathf.Max(1, mover.GridSizeZ);
+        
         var dir = new Vector2Int(pathNode.X - mover.X, pathNode.Y - mover.Y);
         dir.x = Math.Clamp(dir.x, -1, 1);
         dir.y = Math.Clamp(dir.y, -1, 1);
@@ -142,10 +145,6 @@ public class AgentAbilities : MonoBehaviour
         {
             var anchorX = pathNode.X + dir.x * i;
             var anchorZ = pathNode.Y + dir.y * i;
-
-            var sizeX = Mathf.Max(1, mover.GridSizeX);
-            var sizeZ = Mathf.Max(1, mover.GridSizeZ);
-
             // 遍历 mover 放置在 targetLocation 后占据的所有格子
             for (var ox = 0; ox < sizeX; ox++)
             for (var oz = 0; oz < sizeZ; oz++)
@@ -169,7 +168,6 @@ public class AgentAbilities : MonoBehaviour
                 if (targets.Contains(location)) continue;
                 
                 targets.Add(location);
-                return targets;
             }
         }
 

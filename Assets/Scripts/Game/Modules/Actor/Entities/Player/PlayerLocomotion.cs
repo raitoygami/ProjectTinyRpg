@@ -96,7 +96,6 @@ public partial class Player
 
                 break;
             case 0:
-
                 if (_interactableHovered != null)
                 {
                     var go = _interactableHovered as MonoBehaviour;

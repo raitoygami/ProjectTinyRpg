@@ -131,10 +131,10 @@ MonoBehaviour:
   WeaponTypeRequire: 0
   _targetType: 2
   _castRange: 1
-  _castTargetingMode: 0
+  _castTargetingMode: 1
   _castCenterType: 0
   _affectType: 0
-  _range: 0
+  _range: 1
   _prepareTurn: 1
   m_SkillDisplayParam:
     rid: -2

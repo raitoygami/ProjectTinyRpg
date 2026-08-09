@@ -177,14 +177,6 @@ internal static class WorldExtensions
         return new Vector2(toGrid.x - fromGrid.x, toGrid.y - fromGrid.y);
     }
 
-    /// <inheritdoc cref="GridDelta"/>
-    [Obsolete("Use GridDelta which returns Vector2.")]
-    public static Vector3 GridDeltaXZ(Vector3 fromGrid, Vector3 toGrid)
-    {
-        var d = GridDelta(fromGrid, toGrid);
-        return new Vector3(d.x, 0f, d.y);
-    }
-
     /// <summary>Are two grid-container positions in the same grid cell?</summary>
     public static bool SameGridCell(Vector3 a, Vector3 b)
     {
@@ -227,18 +219,15 @@ internal static class WorldExtensions
 
     public static List<Vector3Int> Line(this Vector3 start, Vector3Int end)
     {
-        var start1 = new Vector3Int((int)start.x, (int)start.y, (int)start.z);
-        return start1.Line(end);
+        return  Vector3Int.FloorToInt(start).Line(end);
     }
     
     public static List<Vector3Int> Line(this Vector3 start, Vector3 end)
     {
-        var start1 = new Vector3Int((int)start.x, (int)start.y, (int)start.z);
-        var end1 = new Vector3Int((int)end.x, (int)end.y, (int)end.z);
-        return start1.Line(end1);
+        return Vector3Int.FloorToInt(start).Line(Vector3Int.FloorToInt(end));
     }
-    
-    public static List<Vector3Int> Line(this Vector3Int start, Vector3Int end)
+
+    private static List<Vector3Int> Line(this Vector3Int start, Vector3Int end)
     {
         var cells = new List<Vector3Int>();
 
@@ -272,17 +261,15 @@ internal static class WorldExtensions
 
     public static List<Vector3Int> Line(this Vector3 start, Vector3 direction, int range)
     {
-        var startInt = new Vector3Int((int)start.x, (int)start.y, (int)start.z);
-        var directionInt = new Vector3Int((int)direction.x, (int)direction.y, (int)direction.z);
-        return startInt.Line(directionInt, range);
+        return Vector3Int.FloorToInt(start).Line(Vector3Int.FloorToInt(direction), range);
     }
     
     public static List<Vector3Int> Line(this Vector3 start, Vector3Int direction, int range)
     {
-        
-        return new Vector3Int((int)start.x, (int)start.y, (int)start.z).Line(direction, range);
+        return Vector3Int.FloorToInt(start).Line(direction, range);
     }
-    public static List<Vector3Int> Line(this Vector3Int start, Vector3Int direction, int range)
+
+    private static List<Vector3Int> Line(this Vector3Int start, Vector3Int direction, int range)
     {
         var cells = new List<Vector3Int>();
         if (range <= 0 || direction is { x: 0, y: 0 })

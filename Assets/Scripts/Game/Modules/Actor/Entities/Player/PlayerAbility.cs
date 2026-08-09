@@ -8,11 +8,6 @@ public partial class Player
     private bool _isExecutingAbility;
     private Ability _abilityPrepared;
 
-    public Ability GetAbilityPrepared()
-    {
-        return _abilityPrepared;
-    }
-
     public async UniTask PrepareWepAtk(int abilityID)
     {
         var ability = await m_AgentAbilities.GetWepAtkAbility(abilityID);
@@ -65,17 +60,7 @@ public partial class Player
 
         _isExecutingAbility = false;
     }
-    
-    private async UniTask ExecuteAbility(Ability ability, PathNode t_TargetPoint)
-    {
-        ability = ability == null ? m_AgentAbilities.GetWepAbility() : ability;
-        if (ability == null)
-            return;
-
-        var targetPoint = new Vector3(t_TargetPoint.X, 0, t_TargetPoint.Y);
-        await ExecuteAbilityInternal(ability, targetPoint);
-    }
-
+ 
     private async UniTask ExecuteAbility(Ability ability)
     {
         if (ability == null)
