@@ -10,18 +10,17 @@ public static class AbilityUtil
         return cell != null && PathFinder.IsWalkableCell(cell, owner);
     }
 
-    // 目前只实现了直线方向型的技能(获取直线上的格子)
-    // 后去会根据技能类型返回技能预览
-    public static List<Vector3Int> CalculateRange(Ability ability, Entity owner, Vector3 targetPosition)
+    // 技能准备范围
+    public static List<Vector3Int> GetAbilityPrepareRange(Ability ability, Entity owner, Vector3 castPoint)
     {
         if (owner == null && ability == null)
             return null;
-        var direction = owner.GridPosition.Direction(targetPosition);
+        var direction = owner.GridPosition.Direction(castPoint);
         var ret = owner.GridPosition.Line(direction, ability.GetCastRange());
         return ret;
     }
     
-    public static List<Vector3Int> CalculateRange(Ability ability, Entity owner)
+    public static List<Vector3Int> GetCastableRange(Ability ability, Entity owner)
     {
         var ret = new List<Vector3Int>();
         if (owner == null || ability == null)

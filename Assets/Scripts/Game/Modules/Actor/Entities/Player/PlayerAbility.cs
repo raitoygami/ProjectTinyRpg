@@ -8,31 +8,6 @@ public partial class Player
     private bool _executingAbility;
     private Ability _abilityPrepared;
 
-    /// <summary>在指针移动且格子变化时更新技能范围预览（预备施法时）。</summary>
-    private void UpdateSkillRangePreview(Vector3 hitPoint, Vector3 targetGrid)
-    {
-        var skillDisplay = _abilityPrepared != null ? _abilityPrepared.GetSkillDisplayParam() : null;
-        var showSkillPreview = _abilityPrepared != null && _abilityPrepared.IsSelecting() && skillDisplay != null;
-        if (showSkillPreview && InputManager.HasInstance() && GridIndicatorManager.HasInstance())
-        {
-            var mouseGrid = hitPoint.SnapToGrid();
-            if (_abilityPrepared.TryGetSkillPreviewFrame(GridPosition, mouseGrid, out var previewOrigin,
-                    out var skillFace))
-            {
-                GridIndicatorManager.Instance.ShowSkillRangePreview(skillDisplay, GridPosition, previewOrigin, skillFace,
-                    Const.Layer.ObstacleForNavi);
-            }
-            else
-            {
-                GridIndicatorManager.Instance.HideSkillRangePreview();
-            }
-        }
-        else if (GridIndicatorManager.HasInstance())
-        {
-            GridIndicatorManager.Instance.HideSkillRangePreview();
-        }
-    }
-
     public async UniTask PrepareAbility(Ability ability)
     {
         if (!ability.Available())
@@ -80,10 +55,8 @@ public partial class Player
 
     private async UniTask ExecuteAbility(Ability ability)
     {
-        ability = ability == null ? m_AgentAbilities.GetWepAbility() : ability;
         if (ability == null)
             return;
-
         if (!GetPointerInput(out var hitPoint))
         {
             ability.Cancel();
@@ -103,7 +76,7 @@ public partial class Player
         if (ability.IsTargeted())
         {
             var castPoint = new Vector3Int((int)location.x, (int)location.y, 0);
-            if (!ability.SelectionRange(location).Contains(castPoint) ||
+            if (!ability.GetCastableRange(location).Contains(castPoint) ||
                 !m_AgentAbilities.GetAffectTarget(location, ability, out affectTarget))
             {
                 ability.Cancel();

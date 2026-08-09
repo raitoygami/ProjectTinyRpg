@@ -61,7 +61,7 @@ public partial class Ability : ScriptableObject
 
     private AbilityStat _abilityStat;
     
-    private UniTaskCompletionSource<bool> _SelectionTask;
+    private UniTaskCompletionSource<bool> _getCastableRangeTask;
 
     public void SetAbilityStat(AbilityStat abilityStat)
     {
@@ -133,37 +133,27 @@ public partial class Ability : ScriptableObject
         _owner.Unsubscribe<TurnActor.TurnEndedEvent>(OnTurnFinish);
     }
 
-    private List<Vector3Int> _SelectionRange;
+    private List<Vector3Int> _castableRange;
 
-    public List<Vector3Int> SelectionRange(Vector3 castPoint, bool force = false)
+    public List<Vector3Int> GetCastableRange(Vector3 castPoint, bool force = false)
     {
-        if (_SelectionRange == null || force)
+        if (_castableRange == null || force)
         {
-            _SelectionRange =
-                AbilityUtil.CalculateRange( this, _owner, castPoint);
+            _castableRange =
+                AbilityUtil.GetCastableRange( this, _owner);
         }
-        return _SelectionRange;
+        return _castableRange;
     }
     
-    public List<Vector3Int> SelectionRange(bool force = false)
-    {
-        if (_SelectionRange == null || force)
-        {
-            _SelectionRange =
-                AbilityUtil.CalculateRange( this, _owner);
-        }
-        return _SelectionRange;
-    }
-
     public bool IsGridInCastRange(Vector3 gridPosition)
     {
         if (_owner == null)
             return false;
         var p = new Vector3Int((int)gridPosition.x, (int)gridPosition.y, 0);
-        return SelectionRange(gridPosition).Contains(p);
+        return GetCastableRange(gridPosition).Contains(p);
     }
     
-    public bool TryGetSkillPreviewFrame(Vector3 ownerGrid, Vector3 mouseGrid, out Vector3 previewOriginGrid,
+    public bool TryGetSkillPreviewFrame(Vector3 ownerLocation, Vector3 castPoint, out Vector3 previewOriginGrid,
         out Vector3 skillFaceDirection)
     {
         previewOriginGrid = default;
@@ -171,8 +161,8 @@ public partial class Ability : ScriptableObject
         if (_owner == null)
             return false;
 
-        var owner = ownerGrid.Round();
-        var mouse = mouseGrid.Round();
+        var owner = ownerLocation.Round();
+        var mouse = castPoint.Round();
 
         skillFaceDirection = WorldExtensions.GridDeltaXZ(owner, mouse);
         if (skillFaceDirection.sqrMagnitude < 1e-8f)
@@ -195,27 +185,27 @@ public partial class Ability : ScriptableObject
 
     public UniTask<bool> Select(bool t_ShowRange = true)
     {
-        _SelectionTask = new UniTaskCompletionSource<bool>();
+        _getCastableRangeTask = new UniTaskCompletionSource<bool>();
         if (_state != State.Inactive)
         {
-            _SelectionTask.TrySetResult(result: false);
-            return _SelectionTask.Task;
+            _getCastableRangeTask.TrySetResult(result: false);
+            return _getCastableRangeTask.Task;
         }
 
         if (_abilityStat.Cooldown <= 0)
         {
             _state = State.Selection;
-            _SelectionRange = AbilityUtil.CalculateRange(this, _owner);
-            return _SelectionTask.Task;
+            _castableRange = AbilityUtil.GetCastableRange(this, _owner);
+            return _getCastableRangeTask.Task;
         }
 
-        _SelectionTask.TrySetResult(result: false);
-        return _SelectionTask.Task;
+        _getCastableRangeTask.TrySetResult(result: false);
+        return _getCastableRangeTask.Task;
     }
 
     public async UniTask<bool> ExecuteMiss(Vector3 position, Entity target)
     {
-        _SelectionRange = null;
+        _castableRange = null;
         _state = State.Execution;
         GridIndicatorManager.Instance.Hide();
 
@@ -246,8 +236,8 @@ public partial class Ability : ScriptableObject
         _abilityStat.Cooldown = _cooldown;
         _abilityStat.OnCooldownChanged?.Invoke();
         _state = State.Inactive;
-        _SelectionTask?.TrySetResult(result: true);
-        _SelectionTask = null;
+        _getCastableRangeTask?.TrySetResult(result: true);
+        _getCastableRangeTask = null;
         return true;
         
     }
@@ -260,16 +250,11 @@ public partial class Ability : ScriptableObject
     
     public async UniTask<bool> Execute(List<Vector3> affectTargets, Vector3 castPosition)
     {
-        _SelectionRange = null;
+        _castableRange = null;
         _state = State.Execution;
         GridIndicatorManager.Instance.Hide();
 
         var canceledByEffect = false;
-
-        void OnContextCancel()
-        {
-            canceledByEffect = true;
-        }
 
         switch (_targetType)
         {
@@ -320,9 +305,14 @@ public partial class Ability : ScriptableObject
         _abilityStat.Cooldown = _cooldown;
         _abilityStat.OnCooldownChanged?.Invoke();
         _state = State.Inactive;
-        _SelectionTask?.TrySetResult(result: true);
-        _SelectionTask = null;
+        _getCastableRangeTask?.TrySetResult(result: true);
+        _getCastableRangeTask = null;
         return true;
+
+        void OnContextCancel()
+        {
+            canceledByEffect = true;
+        }
     }
 
     public bool IsSelecting()
@@ -335,9 +325,9 @@ public partial class Ability : ScriptableObject
         //DisableTileSelection();
         GridIndicatorManager.Instance.Hide();
         _state = State.Inactive;
-        _SelectionTask?.TrySetResult(result: false);
-        _SelectionTask = null;
-        _SelectionRange = null;
+        _getCastableRangeTask?.TrySetResult(result: false);
+        _getCastableRangeTask = null;
+        _castableRange = null;
         /*this.Publish(new CancelEvent
         {
             skill = this

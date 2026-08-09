@@ -170,19 +170,6 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
         _cursorMark.SetActive(false);
     }
 
-    /// <summary>按 Ability 配置的 <see cref="SelectParam"/> 高亮技能范围；起点与朝向由 <see cref="Ability.TryGetSkillPreviewFrame"/> 得到。</summary>
-    public void ShowSkillRangePreview(SelectParam param, Vector3 ownerGrid, Vector3 previewOriginGrid,
-        Vector3 skillFaceDirection, LayerMask t_LayerMask)
-    {
-       
-    }
-
-    public void HideSkillRangePreview()
-    {
-        
-    }
-
-    
 
     protected override void OnRelease()
     {

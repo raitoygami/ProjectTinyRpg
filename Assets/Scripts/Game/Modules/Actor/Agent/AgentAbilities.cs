@@ -94,11 +94,11 @@ public class AgentAbilities : MonoBehaviour
         return _wepAtkAbilityActive;
     }
 
-    public bool GetAffectTarget(Vector3 location, Ability ability, out List<Vector3> affectTargets)
+    public bool GetAffectTarget(Vector3 castPoint, Ability ability, out List<Vector3> affectTargets)
     {
         affectTargets = new List<Vector3>();
         
-        var cell = PathFinder.Instance.GetCell(location.x, location.y);
+        var cell = PathFinder.Instance.GetCell(castPoint.x, castPoint.y);
         var targetEntity = cell?.Logical as Entity;
         if (targetEntity == null)
             return false;
@@ -110,14 +110,14 @@ public class AgentAbilities : MonoBehaviour
             case AbilityTargetType.None:
                 break;
             case AbilityTargetType.Self:
-                if (targetEntity == GetComponent<Entity>()) affectTargets.Add(location); ;
+                if (targetEntity == GetComponent<Entity>()) affectTargets.Add(castPoint); ;
                 break;
             case AbilityTargetType.Enemy:
-                if (EntityManager.IsEnemyFraction(targetEntity.Faction, fraction)) affectTargets.Add(location);
+                if (EntityManager.IsEnemyFraction(targetEntity.Faction, fraction)) affectTargets.Add(castPoint);
 
                 break;
             case AbilityTargetType.Any:
-                affectTargets.Add(location);
+                affectTargets.Add(castPoint);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

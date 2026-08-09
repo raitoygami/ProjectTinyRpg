@@ -84,7 +84,7 @@ public class Blackboard
         // 这里获取的是武器技能
         if (_target.GridPosition.Dist(_owner.GridPosition) > wepAbility.GetCastRange()) return false;
         // 这里需要判断是否有 (目前实现了直线方向上的第一个目标)
-        var range = AbilityUtil.CalculateRange(wepAbility, _owner, _target.GridPosition);
+        var range = AbilityUtil.GetAbilityPrepareRange(wepAbility, _owner, _target.GridPosition);
         var firstTarget = AbilityUtil.GetCloseTarget(_owner, wepAbility, range);
         if (firstTarget == null || !EntityManager.IsEnemyFraction(firstTarget.Faction, _owner.Faction))
             return false;
@@ -102,7 +102,7 @@ public class Blackboard
         /*if (!_abilitySelect.Available())
             return false;
             */
-        _telegraph = AbilityUtil.CalculateRange(_abilitySelect, _owner, targetPoint);
+        _telegraph = AbilityUtil.GetAbilityPrepareRange(_abilitySelect, _owner, targetPoint);
         GridIndicatorManager.Instance.AddTelegraph(_telegraph.ToArray());
         _prepareRemined = 0;
         _hasPrepared = true;
@@ -131,7 +131,7 @@ public class Blackboard
         if (_abilitySelect.IsTargeted())
         {
             var selectionPoint = Vector3Int.FloorToInt(castPoint);
-            var selectionRange = _abilitySelect.SelectionRange(castPoint); 
+            var selectionRange = _abilitySelect.GetCastableRange(castPoint); 
             
             if (!selectionRange.Contains(selectionPoint) ||
                 !agentAbility.GetAffectTarget(castPoint, _abilitySelect, out affectTargets))
@@ -204,7 +204,7 @@ public class Blackboard
         if (!_hasPrepared || _telegraph == null) return;
         GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
         var targetPoint = _owner.GridPosition + _targetOffset;
-        _telegraph = AbilityUtil.CalculateRange(_abilitySelect, _owner, targetPoint);
+        _telegraph = AbilityUtil.GetAbilityPrepareRange(_abilitySelect, _owner, targetPoint);
         GridIndicatorManager.Instance.AddTelegraph(_telegraph.ToArray());
     }
     
