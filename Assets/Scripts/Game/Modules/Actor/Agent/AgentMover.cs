@@ -40,21 +40,6 @@ public class AgentMover : MonoBehaviour
         _IsMoving = false;
     }
 
-    /*private UniTask OnSceneChange(Game.SceneChangeEvt arg)
-    {
-        _MoveCancellation.Cancel();
-        return UniTask.CompletedTask;
-    }*/
-
-
-    public void SetPosition(Vector3 gridPosition)
-    {
-        PathFinder.Instance.UpdateCell((int)gridPosition.x
-            , (int)gridPosition.z
-            , GetComponent<Entity>());
-        transform.position = gridPosition.GridToWorld();
-    }
-
     public async UniTask<bool> Move(Vector3 gridPosition, bool forced = false, float velocityMulti = 1.0f,
         Ease moveEase = Ease.Linear)
     {
@@ -72,8 +57,8 @@ public class AgentMover : MonoBehaviour
         _IsMoving = true;
 
         var worldPosition = gridPosition.GridToWorld();
-        var duration = Vector3.Distance(transform.position, worldPosition) / Mathf.Max(velocityMulti, 1.0f) * 0.25f;
-
+        /*var duration = Vector3.Distance(transform.position, worldPosition) / Mathf.Max(velocityMulti, 1.0f) * 0.25f;*/
+        var duration = transform.SnapToGrid().Dist(worldPosition) / Mathf.Max(velocityMulti, 1.0f) * 0.25f;
         _MoveStartEvent.StartPosition = transform.position;
         _MoveStartEvent.TargetPosition = worldPosition;
         _MoveStartEvent.Forced = forced;

@@ -25,9 +25,9 @@ public class PathFinder : Singleton<PathFinder>
 
     // ── Init / Update ───────────────────────────────────────────────────
 
-    public void InitCells(int originX, int originZ, int width, int height, bool createNodes = true)
+    public void InitCells(int originX, int originY, int width, int height, bool createNodes = true)
     {
-        Cell.Init(originX, originZ, width, height, createNodes);
+        Cell.Init(originX, originY, width, height, createNodes);
     }
 
     public void UpdateCell(int x, int z, IPathNodeAgent logical)

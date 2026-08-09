@@ -9,8 +9,9 @@ public static class Const
         public static LayerMask ObstacleOnly = LayerMask.GetMask("Obstacle");
         public static LayerMask ObstacleForNavi = LayerMask.GetMask("Obstacle", "Creature", "Interact", "Player");
         public static readonly LayerMask LayerMaskInteract = LayerMask.GetMask( "Interact");
-        public static LayerMask ForLootCover = LayerMask.GetMask("Loot");
+        public static LayerMask ForInteractHover = LayerMask.GetMask("Interact");
         public static readonly LayerMask ObstacleForEnemyNavi = LayerMask.GetMask("Obstacle", "Interact");
+        public static readonly LayerMask LayerFogComputeFOV = LayerMask.GetMask("Obstacle", "Interact");
     }
 
     public static class KeyUI
@@ -28,7 +29,10 @@ public static class Const
 
     public static class ShaderPropertyKey
     {
-        public const string DissolveClip = "_DissolveClip";
+        public static readonly int TexelSizeX = Shader.PropertyToID("_OutlineTexelSizeX");
+        public static readonly int TexelSizeY = Shader.PropertyToID("_OutlineTexelSizeY");
+        public static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");
+        public static readonly int DissolveClip = Shader.PropertyToID("_DissolveClip");
     }
     
 }

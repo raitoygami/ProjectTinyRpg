@@ -28,7 +28,7 @@ public partial class Player : Entity
     // internal state
     private bool _InputAvailable;
     private bool _Controllable;
-    private DropItem _DropTarget;
+    private IInteractable _interactableHovered;
     private bool onNextTurnSkipPlayerActions;
     private readonly Queue<Func<UniTask>> m_NextTurnEvt = new();
     protected void Awake()
@@ -45,7 +45,8 @@ public partial class Player : Entity
         this.Subscribe<AgentStats.HealthChangedEvent>(HealthChangedEvent);
         this.Subscribe<AgentStats.DefeatedEvent>(OnDefeated);
 
-        
+        // 切换武器
+        this.Subscribe<AgentWeapon.EquippedWeaponChangeEvt>(OnWeaponChanged);
         
         this.SubscribeInput<InputManager.PointerMoveEvt>(OnPointerMoveEvt);
         this.SubscribeInput<InputManager.MouseClickEvt>(OnMouseClickEvt);
@@ -59,9 +60,8 @@ public partial class Player : Entity
         
         // 装备变动
         this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
-        // 切换武器
-        this.Subscribe<AgentWeapon.EquippedWeaponChangeEvt>(OnWeaponChanged);
-        
+        this.SubscribeGlobal<Context.FOVDirtyEvt>(OnFovDirtyEvt);
+  
         m_TurnActor = gameObject.AddComponent<TurnActor>();
         
         m_AgentStats = gameObject.AddComponent<AgentStats>();
@@ -84,7 +84,7 @@ public partial class Player : Entity
         EntityManager.Register(this);
     }
 
-
+ 
 
     private UniTask HealthChangedEvent(AgentStats.HealthChangedEvent arg)
     {
@@ -156,6 +156,14 @@ public partial class Player : Entity
         await this.PublishGlobal(Context.AvatarChanged);
     }
 
+    private UniTask OnFovDirtyEvt(Context.FOVDirtyEvt arg)
+    {
+        // 更新fov
+        var playerLocation = PlayerManager.Instance.GetLocation();
+        FOVManager.Instance.FovCompute(playerLocation.CurrentMap, GridPosition, 7);
+        return UniTask.CompletedTask;
+    }
+    
     // 第一次实例化
     public async UniTask FirstBindAfterInst()
     {
@@ -176,6 +184,9 @@ public partial class Player : Entity
         var playerLocation = PlayerManager.Instance.GetLocation();
         m_AgentAnimations.SetDirection(playerLocation.CurrentDirection);
 
+        // 更新fov
+        FOVManager.Instance.FovCompute(playerLocation.CurrentMap, GridPosition, 7);
+        
     }
 
     private async UniTask RefreshWeapons()

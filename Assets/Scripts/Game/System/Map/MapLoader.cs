@@ -61,33 +61,27 @@ public class MapLoader : Singleton<MapLoader>
         Debug.Log($"{width}x{height}-{originX}-{originY}");
         
         PathFinder.Instance.InitCells(originX, originY, width, height);
-         
+        
+        // 全图初始化fov
+        var mapData = MapManager.Instance.GetMapData(sceneName);
+        mapData.InitFogTiles(originX, originY, width, height);
+        
         // ── Mark cells with tiles as impassable ────────────────────────
         for (var x = bounds.xMin; x < bounds.xMax; x++)
         for (var y = bounds.yMin; y < bounds.yMax; y++)
         {
-            if (tilemap.HasTile(new Vector3Int(x - 1, y - 1, 0)))
+            var cell = tilemap.WorldToCell(new Vector3(x, y, 0));
+            if (!tilemap.HasTile(cell)) continue;
+            var blocker = new TilemapBlocker
             {
-                var blocker = new TilemapBlocker
-                {
-                    GridPosition = new Vector2Int(x, y),
-                    Layer = Const.Layer.ObstacleOnly
-                };
-                PathFinder.Instance.UpdateCell(x, y, blocker);
-            }
+                GridPosition = new Vector2Int(x, y),
+                Layer = Const.Layer.ObstacleOnly
+            };
+            PathFinder.Instance.UpdateCell(x, y, blocker);
         }
         
         // 新加载的地图 清理掉所有敌方预警
         GridIndicatorManager.Instance.ClearAll();
-        
-        // CreatePlayer expects grid-container, not world position — convert first
-        var entityID = PlayerManager.Instance.GetEntityID();
-        var location = PlayerManager.Instance.GetCurrentLocation();
-        var p = EntityManager.Instance.CreatePlayer(location, entityID);
-        p.InitAfterLevelLoad();
-        Context.Instance.SetPlayer(p);
-        CameraManager.Instance.SetFollowTarget(p.transform);
-        await p.FirstBindAfterInst();
         // 初始化
         var activeAfterLoad = levelLayers.ActiveAfterLoad;
         if (activeAfterLoad != null)
@@ -99,12 +93,23 @@ public class MapLoader : Singleton<MapLoader>
             }
         }
 
+        // CreatePlayer expects grid-container, not world position — convert first
+        var entityID = PlayerManager.Instance.GetEntityID();
+        var location = PlayerManager.Instance.GetCurrentLocation();
+        var p = EntityManager.Instance.CreatePlayer(location, entityID);
+        p.InitAfterLevelLoad();
+        Context.Instance.SetPlayer(p);
+        CameraManager.Instance.SetFollowTarget(p.transform);
+        await p.FirstBindAfterInst();
         if (mapInfo.MapType == MapConfig.MapType.WorldChunk)
         {
             PlayerManager.Instance.SetWorld(sceneName);
             PlayerManager.Instance.SetWorldLocation(p.transform.position);
         }
 
+        // 初始化
+        FOVManager.Instance.InitFov(mapData.GetFogTiles());
+        
         AudioManager.FadeMainMusicOut(1f);
         AudioManager.FadeMusicIn(mapInfo.MainMusic, 1f, true);
     }

@@ -530,4 +530,9 @@ public class UIRoot : Singleton<UIRoot>
     {
         await Open("StartMenu");
     }
+
+    protected override void OnRelease()
+    {
+        transform.DOKill();
+    }
 }

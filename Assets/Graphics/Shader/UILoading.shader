@@ -90,10 +90,10 @@ Shader "Raitoygami/UI/Loading"
 
             v2f vert(appdata_t v)
             {
-                v2f OUT;
+                v2f OUT = (v2f)0;
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
-                float4 vPosition = TransformObjectToHClip(v.vertex);
+                float4 vPosition = TransformObjectToHClip(v.vertex.xyz);
                 OUT.vertex = vPosition;
 
                 float2 pixelSize = vPosition.w;

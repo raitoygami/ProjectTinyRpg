@@ -14,8 +14,6 @@ public class Door : Entity
     
     [SerializeField] private GameObject _doorOpened;
     [SerializeField] private GameObject _doorClosed;
-    [SerializeField] private SoundFileObject _doorOpenedSound;
-    [SerializeField] private List<SpriteRenderer> _FogRelateds;
     private bool _isOpen;
     protected void Awake()
     {
@@ -29,35 +27,80 @@ public class Door : Entity
         return !_isOpen;
     }
 
-    private async UniTask OnInteraction(AgentInteractive.InteractionEvent arg)
+    private async UniTask Close()
+    {
+        var cell = PathFinder.Instance.GetCell(X, Y);
+        var logical = cell?.Logical;
+        if (logical != null)
+        {
+            AudioManager.PlaySound(GameAudioSounds.Sfx_Common_Denied);
+            return;
+        }
+        
+        var sceneName = SceneManager.GetActiveScene().name;
+        var entityName = $"{uniqueID}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
+        if (!MapManager.Instance.SetEntityStatData(sceneName, entityName, new EntityStatDoor { IsOpen = false }))
+            return;
+
+        _isOpen = false;
+        
+        _doorClosed.SetActive(true);
+        _doorClosed.GetComponent<IInteractable>().OnHoverExit();
+        _doorOpened.SetActive(false);
+        AudioManager.PlaySound(GameAudioSounds.Sfx_Common_DoorClose);
+        
+        await this.PublishGlobal(Context.FOVDirty);
+        
+        UpdateCell();
+    }
+
+    
+    private async UniTask Open()
     {
         var sceneName = SceneManager.GetActiveScene().name;
         var entityName = $"{uniqueID}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
         if (!MapManager.Instance.SetEntityStatData(sceneName, entityName, new EntityStatDoor { IsOpen = true }))
             return;
+        
         _isOpen = true;
         _doorClosed.SetActive(false);
         _doorOpened.SetActive(true);
-        if (_doorOpenedSound != null)
-            AudioManager.PlaySound(_doorOpenedSound);
+        _doorOpened.GetComponent<IInteractable>().OnHoverExit();
+        AudioManager.PlaySound(GameAudioSounds.Sfx_Common_DoorOpen);
         
-        var  tasks = Enumerable.Select(_FogRelateds, related => 
-                DOTween.To(() => related.color, // getter
-                    c => related.color = c, // setter
-                    Color.clear, // 目标颜色
-                    0.5f // 时长
-                )
-                .SetEase(Ease.OutExpo)
-                .ToUniTask())
-            .ToList();
-        await UniTask.WhenAll(tasks);
-        foreach (var fog in _FogRelateds)
-        {
-            fog.gameObject.SetActive(false);
-        }
-      
         PathFinder.Instance.ClearLogical(this);
+
+        await this.PublishGlobal(Context.FOVDirty);
+        
         await UniTask.CompletedTask;
+        
+    }
+    
+    public void Interact(bool open)
+    {
+        if (open)
+            Open().Forget();
+        else
+            Close().Forget();
+    }
+    
+    private async UniTask OnInteraction(AgentInteractive.InteractionEvent arg)
+    {
+        await Open();
+    }
+
+    private void UpdateCell()
+    {
+        var gridPosition = transform.position.SnapToGrid();
+        transform.position = gridPosition.GridToWorld();
+
+        X = (int)gridPosition.x;
+        Y = (int)gridPosition.y;
+        if (GridSizeX < 1) GridSizeX = 1;
+        if (GridSizeZ < 1) GridSizeZ = 1;
+
+        Layer = 1 << gameObject.layer;
+        PathFinder.Instance.UpdateCell(X, Y, this);
     }
     
     public override void InitAfterLevelLoad()
@@ -70,24 +113,9 @@ public class Door : Entity
         var isOpen = (entityStatData as EntityStatDoor)?.IsOpen ?? false;
         _isOpen = isOpen;
         if (!_isOpen)
-        {
-            var gridPosition = transform.position.SnapToGrid();
-            transform.position = gridPosition.GridToWorld();
-
-            X = (int)gridPosition.x;
-            Y = (int)gridPosition.y;
-            if (GridSizeX < 1) GridSizeX = 1;
-            if (GridSizeZ < 1) GridSizeZ = 1;
-
-            Layer = 1 << gameObject.layer;
-            PathFinder.Instance.UpdateCell(X, Y, this);
-        }
+            UpdateCell();
         // 更新门的状态
         _doorClosed.SetActive(!_isOpen);
         _doorOpened.SetActive(_isOpen);
-        foreach (var fog in _FogRelateds)
-        {
-            fog.gameObject.SetActive(!_isOpen);
-        }
     }
 }

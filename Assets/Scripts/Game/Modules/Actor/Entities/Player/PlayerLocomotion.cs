@@ -47,16 +47,17 @@ public partial class Player
             Vector2.zero, // 方向（零向量表示检测该点处的所有碰撞体，相当于 Point 检测）
             hitBuffer, // 缓存数组
             100, // 最大检测距离（实际作用有限，因为方向为零）
-            Const.Layer.ForLootCover // 层遮罩
+            Const.Layer.ForInteractHover // 层遮罩
         );
         
-        _DropTarget?.Interactive(false);
-        _DropTarget = null;
+        _interactableHovered?.OnHoverExit();
+        _interactableHovered = null;
         if (hitCount > 0)
         {
             var hit = hitBuffer[0];
-            _DropTarget = hit.collider.GetComponent<DropItem>();
-            _DropTarget.Interactive(true);
+            
+            _interactableHovered = hit.collider.GetComponent<IInteractable>();
+            _interactableHovered.OnHoverEnter();
         }
         
         await UniTask.CompletedTask;
@@ -67,7 +68,7 @@ public partial class Player
         if (!GetPointerInput(out var hitPoint))
             return;
         var targetGrid = hitPoint.SnapToGrid();
-        if (_DropTarget != null)
+        if (_interactableHovered != null)
         {
 
         }
@@ -96,11 +97,15 @@ public partial class Player
                 break;
             case 0:
 
-                if (_DropTarget != null)
+                if (_interactableHovered != null)
                 {
-                    _DropTarget.Pickup().Forget();
-                    _DropTarget = null;
-                    return;
+                    var go = _interactableHovered as MonoBehaviour;
+                    if (go?.transform.SnapToGrid().Dist(GridPosition) <= 2)
+                    {
+                        _interactableHovered.OnInteract().Forget();
+                        _interactableHovered = null;
+                        return;
+                    }
                 }
 
                 if (_PreparingAbility && _AbilityPrepared != null)
@@ -268,6 +273,8 @@ public partial class Player
             playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
         }
         
+        FOVManager.Instance.FovCompute(sceneName, GridPosition, 7);
+        
         return UniTask.CompletedTask;
     }
     
@@ -286,6 +293,8 @@ public partial class Player
             playerLocation.CurrentWorldLocation = arg.CurrPosition;
             playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
         }
+        
+        FOVManager.Instance.FovCompute(sceneName, GridPosition, 7);
         
         m_TurnActor.FinishTurn();
         await this.PublishGlobal(new Context.PlayerMoveFinishEvt());

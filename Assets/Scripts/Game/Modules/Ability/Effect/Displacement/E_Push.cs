@@ -13,6 +13,9 @@ public class E_Push : AbilityEffect
     {
         var mover = m_Context.Target.GetComponent<AgentMover>();
         if (mover == null)return;
+        var agentStat = m_Context.Target.GetComponent<AgentStats>();
+        if (!agentStat.Targetable())
+            return;
         
         var origin = m_Context.Owner.GridPosition;
         var target = m_Context.Target.GridPosition;

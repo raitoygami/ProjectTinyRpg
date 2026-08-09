@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class DropItem : MonoBehaviour
+public class DropItem : MonoBehaviour, IInteractable
 {
 
     public class PickupItemEvt : EventArgs
@@ -15,7 +15,7 @@ public class DropItem : MonoBehaviour
     [SerializeField] private int _ItemID;
     [SerializeField] private int _Amount;
 
-    private static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");
+    
 
     [SerializeField] private SpriteRenderer spriteRenderer;
 
@@ -46,8 +46,33 @@ public class DropItem : MonoBehaviour
                 Debug.LogError($"加载图标失败: {item.Icon}");
         };
     }
+    
+    
+    private void OnDestroy()
+    {
+        // 安全释放
+        if (_iconHandle.IsValid())
+        {
+            Addressables.Release(_iconHandle);
+            _iconHandle = default; // 可选：清空
+        }
+    }
 
-    public async UniTask Pickup()
+    public void OnHoverEnter()
+    {
+        var texelSizeX = 1.0f / spriteRenderer.sprite.texture.width;
+        var texelSizeY = 1.0f / spriteRenderer.sprite.texture.height;
+        spriteRenderer.material.SetFloat(Const.ShaderPropertyKey.TexelSizeX, texelSizeX);
+        spriteRenderer.material.SetFloat(Const.ShaderPropertyKey.TexelSizeY, texelSizeY);
+        spriteRenderer.material.SetFloat(Const.ShaderPropertyKey.OutlineThickness, 1);
+    }
+
+    public void OnHoverExit()
+    {
+        spriteRenderer.material.SetFloat(Const.ShaderPropertyKey.OutlineThickness, 0);
+    }
+
+    public async UniTask OnInteract()
     {
         if (!PlayerManager.HasInstance())
         {
@@ -63,20 +88,5 @@ public class DropItem : MonoBehaviour
             Destroy(gameObject);
         }
         await UniTask.CompletedTask;
-    }
-
-    public void Interactive(bool show)
-    {
-        spriteRenderer.material.SetFloat(OutlineThickness, show ? 1 : 0);
-    }
-
-    private void OnDestroy()
-    {
-        // 安全释放
-        if (_iconHandle.IsValid())
-        {
-            Addressables.Release(_iconHandle);
-            _iconHandle = default; // 可选：清空
-        }
     }
 }

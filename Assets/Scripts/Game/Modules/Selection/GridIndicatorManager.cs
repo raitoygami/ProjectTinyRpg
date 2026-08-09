@@ -23,17 +23,17 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
     
     private readonly Dictionary<Vector3Int, int> _telegraphRefCount = new();
    
-    public void Setup(NavigationSettings t_Settings)
+    public void Setup(TileAssetTable tileAssetTable)
     {
         _root = new GameObject("Root").transform;
-        _cursorMark = Instantiate(t_Settings.NavigationMarkEnd, _root, true);
+        _cursorMark = Instantiate(tileAssetTable.NavigationMarkEnd, _root, true);
         _cursorMark.SetActive(false);
         _root.SetParent(transform);
         _root.transform.position = Vector3.zero;
 
-        _tileAbilityRange = t_Settings.TileAbilityRange;
-        _tileAbilityCastRange = t_Settings.TileAbilityCastRange;
-        _tileAbilityTelegraph = t_Settings.TileAbilityTelegraph;
+        _tileAbilityRange = tileAssetTable.TileAbilityRange;
+        _tileAbilityCastRange = tileAssetTable.TileAbilityCastRange;
+        _tileAbilityTelegraph = tileAssetTable.TileAbilityTelegraph;
         
         var gridObj = new GameObject("IndicatorGrid");
         gridObj.transform.SetParent(transform);
@@ -97,8 +97,8 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
             var color = Color.Lerp(Color.white, Color.black, t);
             // 可选：让透明度也随数量稍微降低（不强制）
             // color.a = 1f - t * 0.3f; 
+            _tilemapTelegraph.SetTileFlags(cell, _telegraphRefCount[cell] == 1 ? TileFlags.None : TileFlags.LockColor);
             _tilemapTelegraph.SetColor(cell, color);
-            
         }
     }
 
@@ -125,6 +125,7 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
             var color = Color.Lerp(Color.white, Color.black, t);
             // 可选：让透明度也随数量稍微降低（不强制）
             // color.a = 1f - t * 0.3f; 
+            _tilemapTelegraph.SetTileFlags(cell, _telegraphRefCount[cell] == 1 ? TileFlags.None : TileFlags.LockColor);
             _tilemapTelegraph.SetColor(cell, color);
             
             // 计数归零时清除 Tile
@@ -239,10 +240,15 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
         return ret;
     }
 
-    private void OnDestroy()
+    protected override void OnRelease()
     {
         if (_root != null)
             Destroy(_root);
         _root = null;
+        if (_cursorMark)
+            _cursorMark.transform.DOKill();
+        _cursorMark = null;
     }
+
+    
 }

@@ -11,6 +11,7 @@ public partial class SaveData
     [Serializable]
     public class MapData
     {
+        public Dictionary<Vector3, MapTileData> _fogTiles; // The fog tiles of the map.
         public Dictionary<string, EntityStatData> _entityStats = new();
 
         public EntityStatData GetEntityStat(string entityName)
@@ -18,11 +19,46 @@ public partial class SaveData
             return _entityStats.GetValueOrDefault(entityName);
         }
 
+        public Dictionary<Vector3, MapTileData> GetFogTiles()
+        {
+            return _fogTiles;
+        }
+        
         public void SetEntityStat(string entityName, EntityStatData entityStatData)
         {
             if (_entityStats.TryAdd(entityName, entityStatData)) return;
             _entityStats[entityName] = entityStatData;
         }
+
+        public void InitFogTiles(int originX, int originY, int width, int height)
+        {
+            // 只初始化一次
+            if (_fogTiles != null)
+                return;
+            
+            _fogTiles = new Dictionary<Vector3, MapTileData>();
+            for (var i = 1; i <= width; i++)
+            {
+                for (var j = 1; j <= height; j++)
+                {
+                    var location = new Vector3Int(originX + i, originY + j, 0); // Gets the local position.
+                    // Gets the tile.
+                    var tile = new MapTileData
+                    {
+                        isExplored = false,
+                        isVisible = false,
+                        localPlace = location, // Sets the local place.
+                    };
+                    _fogTiles.Add(location, tile);
+                }
+            }
+        }
+
+        public MapTileData GetFogTile(Vector3 location)
+        {
+            return _fogTiles?.GetValueOrDefault(location);
+        }
+        
     }
     
     public Dictionary<string, MapData> _maps = new();

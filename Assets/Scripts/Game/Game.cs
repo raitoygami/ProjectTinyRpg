@@ -75,7 +75,8 @@ public class Game : Singleton<Game>
             PoolManager.Instance.Initialized();
             TurnManager.Instance.Initialized();
             CombatManager.Instance.Initialized();
-            GridIndicatorManager.Instance.Setup(PreloadSettings.Instance.NavigationSetting());
+            FOVManager.Instance.Setup(PreloadSettings.Instance.GetTileAssetTable()); //战争迷雾 
+            GridIndicatorManager.Instance.Setup(PreloadSettings.Instance.GetTileAssetTable()); // 技能相关范围指示器
             
             await UIRoot.Instance.FadeIn(0);
             await Addressables.LoadSceneAsync("Scene/Menu").ToUniTask();

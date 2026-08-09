@@ -6,16 +6,16 @@ using UnityEngine.AddressableAssets;
 
 public class PreloadSettings : Singleton<PreloadSettings>{
 
-    private NavigationSettings m_NavigationSettings;
+    private TileAssetTable _tileAssetTable;
 
-    public NavigationSettings NavigationSetting(){
-        return m_NavigationSettings;
+    public TileAssetTable GetTileAssetTable(){
+        return _tileAssetTable;
     }
     
     public async UniTask LoadSettings(){
-        var handle = Addressables.LoadAssetAsync<NavigationSettings>("Settings/Navigation");
+        var handle = Addressables.LoadAssetAsync<TileAssetTable>("Config/TileAssetTable");
         await handle;
-        m_NavigationSettings = Instantiate(handle.Result);
+        _tileAssetTable = Instantiate(handle.Result);
         await UniTask.CompletedTask;
     }
     

@@ -35,6 +35,12 @@ public class Context : Singleton<Context>
     {
         
     }
+    public class FOVDirtyEvt : EventArgs
+    {
+        
+    }
+
+    public static readonly FOVDirtyEvt FOVDirty = new ();
     
     public Player PlayerInst { get; private set; }
     public GlobalParameterContext GlobalParameters { get; } = new();
