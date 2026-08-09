@@ -7580,7 +7580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07227ff15114c1c46a334933bf3bc2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainUI
-  ActionSlotIconPrefab: {fileID: 2913972891443819339, guid: c0e5d53a42c2c144f98ee65a35151e75, type: 3}
+  quickBarWepPrefab: {fileID: 2317912546160306657, guid: c0e5d53a42c2c144f98ee65a35151e75, type: 3}
   _currentWeaponSlot: {fileID: 8614691477174662896}
   _abilities:
   - {fileID: 6051852028788810244}

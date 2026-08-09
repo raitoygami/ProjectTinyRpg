@@ -14,7 +14,7 @@ public class AgentAbilities : MonoBehaviour
     // 装备普通攻击技能,只存放装备在槽位上的武器对应技能
     private readonly Dictionary<int, Ability> _wepAtkAbilities = new();
 
-    private async UniTask<Ability> GetWepAtkAbility(int abilityId)
+    public async UniTask<Ability> GetWepAtkAbility(int abilityId)
     {
         if (!_wepAtkAbilities.TryGetValue(abilityId, out var ability))
         {

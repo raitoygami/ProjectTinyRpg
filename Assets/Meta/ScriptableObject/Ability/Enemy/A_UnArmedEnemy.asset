@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e44534ca35f444ab8c81e8e84e52e, type: 3}
   m_Name: A_UnArmedEnemy
   m_EditorClassIdentifier: 
+  _abilityID: 300000
   AbilityName:
     m_TableReference:
       m_TableCollectionName: 

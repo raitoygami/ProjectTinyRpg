@@ -9,8 +9,8 @@ public class TileAssetTable : ScriptableObject{
     
     [Header("Abilities Indicator")]
     // 技能范围相关
-    [SerializeField] public RuleTile TileAbilityRange;
-    [SerializeField] public Tile TileAbilityCastRange;
+    [SerializeField] public RuleTile TileAbilityCastRange;
+    [SerializeField] public Tile TileAbilityAffectRange;
     [SerializeField] public Tile TileAbilityTelegraph;
 
     [Header("FOV")] 

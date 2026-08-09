@@ -4,15 +4,38 @@ using UnityEngine;
 
 public partial class Player
 {
-    private bool _preparingAbility;
-    private bool _executingAbility;
+    private bool _isPreparingAbility;
+    private bool _isExecutingAbility;
     private Ability _abilityPrepared;
 
+    public Ability GetAbilityPrepared()
+    {
+        return _abilityPrepared;
+    }
+
+    public async UniTask PrepareWepAtk(int abilityID)
+    {
+        var ability = await m_AgentAbilities.GetWepAtkAbility(abilityID);
+        if (ability == null)
+            return;
+
+        if (ability == _abilityPrepared)
+        {
+            _abilityPrepared.Cancel();
+            return;
+        }
+        
+        _abilityPrepared?.Cancel();
+
+        await PrepareAbility(ability);
+            
+    }
+    
     public async UniTask PrepareAbility(Ability ability)
     {
         if (!ability.Available())
         {
-            Debug.Log("Skill can't use.");
+            Debug.Log("Ability can't use.");
             return;
         }
 
@@ -21,11 +44,11 @@ public partial class Player
             _Controllable = false;
             ClearPath();
 
-            _preparingAbility = true;
+            _isPreparingAbility = true;
             _abilityPrepared = ability;
-            var success = await ability.Select();
-            _preparingAbility = false;
-
+            await ability.PrepareCast(true);
+            _isPreparingAbility = false;
+            
             _Controllable = true;
             _abilityPrepared = null;
         }
@@ -33,14 +56,14 @@ public partial class Player
 
     private async UniTask ExecuteAbility(Ability ability, List<Vector3> affectTargets, Vector3 targetPoint)
     {
-        _executingAbility = true;
+        _isExecutingAbility = true;
         
         if (await ability.Execute(affectTargets, targetPoint))
         {
             GetComponent<TurnActor>().FinishTurn();
         }
 
-        _executingAbility = false;
+        _isExecutingAbility = false;
     }
     
     private async UniTask ExecuteAbility(Ability ability, PathNode t_TargetPoint)
@@ -72,6 +95,7 @@ public partial class Player
     private async UniTask ExecuteAbilityInternal(Ability ability, Vector3 location)
     {
         _abilityPrepared = null;
+        
         List<Vector3> affectTarget = null;
         if (ability.IsTargeted())
         {
@@ -84,7 +108,7 @@ public partial class Player
             }
         }
 
-        _executingAbility = true;
+        _isExecutingAbility = true;
         if (ability.TryGetSkillPreviewFrame(GridPosition, location, out var previewOrigin,
                 out var skillFace))
         {
@@ -99,6 +123,6 @@ public partial class Player
         }
         
  
-        _executingAbility = false;
+        _isExecutingAbility = false;
     }
 }

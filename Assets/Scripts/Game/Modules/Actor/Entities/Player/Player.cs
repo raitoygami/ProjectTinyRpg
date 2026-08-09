@@ -226,6 +226,11 @@ public partial class Player : Entity
     private async UniTask OnWeaponChanged(AgentWeapon.EquippedWeaponChangeEvt arg)
     {
         await m_AgentAbilities.UpdateWepAbility(arg.WepAtkAbilityID);
+        
+        // 只要切换武器就取消技能
+        if (_isPreparingAbility && _abilityPrepared.GetAbilityID() != arg.WepAtkAbilityID)
+            _abilityPrepared.Cancel();
+        
         var abilityStat = PlayerManager.Instance.GetAbilityStat(arg.WepAtkAbilityID);
         await m_AgentAbilities.SyncWepAtkAbilityStat(arg.WepAtkAbilityID, abilityStat);
         // 全局消息 更新界面
@@ -365,7 +370,7 @@ public partial class Player : Entity
     
     private async UniTask OnSkipTurn(InputManager.SkipEvt arg)
     {
-        if (_preparingAbility)
+        if (_isPreparingAbility)
             return;
         
         GetComponent<TurnActor>().FinishTurn(true);

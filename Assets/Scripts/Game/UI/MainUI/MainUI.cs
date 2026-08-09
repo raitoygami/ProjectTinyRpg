@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class MainUI : MonoBehaviour
 {
-    [SerializeField] private ActionSlotIconObj ActionSlotIconPrefab; 
-    private ActionSlotIconObj _ActionSlotIconInst;    
+    [SerializeField] private QuickBarWepObj quickBarWepPrefab; 
+    private QuickBarWepObj _quickBarWepInst;    
     [SerializeField] private Transform _currentWeaponSlot;
     
     [SerializeField] private List<Transform> _abilities = new();
@@ -71,14 +71,12 @@ public class MainUI : MonoBehaviour
     
     private void InstanceActionSlotIcon()
     {
-        if (_ActionSlotIconInst == null)
-        {
-            _ActionSlotIconInst = Instantiate(ActionSlotIconPrefab, _currentWeaponSlot);
-            _ActionSlotIconInst.transform.SetSiblingIndex(0);
-            _ActionSlotIconInst.transform.localPosition = Vector3.zero;
-            _ActionSlotIconInst.transform.localRotation = Quaternion.identity;
-            _ActionSlotIconInst.transform.localScale = Vector3.one;
-        }
+        if (_quickBarWepInst != null) return;
+        _quickBarWepInst = Instantiate(quickBarWepPrefab, _currentWeaponSlot);
+        _quickBarWepInst.transform.SetSiblingIndex(0);
+        _quickBarWepInst.transform.localPosition = Vector3.zero;
+        _quickBarWepInst.transform.localRotation = Quaternion.identity;
+        _quickBarWepInst.transform.localScale = Vector3.one;
     }
     
     public void OnRefresh()
@@ -95,8 +93,8 @@ public class MainUI : MonoBehaviour
 
         var abilityId = weaponActive.WepAtkAbilityId;
         var abilityStat = PlayerManager.Instance.GetAbilityStat(abilityId);
-        _ActionSlotIconInst.UpdateAbilityInfo(abilityId, abilityStat);
-        _ActionSlotIconInst.UpdateIcon(weaponActive.Icon);
+        _quickBarWepInst.UpdateAbilityInfo(abilityId, abilityStat);
+        _quickBarWepInst.UpdateIcon(weaponActive.Icon);
     }
     
     private async UniTask OnEquippedWeaponChangeEvt(AgentWeapon.EquippedWeaponChangeEvt arg)
@@ -104,19 +102,19 @@ public class MainUI : MonoBehaviour
         InstanceActionSlotIcon();
         var abilityId = arg.WeaponChanged.WepAtkAbilityId;
         var abilityStat = PlayerManager.Instance.GetAbilityStat(abilityId);
-        _ActionSlotIconInst.UpdateAbilityInfo(abilityId, abilityStat);
-        _ActionSlotIconInst.UpdateIcon(arg.WeaponChanged.Icon);
+        _quickBarWepInst.UpdateAbilityInfo(abilityId, abilityStat);
+        _quickBarWepInst.UpdateIcon(arg.WeaponChanged.Icon);
         
         await UniTask.CompletedTask;
     }
 
     private void OnDestroy()
     {
-        if (_ActionSlotIconInst != null)
+        if (_quickBarWepInst != null)
         {
-            Destroy(_ActionSlotIconInst.gameObject);
+            Destroy(_quickBarWepInst.gameObject);
         }
-        _ActionSlotIconInst = null;
+        _quickBarWepInst = null;
         
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(Ability))]
 public class AbilityInspector : Editor
 {
+    private SerializedProperty _abilityID;
     private SerializedProperty _name;
     private SerializedProperty _icon;
     private SerializedProperty _weaponTypeRequire;
@@ -27,6 +28,7 @@ public class AbilityInspector : Editor
 
     private void OnEnable()
     {
+        _abilityID = serializedObject.FindProperty("_abilityID");
         _name = serializedObject.FindProperty("AbilityName");
         _icon = serializedObject.FindProperty("Icon");
         _weaponTypeRequire = serializedObject.FindProperty("WeaponTypeRequire");
@@ -77,7 +79,7 @@ public class AbilityInspector : Editor
         EditorGUI.BeginChangeCheck();
         // properties
         EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.ExpandWidth(true));
-
+        EditorGUILayout.PropertyField(_abilityID);
         EditorGUILayout.PropertyField(_name);
         EditorGUILayout.PropertyField(_icon);
         EditorGUILayout.PropertyField(_weaponTypeRequire);

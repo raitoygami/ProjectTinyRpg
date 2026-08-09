@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine.Tilemaps;
 
@@ -10,15 +11,15 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
     private Grid _indicatorGrid;
     // 新增：三个 Tilemap 引用
     
-    private Tilemap _tilemapAbilityRange;    // 技能生效范围
     private Tilemap _tilemapAbilityCastRange;      // 施法范围
+    private Tilemap _tilemapAbilityAffectRange;    // 技能生效范围
     private Tilemap _tilemapTelegraph;      // 敌方预警
     
     private Transform _root;
     private GameObject _cursorMark;
 
-    private RuleTile _tileAbilityRange;
-    private Tile _tileAbilityCastRange;
+    private RuleTile _tileAbilityCastRange;
+    private Tile _tileAbilityAffectRange;
     private Tile _tileAbilityTelegraph;
     
     private readonly Dictionary<Vector3Int, int> _telegraphRefCount = new();
@@ -31,8 +32,9 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
         _root.SetParent(transform);
         _root.transform.position = Vector3.zero;
 
-        _tileAbilityRange = tileAssetTable.TileAbilityRange;
+        
         _tileAbilityCastRange = tileAssetTable.TileAbilityCastRange;
+        _tileAbilityAffectRange = tileAssetTable.TileAbilityAffectRange;
         _tileAbilityTelegraph = tileAssetTable.TileAbilityTelegraph;
         
         var gridObj = new GameObject("IndicatorGrid");
@@ -46,9 +48,9 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
         _indicatorGrid.cellSwizzle = GridLayout.CellSwizzle.XYZ;
         
         var defaultLayer = SortingLayer.NameToID("Default");
-        _tilemapAbilityRange = CreateTilemap(gridObj.transform, "Layer Ability Range", defaultLayer, -2);
+        _tilemapAbilityAffectRange = CreateTilemap(gridObj.transform, "Layer Ability Affect Range", defaultLayer, -2);
         _tilemapAbilityCastRange = CreateTilemap(gridObj.transform, "Layer Ability Cast Range", defaultLayer, -3);
-        _tilemapTelegraph = CreateTilemap(gridObj.transform, "Layer Ability Telegraph", defaultLayer, -1);
+        _tilemapTelegraph = CreateTilemap(gridObj.transform, "Layer Ability Telegraph", defaultLayer, -4);
     }
     
     // 辅助方法：创建 Tilemap 并设置 Sorting Order
@@ -147,9 +149,19 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
         _tilemapTelegraph.ClearAllTiles();
         _telegraphRefCount.Clear();
     }
-    
-    public void Hide()
+
+    public void ShowCastableRange(List<Vector3Int> castableRange)
     {
+        foreach (var cell in castableRange.Select(location => _indicatorGrid.WorldToCell(location)))
+        {
+            _tilemapAbilityCastRange.SetTile(cell, _tileAbilityCastRange);
+        }
+    }
+    
+    public void HideAbilityPreview()
+    {
+        _tilemapAbilityCastRange.ClearAllTiles();
+        _tilemapAbilityAffectRange.ClearAllTiles();
     }
     
     public void DrawCursorMark(Vector3 t_GridPosition, bool t_moveable)

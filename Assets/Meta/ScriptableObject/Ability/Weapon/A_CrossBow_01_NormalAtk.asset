@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e44534ca35f444ab8c81e8e84e52e, type: 3}
   m_Name: A_CrossBow_01_NormalAtk
   m_EditorClassIdentifier: 
+  _abilityID: 100002
   AbilityName:
     m_TableReference:
       m_TableCollectionName: 
@@ -129,7 +130,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: d609a9771ee1d8a4e90b6bb6002d50dc, type: 3}
   WeaponTypeRequire: 3
   _targetType: 2
-  _castRange: 1
+  _castRange: 5
   _castTargetingMode: 1
   _castCenterType: 0
   _affectType: 0
@@ -137,7 +138,7 @@ MonoBehaviour:
   _prepareTurn: 0
   m_SkillDisplayParam:
     rid: -2
-  _cooldown: 1
+  _cooldown: 2
   CostHP: 0
   CostMP: 0
   TreeRoot: {fileID: 5498850296569907920}

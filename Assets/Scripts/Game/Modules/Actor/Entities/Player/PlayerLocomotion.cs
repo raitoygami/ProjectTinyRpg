@@ -78,7 +78,7 @@ public partial class Player
 
     private async UniTask OnMouseClickEvt(InputManager.MouseClickEvt arg)
     {
-        if (_executingAbility)
+        if (_isExecutingAbility)
             return;
         
         // 拾起背包块时左键由 InventoryTetris 全局处理（放下/丢弃），不应触发地面寻路与移动
@@ -88,7 +88,7 @@ public partial class Player
         switch (arg.mouseIndex)
         {
             case 1:
-                if (_preparingAbility && _abilityPrepared != null)
+                if (_isPreparingAbility && _abilityPrepared != null)
                 {
                     _abilityPrepared.Cancel();
                     _ = OnPointerMoveEvt(null);
@@ -108,7 +108,7 @@ public partial class Player
                     }
                 }
 
-                if (_preparingAbility && _abilityPrepared != null)
+                if (_isPreparingAbility && _abilityPrepared != null)
                 {
                     ExecuteAbility(_abilityPrepared).Forget();
                     return;
@@ -125,7 +125,7 @@ public partial class Player
 
     private async UniTask MovePathAsync()
     {
-        if (_preparingAbility)
+        if (_isPreparingAbility)
             return;
 
         ClearPath();

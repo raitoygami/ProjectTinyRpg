@@ -1,8 +1,9 @@
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActionSlotIconObj : MonoBehaviour
+public class QuickBarWepObj : MonoBehaviour
 {
     [SerializeField] private Image _Icon;
     [SerializeField] private GameObject _nodeCooldown;
@@ -13,6 +14,7 @@ public class ActionSlotIconObj : MonoBehaviour
     {
         if (_abilityStat != null)
             _abilityStat.OnCooldownChanged -= OnCooldownChanged;
+
         _abilityReference = abilityID;
         _abilityStat = abilityStat;
         _abilityStat.OnCooldownChanged += OnCooldownChanged;
@@ -30,7 +32,16 @@ public class ActionSlotIconObj : MonoBehaviour
     {
         _Icon.sprite = sprite;
     }
-    
-    
-    
+
+    public void OnButtonClick()
+    {
+        if (_abilityReference == 0)
+            return;
+
+        if (!Context.HasInstance())
+            return;
+
+        var player = Context.Instance.PlayerInst;
+        player.PrepareWepAtk(_abilityReference).Forget();
+    }
 }

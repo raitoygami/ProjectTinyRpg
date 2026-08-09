@@ -9,6 +9,8 @@ using UnityEngine.Localization;
 public partial class Ability : ScriptableObject
 {
 
+    [SerializeField] private int _abilityID;
+    
     [SerializeField] public LocalizedString AbilityName;
     [SerializeField] public Sprite Icon;
 
@@ -63,6 +65,11 @@ public partial class Ability : ScriptableObject
     
     private UniTaskCompletionSource<bool> _getCastableRangeTask;
 
+    public int GetAbilityID()
+    {
+        return _abilityID;
+    }
+    
     public void SetAbilityStat(AbilityStat abilityStat)
     {
         _abilityStat = abilityStat;
@@ -183,7 +190,7 @@ public partial class Ability : ScriptableObject
         return true;
     }
 
-    public UniTask<bool> Select(bool t_ShowRange = true)
+    public UniTask<bool> PrepareCast(bool showRange = false)
     {
         _getCastableRangeTask = new UniTaskCompletionSource<bool>();
         if (_state != State.Inactive)
@@ -196,6 +203,8 @@ public partial class Ability : ScriptableObject
         {
             _state = State.Selection;
             _castableRange = AbilityUtil.GetCastableRange(this, _owner);
+            if (showRange && GridIndicatorManager.HasInstance())
+                GridIndicatorManager.Instance.ShowCastableRange(_castableRange);
             return _getCastableRangeTask.Task;
         }
 
@@ -207,7 +216,7 @@ public partial class Ability : ScriptableObject
     {
         _castableRange = null;
         _state = State.Execution;
-        GridIndicatorManager.Instance.Hide();
+        GridIndicatorManager.Instance.HideAbilityPreview();
 
         var canceledByEffect = false;
 
@@ -252,7 +261,7 @@ public partial class Ability : ScriptableObject
     {
         _castableRange = null;
         _state = State.Execution;
-        GridIndicatorManager.Instance.Hide();
+        GridIndicatorManager.Instance.HideAbilityPreview();
 
         var canceledByEffect = false;
 
@@ -322,25 +331,16 @@ public partial class Ability : ScriptableObject
 
     public void Cancel()
     {
-        //DisableTileSelection();
-        GridIndicatorManager.Instance.Hide();
+        GridIndicatorManager.Instance.HideAbilityPreview();
         _state = State.Inactive;
         _getCastableRangeTask?.TrySetResult(result: false);
         _getCastableRangeTask = null;
         _castableRange = null;
-        /*this.Publish(new CancelEvent
-        {
-            skill = this
-        });
-        this.Publish(new ToggleEvent
-        {
-            skill = this,
-            active = false
-        });*/
     }
 
     public bool Available()
     {
         return true;
     }
+    
 }
