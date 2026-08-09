@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -11,6 +12,7 @@ public partial class SaveData
     [Serializable]
     public class MapData
     {
+        [JsonConverter(typeof(Vector3DictionaryConverter<MapTileData>))]
         public Dictionary<Vector3, MapTileData> _fogTiles; // The fog tiles of the map.
         public Dictionary<string, EntityStatData> _entityStats = new();
 

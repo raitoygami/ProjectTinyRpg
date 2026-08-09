@@ -1,6 +1,59 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+
+public class Vector3DictionaryConverter<TValue> : JsonConverter
+{
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType == typeof(Dictionary<Vector3, TValue>);
+    }
+
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        var dict = new Dictionary<Vector3, TValue>();
+        var obj = JObject.Load(reader);
+
+        foreach (var property in obj.Properties())
+        {
+            // 属性名就是字符串键，解析为 Vector3
+            var key = ParseVector3(property.Name);
+            var value = property.Value.ToObject<TValue>(serializer);
+            dict[key] = value;
+        }
+        return dict;
+    }
+
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        var dict = (Dictionary<Vector3, TValue>)value;
+        var obj = new JObject();
+        foreach (var kvp in dict)
+        {
+            // 将 Vector3 转换为字符串键 "x,y,z"
+            var keyStr = $"{kvp.Key.x},{kvp.Key.y},{kvp.Key.z}";
+            obj.Add(keyStr, JToken.FromObject(kvp.Value, serializer));
+        }
+        obj.WriteTo(writer);
+    }
+
+    private Vector3 ParseVector3(string s)
+    {
+        var parts = s.Split(',');
+        if (parts.Length != 3)
+            throw new FormatException($"Invalid Vector3 string: {s}");
+        return new Vector3(
+            float.Parse(parts[0]),
+            float.Parse(parts[1]),
+            float.Parse(parts[2])
+        );
+    }
+}
+
 public static class Utils
 {
     /// <summary>
