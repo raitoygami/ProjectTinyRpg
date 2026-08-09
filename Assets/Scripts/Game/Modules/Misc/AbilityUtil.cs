@@ -21,16 +21,16 @@ public static class AbilityUtil
         return ret;
     }
     
-    public static List<Vector2Int> CalculateRange(Ability ability, Entity owner)
+    public static List<Vector3Int> CalculateRange(Ability ability, Entity owner)
     {
-        var ret = new List<Vector2Int>();
+        var ret = new List<Vector3Int>();
         if (owner == null || ability == null)
             return ret;
 
         var sx = (int) owner.GridPosition.x;
         var sy = (int) owner.GridPosition.y;
 
-        var nodes = new Dictionary<Vector2Int, PathCell>();
+        var nodes = new Dictionary<Vector3Int, PathCell>();
         if (nodes == null) throw new ArgumentNullException(nameof(nodes));
         
         var range = ability.GetCastRange();
@@ -52,7 +52,7 @@ public static class AbilityUtil
                 if (navigate > range || navigate == 0) continue;
             }
 
-            var local = new Vector2Int(x, y);
+            var local = new Vector3Int(x, y, 0);
             nodes.Add(local, target);
             ret.Add(local);
         }

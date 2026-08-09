@@ -365,7 +365,7 @@ public partial class Player : Entity
     
     private async UniTask OnSkipTurn(InputManager.SkipEvt arg)
     {
-        if (_PreparingAbility)
+        if (_preparingAbility)
             return;
         
         GetComponent<TurnActor>().FinishTurn(true);

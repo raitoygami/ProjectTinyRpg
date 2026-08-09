@@ -124,15 +124,17 @@ public class Blackboard
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public async UniTask<bool> UseAbility()
     {
-        List<Entity> targets = null;
+        List<Vector3> affectTargets = null;
         var agentAbility = _owner.GetComponent<AgentAbilities>();
-        var targetPoint = _hasPrepared ? _owner.GridPosition + _targetOffset : _target.GridPosition;
+        var castPoint = _hasPrepared ? _owner.GridPosition + _targetOffset : _target.GridPosition;
 
         if (_abilitySelect.IsTargeted())
         {
-            var selectionPoint = new Vector2Int((int) targetPoint.x, (int) targetPoint.y);
-            if (!_abilitySelect.SelectionRange().Contains(selectionPoint) ||
-                !agentAbility.GetTargets(targetPoint, _abilitySelect, ref targets))
+            var selectionPoint = Vector3Int.FloorToInt(castPoint);
+            var selectionRange = _abilitySelect.SelectionRange(castPoint); 
+            
+            if (!selectionRange.Contains(selectionPoint) ||
+                !agentAbility.GetAffectTarget(castPoint, _abilitySelect, out affectTargets))
             {
                 // 如果没有找到目标
                 if (_hasPrepared && _telegraph != null)
@@ -140,7 +142,7 @@ public class Blackboard
                     var entity = AbilityUtil.GetCloseTarget(_owner, _abilitySelect, _telegraph);
                     
                     // 这里需要根据距离获取目标
-                    await _abilitySelect.ExecuteMiss(targetPoint, entity);
+                    await _abilitySelect.ExecuteMiss(castPoint, entity);
                     
                     GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
                     _telegraph.Clear();
@@ -151,13 +153,12 @@ public class Blackboard
                     return true;
                 }
 
-                Debug.Log($"Wrong Target {_abilitySelect.TargetMode()} - {!agentAbility.GetTargets(targetPoint, _abilitySelect, ref targets)}");
                 _abilitySelect.Cancel();
                 return false;
             }
         }
         
-        await _abilitySelect.Execute(targets, targetPoint);
+        await _abilitySelect.Execute(affectTargets, castPoint);
         if (_telegraph != null)
         {
             GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());

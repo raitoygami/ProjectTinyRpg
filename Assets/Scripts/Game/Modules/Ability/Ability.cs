@@ -133,9 +133,19 @@ public partial class Ability : ScriptableObject
         _owner.Unsubscribe<TurnActor.TurnEndedEvent>(OnTurnFinish);
     }
 
-    private List<Vector2Int> _SelectionRange;
+    private List<Vector3Int> _SelectionRange;
 
-    public List<Vector2Int> SelectionRange(bool force = false)
+    public List<Vector3Int> SelectionRange(Vector3 castPoint, bool force = false)
+    {
+        if (_SelectionRange == null || force)
+        {
+            _SelectionRange =
+                AbilityUtil.CalculateRange( this, _owner, castPoint);
+        }
+        return _SelectionRange;
+    }
+    
+    public List<Vector3Int> SelectionRange(bool force = false)
     {
         if (_SelectionRange == null || force)
         {
@@ -145,19 +155,14 @@ public partial class Ability : ScriptableObject
         return _SelectionRange;
     }
 
-    /// <summary>格点是否在施法范围内（与 <see cref="SelectionRange"/> 一致，由 <see cref="GetCastRange"/> 与寻路掩码计算）。</summary>
     public bool IsGridInCastRange(Vector3 gridPosition)
     {
         if (_owner == null)
             return false;
-        var p = new Vector2Int((int)gridPosition.x, (int)gridPosition.y);
-        return SelectionRange().Contains(p);
+        var p = new Vector3Int((int)gridPosition.x, (int)gridPosition.y, 0);
+        return SelectionRange(gridPosition).Contains(p);
     }
-
-    /// <summary>
-    /// 技能范围预览用：沿玩家→鼠标路径在 <see cref="SelectionRange"/>（<see cref="GetCastRange"/>）内取最远格为起点；
-    /// <paramref name="skillFaceDirection"/> 为玩家格→鼠标格（用于扇形/矩形朝向）；同格时为 <see cref="Vector3.forward"/>。
-    /// </summary>
+    
     public bool TryGetSkillPreviewFrame(Vector3 ownerGrid, Vector3 mouseGrid, out Vector3 previewOriginGrid,
         out Vector3 skillFaceDirection)
     {
@@ -246,8 +251,14 @@ public partial class Ability : ScriptableObject
         return true;
         
     }
+
+    private Entity GetAffectTarget(Vector3 location)
+    {
+        var cell = PathFinder.Instance.GetCell(location.x, location.y);
+        return cell?.Logical as Entity;
+    }
     
-    public async UniTask<bool> Execute(List<Entity> t_Targets, Vector3 t_Position)
+    public async UniTask<bool> Execute(List<Vector3> affectTargets, Vector3 castPosition)
     {
         _SelectionRange = null;
         _state = State.Execution;
@@ -271,7 +282,7 @@ public partial class Ability : ScriptableObject
                     Owner = _owner,
                     Target = null,
                     Ability = this,
-                    Position = t_Position,
+                    Position = castPosition,
                     Cancel = OnContextCancel,
                 };
 
@@ -280,9 +291,9 @@ public partial class Ability : ScriptableObject
                 break;
             case AbilityTargetType.Enemy:
             case AbilityTargetType.Any:
-                var effectTasks = Enumerable.Select(t_Targets.Select(target => new AbilityContext
+                var effectTasks = Enumerable.Select(affectTargets.Select(location => new AbilityContext
                     {
-                        Owner = _owner, Target = target, Ability = this, Position = t_Position,
+                        Owner = _owner, Target = GetAffectTarget(location), Ability = this, Position = location,
                         Cancel = OnContextCancel,
                     }), context => TreeRoot.Apply(context))
                     .ToList();

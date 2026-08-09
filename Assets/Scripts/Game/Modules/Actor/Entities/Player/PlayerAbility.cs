@@ -4,19 +4,19 @@ using UnityEngine;
 
 public partial class Player
 {
-    private bool _PreparingAbility;
-    private bool _ExecutingAbility;
-    private Ability _AbilityPrepared;
+    private bool _preparingAbility;
+    private bool _executingAbility;
+    private Ability _abilityPrepared;
 
     /// <summary>在指针移动且格子变化时更新技能范围预览（预备施法时）。</summary>
     private void UpdateSkillRangePreview(Vector3 hitPoint, Vector3 targetGrid)
     {
-        var skillDisplay = _AbilityPrepared != null ? _AbilityPrepared.GetSkillDisplayParam() : null;
-        var showSkillPreview = _AbilityPrepared != null && _AbilityPrepared.IsSelecting() && skillDisplay != null;
+        var skillDisplay = _abilityPrepared != null ? _abilityPrepared.GetSkillDisplayParam() : null;
+        var showSkillPreview = _abilityPrepared != null && _abilityPrepared.IsSelecting() && skillDisplay != null;
         if (showSkillPreview && InputManager.HasInstance() && GridIndicatorManager.HasInstance())
         {
             var mouseGrid = hitPoint.SnapToGrid();
-            if (_AbilityPrepared.TryGetSkillPreviewFrame(GridPosition, mouseGrid, out var previewOrigin,
+            if (_abilityPrepared.TryGetSkillPreviewFrame(GridPosition, mouseGrid, out var previewOrigin,
                     out var skillFace))
             {
                 GridIndicatorManager.Instance.ShowSkillRangePreview(skillDisplay, GridPosition, previewOrigin, skillFace,
@@ -33,9 +33,9 @@ public partial class Player
         }
     }
 
-    public async UniTask PrepareAbility(Ability t_Ability)
+    public async UniTask PrepareAbility(Ability ability)
     {
-        if (!t_Ability.Available())
+        if (!ability.Available())
         {
             Debug.Log("Skill can't use.");
             return;
@@ -46,85 +46,86 @@ public partial class Player
             _Controllable = false;
             ClearPath();
 
-            _PreparingAbility = true;
-            _AbilityPrepared = t_Ability;
-            var success = await t_Ability.Select();
-            _PreparingAbility = false;
+            _preparingAbility = true;
+            _abilityPrepared = ability;
+            var success = await ability.Select();
+            _preparingAbility = false;
 
             _Controllable = true;
-            _AbilityPrepared = null;
+            _abilityPrepared = null;
         }
     }
 
-    private async UniTask ExecuteAbility(Ability t_Ability, List<Entity> targets, Vector3 targetPoint)
+    private async UniTask ExecuteAbility(Ability ability, List<Vector3> affectTargets, Vector3 targetPoint)
     {
-        _ExecutingAbility = true;
+        _executingAbility = true;
         
-        if (await t_Ability.Execute(targets, targetPoint))
+        if (await ability.Execute(affectTargets, targetPoint))
         {
             GetComponent<TurnActor>().FinishTurn();
         }
 
-        _ExecutingAbility = false;
+        _executingAbility = false;
     }
     
-    private async UniTask ExecuteAbility(Ability t_Ability, PathNode t_TargetPoint)
+    private async UniTask ExecuteAbility(Ability ability, PathNode t_TargetPoint)
     {
-        t_Ability = t_Ability == null ? m_AgentAbilities.GetWepAbility() : t_Ability;
-        if (t_Ability == null)
+        ability = ability == null ? m_AgentAbilities.GetWepAbility() : ability;
+        if (ability == null)
             return;
 
         var targetPoint = new Vector3(t_TargetPoint.X, 0, t_TargetPoint.Y);
-        await ExecuteAbilityInternal(t_Ability, targetPoint);
+        await ExecuteAbilityInternal(ability, targetPoint);
     }
 
-    private async UniTask ExecuteAbility(Ability t_Ability)
+    private async UniTask ExecuteAbility(Ability ability)
     {
-        t_Ability = t_Ability == null ? m_AgentAbilities.GetWepAbility() : t_Ability;
-        if (t_Ability == null)
+        ability = ability == null ? m_AgentAbilities.GetWepAbility() : ability;
+        if (ability == null)
             return;
 
         if (!GetPointerInput(out var hitPoint))
         {
-            t_Ability.Cancel();
+            ability.Cancel();
             return;
         }
 
         var targetPoint = hitPoint.SnapToGrid();
 
-        await ExecuteAbilityInternal(t_Ability, targetPoint);
+        await ExecuteAbilityInternal(ability, targetPoint);
     }
 
-    private async UniTask ExecuteAbilityInternal(Ability t_Ability, Vector3 targetPoint)
+    // cast point 施法点
+    private async UniTask ExecuteAbilityInternal(Ability ability, Vector3 location)
     {
-        _AbilityPrepared = null;
-        List<Entity> targets = null;
-        if (t_Ability.IsTargeted())
+        _abilityPrepared = null;
+        List<Vector3> affectTarget = null;
+        if (ability.IsTargeted())
         {
-            var selectionPoint = new Vector2Int((int)targetPoint.x, (int)targetPoint.z);
-            if (!t_Ability.SelectionRange().Contains(selectionPoint) ||
-                !m_AgentAbilities.GetTargets(targetPoint, t_Ability, ref targets))
+            var castPoint = new Vector3Int((int)location.x, (int)location.y, 0);
+            if (!ability.SelectionRange(location).Contains(castPoint) ||
+                !m_AgentAbilities.GetAffectTarget(location, ability, out affectTarget))
             {
-                t_Ability.Cancel();
+                ability.Cancel();
                 return;
             }
         }
 
-        _ExecutingAbility = true;
-        if (t_Ability.TryGetSkillPreviewFrame(GridPosition, targetPoint, out var previewOrigin,
+        _executingAbility = true;
+        if (ability.TryGetSkillPreviewFrame(GridPosition, location, out var previewOrigin,
                 out var skillFace))
         {
-            if (await t_Ability.Execute(targets, previewOrigin))
+            if (await ability.Execute(affectTarget, previewOrigin))
             {
                 GetComponent<TurnActor>().FinishTurn();
             }
         }
         else
         {
-            t_Ability.Cancel();
+            ability.Cancel();
         }
         
  
-        _ExecutingAbility = false;
+        _executingAbility = false;
     }
 }

@@ -94,55 +94,54 @@ public class AgentAbilities : MonoBehaviour
         return _wepAtkAbilityActive;
     }
 
-    public bool GetTargets(Vector3 location, Ability t_Ability, ref List<Entity> t_Targets)
+    public bool GetAffectTarget(Vector3 location, Ability ability, out List<Vector3> affectTargets)
     {
+        affectTargets = new List<Vector3>();
+        
         var cell = PathFinder.Instance.GetCell(location.x, location.y);
         var targetEntity = cell?.Logical as Entity;
         if (targetEntity == null)
             return false;
 
         var fraction = GetComponent<Entity>().Faction;
-        t_Targets = new List<Entity>();
- 
-        var entity = targetEntity;
-        switch (t_Ability.TargetMode())
+
+        switch (ability.TargetMode())
         {
             case AbilityTargetType.None:
                 break;
             case AbilityTargetType.Self:
-                if (entity == GetComponent<Entity>()) t_Targets.Add(entity);
-
+                if (targetEntity == GetComponent<Entity>()) affectTargets.Add(location); ;
                 break;
             case AbilityTargetType.Enemy:
-                if (EntityManager.IsEnemyFraction(entity.Faction, fraction)) t_Targets.Add(entity);
+                if (EntityManager.IsEnemyFraction(targetEntity.Faction, fraction)) affectTargets.Add(location);
 
                 break;
             case AbilityTargetType.Any:
-                t_Targets.Add(entity);
+                affectTargets.Add(location);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        return t_Targets.Count != 0;
+        return affectTargets.Count > 0;
     }
 
 
     // 仅用作移动攻击选取目标
-    public List<Entity> GetTargetByMove(IPathNodeAgent mover, PathNode targetLocation)
+    public List<Vector3> GetTargetByMove(IPathNodeAgent mover, PathNode pathNode)
     {
-        var targets = new List<Entity>();
-        if (mover == null || targetLocation == null)
+        var targets = new List<Vector3>();
+        if (mover == null || pathNode == null)
             return targets;
 
-        var dir = new Vector2Int(targetLocation.X - mover.X, targetLocation.Y - mover.Y);
+        var dir = new Vector2Int(pathNode.X - mover.X, pathNode.Y - mover.Y);
         dir.x = Math.Clamp(dir.x, -1, 1);
         dir.y = Math.Clamp(dir.y, -1, 1);
         
         var myFraction = GetComponent<Entity>().Faction;
         for (var i = 0; i < 1; i++)
         {
-            var anchorX = targetLocation.X + dir.x * i;
-            var anchorZ = targetLocation.Y + dir.y * i;
+            var anchorX = pathNode.X + dir.x * i;
+            var anchorZ = pathNode.Y + dir.y * i;
 
             var sizeX = Mathf.Max(1, mover.GridSizeX);
             var sizeZ = Mathf.Max(1, mover.GridSizeZ);
@@ -151,10 +150,10 @@ public class AgentAbilities : MonoBehaviour
             for (var ox = 0; ox < sizeX; ox++)
             for (var oz = 0; oz < sizeZ; oz++)
             {
-                var checkX = anchorX + ox;
-                var checkZ = anchorZ + oz;
+                var x = anchorX + ox;
+                var y = anchorZ + oz;
 
-                var cell = PathFinder.Instance.GetCell(checkX, checkZ);
+                var cell = PathFinder.Instance.GetCell(x, y);
                 if (cell?.Logical == null)
                     continue;
 
@@ -164,10 +163,12 @@ public class AgentAbilities : MonoBehaviour
 
                 if (cell.Logical is not Entity e ||
                     !EntityManager.IsEnemyFraction(e.Faction, myFraction)) continue;
+
+                var location = new Vector3(x, y, 0);
                 
-                if (targets.Contains(e)) continue;
+                if (targets.Contains(location)) continue;
                 
-                targets.Add(e);
+                targets.Add(location);
                 return targets;
             }
         }

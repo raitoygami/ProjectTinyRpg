@@ -78,7 +78,7 @@ public partial class Player
 
     private async UniTask OnMouseClickEvt(InputManager.MouseClickEvt arg)
     {
-        if (_ExecutingAbility)
+        if (_executingAbility)
             return;
         
         // 拾起背包块时左键由 InventoryTetris 全局处理（放下/丢弃），不应触发地面寻路与移动
@@ -88,9 +88,9 @@ public partial class Player
         switch (arg.mouseIndex)
         {
             case 1:
-                if (_PreparingAbility && _AbilityPrepared != null)
+                if (_preparingAbility && _abilityPrepared != null)
                 {
-                    _AbilityPrepared.Cancel();
+                    _abilityPrepared.Cancel();
                     _ = OnPointerMoveEvt(null);
                 }
 
@@ -108,9 +108,9 @@ public partial class Player
                     }
                 }
 
-                if (_PreparingAbility && _AbilityPrepared != null)
+                if (_preparingAbility && _abilityPrepared != null)
                 {
-                    ExecuteAbility(_AbilityPrepared).Forget();
+                    ExecuteAbility(_abilityPrepared).Forget();
                     return;
                 }
                 
@@ -125,7 +125,7 @@ public partial class Player
 
     private async UniTask MovePathAsync()
     {
-        if (_PreparingAbility)
+        if (_preparingAbility)
             return;
 
         ClearPath();
@@ -212,13 +212,13 @@ public partial class Player
 
     public struct MovementDecision
     {
-        public MovementResult Result;
-        public List<Entity> AttackTargets; // 仅在 Attack 时有效
+        public readonly MovementResult Result;
+        public readonly List<Vector3> AttackTargets; // 仅在 Attack 时有效
 
-        public MovementDecision(MovementResult result, List<Entity> targets = null)
+        public MovementDecision(MovementResult result, List<Vector3> affectTargets = null)
         {
             Result = result;
-            AttackTargets = targets ?? new List<Entity>();
+            AttackTargets = affectTargets ?? new List<Vector3>();
         }
     }
 

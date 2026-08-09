@@ -15,7 +15,7 @@ public class E_AOE : AbilityEffect
     [Serializable]
     private enum AoeFactionFilter
     {
-        /// <summary>对 Owner 而言为敌对（与 <see cref="AgentAbilities.GetTargets"/> 一致）。</summary>
+        /// <summary>对 Owner 而言为敌对（与 <see cref="AgentAbilities.GetAffectTarget"/> 一致）。</summary>
         Enemies,
         /// <summary>与 Owner 同 <see cref="EntityFaction"/>。</summary>
         Allies,
