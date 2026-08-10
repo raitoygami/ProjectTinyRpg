@@ -302,17 +302,6 @@ internal static class WorldExtensions
         return cells;
     }
 
-    // 最大公约数（欧几里得算法）
-    private static int GCD(int a, int b)
-    {
-        while (b != 0)
-        {
-            var temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a;
-    }
 
     // ── Shape generators (grid space) ───────────────────────────────────
 

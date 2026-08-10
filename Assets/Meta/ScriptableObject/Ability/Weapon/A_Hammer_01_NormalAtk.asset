@@ -61,15 +61,15 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: d609a9771ee1d8a4e90b6bb6002d50dc, type: 3}
   WeaponTypeRequire: 0
   _targetType: 2
-  _castRange: 2
+  _castRange: 1
   _castTargetingMode: 1
   _castCenterType: 0
   _affectType: 0
-  _range: 0
+  _range: 1
   _prepareTurn: 0
-  m_SkillDisplayParam:
-    rid: -2
-  _cooldown: 2
+  _abilityAffectRangeParam:
+    rid: 7807147412512571479
+  _cooldown: 1
   CostHP: 0
   CostMP: 0
   TreeRoot: {fileID: 5498850296569907920}
@@ -82,8 +82,13 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7807147412512571479
+      type: {class: RangePointParam, ns: , asm: Assembly-CSharp}
+      data:
+        requireMoveableInLayer: 1
+        layerMask:
+          serializedVersion: 2
+          m_Bits: 0
 --- !u!114 &1163618895722414851
 MonoBehaviour:
   m_ObjectHideFlags: 0

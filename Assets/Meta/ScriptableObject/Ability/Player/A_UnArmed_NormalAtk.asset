@@ -99,7 +99,7 @@ MonoBehaviour:
   _castTargetingMode: 1
   _castCenterType: 0
   _affectType: 0
-  _range: 0
+  _range: 1
   _prepareTurn: 0
   _abilityAffectRangeParam:
     rid: 7807147412512571473
