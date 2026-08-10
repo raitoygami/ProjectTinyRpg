@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [CustomPropertyDrawer(typeof(AbilityAffectRangeParam))]
-public class SelectParamPropertyDrawer : PropertyDrawer
+public class AbilityAffectRangeParamDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -33,9 +33,28 @@ public class SelectParamPropertyDrawer : PropertyDrawer
         var line = EditorGUIUtility.singleLineHeight;
         var sp = EditorGUIUtility.standardVerticalSpacing;
 
-        EditorGUI.LabelField(new Rect(position.x, y, width, line), label, EditorStyles.boldLabel);
+        // 绘制标题行：Label + 清除按钮
+        var rowRect = new Rect(position.x, y, width, line);
+    
+        // Label（左）
+        var labelRect = new Rect(rowRect.x, rowRect.y, EditorGUIUtility.labelWidth, line);
+        EditorGUI.LabelField(labelRect, label, EditorStyles.boldLabel);
+
+        // 清除按钮（右）
+        var row = new Rect(position.x, position.y, position.width, line);
+        var rest = new Rect(row.x + EditorGUIUtility.labelWidth, row.y, row.width - EditorGUIUtility.labelWidth, line);
+        var btnRect = new Rect(rest.x, rest.y, Mathf.Min(rest.width, 200f), line);
+        if (GUI.Button(btnRect, "清除", EditorStyles.miniButton))
+        {
+            property.managedReferenceValue = null;
+            property.serializedObject.ApplyModifiedProperties();
+            // 强制重绘当前 Inspector
+            GUIUtility.ExitGUI();
+        }
+
         y += line + sp;
 
+        // 绘制子字段（缩进）
         EditorGUI.indentLevel++;
         try
         {
