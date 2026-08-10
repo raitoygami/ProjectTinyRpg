@@ -98,7 +98,11 @@ public class AgentAbilities : MonoBehaviour
     public bool GetAffectTarget(Ability ability, Vector3Int castPoint, List<Vector3Int> castableRange, out List<Vector3Int> affectTargets)
     {
         var owner = GetComponent<Entity>();
+        if (owner.GetComponent<Player>() == null)
+            Debug.LogError("这个接口不能给非player的单位使用");
+        
         affectTargets = AbilityUtil.GetAbilityAffectRange(ability, owner, castableRange, castPoint);
+        Debug.Log($"{affectTargets.Count}");
         return affectTargets.Count > 0;
     }
 

@@ -155,8 +155,14 @@ public partial class Ability : ScriptableObject
 
     private List<Vector3Int> _castableRange;
 
+    // 这个接口只允许player用
     public List<Vector3Int> GetCastableRange(Vector3 castPoint, bool force = false)
     {
+        if (_owner.GetComponent<Player>() == null)
+        {
+            Debug.LogError("GetCastableRange 只能player用, 其他单位要么用prepare, 要么直接execute");
+        }
+        
         if (_castableRange == null || force)
         {
             _castableRange =
@@ -225,45 +231,6 @@ public partial class Ability : ScriptableObject
         return _getCastableRangeTask.Task;
     }
 
-    public async UniTask<bool> ExecuteMiss(Vector3 castPosition, Entity target)
-    {
-        _castableRange = null;
-        _state = State.Execution;
-        GridIndicatorManager.Instance.HideAbilityPreview();
-
-        var canceledByEffect = false;
-
-        void OnContextCancel()
-        {
-            canceledByEffect = true;
-        }
-
-        var context = new AbilityContext
-        {
-            Owner = _owner,
-            Target = target,
-            Ability = this,
-            Position = castPosition,
-            Cancel = OnContextCancel,
-        };
-
-        await TreeRoot.Apply(context);
-        
-        if (canceledByEffect)
-        {
-            Cancel();
-            return false;
-        }
-
-        _abilityStat.Cooldown = _cooldown;
-        _abilityStat.OnCooldownChanged?.Invoke();
-        _state = State.Inactive;
-        _getCastableRangeTask?.TrySetResult(result: true);
-        _getCastableRangeTask = null;
-        return true;
-        
-    }
-    
     public async UniTask<bool> Execute(List<Vector3Int> affectTargets, Vector3 castPosition)
     {
         _castableRange = null;
@@ -271,7 +238,7 @@ public partial class Ability : ScriptableObject
         GridIndicatorManager.Instance.HideAbilityPreview();
 
         var canceledByEffect = false;
-
+        
         var targetPositions = AbilityUtil.GetRealCastPosition(this, _owner, affectTargets, castPosition);
 
         if (targetPositions.Count > 0)

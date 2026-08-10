@@ -52,7 +52,6 @@ public class RangeCircleParam : AbilityAffectRangeParam
 
 }
 
-/// <summary>单格点（格坐标）。运行时目标格与 <see cref="Ability.TryGetSkillPreviewFrame"/> 的 <c>previewOrigin</c> 相同，且须在 <see cref="Ability.SelectionRange"/> 内；可选要求该格在 <see cref="layerMask"/> 下可选取。</summary>
 [Serializable]
 public class RangePointParam : AbilityAffectRangeParam
 {
@@ -60,11 +59,6 @@ public class RangePointParam : AbilityAffectRangeParam
     public bool requireMoveableInLayer = true;
 }
 
-/// <summary>根据 <see cref="AbilityAffectRangeParam"/> 生成区域格点（与预览/AOE 共用几何）。</summary>
-/// <remarks>
-/// 预览原点与朝向由 <see cref="Ability.TryGetSkillPreviewFrame"/> 计算；
-/// 与 Ability 技能展示、<see cref="E_AOE"/> 等使用相同 <see cref="AbilityAffectRangeParam"/> 配置时，传入相同 frame 则范围一致。
-/// </remarks>
 public static class AbilityAffectRangeParamPreview
 {
     /// <summary>完整形状格点（含施法者格、原点格），供 AOE 等判定；与 <see cref="EnumeratePreviewCells"/> 几何一致。</summary>

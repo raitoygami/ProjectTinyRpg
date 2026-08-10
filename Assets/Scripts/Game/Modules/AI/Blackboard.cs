@@ -85,7 +85,7 @@ public class Blackboard
         if (_target.GridPosition.Dist(_owner.GridPosition) > wepAbility.GetCastRange()) return false;
         // 这里需要判断是否有 (目前实现了直线方向上的第一个目标)
         var range = AbilityUtil.GetAbilityPrepareRange(wepAbility, _owner, _target.GridPosition);
-        var firstTarget = AbilityUtil.GetCloseTarget(_owner, wepAbility, range);
+        var firstTarget = AbilityUtil.GetCloseTarget(_owner, wepAbility, range, out var _);
         if (firstTarget == null || !EntityManager.IsEnemyFraction(firstTarget.Faction, _owner.Faction))
             return false;
         _abilitySelect = wepAbility;
@@ -96,12 +96,8 @@ public class Blackboard
 
     public async UniTask<bool> Prepare()
     {
-        var agentAbility = _owner.GetComponent<AgentAbilities>();
         var targetPoint = _target.GridPosition;
 
-        /*if (!_abilitySelect.Available())
-            return false;
-            */
         _telegraph = AbilityUtil.GetAbilityPrepareRange(_abilitySelect, _owner, targetPoint);
         GridIndicatorManager.Instance.AddTelegraph(_telegraph.ToArray());
         _prepareRemined = 0;
@@ -111,7 +107,7 @@ public class Blackboard
 
     }
 
-    private async UniTask<bool> Prepare(Ability t_Ability)
+    private async UniTask<bool> Prepare(Ability ability)
     {
         var agentAnimations = _owner.GetComponent<AgentAnimations>();
         agentAnimations.FaceTarget(_targetOffset);
@@ -124,39 +120,9 @@ public class Blackboard
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public async UniTask<bool> UseAbility()
     {
-        List<Vector3Int> affectTargets = null;
-        var agentAbility = _owner.GetComponent<AgentAbilities>();
         var castPoint = _hasPrepared ? _owner.GridPosition + _targetOffset : _target.GridPosition;
 
-        if (_abilitySelect.IsTargeted())
-        {
-            var selectionPoint = Vector3Int.FloorToInt(castPoint);
-            var castableRange = _abilitySelect.GetCastableRange(castPoint); 
-            
-            if (!castableRange.Contains(selectionPoint) ||
-                !agentAbility.GetAffectTarget(_abilitySelect, selectionPoint, castableRange, out affectTargets))
-            {
-                // 如果没有找到目标
-                if (_hasPrepared && _telegraph != null)
-                {
-                    var entity = AbilityUtil.GetCloseTarget(_owner, _abilitySelect, _telegraph);
-                    // 这里需要根据距离获取目标
-                    await _abilitySelect.ExecuteMiss(castPoint, entity);
-                    
-                    GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
-                    _telegraph.Clear();
-                    
-                    _hasPrepared = false;
-                    _targetOffset = Vector3.zero;
-                    _abilitySelect = null;
-                    return true;
-                }
-
-                _abilitySelect.Cancel();
-                return false;
-            }
-        }
-        
+        var affectTargets = AbilityUtil.GetAbilityPrepareRange(_abilitySelect, _owner, castPoint);
         await _abilitySelect.Execute(affectTargets, castPoint);
         if (_telegraph != null)
         {

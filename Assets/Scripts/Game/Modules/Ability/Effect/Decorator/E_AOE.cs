@@ -74,10 +74,8 @@ public class E_AOE : AbilityEffect
 
         var ownerGrid = owner.GridPosition;
         var castGrid = m_Context.Position;
-        if (!ability.TryGetSkillPreviewFrame(ownerGrid, castGrid, out var previewOrigin, out var skillFace))
-            return;
-
-        var shapeSet = AbilityAffectRangeParamPreview.EnumerateShapeCells(abilityAffectRangeParam, previewOrigin, skillFace);
+        
+        var shapeSet = m_Context.AffectTargets;
         if (shapeSet == null || shapeSet.Count == 0)
             return;
 
@@ -108,7 +106,7 @@ public class E_AOE : AbilityEffect
             if (!includeOwner && entity == owner) continue;
             if (excludeNeutral && entity.Faction == EntityFaction.Neutral) continue;
 
-            var grid = entity.GridPosition;
+            var grid = Vector3Int.FloorToInt(entity.GridPosition);
             if (!shapeSet.Contains(grid))
                 continue;
 

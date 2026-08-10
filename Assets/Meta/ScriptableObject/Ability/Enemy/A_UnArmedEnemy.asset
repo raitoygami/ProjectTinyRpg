@@ -135,7 +135,7 @@ MonoBehaviour:
   _castCenterType: 0
   _affectType: 0
   _range: 1
-  _prepareTurn: 1
+  _prepareTurn: 0
   _abilityAffectRangeParam:
     rid: 7807147412512571481
   _cooldown: 1
@@ -154,9 +154,6 @@ MonoBehaviour:
       type: {class: RangePointParam, ns: , asm: Assembly-CSharp}
       data:
         requireMoveableInLayer: 1
-        layerMask:
-          serializedVersion: 2
-          m_Bits: 0
 --- !u!114 &5498850296569907920
 MonoBehaviour:
   m_ObjectHideFlags: 0

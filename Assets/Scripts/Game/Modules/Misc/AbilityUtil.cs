@@ -38,12 +38,11 @@ public static class AbilityUtil
     public static List<Vector3Int> GetRealCastPosition(Ability ability, Entity owner, List<Vector3Int> affectTargets,
         Vector3 castPoint)
     {
-        if (owner == null && ability)
+        if (owner == null || ability == null || affectTargets == null)
             return null;
-
         var ret = new List<Vector3Int>();
-        var targetMode = ability.TargetMode();
         
+        var targetMode = ability.TargetMode();
         switch (targetMode)
         {
             case AbilityTargetType.None:
@@ -67,7 +66,7 @@ public static class AbilityUtil
     
     public static List<Vector3Int> GetAbilityTargetPositions(Ability ability, Entity owner, List<Vector3Int> affectTargets, Vector3 castPoint)
     {
-        if (owner == null && ability)
+        if (owner == null || ability == null)
             return null;
 
         var ret = new List<Vector3Int>();
@@ -97,17 +96,24 @@ public static class AbilityUtil
         var castTargetingMode = ability.GetCastTargetingMode();
         if (castTargetingMode == CastTargetingMode.Directed)
         {
+            // 找到直线上最近的敌人
             if (affectType == AffectType.SelectPoint)
             {
-                var entity = GetCloseTarget(owner, ability, affectTargets);
+                var entity = GetCloseTarget(owner, ability, affectTargets, out var location);
+                
                 if (entity != null)
                 {
-                    ret.Add(Vector3Int.FloorToInt(entity.GridPosition));
+                    ret.Add(location);
                     return;
                 }
+                
                 if (affectTargets.Contains(Vector3Int.FloorToInt(castPoint)))
                     ret.Add(Vector3Int.FloorToInt(castPoint));
-                
+                foreach (var position in ret)
+                {
+                    Debug.Log(position);
+                }
+                Debug.Log(castPoint);
                 return;
             }
         }
@@ -118,7 +124,7 @@ public static class AbilityUtil
     // 技能准备范围
     public static List<Vector3Int> GetAbilityPrepareRange(Ability ability, Entity owner, Vector3 castPoint)
     {
-        if (owner == null && ability == null)
+        if (owner == null || ability == null)
             return null;
 
         var castTargetingMode = ability.GetCastTargetingMode();
@@ -243,8 +249,9 @@ public static class AbilityUtil
     }
     
     // 从预警中获取目标
-    public static Entity GetCloseTarget(Entity owner, Ability ability, List<Vector3Int> range)
+    public static Entity GetCloseTarget(Entity owner, Ability ability, List<Vector3Int> range, out Vector3Int location)
     {
+        location = Vector3Int.zero;
         if (owner == null || ability == null || range == null || range.Count == 0)
             return null;
         Entity closeTarget = null;        
@@ -260,6 +267,7 @@ public static class AbilityUtil
             var entity =  node.Logical as Entity;
             closeTarget = entity;
             minDist = dist;
+            location = cell;
         }
 
         return closeTarget;

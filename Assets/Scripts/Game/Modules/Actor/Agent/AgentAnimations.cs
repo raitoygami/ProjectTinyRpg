@@ -378,7 +378,7 @@ public class AgentAnimations : MonoBehaviour
             {
                 if (_avatarTarget.gameObject == null) return;
                 var pos = _avatarTarget.localPosition;
-                pos.y = originY + Mathf.Sin(t) * 0.25f;
+                pos.y = originY + Mathf.Sin(t) * 0.125f;
                 _avatarTarget.localPosition = pos;
             },
             Mathf.PI,

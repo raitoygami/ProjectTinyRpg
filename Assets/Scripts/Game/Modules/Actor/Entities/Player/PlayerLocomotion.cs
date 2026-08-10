@@ -274,6 +274,9 @@ public partial class Player
     
     public async UniTask MoveFinishEvent(AgentMover.MoveFinishEvent arg)
     {
+        if (!PlayerManager.HasInstance() || !MapManager.HasInstance())
+            return;
+        
         var playerLocation = PlayerManager.Instance.GetLocation(); 
         playerLocation.CurrentLocation = arg.CurrPosition;
         playerLocation.CurrentDirection = m_AgentAnimations.GetDirection();
@@ -287,9 +290,9 @@ public partial class Player
             playerLocation.CurrentWorldLocation = arg.CurrPosition;
             playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
         }
-        
-        FOVManager.Instance.FovCompute(sceneName, GridPosition, 7);
-        
+
+        if (FOVManager.HasInstance())
+            FOVManager.Instance.FovCompute(sceneName, GridPosition, 7);
         m_TurnActor.FinishTurn();
         await this.PublishGlobal(new Context.PlayerMoveFinishEvt());
         await UniTask.CompletedTask;

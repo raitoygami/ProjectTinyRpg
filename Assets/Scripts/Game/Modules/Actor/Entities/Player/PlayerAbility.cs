@@ -73,9 +73,9 @@ public partial class Player
             return;
         }
 
-        var targetPoint = hitPoint.SnapToGrid();
+        var castPoint = hitPoint.SnapToGrid();
 
-        await ExecuteAbility(ability, targetPoint);
+        await ExecuteAbility(ability, castPoint);
     }
 
     // cast point 施法点
@@ -105,19 +105,11 @@ public partial class Player
         }
 
         _isExecutingAbility = true;
-        if (ability.TryGetSkillPreviewFrame(GridPosition, location, out var previewOrigin,
-                out var skillFace))
-        {
-            if (await ability.Execute(affectTargets, previewOrigin))
-            {
-                GetComponent<TurnActor>().FinishTurn();
-            }
-        }
-        else
-        {
-            ability.Cancel();
-        }
         
+        if (await ability.Execute(affectTargets, location))
+        {
+            GetComponent<TurnActor>().FinishTurn();
+        }
  
         _isExecutingAbility = false;
     }

@@ -154,7 +154,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/Inventory/EquipmentPanel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/Inventory/InventoryPanel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/Inventory/InventoryUI.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/MainUI/ActionSlotIconObj.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/MainUI/MainUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/Menu/UIStartMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/UI/Stats/PrimaryStatPanel.cs" root0="FORCE_HIGHLIGHTING" />
@@ -163,6 +162,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Util/Utils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Tools/Misc/AudioClipMerger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@8460f1c9c927/Tests/Editor/Build/AddHashToBundleNameTaskTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@21a28c3a6c83/Samples~/RebindingUI/Game/Enemy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@731b06833851/Runtime/UnifiedRayTracing/Compute/RadeonRays/kernels/block_reduce_part.compute" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@731b06833851/Runtime/UnifiedRayTracing/Compute/RadeonRays/kernels/block_scan.compute" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@e20f1880fa04/Tests/Runtime/UGUI/NestedLayout/SceneWithNestedLayoutElementsLoadScript.cs" root0="SKIP_HIGHLIGHTING" />
@@ -279,7 +279,7 @@
       <workItem from="1786199514220" duration="691000" />
       <workItem from="1786201924270" duration="1001000" />
       <workItem from="1786241510682" duration="41373000" />
-      <workItem from="1786326869250" duration="20749000" />
+      <workItem from="1786326869250" duration="26993000" />
     </task>
     <servers />
   </component>
