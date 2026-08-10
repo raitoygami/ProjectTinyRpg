@@ -4,6 +4,8 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
+
 // ReSharper disable All
 
 /// <summary>
@@ -238,6 +240,7 @@ public class AIEntity : Entity
         if (!arg.Forced)
             m_AgentAnimations.FaceTarget(arg.TargetPosition - arg.StartPosition);
 
+
         return UniTask.CompletedTask;
     }
 
@@ -248,6 +251,9 @@ public class AIEntity : Entity
             _runtimeStat.Location = arg.CurrPosition;
             _runtimeStat.Direction = m_AgentAnimations.GetDirection();
         }
+        
+        if (FOVManager.HasInstance())
+            FOVManager.Instance.RefreshVisibility(this, Vector3Int.FloorToInt(arg.CurrPosition));
         
         // 被迫移动结束后要重新计算技能预览
         _blackBoard?.RefreshTelegraph();
@@ -261,6 +267,11 @@ public class AIEntity : Entity
             _runtimeStat.Location = arg.CurrPosition;
             _runtimeStat.Direction = m_AgentAnimations.GetDirection();
         }
+        
+        if (FOVManager.HasInstance())
+            FOVManager.Instance.RefreshVisibility(this, Vector3Int.FloorToInt(arg.CurrPosition));
+
+        
         return UniTask.CompletedTask;
     }
     

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 
 public class AgentMover : MonoBehaviour
@@ -28,9 +30,9 @@ public class AgentMover : MonoBehaviour
         public Vector3 CurrPosition;
     }
 
-    private readonly MoveStartEvent _MoveStartEvent = new();
-    private readonly MoveForcedFinishEvent _MoveForcedFinishEvent = new();
-    private readonly MoveFinishEvent _MoveFinishEvent = new();
+    private readonly MoveStartEvent _moveStartEvent = new();
+    private readonly MoveForcedFinishEvent _forcedMoveFinishEvent = new();
+    private readonly MoveFinishEvent _moveFinishEvt = new();
     private bool _IsMoving;
     private bool _MovePending;
     private Vector3 _pendingParallelMoveWorldPosition;
@@ -40,13 +42,14 @@ public class AgentMover : MonoBehaviour
         _IsMoving = false;
     }
 
+
+    private TweenerCore<Vector3, Vector3, VectorOptions> _tweenMove;
     public async UniTask<bool> Move(Vector3 gridPosition, bool forced = false, float velocityMulti = 1.0f,
         Ease moveEase = Ease.Linear)
     {
         var destroyToken = this.GetCancellationTokenOnDestroy();
         if (_IsMoving)
-            try
-            {
+            try {
                 await UniTask.WaitUntil(() => !_IsMoving, cancellationToken: destroyToken);
             }
             catch (Exception)
@@ -57,34 +60,36 @@ public class AgentMover : MonoBehaviour
         _IsMoving = true;
 
         var worldPosition = gridPosition.GridToWorld();
-        /*var duration = Vector3.Distance(transform.position, worldPosition) / Mathf.Max(velocityMulti, 1.0f) * 0.25f;*/
-        var duration = transform.SnapToGrid().Dist(worldPosition) / Mathf.Max(velocityMulti, 1.0f) * 0.25f;
-        _MoveStartEvent.StartPosition = transform.position;
-        _MoveStartEvent.TargetPosition = worldPosition;
-        _MoveStartEvent.Forced = forced;
-        _MoveStartEvent.Duration = duration;
-        _MoveFinishEvent.LastPosition = transform.position;
-        _MoveForcedFinishEvent.LastPosition = transform.position;
-        await this.Publish(_MoveStartEvent);
+        var duration = transform.SnapToGrid().Dist(gridPosition) / Mathf.Max(velocityMulti, 1.0f) * 0.25f;
+        
+        _moveStartEvent.StartPosition = transform.position;
+        _moveStartEvent.TargetPosition = worldPosition;
+        _moveStartEvent.Forced = forced;
+        _moveStartEvent.Duration = duration;
+        
+        await this.Publish(_moveStartEvent);
 
         try
         {
-            await transform.DOMove(worldPosition, duration).SetEase(moveEase).SetTarget(gameObject)
-                .ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, destroyToken);
+            _tweenMove = transform.DOMove(worldPosition, duration).SetEase(moveEase);
+            await _tweenMove.ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, destroyToken);
 
             _IsMoving = false;
-            _MoveFinishEvent.CurrPosition = worldPosition;
-            _MoveForcedFinishEvent.CurrPosition = worldPosition;
+            _moveFinishEvt.LastPosition = transform.position;
+            _moveFinishEvt.CurrPosition = worldPosition;
         }
+        
         catch (Exception)
         {
-            Debug.Log("cancel.");
             return true;
         }
 
-        if (forced)
-            return await this.Publish(_MoveForcedFinishEvent);
-        return await this.Publish(_MoveFinishEvent);
+        if (!forced) return await this.Publish(_moveFinishEvt);
+        
+        _forcedMoveFinishEvent.LastPosition = transform.position;
+        _forcedMoveFinishEvent.CurrPosition = worldPosition;
+        return await this.Publish(_forcedMoveFinishEvent);
+
     }
 
     public bool IsMoving()
@@ -179,6 +184,7 @@ public class AgentMover : MonoBehaviour
 
     private void OnDestroy()
     {
+        _tweenMove.Kill();
         DOTween.Kill(transform);
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using JSAM;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -14,7 +15,7 @@ public class MapLoader : Singleton<MapLoader>
     /// <summary>Lightweight IPathNodeAgent that marks a cell as impassable (no GameObject overhead).</summary>
     private sealed class TilemapBlocker : IPathNodeAgent
     {
-        public Vector2Int GridPosition { get; set; }
+        public Vector2Int GridLocation { get; set; }
         public Vector2Int GridSize => Vector2Int.one;
         public int X { get; set; }
         public int Y { get; set; }
@@ -65,6 +66,8 @@ public class MapLoader : Singleton<MapLoader>
         // 全图初始化fov
         var mapData = MapManager.Instance.GetMapData(sceneName);
         mapData.InitFogTiles(originX, originY, width, height);
+        FOVManager.Instance.ClearAll();
+        FOVManager.Instance.InitView(sceneName);
         
         // ── Mark cells with tiles as impassable ────────────────────────
         for (var x = bounds.xMin; x < bounds.xMax; x++)
@@ -74,7 +77,7 @@ public class MapLoader : Singleton<MapLoader>
             if (!tilemap.HasTile(cell)) continue;
             var blocker = new TilemapBlocker
             {
-                GridPosition = new Vector2Int(x, y),
+                GridLocation = new Vector2Int(x, y),
                 Layer = Const.Layer.ObstacleOnly
             };
             PathFinder.Instance.UpdateCell(x, y, blocker);
@@ -109,6 +112,7 @@ public class MapLoader : Singleton<MapLoader>
 
         // 初始化
         FOVManager.Instance.InitFov(sceneName);
+        FOVManager.Instance.InitVisibility();
         
         AudioManager.FadeMainMusicOut(1f);
         AudioManager.FadeMusicIn(mapInfo.MainMusic, 1f, true);

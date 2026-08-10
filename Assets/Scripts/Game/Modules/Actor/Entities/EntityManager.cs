@@ -7,12 +7,12 @@ using cfg;
 
 public class EntityManager : Singleton<EntityManager>
 {
-    private readonly Dictionary<EntityFaction, List<Entity>> m_Entities = new();
+    private readonly Dictionary<EntityFaction, List<Entity>> _entities = new();
 
     /// <summary>遍历当前已注册的全部实体（按阵营分桶）。</summary>
     public IEnumerable<Entity> EnumerateAllEntities()
     {
-        foreach (var list in m_Entities.Values)
+        foreach (var list in _entities.Values)
         {
             if (list == null) continue;
             for (var i = 0; i < list.Count; i++)
@@ -31,9 +31,14 @@ public class EntityManager : Singleton<EntityManager>
 
     public void Init()
     {
-        m_Entities.Clear();
+        _entities.Clear();
     }
 
+    public Dictionary<EntityFaction, List<Entity>> GetEntitiesTable()
+    {
+        return _entities;
+    }
+    
     /// <summary>设置 Player 预制体。</summary>
     public void SetPlayerPrefab(GameObject prefab) => playerPrefab = prefab;
 
@@ -159,12 +164,12 @@ public class EntityManager : Singleton<EntityManager>
     public static void DestroyAll()
     {
         if (_instance == null) return;
-        foreach (var entity in _instance.m_Entities.SelectMany(fractions => fractions.Value))
+        foreach (var entity in _instance._entities.SelectMany(fractions => fractions.Value))
         {
             GameObject.Destroy(entity.gameObject);
         }
 
-        _instance.m_Entities.Clear();
+        _instance._entities.Clear();
     }
 
     // to by 
@@ -176,7 +181,7 @@ public class EntityManager : Singleton<EntityManager>
 
     private void RegisterInternal(Entity t_Entity)
     {
-        if (m_Entities.TryGetValue(t_Entity.Faction, out var fractions))
+        if (_entities.TryGetValue(t_Entity.Faction, out var fractions))
         {
             if (!fractions.Contains(t_Entity))
             {
@@ -187,7 +192,7 @@ public class EntityManager : Singleton<EntityManager>
         }
 
         var newFractions = new List<Entity> {t_Entity};
-        m_Entities.Add(t_Entity.Faction, newFractions);
+        _entities.Add(t_Entity.Faction, newFractions);
         OnEntityRegistered?.Invoke(t_Entity);
     }
 
@@ -199,7 +204,7 @@ public class EntityManager : Singleton<EntityManager>
 
     private void UnRegisterInternal(Entity t_Entity)
     {
-        if (!m_Entities.TryGetValue(t_Entity.Faction, out var fractions)) return;
+        if (!_entities.TryGetValue(t_Entity.Faction, out var fractions)) return;
         if (fractions.Contains(t_Entity))
         {
             fractions.Remove(t_Entity);
@@ -209,7 +214,7 @@ public class EntityManager : Singleton<EntityManager>
 
     public List<Entity> GetFractionEntities(EntityFaction t_Fraction)
     {
-        return m_Entities.TryGetValue(t_Fraction, out var fractions) ? fractions : null;
+        return _entities.TryGetValue(t_Fraction, out var fractions) ? fractions : null;
     }
 
     private static readonly Dictionary<EntityFaction, EntityFaction[]> EnemyFactionsMap = new()
@@ -230,10 +235,10 @@ public class EntityManager : Singleton<EntityManager>
     /// </summary>
     private void Update()
     {
-        if (m_Entities.Count == 0)
+        if (_entities.Count == 0)
             return;
 
-        foreach (var pair in m_Entities)
+        foreach (var pair in _entities)
         {
             var list = pair.Value;
             if (list == null || list.Count == 0)
@@ -273,7 +278,7 @@ public class EntityManager : Singleton<EntityManager>
 
     public void OnClearAll()
     {
-        foreach (var entities in m_Entities)
+        foreach (var entities in _entities)
         {
             foreach (var entity in entities.Value)
             {
@@ -282,7 +287,7 @@ public class EntityManager : Singleton<EntityManager>
             }
         }
         
-        m_Entities.Clear();
+        _entities.Clear();
         
     }
     

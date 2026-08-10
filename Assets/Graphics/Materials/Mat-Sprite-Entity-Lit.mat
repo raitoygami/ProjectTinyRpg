@@ -60,6 +60,8 @@ Material:
     m_Floats:
     - _DissolveClip: 0
     - _DissolveEdgeWidth: 0.2
+    - _DitherSize: 1
+    - _Fade: 0
     - _NoiseTiling: 0.5
     - _OutlineThickness: 0
     m_Colors:

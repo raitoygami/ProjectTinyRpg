@@ -4,7 +4,7 @@ using UnityEngine;
 public interface IPathNodeAgent
 {
     /// <summary>Grid position (column, row).</summary>
-    Vector2Int GridPosition { get; set; }
+    Vector2Int GridLocation { get; set; }
 
     /// <summary>Footprint size in grid cells (width, height), at least (1,1).</summary>
     Vector2Int GridSize { get; }

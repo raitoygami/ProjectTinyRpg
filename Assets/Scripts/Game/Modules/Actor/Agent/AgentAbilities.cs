@@ -102,10 +102,8 @@ public class AgentAbilities : MonoBehaviour
             Debug.LogError("这个接口不能给非player的单位使用");
         
         affectTargets = AbilityUtil.GetAbilityAffectRange(ability, owner, castableRange, castPoint);
-        Debug.Log($"{affectTargets.Count}");
         return affectTargets.Count > 0;
     }
-
 
     // 仅用作移动攻击选取目标
     public List<Vector3Int> GetTargetByMove(IPathNodeAgent mover, PathNode pathNode)

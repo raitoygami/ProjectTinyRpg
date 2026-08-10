@@ -12,18 +12,23 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
 
     // ── IPathNodeAgent implementation ───────────────────────────────────
 
-    Vector2Int IPathNodeAgent.GridPosition
+    Vector2Int IPathNodeAgent.GridLocation
     {
-        get => new Vector2Int(_gridX, _gridZ);
+        get => new Vector2Int(_gridX, _gridY);
         set
         {
             _gridX = value.x;
-            _gridZ = value.y;
+            _gridY = value.y;
         }
     }
 
     Vector2Int IPathNodeAgent.GridSize => new Vector2Int(GridSizeX, GridSizeZ);
 
+    public Vector3Int GetRealLocation()
+    {
+        return new Vector3Int(_gridX, _gridY, 0);
+    }
+    
     /// <summary>Grid column.</summary>
     public int X
     {
@@ -34,12 +39,12 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
     /// <summary>Grid row.</summary>
     public int Y
     {
-        get => _gridZ;
-        set => _gridZ = value;
+        get => _gridY;
+        set => _gridY = value;
     }
 
     private int _gridX;
-    private int _gridZ;
+    private int _gridY;
 
     /// <summary>Footprint width in grid cells (≥1).</summary>
     public int GridSizeX { get; set; } = 1;

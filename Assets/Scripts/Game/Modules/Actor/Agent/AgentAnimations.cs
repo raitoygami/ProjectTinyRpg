@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using JSAM;
 using UnityEngine;
 
@@ -350,6 +353,111 @@ public class AgentAnimations : MonoBehaviour
         await UniTask.WhenAll(tasks);
     }
     
+        
+    private bool _visible = true;
+
+    public void SetVisibility(bool visible)
+    {
+        var renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sr in renderers)
+        {
+            var mat = sr.material;
+            if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
+                continue;
+            mat.SetFloat(Const.ShaderPropertyKey.Fade, visible ? 0 : 1);
+        }
+        _visible = visible;
+    }
+    
+    private CancellationTokenSource _fadeCts;
+    private  TweenerCore<float,float,FloatOptions> _tweenFadeout;
+    private  TweenerCore<float,float,FloatOptions> _tweenFadein;
+    public async UniTask Fadeout()
+    {
+        if (!_visible)
+            return;
+        _visible = false;
+        _fadeCts?.Cancel();
+        _fadeCts?.Dispose();
+        _fadeCts = new CancellationTokenSource();
+        
+        // 合并对象销毁令牌与当前自定义令牌
+        using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
+            this.GetCancellationTokenOnDestroy(),
+            _fadeCts.Token
+        );
+        var token = linkedCts.Token;
+        
+        var renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        var tasks = new List<UniTask>();
+
+        foreach (var sr in renderers)
+        {
+            var mat = sr.material;
+            if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
+                continue;
+
+            if (mat.GetFloat(Const.ShaderPropertyKey.Fade) >= 1)
+                continue;
+            
+            _tweenFadeout = DOTween.To(
+                () => mat.GetFloat(Const.ShaderPropertyKey.Fade),
+                x => mat.SetFloat(Const.ShaderPropertyKey.Fade, x),
+                1f,
+                0.25f
+            );
+
+            tasks.Add(_tweenFadeout.ToUniTask(cancellationToken: token)
+                .SuppressCancellationThrow());
+        }
+
+        await UniTask.WhenAll(tasks);
+    }
+
+    public async UniTask Fadein()
+    {
+
+        if (_visible)
+            return;
+        _visible = true;
+        
+        // 同样的逻辑，只是目标值改为 0
+        _fadeCts?.Cancel();
+        _fadeCts?.Dispose();
+        _fadeCts = new CancellationTokenSource();
+
+        using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
+            this.GetCancellationTokenOnDestroy(),
+            _fadeCts.Token
+        );
+        var token = linkedCts.Token;
+
+        var renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        var tasks = new List<UniTask>();
+
+        foreach (var sr in renderers)
+        {
+            var mat = sr.material;
+            if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
+                continue;
+            if (mat.GetFloat(Const.ShaderPropertyKey.Fade) <= 0)
+                continue;
+            
+            _tweenFadein = DOTween.To(
+                () => mat.GetFloat(Const.ShaderPropertyKey.Fade),
+                x => mat.SetFloat(Const.ShaderPropertyKey.Fade, x),
+                0f,
+                0.25f
+            );
+
+            tasks.Add(_tweenFadein.ToUniTask(cancellationToken: token)
+                .SuppressCancellationThrow());
+        }
+
+        await UniTask.WhenAll(tasks);
+    }
+    
+    
     public Vector3 GetDirection()
     {
         return _avatarTarget.localScale;
@@ -388,7 +496,6 @@ public class AgentAnimations : MonoBehaviour
             if(_avatarTarget.gameObject == null) return;
             _avatarTarget.localPosition = Vector3.zero;
         };
-        
     }
 
     public void UpdateBaseAnimation(int t_Velocity)
@@ -407,12 +514,17 @@ public class AgentAnimations : MonoBehaviour
         var moveAnimation = Quaternion.Euler(0, 0,
             Mathf.Sin(Mathf.Floor(Time.time * FrequenceX * t_Velocity * Mathf.PI)) * AmplitudeX);
         m_SpriteRoot.rotation = moveAnimation;
-
         m_SpriteRoot.transform.localScale = new Vector3(m_SpriteRoot.transform.localScale.x, idle, 1);
     }
 
     private void OnDestroy()
     {
+        _fadeCts?.Cancel();
+        _fadeCts?.Dispose();
+        _tweenFadeout.Kill();
+        _tweenFadeout = null;
+        _tweenFadein.Kill();
+        _tweenFadein = null;
         KillAllTween();
     }
 }

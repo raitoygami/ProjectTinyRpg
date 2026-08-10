@@ -42,10 +42,10 @@ public partial class Player
                 var abilityAffectRange = AbilityUtil.GetAbilityAffectRange(_abilityPrepared, this, castableRange, cursorGridPosition);
                 GridIndicatorManager.Instance.ShowAffectableRange(abilityAffectRange);
             }
-            
-            var path = m_AgentMover.FindPath(cursorGridPosition, Const.Layer.ObstacleForNavi);
-            GridIndicatorManager.Instance.DrawCursorMark(cursorGridPosition, path is { Count: > 0 }); 
         }
+        
+        var path = m_AgentMover.FindPath(cursorGridPosition, Const.Layer.ObstacleForNavi);
+        GridIndicatorManager.Instance.DrawCursorMark(cursorGridPosition, path is { Count: > 0 }); 
         
         // raycast for loot
         var hitCount = Physics2D.RaycastNonAlloc(
@@ -247,7 +247,7 @@ public partial class Player
 
         m_AgentAnimations.FaceTarget(arg.TargetPosition - arg.StartPosition);
         m_AgentAnimations.BounceOnMove(arg.Duration);
-       // m_AgentAnimations.Roll(arg.TargetPosition - arg.StartPosition, arg.Duration);
+        
         return UniTask.CompletedTask;
     }
 
@@ -267,7 +267,12 @@ public partial class Player
             playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
         }
         
-        FOVManager.Instance.FovCompute(sceneName, GridPosition, 7);
+        // 更新所有单位可见性
+        if (FOVManager.HasInstance())
+        {
+            FOVManager.Instance.FovCompute(GridPosition, FOVManager.PlayerViewDistance);
+            FOVManager.Instance.PlayerVisibilityChanged();
+        }
         
         return UniTask.CompletedTask;
     }
@@ -290,9 +295,13 @@ public partial class Player
             playerLocation.CurrentWorldLocation = arg.CurrPosition;
             playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
         }
-
+        // 更新所有单位可见性
         if (FOVManager.HasInstance())
-            FOVManager.Instance.FovCompute(sceneName, GridPosition, 7);
+        {
+            FOVManager.Instance.FovCompute(GridPosition, FOVManager.PlayerViewDistance);
+            FOVManager.Instance.PlayerVisibilityChanged();
+        }
+        
         m_TurnActor.FinishTurn();
         await this.PublishGlobal(new Context.PlayerMoveFinishEvt());
         await UniTask.CompletedTask;

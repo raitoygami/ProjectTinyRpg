@@ -16,4 +16,5 @@ MonoBehaviour:
   TileAbilityCastRange: {fileID: 11400000, guid: b5141c4f487a2164dba98d88ab89b775, type: 2}
   TileAbilityAffectRange: {fileID: 11400000, guid: 404c831a971b3a84084b0f298431c558, type: 2}
   TileAbilityTelegraph: {fileID: 11400000, guid: ede4acdab3255ca41967dd4e3ef33e24, type: 2}
-  TileFOV: {fileID: 11400000, guid: 7bd6bc4fef17c2949a574851ba15c401, type: 2}
+  TileFog: {fileID: 11400000, guid: 7bd6bc4fef17c2949a574851ba15c401, type: 2}
+  TileView: {fileID: 11400000, guid: 651199eeb977f484994d6ccac9f0594d, type: 2}

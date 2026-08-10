@@ -14,5 +14,7 @@ public class TileAssetTable : ScriptableObject{
     [SerializeField] public Tile TileAbilityTelegraph;
 
     [Header("FOV")] 
-    [SerializeField] public RuleTile TileFOV;
+    [SerializeField] public RuleTile TileFog;
+    [SerializeField] public RuleTile TileView;
+    
 }

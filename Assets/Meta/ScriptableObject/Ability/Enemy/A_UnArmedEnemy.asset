@@ -135,7 +135,7 @@ MonoBehaviour:
   _castCenterType: 0
   _affectType: 0
   _range: 1
-  _prepareTurn: 0
+  _prepareTurn: 1
   _abilityAffectRangeParam:
     rid: 7807147412512571481
   _cooldown: 1

@@ -108,8 +108,8 @@ public class PathCell2D
 
         var w = Mathf.Max(1, logical.GridSize.x);
         var h = Mathf.Max(1, logical.GridSize.y);
-        var x = logical.GridPosition.x;
-        var z = logical.GridPosition.y;
+        var x = logical.GridLocation.x;
+        var z = logical.GridLocation.y;
 
         for (int ox = 0; ox < w; ox++)
         for (int oz = 0; oz < h; oz++)
@@ -143,7 +143,7 @@ public class PathCell2D
             }
         }
 
-        nodeAgent.GridPosition = new Vector2Int(x2, z2);
+        nodeAgent.GridLocation = new Vector2Int(x2, z2);
 
         // Set new
         for (var ox = 0; ox < w; ox++)

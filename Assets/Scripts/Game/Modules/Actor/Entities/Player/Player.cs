@@ -159,8 +159,7 @@ public partial class Player : Entity
     private UniTask OnFovDirtyEvt(Context.FOVDirtyEvt arg)
     {
         // 更新fov
-        var playerLocation = PlayerManager.Instance.GetLocation();
-        FOVManager.Instance.FovCompute(playerLocation.CurrentMap, GridPosition, 7);
+        FOVManager.Instance.FovCompute(GridPosition, FOVManager.PlayerViewDistance);
         return UniTask.CompletedTask;
     }
     
@@ -185,7 +184,7 @@ public partial class Player : Entity
         m_AgentAnimations.SetDirection(playerLocation.CurrentDirection);
 
         // 更新fov
-        FOVManager.Instance.FovCompute(playerLocation.CurrentMap, GridPosition, 7);
+        FOVManager.Instance.FovCompute(GridPosition, FOVManager.PlayerViewDistance);
         
     }
 

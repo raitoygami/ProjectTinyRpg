@@ -1,9 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class FOVManager : Singleton<FOVManager>
 {
+    public static int PlayerViewDistance = 6;
+    
     private struct Slope
     {
         public Slope(int y, int x)
@@ -19,16 +24,23 @@ public class FOVManager : Singleton<FOVManager>
     // 新增：三个 Tilemap 引用
 
     private Transform _root;
-    private Tilemap _tilemapFOV; // 敌方预警
-    private RuleTile _tileFOV;
-
+    private Tilemap _tilemapFog; // 敌方预警
+    private Tilemap _tilemapView; // 敌方预警
+    private RuleTile _tileFog;
+    private RuleTile _tileView;
+    
+    private List<Vector3Int> _visibleTiles = new();
+    private List<Vector3Int> _visibleTilesLast = new();
+    
     public void Setup(TileAssetTable tileAssetTable)
     {
         _root = new GameObject("Root").transform;
         _root.SetParent(transform);
         _root.transform.position = Vector3.zero;
 
-        _tileFOV = tileAssetTable.TileFOV;
+        _tileFog = tileAssetTable.TileFog;
+        _tileView = tileAssetTable.TileView;
+        
         var gridObj = new GameObject("FOV Grid");
         gridObj.transform.SetParent(transform);
         gridObj.transform.localPosition = new Vector3(0.5f, 0.5f, 0);
@@ -40,7 +52,9 @@ public class FOVManager : Singleton<FOVManager>
         _fogGrid.cellSwizzle = GridLayout.CellSwizzle.XYZ;
 
         var defaultLayer = SortingLayer.NameToID("Default");
-        _tilemapFOV = CreateTilemap(gridObj.transform, "Layer Ability Range", defaultLayer, 200);
+        _tilemapFog = CreateTilemap(gridObj.transform, "Field of View - Fog", defaultLayer, 200);
+        _tilemapView = CreateTilemap(gridObj.transform, "Field of View - View", defaultLayer, 199);
+        _tilemapView.color = new Color(1, 1, 1, 0.5f);
     }
 
     private Tilemap CreateTilemap(Transform parent, string tilemapName, int sortingLayerID, int order)
@@ -64,31 +78,56 @@ public class FOVManager : Singleton<FOVManager>
 
     public void InitFov(string sceneName)
     {
-        ClearAll(); // 先清空现有 Tilemap
-        
         var mapData = MapManager.Instance.GetMapData(sceneName);
         if (mapData == null) return;
         // 遍历地图范围内的所有格子
         for (var x = mapData.OriginX; x <= mapData.OriginX + mapData.Width; x++)
         for (var y = mapData.OriginY; y <= mapData.OriginY + mapData.Height; y++)
         {
-            
             var location = new Vector3Int(x, y, 0);
             // 如果该格子未被探索，则设置黑雾 Tile
             if (mapData.GetFOV(location)) continue;
-            var cell = _tilemapFOV.WorldToCell(location);
-            _tilemapFOV.SetTile(cell, _tileFOV);
+            var cell = _tilemapFog.WorldToCell(location);
+            _tilemapFog.SetTile(cell, _tileFog);
             // 注意：已探索的格子不需要设置 Tile（或者可以设置为空以清除黑雾）
             // 但这里 ClearAll 已经清空了所有，我们只对未探索的设置黑雾，已探索的保持空即可
         }
     }
 
-    public void FovCompute(string sceneName, Vector3 location, int viewDistance)
+    public void InitView(string sceneName)
     {
+        _visibleTilesLast.Clear();
+        _visibleTiles.Clear();
+        var mapData = MapManager.Instance.GetMapData(sceneName);
+        if (mapData == null) return;
+        // 遍历地图范围内的所有格子
+        for (var x = mapData.OriginX; x <= mapData.OriginX + mapData.Width; x++)
+        for (var y = mapData.OriginY; y <= mapData.OriginY + mapData.Height; y++)
+        {
+            var location = new Vector3Int(x, y, 0);
+            var cell = _tilemapView.WorldToCell(location);
+            _tilemapView.SetTile(cell, _tileView);
+            _tilemapView.SetColor(cell, Color.white);
+            _tilemapView.SetTileFlags(cell, TileFlags.None);
+        }
+    }
+
+    public void FovCompute(Vector3 location, int viewDistance)
+    {
+        if (!PlayerManager.HasInstance()) return;
+        var locationData = PlayerManager.Instance.GetLocation();
+        var sceneName = locationData.CurrentMap;
+
+        _visibleTilesLast = _visibleTiles;
+        _visibleTiles = new List<Vector3Int>();
+        
         var playerLocation = Vector3Int.FloorToInt(location);
         TileCompute(sceneName, playerLocation);
         for (uint octant = 0; octant <= 7; octant++)
             Compute(sceneName, octant, playerLocation, viewDistance, 1, new Slope(1, 1), new Slope(0, 1));
+        
+        // 然后在更新
+        ViewCompute();
     }
 
     private void Compute(string sceneName, uint octant, Vector3Int location, int rangeLimit, int x, Slope top,
@@ -198,25 +237,121 @@ public class FOVManager : Singleton<FOVManager>
         // 【核心逻辑】只要有任何一格包含 ObstacleForNavi 就不能停留
         return (Const.Layer.LayerFogComputeFOV.value & cell.Logical.Layer.value) != 0;
     }
-    
 
     private void TileCompute(string sceneName, Vector3Int location)
     {
+        if (!MapManager.HasInstance())
+            return;
+        
+        if (!_visibleTiles.Contains(location))
+            _visibleTiles.Add(location);
+        
         var mapData = MapManager.Instance.GetMapData(sceneName);
         var hasFOV = mapData.HasFOV(location);
         if (!hasFOV)
             return;
 
-        var cell = _tilemapFOV.WorldToCell(location);
+        var cell = _tilemapFog.WorldToCell(location);
 
-        _tilemapFOV.SetTileFlags(cell, TileFlags.None);
-        _tilemapFOV.SetColor(cell, new Color(1.0f, 1.0f, 1.0f, 0f));
+        _tilemapFog.SetTileFlags(cell, TileFlags.None);
+        _tilemapFog.SetColor(cell, new Color(1.0f, 1.0f, 1.0f, 0f));
         mapData.SetFOV(location, true);
+
     }
 
 
+    private void ViewCompute()
+    {
+        var added = _visibleTiles.Except(_visibleTilesLast).ToList();
+        var removed = _visibleTilesLast.Except(_visibleTiles).ToList();
+        
+        foreach (var location in added)
+        {
+            var cell = _tilemapView.WorldToCell(location);
+            _tilemapView.SetTileFlags(cell, TileFlags.None);
+            _tilemapView.SetColor(cell, Color.clear);
+        }
+
+        foreach (var location in removed)
+        {
+            var cell = _tilemapView.WorldToCell(location);
+            _tilemapView.SetTileFlags(cell, TileFlags.None);
+            _tilemapView.SetColor(cell, Color.white);
+        }
+        
+    }
+    
+    public bool IsVisibility(Vector3Int location)
+    {
+        return _visibleTiles.Contains(location);
+    }
+    
+    public void InitVisibility()
+    {
+        if (!EntityManager.HasInstance()) return;
+        
+        var entitiesTable = EntityManager.Instance.GetEntitiesTable();
+        foreach (var (faction, entities) in entitiesTable)
+        {
+            if (faction != EntityFaction.Enemy) continue;
+            foreach (var entity in entities)
+            {
+                var agentAnimation = entity.GetComponent<AgentAnimations>();
+                if (agentAnimation == null)
+                    continue;
+                var location = entity.GridPosition;
+                agentAnimation.SetVisibility(IsVisibility(Vector3Int.FloorToInt(location)));
+            }
+        }
+    }
+    
+    private List<Vector3Int> GetUpdatedTiles()
+    {
+        var added = _visibleTiles.Except(_visibleTilesLast).ToList();
+        var removed = _visibleTilesLast.Except(_visibleTiles).ToList();
+        added.AddRange(removed);
+        
+        return added;
+    }
+    
+    public void PlayerVisibilityChanged()
+    {
+        if (!PathFinder.HasInstance()) return;
+
+        var updateTiles = GetUpdatedTiles();
+        foreach (var location in updateTiles)
+        {
+            var cell = PathFinder.Instance.GetCell(location.x, location.y);
+            var target = cell?.Logical;
+            var entity = target as Entity;
+            if (entity == null) continue;
+            var agentAnimation = entity.GetComponent<AgentAnimations>();
+            if (agentAnimation == null)
+                continue;
+            var visible = IsVisibility(location);
+            if (visible)
+                agentAnimation.Fadein().Forget();
+            else
+                agentAnimation.Fadeout().Forget();
+        }
+        
+    }
+
+    public void RefreshVisibility(Entity entity, Vector3Int nextLocation)
+    {
+        var agentAnimation = entity.GetComponent<AgentAnimations>();
+        if (agentAnimation == null) return;
+        
+        var visible = IsVisibility(nextLocation);
+        if (visible)
+            agentAnimation.Fadein().Forget();
+        else
+            agentAnimation.Fadeout().Forget();
+    }
+    
     public void ClearAll()
     {
-        _tilemapFOV.ClearAllTiles();
+        _tilemapFog.ClearAllTiles();
+        _tilemapView.ClearAllTiles();
     }
 }

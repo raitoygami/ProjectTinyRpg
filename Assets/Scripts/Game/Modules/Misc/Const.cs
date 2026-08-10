@@ -33,6 +33,7 @@ public static class Const
         public static readonly int TexelSizeY = Shader.PropertyToID("_OutlineTexelSizeY");
         public static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");
         public static readonly int DissolveClip = Shader.PropertyToID("_DissolveClip");
+        public static readonly int Fade = Shader.PropertyToID("_Fade");
     }
     
 }
