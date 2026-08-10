@@ -16,7 +16,7 @@ public class AbilityInspector : Editor
     private SerializedProperty _castCenterType;
     private SerializedProperty _affectType;
     private SerializedProperty _range;
-    private SerializedProperty _skillDisplayParam;
+    private SerializedProperty _abilityAffectRangeParam;
     private SerializedProperty _targetType;
     private SerializedProperty _cooldown;
 
@@ -38,7 +38,7 @@ public class AbilityInspector : Editor
         _castCenterType = serializedObject.FindProperty("_castCenterType");
         _affectType = serializedObject.FindProperty("_affectType");
         _range = serializedObject.FindProperty("_range");
-        _skillDisplayParam = serializedObject.FindProperty("m_SkillDisplayParam");
+        _abilityAffectRangeParam = serializedObject.FindProperty("_abilityAffectRangeParam");
         _targetType = serializedObject.FindProperty("_targetType");
         _cooldown = serializedObject.FindProperty("_cooldown");
 
@@ -64,7 +64,7 @@ public class AbilityInspector : Editor
         GUI.Label(rect, "");
     }
 
-    internal static class Styles
+    private static class Styles
     {
         public static readonly GUIContent Cost = new("Cost",
             "");
@@ -89,7 +89,7 @@ public class AbilityInspector : Editor
         EditorGUILayout.PropertyField(_castCenterType);
         EditorGUILayout.PropertyField(_affectType);
         EditorGUILayout.PropertyField(_range);
-        EditorGUILayout.PropertyField(_skillDisplayParam, true);
+        EditorGUILayout.PropertyField(_abilityAffectRangeParam, true);
         EditorGUILayout.PropertyField(_targetType);
         EditorGUILayout.PropertyField(_cooldown);
         EditorGUILayout.EndVertical();

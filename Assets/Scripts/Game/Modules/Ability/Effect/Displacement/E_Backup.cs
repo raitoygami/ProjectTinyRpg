@@ -25,7 +25,7 @@ public class E_Backup : AbilityEffect
         foreach (var t in line)
         {
             var cell = PathFinder.Instance.GetCell(t.x, t.y);
-            if (cell == null || !PathFinder.IsWalkableCell(cell, m_Context.Target))
+            if (cell == null || !PathFinder.IsWalkableCell(cell, m_Context.Owner))
                 break;
             pushPosition = t;
         }

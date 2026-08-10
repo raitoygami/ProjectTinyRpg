@@ -94,45 +94,46 @@ public class AgentAbilities : MonoBehaviour
         return _wepAtkAbilityActive;
     }
 
-    public bool GetAffectTarget(Vector3 castPoint, Ability ability, out List<Vector3> affectTargets)
+    // get affect target
+    public bool GetAffectTarget(Ability ability, Vector3Int castPoint, List<Vector3Int> castableRange, out List<Vector3Int> affectTargets)
     {
-        affectTargets = new List<Vector3>();
+        affectTargets = null;
         
         var cell = PathFinder.Instance.GetCell(castPoint.x, castPoint.y);
         var targetEntity = cell?.Logical as Entity;
         if (targetEntity == null)
             return false;
+        var owner = GetComponent<Entity>();
 
-        var fraction = GetComponent<Entity>().Faction;
-
-        switch (ability.TargetMode())
-        {
-            case AbilityTargetType.None:
-                break;
-            case AbilityTargetType.Self:
-                if (targetEntity == GetComponent<Entity>()) affectTargets.Add(castPoint); ;
-                break;
-            case AbilityTargetType.Enemy:
-                if (EntityManager.IsEnemyFraction(targetEntity.Faction, fraction)) affectTargets.Add(castPoint);
-
-                break;
-            case AbilityTargetType.Any:
-                affectTargets.Add(castPoint);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        affectTargets = AbilityUtil.GetAbilityAffectRange(ability, owner, castableRange, castPoint);
+        
         return affectTargets.Count > 0;
     }
 
 
     // 仅用作移动攻击选取目标
-    public List<Vector3> GetTargetByMove(IPathNodeAgent mover, PathNode pathNode)
+    public List<Vector3Int> GetTargetByMove(IPathNodeAgent mover, PathNode pathNode)
     {
-        var targets = new List<Vector3>();
+        var targets = new List<Vector3Int>();
+        
         if (mover == null || pathNode == null)
             return targets;
+        
+        var owner = GetComponent<Entity>();
+        var ability = GetWepAbility();
+        var castPoint = new Vector3(pathNode.Position.x, pathNode.Position.y, 0);
+        var castableRange = AbilityUtil.GetCastableRange(ability, owner);
+        var abilityAffectRange = AbilityUtil.GetAbilityAffectRange(ability, owner, castableRange, castPoint, true);
 
+        var targetLocation = Vector3Int.FloorToInt(castPoint);
+        if (abilityAffectRange.Contains(targetLocation))
+        {
+            targets.Add(targetLocation);
+        }
+
+        return targets;
+ 
+        /*
         var sizeX = Mathf.Max(1, mover.GridSizeX);
         var sizeZ = Mathf.Max(1, mover.GridSizeZ);
         
@@ -163,7 +164,7 @@ public class AgentAbilities : MonoBehaviour
                 if (cell.Logical is not Entity e ||
                     !EntityManager.IsEnemyFraction(e.Faction, myFraction)) continue;
 
-                var location = new Vector3(x, y, 0);
+                var location = new Vector3Int(x, y, 0);
                 
                 if (targets.Contains(location)) continue;
                 
@@ -171,43 +172,24 @@ public class AgentAbilities : MonoBehaviour
             }
         }
 
-        return targets;
+        return targets;*/
     }
 
-    public bool WithinBaseAttack(PathNode t_TargetLocation)
+    public bool WithinBaseAttack(PathNode targetLocation)
     {
         var baseAttack = GetWepAbility();
-        if (baseAttack == null || t_TargetLocation == null)
+        if (baseAttack == null || targetLocation == null)
             return false;
 
         if (baseAttack.IsOnCooldown())
             return false;
         
-        var myNode = GetComponent<IPathNodeAgent>();
-        if (myNode == null) return false;
-
+        var owner = GetComponent<Entity>();
+        if (owner == null) return false;
         // 获取目标位置的 IPathNode（支持多尺寸）
-        var targetCell = PathFinder.Instance.GetCell(t_TargetLocation.X, t_TargetLocation.Y);
-        var targetNode = targetCell?.Logical;
-
-        var targetSizeX = 1;
-        var targetSizeZ = 1;
-
-        if (targetNode != null)
-        {
-            targetSizeX = Mathf.Max(1, targetNode.GridSizeX);
-            targetSizeZ = Mathf.Max(1, targetNode.GridSizeZ);
-        }
-
-        // 使用 Footprint 最小距离（支持双方多尺寸）
-        var dist = PathFinder.FootprintManhattanDistance(
-            myNode,
-            t_TargetLocation.X,
-            t_TargetLocation.Y,
-            targetSizeX,
-            targetSizeZ);
-
-        return dist <= baseAttack.GetCastRange();
+        var cell = PathFinder.Instance.GetCell(targetLocation.X, targetLocation.Y);
+        
+        return AbilityUtil.IsTarget(baseAttack, owner, cell);
     }
 
     private void OnDestroy()

@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
-/// 按 <see cref="SelectParam"/> 区域（圆 / 扇形 / 矩形）：
+/// 按 <see cref="AbilityAffectRangeParam"/> 区域（圆 / 扇形 / 矩形）：
 /// <see cref="requireTargetSelection"/> 为 true 时收集实体，对每名目标执行子效果；
 /// 为 false 时对范围内每一格各执行一次子效果（<see cref="AbilityContext.Position"/> 为该格，格上单位可作为 <see cref="AbilityContext.Target"/>）；
 /// 可配合 <see cref="requireEmptyGround"/> 仅对空地格执行。
@@ -25,7 +25,7 @@ public class E_AOE : AbilityEffect
 
     [Tooltip("区域形状与尺寸（圆/扇形/矩形）；未配置则本效果不命中任何目标")]
     [SerializeReference]
-    [SerializeField] private SelectParam selectParam;
+    [SerializeField] private AbilityAffectRangeParam abilityAffectRangeParam;
 
     [SerializeField] private AoeFactionFilter factionFilter = AoeFactionFilter.Enemies;
 
@@ -44,15 +44,15 @@ public class E_AOE : AbilityEffect
     public override string GetDescription()
     {
         var mode = requireTargetSelection ? "" : $" ·每格{(requireEmptyGround ? "·仅空地" : "")}";
-        if (selectParam is SelectCircleParam c)
+        if (abilityAffectRangeParam is RangeCircleParam c)
             return $"AOE Circle r≤{c.radius} {factionFilter}{mode}";
-        if (selectParam is SelectSectorParam)
+        if (abilityAffectRangeParam is RangeSectorParam)
             return $"AOE Sector {factionFilter}{mode}";
-        if (selectParam is SelectRectParam)
+        if (abilityAffectRangeParam is RangeRectParam)
             return $"AOE Rect {factionFilter}{mode}";
-        if (selectParam is SelectPointParam)
+        if (abilityAffectRangeParam is RangePointParam)
             return $"AOE Point {factionFilter}{mode}";
-        return selectParam != null ? $"AOE {factionFilter}{mode}" : "AOE（未配置区域）";
+        return abilityAffectRangeParam != null ? $"AOE {factionFilter}{mode}" : "AOE（未配置区域）";
     }
 
     protected override async UniTask OnApply()
@@ -65,7 +65,7 @@ public class E_AOE : AbilityEffect
         if (!EntityManager.HasInstance())
             return;
 
-        if (selectParam == null)
+        if (abilityAffectRangeParam == null)
             return;
 
         var ability = m_Context.Ability;
@@ -77,7 +77,7 @@ public class E_AOE : AbilityEffect
         if (!ability.TryGetSkillPreviewFrame(ownerGrid, castGrid, out var previewOrigin, out var skillFace))
             return;
 
-        var shapeSet = SelectParamPreview.EnumerateShapeCells(selectParam, previewOrigin, skillFace);
+        var shapeSet = AbilityAffectRangeParamPreview.EnumerateShapeCells(abilityAffectRangeParam, previewOrigin, skillFace);
         if (shapeSet == null || shapeSet.Count == 0)
             return;
 

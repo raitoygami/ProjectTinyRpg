@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -49,7 +50,7 @@ public partial class Player
         }
     }
 
-    private async UniTask ExecuteAbility(Ability ability, List<Vector3> affectTargets, Vector3 targetPoint)
+    private async UniTask ExecuteWepAbility(Ability ability, List<Vector3Int> affectTargets, Vector3 targetPoint)
     {
         _isExecutingAbility = true;
         
@@ -73,20 +74,32 @@ public partial class Player
 
         var targetPoint = hitPoint.SnapToGrid();
 
-        await ExecuteAbilityInternal(ability, targetPoint);
+        await ExecuteAbility(ability, targetPoint);
     }
 
     // cast point 施法点
-    private async UniTask ExecuteAbilityInternal(Ability ability, Vector3 location)
+    private async UniTask ExecuteAbility(Ability ability, Vector3 location)
     {
         _abilityPrepared = null;
         
-        List<Vector3> affectTarget = null;
+        List<Vector3Int> affectTargets = null;
+        
+        var castPoint = Vector3Int.FloorToInt(location);
+        var castableRange = ability.GetCastableRange(location); 
+        if (!castableRange.Contains(castPoint) ||
+            !m_AgentAbilities.GetAffectTarget(ability, castPoint, castableRange, out affectTargets))
+        {
+            ability.Cancel();
+            return;
+        }
         if (ability.IsTargeted())
         {
-            var castPoint = new Vector3Int((int)location.x, (int)location.y, 0);
-            if (!ability.GetCastableRange(location).Contains(castPoint) ||
-                !m_AgentAbilities.GetAffectTarget(location, ability, out affectTarget))
+            var hasTarget = affectTargets.Select(affectPoint => 
+                PathFinder.Instance.GetCell(affectPoint.x, affectPoint.y)
+                ).
+                Any(cell => AbilityUtil.IsTarget(ability, this, cell));
+
+            if (!hasTarget)
             {
                 ability.Cancel();
                 return;
@@ -97,7 +110,7 @@ public partial class Player
         if (ability.TryGetSkillPreviewFrame(GridPosition, location, out var previewOrigin,
                 out var skillFace))
         {
-            if (await ability.Execute(affectTarget, previewOrigin))
+            if (await ability.Execute(affectTargets, previewOrigin))
             {
                 GetComponent<TurnActor>().FinishTurn();
             }

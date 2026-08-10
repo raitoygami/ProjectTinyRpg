@@ -4,6 +4,31 @@ using UnityEngine;
 
 public static class AbilityUtil
 {
+    public static bool IsTarget(Ability ability, Entity owner, PathCell cell)
+    {
+        var logical = cell?.Logical;
+        if (logical == null) return false;
+        var entity = logical as Entity;
+        if (entity == null) return false;
+
+        switch (ability.TargetMode())
+        {
+            case AbilityTargetType.None:
+                break;
+            case AbilityTargetType.Self:
+                return entity == owner;
+            case AbilityTargetType.Enemy:
+                return EntityManager.IsEnemyFraction(owner.Faction, entity.Faction);
+            case AbilityTargetType.Any:
+                return entity != null;
+            case AbilityTargetType.EmptyGround:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        return false;
+    }
+    
     
     private static bool IsMoveableForMask(PathCell cell, IPathNodeAgent owner)
     {
@@ -32,6 +57,67 @@ public static class AbilityUtil
         }
         
         return null;
+    }
+
+    // 获取技能是实际效果
+    public static List<Vector3Int> GetAbilityAffectRange(Ability ability
+        , Entity owner
+        , List<Vector3Int> prepareRange
+        , Vector3 castPoint
+        , bool ignoreAlly = false)
+    {
+        var affectRange = new List<Vector3Int>();
+        
+        var abilityAffectRangeParam = ability.GetAbilityAffectRangeParam();
+        switch (abilityAffectRangeParam)
+        {
+            case RangePointParam _:
+                var line= owner.GridPosition.Line(castPoint);
+                foreach (var cell in line)
+                {
+                    var node = PathFinder.Instance.GetCell(cell.x, cell.y);
+                    if (node?.Logical == null)
+                    {
+                        // 阻挡 就返回
+                        if (!IsMoveableForMask(node, owner))
+                            break;
+                        affectRange.Add(cell);
+                        continue;
+                    }
+                    var entity = node.Logical as Entity;
+                    // 不可能为null
+                    if (entity == null)
+                    {
+                        if (!IsMoveableForMask(node, owner))
+                            break;
+                    }
+                    else
+                    {
+                        // 先忽略自己，如果目标不是自己的话
+                        if (entity == owner && ability.TargetMode() != AbilityTargetType.Self)
+                            continue;
+                        // 如果不忽略, 则只要是目标就必须干
+                        if (!ignoreAlly)
+                        {
+                            affectRange.Add(cell);
+                            break;
+                        }
+                        // 如果是盟友 就返回
+                        if (EntityManager.IsEnemyFraction(owner.Faction, entity.Faction))
+                        {
+                            affectRange.Add(cell);
+                            break;
+                        }
+                    }
+                    
+                    affectRange.Add(cell);
+                }
+                break;
+            case RangeCircleParam _:
+                break;
+        }
+        
+        return affectRange;
     }
     
     public static List<Vector3Int> GetCastableRange(Ability ability, Entity owner)

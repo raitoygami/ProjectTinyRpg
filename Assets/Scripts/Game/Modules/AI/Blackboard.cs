@@ -124,17 +124,17 @@ public class Blackboard
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public async UniTask<bool> UseAbility()
     {
-        List<Vector3> affectTargets = null;
+        List<Vector3Int> affectTargets = null;
         var agentAbility = _owner.GetComponent<AgentAbilities>();
         var castPoint = _hasPrepared ? _owner.GridPosition + _targetOffset : _target.GridPosition;
 
         if (_abilitySelect.IsTargeted())
         {
             var selectionPoint = Vector3Int.FloorToInt(castPoint);
-            var selectionRange = _abilitySelect.GetCastableRange(castPoint); 
+            var castableRange = _abilitySelect.GetCastableRange(castPoint); 
             
-            if (!selectionRange.Contains(selectionPoint) ||
-                !agentAbility.GetAffectTarget(castPoint, _abilitySelect, out affectTargets))
+            if (!castableRange.Contains(selectionPoint) ||
+                !agentAbility.GetAffectTarget(_abilitySelect, selectionPoint, castableRange, out affectTargets))
             {
                 // 如果没有找到目标
                 if (_hasPrepared && _telegraph != null)

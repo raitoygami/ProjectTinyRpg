@@ -7,45 +7,51 @@ using UnityEngine.SceneManagement;
 
 public partial class Player
 {
-    private List<PathNode> _Path = new();
-    
-    private Vector3 _LastGrid = Vector3.one;
-
-    private bool keyboardInputEnabled;
-
+    private Vector3 _lastCursorPosition;
+    private List<PathNode> _pathNodes = new();
+    private bool _keyboardInputEnabled;
     // Update is called once per frame
-    private readonly RaycastHit2D[] hitBuffer = new RaycastHit2D[32];
-    
-    
+    private readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[32];
     
     private async UniTask OnPointerMoveEvt(InputManager.PointerMoveEvt args)
     {
         // 背包拾起块：左键用于放下/丢弃，不绘制地面移动路径预览
-
 
         // 勿在此调用 IsPointerOverGameObject()：本方法由 Input 事件链触发，该 API 会读上一帧 UI 状态并报警告。
         // 指针在 UI 上时的 ClearPath 由 Player.Update 里的 DoNotClickUIAndGameAtSameTime 处理。
 
         if (!InputManager.Instance.IsKeyboardMouse())
         {
-            GridIndicatorManager.Instance.ClearPath();
+            GridIndicatorManager.Instance.HideCursorMark();
             return;
         }
-            
         
         if (!GetPointerInput(out var hitPoint))
             return;
-        
-        var targetGrid = hitPoint.SnapToGrid();
+        var cursorGridPosition = hitPoint.SnapToGrid();
 
-        var path = m_AgentMover.FindPath(targetGrid, Const.Layer.ObstacleForNavi);
-        GridIndicatorManager.Instance.DrawCursorMark(targetGrid, path is { Count: > 0 });
+        if (cursorGridPosition != _lastCursorPosition)
+        {
+            GridIndicatorManager.Instance.ClearAffectableRange();
+            if (_isPreparingAbility && _abilityPrepared != null)
+            {
+                /*GridIndicatorManager.Instance.HideCursorMark();*/
+
+                // 这里显示技能
+                var castableRange = AbilityUtil.GetCastableRange(_abilityPrepared, this);
+                var abilityAffectRange = AbilityUtil.GetAbilityAffectRange(_abilityPrepared, this, castableRange, cursorGridPosition);
+                GridIndicatorManager.Instance.ShowAffectableRange(abilityAffectRange);
+            }
+            
+            var path = m_AgentMover.FindPath(cursorGridPosition, Const.Layer.ObstacleForNavi);
+            GridIndicatorManager.Instance.DrawCursorMark(cursorGridPosition, path is { Count: > 0 }); 
+        }
         
         // raycast for loot
         var hitCount = Physics2D.RaycastNonAlloc(
             hitPoint, // 起点（鼠标在世界空间中的位置）
             Vector2.zero, // 方向（零向量表示检测该点处的所有碰撞体，相当于 Point 检测）
-            hitBuffer, // 缓存数组
+            _hitBuffer, // 缓存数组
             100, // 最大检测距离（实际作用有限，因为方向为零）
             Const.Layer.ForInteractHover // 层遮罩
         );
@@ -54,26 +60,15 @@ public partial class Player
         _interactableHovered = null;
         if (hitCount > 0)
         {
-            var hit = hitBuffer[0];
+            var hit = _hitBuffer[0];
             
             _interactableHovered = hit.collider.GetComponent<IInteractable>();
             _interactableHovered.OnHoverEnter();
         }
+
+        _lastCursorPosition = cursorGridPosition;
         
         await UniTask.CompletedTask;
-    }
-
-    private void TargetToLoot()
-    {
-        if (!GetPointerInput(out var hitPoint))
-            return;
-        var targetGrid = hitPoint.SnapToGrid();
-        if (_interactableHovered != null)
-        {
-
-        }
-
-        // _lootUnitTarget = DropSystem.Instance.GetLootUnit(targetGrid);
     }
 
     private async UniTask OnMouseClickEvt(InputManager.MouseClickEvt arg)
@@ -136,15 +131,15 @@ public partial class Player
 
         var targetPoint = hitPoint.SnapToGrid();
         if (targetPoint != GridPosition)
-            _Path = m_AgentMover.FindPath(targetPoint, Const.Layer.ObstacleForNavi);
+            _pathNodes = m_AgentMover.FindPath(targetPoint, Const.Layer.ObstacleForNavi);
         
-        if (_Path is { Count: > 0 })
+        if (_pathNodes is { Count: > 0 })
             HandlePath().Forget();
     }
 
     private void ClearPath()
     {
-        _Path?.Clear();
+        _pathNodes?.Clear();
     }
 
     private async UniTask HandlePath()
@@ -153,14 +148,14 @@ public partial class Player
             await UniTask.WaitUntil(() => _Controllable);
         _Controllable = false;
 
-        if (_Path.Count <= 0)
+        if (_pathNodes.Count <= 0)
             return;
 
         UIRoot.Instance.CloseLootPanel();
 
-        var nextStep = _Path[0];
-        var finalPoint = _Path[^1];
-        _Path.RemoveAt(0);
+        var nextStep = _pathNodes[0];
+        var finalPoint = _pathNodes[^1];
+        _pathNodes.RemoveAt(0);
 
         var decision = DetermineMovement(nextStep, finalPoint);
         
@@ -168,7 +163,7 @@ public partial class Player
         {
             case MovementResult.Attack:
                 ClearPath();
-                await ExecuteAbility(m_AgentAbilities.GetWepAbility(), decision.AttackTargets, finalPoint.GetLocation());
+                await ExecuteWepAbility(m_AgentAbilities.GetWepAbility(), decision.AttackTargets, finalPoint.GetLocation());
                 return;
             case MovementResult.None:
                 ClearPath();
@@ -198,7 +193,7 @@ public partial class Player
     private void ResetInput()
     {
         _Controllable = true;
-        keyboardInputEnabled = true;
+        _keyboardInputEnabled = true;
     }
 
     public enum MovementResult
@@ -212,12 +207,12 @@ public partial class Player
     public struct MovementDecision
     {
         public readonly MovementResult Result;
-        public readonly List<Vector3> AttackTargets; // 仅在 Attack 时有效
+        public readonly List<Vector3Int> AttackTargets; // 仅在 Attack 时有效
 
-        public MovementDecision(MovementResult result, List<Vector3> affectTargets = null)
+        public MovementDecision(MovementResult result, List<Vector3Int> affectTargets = null)
         {
             Result = result;
-            AttackTargets = affectTargets ?? new List<Vector3>();
+            AttackTargets = affectTargets ?? new List<Vector3Int>();
         }
     }
 
@@ -317,7 +312,7 @@ public partial class Player
         var nextPosition = GridPosition + new Vector3(m_InputDirection.x, m_InputDirection.y, 0);
         var target = new PathNode(nextPosition.x, nextPosition.y, true);
 
-        keyboardInputEnabled = false;
+        _keyboardInputEnabled = false;
 
         SetPath(new List<PathNode> { target });
         return true;
@@ -325,8 +320,8 @@ public partial class Player
 
     private void SetPath(List<PathNode> value)
     {
-        _Path = value;
-        if (_Path.Count > 0)
+        _pathNodes = value;
+        if (_pathNodes.Count > 0)
         {
             _ = HandlePath();
         }
@@ -343,7 +338,7 @@ public partial class Player
         {
             // 指针在 UI 上时禁用对世界的鼠标采样，并清掉地面移动路径预览（避免禁用后 OnPointerMove 不再刷新）
             if (GridIndicatorManager.HasInstance())
-                GridIndicatorManager.Instance.ClearPath();
+                GridIndicatorManager.Instance.HideCursorMark();
             InputManager.Instance.MouseDisable();
         }
         else

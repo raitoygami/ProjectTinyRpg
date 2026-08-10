@@ -157,6 +157,19 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
             _tilemapAbilityCastRange.SetTile(cell, _tileAbilityCastRange);
         }
     }
+
+    public void ShowAffectableRange(List<Vector3Int> affectableRange)
+    {
+        foreach (var cell in affectableRange.Select(location => _indicatorGrid.WorldToCell(location)))
+        {
+            _tilemapAbilityAffectRange.SetTile(cell, _tileAbilityAffectRange);
+        }
+    }
+
+    public void ClearAffectableRange()
+    {
+        _tilemapAbilityAffectRange.ClearAllTiles();
+    }
     
     public void HideAbilityPreview()
     {
@@ -164,25 +177,27 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
         _tilemapAbilityAffectRange.ClearAllTiles();
     }
     
-    public void DrawCursorMark(Vector3 t_GridPosition, bool t_moveable)
+    public void DrawCursorMark(Vector3 location, bool moveable)
     {
         var spriteRenderer = _cursorMark.GetComponent<SpriteRenderer>();
-        spriteRenderer.sortingOrder = t_moveable ? 0 : 1000;
-        spriteRenderer.color = t_moveable ? Color.green : Color.red;
+        spriteRenderer.sortingOrder = moveable ? 0 : 1000;
+        spriteRenderer.color = moveable ? Color.green : Color.red;
         
-        _cursorMark.transform.position = t_GridPosition.GridToWorld();
+        _cursorMark.transform.position = location.GridToWorld();
         _cursorMark.transform.localScale = Vector3.one * 0.25f;
         _cursorMark.transform.DOScale(Vector3.one, 0.2f).SetTarget(_cursorMark);
         _cursorMark.SetActive(true);
     }
-
-    public void ClearPath()
+    
+    public void HideCursorMark()
     {
-        _cursorMark.transform.DOKill(false);
+        _cursorMark.transform.DOKill();
         _cursorMark.SetActive(false);
     }
 
-
+    
+    
+    
     protected override void OnRelease()
     {
         if (_root != null)

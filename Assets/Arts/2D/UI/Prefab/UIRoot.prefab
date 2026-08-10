@@ -5019,10 +5019,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9fa6c3a1677f046a11c42dbb6896c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _material: {fileID: 2100000, guid: 62a9b84fd4dd71a43a09464da1d7edc3, type: 2}
+  _material: {fileID: 0}
   m_TextTurn: {fileID: 8438545848639622432}
-  TestAbility: {fileID: 11400000, guid: 21113e8f31f99cb4b8f01a670f2577ac, type: 2}
-  TestAbility2: {fileID: 11400000, guid: f33de3492ff82e34fbca14bba780c294, type: 2}
+  TestAbility: {fileID: 0}
+  TestAbility2: {fileID: 0}
 --- !u!114 &2209223012366070187
 MonoBehaviour:
   m_ObjectHideFlags: 0

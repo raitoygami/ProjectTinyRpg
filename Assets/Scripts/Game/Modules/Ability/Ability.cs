@@ -37,7 +37,7 @@ public partial class Ability : ScriptableObject
 
 
     [Tooltip("仅用于地面技能范围预览（与施法范围 m_Range 独立）；未配置则不绘制")] [SerializeReference] [SerializeField]
-    private SelectParam m_SkillDisplayParam;
+    private AbilityAffectRangeParam _abilityAffectRangeParam;
 
     
     [Min(1)]
@@ -114,9 +114,9 @@ public partial class Ability : ScriptableObject
     }
     
     /// <summary>技能范围显示用参数（扇形/矩形/圆等），仅地面高亮；目标判定在子 Effect（如 <c>E_AOE</c>）中完成。</summary>
-    public SelectParam GetSkillDisplayParam()
+    public AbilityAffectRangeParam GetAbilityAffectRangeParam()
     {
-        return m_SkillDisplayParam;
+        return _abilityAffectRangeParam;
     }
 
     public AbilityTargetType TargetMode()
@@ -270,7 +270,7 @@ public partial class Ability : ScriptableObject
         return cell?.Logical as Entity;
     }
     
-    public async UniTask<bool> Execute(List<Vector3> affectTargets, Vector3 castPosition)
+    public async UniTask<bool> Execute(List<Vector3Int> affectTargets, Vector3 castPosition)
     {
         _castableRange = null;
         _state = State.Execution;

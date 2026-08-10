@@ -61,7 +61,7 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
 
     protected virtual bool IsWalkable(PathCell cell, int goalX, int goalY)
     {
-        return true;
+        return false;
     }
 
     public bool IsMoveable(PathCell cell, int goalX, int goalY)

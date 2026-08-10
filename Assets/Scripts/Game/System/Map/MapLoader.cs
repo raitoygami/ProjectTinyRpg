@@ -136,7 +136,7 @@ public class MapLoader : Singleton<MapLoader>
         EntityManager.Instance.OnClearAll();
         TurnManager.Instance.StopLoop();
         TurnManager.Instance.ClearAll();
-        GridIndicatorManager.Instance.ClearPath();
+        GridIndicatorManager.Instance.HideCursorMark();
     }
     
 }

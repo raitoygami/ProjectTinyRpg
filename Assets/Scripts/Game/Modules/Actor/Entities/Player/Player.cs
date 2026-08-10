@@ -243,7 +243,7 @@ public partial class Player : Entity
     {
         TurnManager.UnRegister(m_TurnActor);
         TurnManager.Instance.StopLoop();
-        GridIndicatorManager.Instance.ClearPath();
+        GridIndicatorManager.Instance.HideCursorMark();
         PathFinder.Instance.ClearLogical(this);
         await m_AgentAnimations.Death();
         Destroy(gameObject);
@@ -272,7 +272,7 @@ public partial class Player : Entity
         {
             ClearPath();
             if (GridIndicatorManager.HasInstance())
-                GridIndicatorManager.Instance.ClearPath();
+                GridIndicatorManager.Instance.HideCursorMark();
         }
         
         if (m_NextTurnEvt.Count > 0)
@@ -291,7 +291,7 @@ public partial class Player : Entity
             }
         }
 
-        _ = _Path is { Count: > 0 } ? HandlePath() : OnPointerMoveEvt(null);
+        _ = _pathNodes is { Count: > 0 } ? HandlePath() : OnPointerMoveEvt(null);
 
         await UniTask.CompletedTask;
     }
@@ -332,7 +332,7 @@ public partial class Player : Entity
             }
         }
 
-        if (_Controllable && keyboardInputEnabled && HandleKeyboardControls())
+        if (_Controllable && _keyboardInputEnabled && HandleKeyboardControls())
         {
         }
 
