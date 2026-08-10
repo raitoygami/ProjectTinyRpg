@@ -27,6 +27,7 @@ public partial class Player
             
     }
     
+    // ReSharper disable once MemberCanBePrivate.Global
     public async UniTask PrepareAbility(Ability ability)
     {
         if (!ability.Available())
@@ -81,13 +82,10 @@ public partial class Player
     private async UniTask ExecuteAbility(Ability ability, Vector3 location)
     {
         _abilityPrepared = null;
-        
-        List<Vector3Int> affectTargets = null;
-        
+
         var castPoint = Vector3Int.FloorToInt(location);
         var castableRange = ability.GetCastableRange(location); 
-        if (!castableRange.Contains(castPoint) ||
-            !m_AgentAbilities.GetAffectTarget(ability, castPoint, castableRange, out affectTargets))
+        if ( !m_AgentAbilities.GetAffectTarget(ability, castPoint, castableRange, out var affectTargets))
         {
             ability.Cancel();
             return;
@@ -98,7 +96,7 @@ public partial class Player
                 PathFinder.Instance.GetCell(affectPoint.x, affectPoint.y)
                 ).
                 Any(cell => AbilityUtil.IsTarget(ability, this, cell));
-
+            
             if (!hasTarget)
             {
                 ability.Cancel();

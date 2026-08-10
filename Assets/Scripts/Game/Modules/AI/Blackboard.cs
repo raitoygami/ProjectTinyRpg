@@ -140,7 +140,6 @@ public class Blackboard
                 if (_hasPrepared && _telegraph != null)
                 {
                     var entity = AbilityUtil.GetCloseTarget(_owner, _abilitySelect, _telegraph);
-                    
                     // 这里需要根据距离获取目标
                     await _abilitySelect.ExecuteMiss(castPoint, entity);
                     

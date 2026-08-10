@@ -35,6 +35,86 @@ public static class AbilityUtil
         return cell != null && PathFinder.IsWalkableCell(cell, owner);
     }
 
+    public static List<Vector3Int> GetRealCastPosition(Ability ability, Entity owner, List<Vector3Int> affectTargets,
+        Vector3 castPoint)
+    {
+        if (owner == null && ability)
+            return null;
+
+        var ret = new List<Vector3Int>();
+        var targetMode = ability.TargetMode();
+        
+        switch (targetMode)
+        {
+            case AbilityTargetType.None:
+            case AbilityTargetType.Self:
+                ret.Add(Vector3Int.FloorToInt(owner.GridPosition));
+                break;
+            case AbilityTargetType.Enemy:
+                GetEnemyTarget(ability, owner, affectTargets, castPoint, ref ret);
+                break;
+            case AbilityTargetType.Any:
+            case AbilityTargetType.EmptyGround:
+                ret.Add(Vector3Int.FloorToInt(castPoint));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return ret;
+        
+    }
+    
+    public static List<Vector3Int> GetAbilityTargetPositions(Ability ability, Entity owner, List<Vector3Int> affectTargets, Vector3 castPoint)
+    {
+        if (owner == null && ability)
+            return null;
+
+        var ret = new List<Vector3Int>();
+        var targetMode = ability.TargetMode();
+        switch (targetMode)
+        {
+            case AbilityTargetType.None:
+            case AbilityTargetType.Self:
+                break;
+            case AbilityTargetType.Enemy:
+                GetEnemyTarget(ability, owner, affectTargets, castPoint, ref ret);
+                break;
+            case AbilityTargetType.Any:
+                break;
+            case AbilityTargetType.EmptyGround:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return ret;
+    }
+
+    private static void GetEnemyTarget(Ability ability, Entity owner, List<Vector3Int> affectTargets, Vector3 castPoint, ref List<Vector3Int> ret)
+    {
+        var affectType = ability.GetAffectType();
+        var castTargetingMode = ability.GetCastTargetingMode();
+        if (castTargetingMode == CastTargetingMode.Directed)
+        {
+            if (affectType == AffectType.SelectPoint)
+            {
+                var entity = GetCloseTarget(owner, ability, affectTargets);
+                if (entity != null)
+                {
+                    ret.Add(Vector3Int.FloorToInt(entity.GridPosition));
+                    return;
+                }
+                if (affectTargets.Contains(Vector3Int.FloorToInt(castPoint)))
+                    ret.Add(Vector3Int.FloorToInt(castPoint));
+                
+                return;
+            }
+        }
+        
+        Debug.Log($"{ability.name}-{affectType}-{castTargetingMode}");
+    }
+    
     // 技能准备范围
     public static List<Vector3Int> GetAbilityPrepareRange(Ability ability, Entity owner, Vector3 castPoint)
     {
@@ -75,6 +155,9 @@ public static class AbilityUtil
                 var line= owner.GridPosition.Line(castPoint);
                 foreach (var cell in line)
                 {
+                    if (!prepareRange.Contains(cell))
+                        break;
+                    
                     var node = PathFinder.Instance.GetCell(cell.x, cell.y);
                     if (node?.Logical == null)
                     {

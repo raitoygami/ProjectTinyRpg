@@ -39,6 +39,7 @@ public class RangeRectParam : AbilityAffectRangeParam
 
     [Tooltip("垂直于方向边长（格）")]
     public int rectGizmoWidth;
+
 }
 
 /// <summary>圆形（格）：中心由运行时上下文给出，仅半径参与判定。</summary>
@@ -55,6 +56,8 @@ public class RangeCircleParam : AbilityAffectRangeParam
 [Serializable]
 public class RangePointParam : AbilityAffectRangeParam
 {
+    [Tooltip("为 true 时用 layerMask 判定格是否可选取（与 TileSelector 一致）；否则仅校验落在施法范围内")]
+    public bool requireMoveableInLayer = true;
 }
 
 /// <summary>根据 <see cref="AbilityAffectRangeParam"/> 生成区域格点（与预览/AOE 共用几何）。</summary>

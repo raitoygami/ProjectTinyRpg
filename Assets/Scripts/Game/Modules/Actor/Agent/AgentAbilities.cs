@@ -93,20 +93,12 @@ public class AgentAbilities : MonoBehaviour
     {
         return _wepAtkAbilityActive;
     }
-
+    
     // get affect target
     public bool GetAffectTarget(Ability ability, Vector3Int castPoint, List<Vector3Int> castableRange, out List<Vector3Int> affectTargets)
     {
-        affectTargets = null;
-        
-        var cell = PathFinder.Instance.GetCell(castPoint.x, castPoint.y);
-        var targetEntity = cell?.Logical as Entity;
-        if (targetEntity == null)
-            return false;
         var owner = GetComponent<Entity>();
-
         affectTargets = AbilityUtil.GetAbilityAffectRange(ability, owner, castableRange, castPoint);
-        
         return affectTargets.Count > 0;
     }
 

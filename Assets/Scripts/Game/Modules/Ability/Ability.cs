@@ -225,7 +225,7 @@ public partial class Ability : ScriptableObject
         return _getCastableRangeTask.Task;
     }
 
-    public async UniTask<bool> ExecuteMiss(Vector3 position, Entity target)
+    public async UniTask<bool> ExecuteMiss(Vector3 castPosition, Entity target)
     {
         _castableRange = null;
         _state = State.Execution;
@@ -237,13 +237,13 @@ public partial class Ability : ScriptableObject
         {
             canceledByEffect = true;
         }
-        
+
         var context = new AbilityContext
         {
             Owner = _owner,
             Target = target,
             Ability = this,
-            Position = position,
+            Position = castPosition,
             Cancel = OnContextCancel,
         };
 
@@ -263,12 +263,6 @@ public partial class Ability : ScriptableObject
         return true;
         
     }
-
-    private Entity GetAffectTarget(Vector3 location)
-    {
-        var cell = PathFinder.Instance.GetCell(location.x, location.y);
-        return cell?.Logical as Entity;
-    }
     
     public async UniTask<bool> Execute(List<Vector3Int> affectTargets, Vector3 castPosition)
     {
@@ -278,46 +272,28 @@ public partial class Ability : ScriptableObject
 
         var canceledByEffect = false;
 
-        switch (_targetType)
+        var targetPositions = AbilityUtil.GetRealCastPosition(this, _owner, affectTargets, castPosition);
+
+        if (targetPositions.Count > 0)
         {
-            case AbilityTargetType.None:
-            case AbilityTargetType.Self:
-            case AbilityTargetType.EmptyGround:
+            var targetPosition = targetPositions.First();
+            
+            var cell = PathFinder.Instance.GetCell(targetPosition.x, targetPosition.y);
+            var target = cell?.Logical;
+            var entity = target as Entity;
+            var context = new AbilityContext
             {
-                var context = new AbilityContext
-                {
-                    Owner = _owner,
-                    Target = null,
-                    Ability = this,
-                    Position = castPosition,
-                    Cancel = OnContextCancel,
-                };
+                Owner = _owner,
+                Ability = this,
+                Position = targetPosition,
+                Target = entity,
+                AffectTargets = affectTargets,
+                Cancel = OnContextCancel,
+            };
 
-                await TreeRoot.Apply(context);
-            }
-                break;
-            case AbilityTargetType.Enemy:
-            case AbilityTargetType.Any:
-                var effectTasks = Enumerable.Select(affectTargets.Select(location => new AbilityContext
-                    {
-                        Owner = _owner, Target = GetAffectTarget(location), Ability = this, Position = location,
-                        Cancel = OnContextCancel,
-                    }), context => TreeRoot.Apply(context))
-                    .ToList();
-                /*try
-                {*/
-                    await UniTask.WhenAll(effectTasks);
-                /*}*/
-                /*catch (Exception exception)
-                {
-                    Debug.Log(exception.Message);
-                }*/
-
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
+            await TreeRoot.Apply(context);
         }
-
+        
         if (canceledByEffect)
         {
             Cancel();

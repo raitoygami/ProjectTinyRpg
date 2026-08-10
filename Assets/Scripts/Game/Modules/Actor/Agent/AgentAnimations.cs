@@ -376,13 +376,19 @@ public class AgentAnimations : MonoBehaviour
             () => 0f,
             t =>
             {
+                if (_avatarTarget.gameObject == null) return;
                 var pos = _avatarTarget.localPosition;
                 pos.y = originY + Mathf.Sin(t) * 0.25f;
                 _avatarTarget.localPosition = pos;
             },
             Mathf.PI,
             duration
-        ).SetEase(Ease.Linear).onComplete += () => { _avatarTarget.localPosition = Vector3.zero; };
+        ).SetEase(Ease.Linear).onComplete += () =>
+        {
+            if(_avatarTarget.gameObject == null) return;
+            _avatarTarget.localPosition = Vector3.zero;
+        };
+        
     }
 
     public void UpdateBaseAnimation(int t_Velocity)

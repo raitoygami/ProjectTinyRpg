@@ -9,5 +9,6 @@ public struct AbilityContext
     public Entity Target;
     public Ability Ability;
     public Vector3 Position;
+    public List<Vector3Int> AffectTargets;
     public Action Cancel;
 }
