@@ -37,7 +37,7 @@ public class Door : Entity
             return;
         }
         
-        var sceneName = SceneManager.GetActiveScene().name;
+        var sceneName = PlayerManager.GetSceneName();
         var entityName = $"{uniqueID}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
         if (!MapManager.Instance.SetEntityStatData(sceneName, entityName, new EntityStatDoor { IsOpen = false }))
             return;
@@ -57,7 +57,7 @@ public class Door : Entity
     
     private async UniTask Open()
     {
-        var sceneName = SceneManager.GetActiveScene().name;
+        var sceneName = PlayerManager.GetSceneName();
         var entityName = $"{uniqueID}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
         if (!MapManager.Instance.SetEntityStatData(sceneName, entityName, new EntityStatDoor { IsOpen = true }))
             return;
@@ -105,7 +105,7 @@ public class Door : Entity
     
     public override void InitAfterLevelLoad()
     {
-        var sceneName = SceneManager.GetActiveScene().name;
+        var sceneName = PlayerManager.GetSceneName();
         
         var entityName = $"{uniqueID}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
         var entityStatData = MapManager.Instance.GetEntityStatData(sceneName, entityName);

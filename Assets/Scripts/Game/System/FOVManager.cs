@@ -115,8 +115,8 @@ public class FOVManager : Singleton<FOVManager>
     public void FovCompute(Vector3 location, int viewDistance)
     {
         if (!PlayerManager.HasInstance()) return;
-        var locationData = PlayerManager.Instance.GetLocation();
-        var sceneName = locationData.CurrentMap;
+        var locationData = PlayerManager.GetLocation();
+        var sceneName = locationData.SceneName;
 
         _visibleTilesLast = _visibleTiles;
         _visibleTiles = new List<Vector3Int>();

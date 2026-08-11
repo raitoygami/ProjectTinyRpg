@@ -44,7 +44,7 @@ public partial class Player
             }
         }
         
-        var path = m_AgentMover.FindPath(cursorGridPosition, Const.Layer.ObstacleForNavi);
+        var path = _agentMover.FindPath(cursorGridPosition, Const.Layer.ObstacleForNavi);
         GridIndicatorManager.Instance.DrawCursorMark(cursorGridPosition, path is { Count: > 0 }); 
         
         // raycast for loot
@@ -131,7 +131,7 @@ public partial class Player
 
         var targetPoint = hitPoint.SnapToGrid();
         if (targetPoint != GridPosition)
-            _pathNodes = m_AgentMover.FindPath(targetPoint, Const.Layer.ObstacleForNavi);
+            _pathNodes = _agentMover.FindPath(targetPoint, Const.Layer.ObstacleForNavi);
         
         if (_pathNodes is { Count: > 0 })
             HandlePath().Forget();
@@ -163,7 +163,7 @@ public partial class Player
         {
             case MovementResult.Attack:
                 ClearPath();
-                await ExecuteWepAbility(m_AgentAbilities.GetWepAbility(), decision.AttackTargets, finalPoint.GetLocation());
+                await ExecuteWepAbility(_agentAbilities.GetWepAbility(), decision.AttackTargets, finalPoint.GetLocation());
                 return;
             case MovementResult.None:
                 ClearPath();
@@ -172,12 +172,12 @@ public partial class Player
                 ResetInput();
                 return;
             case MovementResult.Move:
-                await m_AgentMover.Move(nextStep.GetLocation());
+                await _agentMover.Move(nextStep.GetLocation());
                 PlayStepSound(nextStep.GetLocation());
                 return;
             case MovementResult.Interaction:
                 ClearPath();
-                await m_AgentInteractive.Interact(nextStep);
+                await _agentInteractive.Interact(nextStep);
                 GetComponent<TurnActor>().FinishTurn();
                 return;
             default:
@@ -219,20 +219,20 @@ public partial class Player
     private MovementDecision DetermineMovement(PathNode targetLocation, PathNode targetFinal)
     {
         // 1. 优先判断是否可以攻击（使用最终目标位置）
-        var attackTargets = m_AgentAbilities.GetTargetByMove(this, targetFinal);
-        if (attackTargets.Count > 0 && m_AgentAbilities.WithinBaseAttack(targetFinal))
+        var attackTargets = _agentAbilities.GetTargetByMove(this, targetFinal);
+        if (attackTargets.Count > 0 && _agentAbilities.WithinBaseAttack(targetFinal))
         {
             return new MovementDecision(MovementResult.Attack, attackTargets);
         }
 
         // 2. 判断是否可以正常移动
-        if (m_AgentMover.Moveable(targetLocation))
+        if (_agentMover.Moveable(targetLocation))
         {
             return new MovementDecision(MovementResult.Move);
         }
 
         // 3. 判断是否可以交互
-        if (m_AgentInteractive.Interactable(targetLocation))
+        if (_agentInteractive.Interactable(targetLocation))
         {
             return new MovementDecision(MovementResult.Interaction);
         }
@@ -245,26 +245,26 @@ public partial class Player
         if (arg.Forced)
             return UniTask.CompletedTask;
 
-        m_AgentAnimations.FaceTarget(arg.TargetPosition - arg.StartPosition);
-        m_AgentAnimations.BounceOnMove(arg.Duration);
+        _agentAnimations.FaceTarget(arg.TargetPosition - arg.StartPosition);
+        _agentAnimations.BounceOnMove(arg.Duration);
         
         return UniTask.CompletedTask;
     }
 
     private UniTask MoveForcedFinishEvent(AgentMover.MoveForcedFinishEvent arg)
     {
-        var playerLocation = PlayerManager.Instance.GetLocation(); 
-        playerLocation.CurrentLocation = arg.CurrPosition;
-        playerLocation.CurrentDirection = m_AgentAnimations.GetDirection();
+        var playerLocation = PlayerManager.GetLocation(); 
+        playerLocation.Location = arg.CurrPosition;
+        playerLocation.Direction = _agentAnimations.GetDirection();
         
-        var sceneName = SceneManager.GetActiveScene().name;
+        var sceneName = PlayerManager.GetSceneName();
         var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
         
         // 如果当前在大地图上， 同步大地图数据位置， 方便后续从地牢出来以后回到原本位置
         if (mapInfo is { MapType: MapConfig.MapType.WorldChunk })
         {
-            playerLocation.CurrentWorldLocation = arg.CurrPosition;
-            playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
+            playerLocation.WorldLocation = arg.CurrPosition;
+            playerLocation.WorldDirection = _agentAnimations.GetDirection();
         }
         
         // 更新所有单位可见性
@@ -282,18 +282,18 @@ public partial class Player
         if (!PlayerManager.HasInstance() || !MapManager.HasInstance())
             return;
         
-        var playerLocation = PlayerManager.Instance.GetLocation(); 
-        playerLocation.CurrentLocation = arg.CurrPosition;
-        playerLocation.CurrentDirection = m_AgentAnimations.GetDirection();
+        var playerLocation = PlayerManager.GetLocation(); 
+        playerLocation.Location = arg.CurrPosition;
+        playerLocation.Direction = _agentAnimations.GetDirection();
         
-        var sceneName = SceneManager.GetActiveScene().name;
+        var sceneName = PlayerManager.GetSceneName();
         var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
         
         // 如果当前在大地图上， 同步大地图数据位置， 方便后续从地牢出来以后回到原本位置
         if (mapInfo is { MapType: MapConfig.MapType.WorldChunk })
         {
-            playerLocation.CurrentWorldLocation = arg.CurrPosition;
-            playerLocation.CurrentWorldDirection = m_AgentAnimations.GetDirection();
+            playerLocation.WorldLocation = arg.CurrPosition;
+            playerLocation.WorldDirection = _agentAnimations.GetDirection();
         }
         // 更新所有单位可见性
         if (FOVManager.HasInstance())
@@ -302,7 +302,7 @@ public partial class Player
             FOVManager.Instance.PlayerVisibilityChanged();
         }
         
-        m_TurnActor.FinishTurn();
+        _turnActor.FinishTurn();
         await this.PublishGlobal(new Context.PlayerMoveFinishEvt());
         await UniTask.CompletedTask;
     }

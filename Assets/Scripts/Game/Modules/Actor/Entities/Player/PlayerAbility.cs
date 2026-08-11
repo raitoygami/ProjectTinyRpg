@@ -11,7 +11,7 @@ public partial class Player
 
     public async UniTask PrepareWepAtk(int abilityID)
     {
-        var ability = await m_AgentAbilities.GetWepAtkAbility(abilityID);
+        var ability = await _agentAbilities.GetWepAtkAbility(abilityID);
         if (ability == null)
             return;
 
@@ -36,7 +36,7 @@ public partial class Player
             return;
         }
 
-        if (!m_AgentMover.IsMoving() && _Controllable)
+        if (!_agentMover.IsMoving() && _Controllable)
         {
             _Controllable = false;
             ClearPath();
@@ -85,7 +85,7 @@ public partial class Player
 
         var castPoint = Vector3Int.FloorToInt(location);
         var castableRange = ability.GetCastableRange(location); 
-        if ( !m_AgentAbilities.GetAffectTarget(ability, castPoint, castableRange, out var affectTargets))
+        if ( !_agentAbilities.GetAffectTarget(ability, castPoint, castableRange, out var affectTargets))
         {
             ability.Cancel();
             return;

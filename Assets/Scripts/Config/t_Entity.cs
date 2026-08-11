@@ -25,9 +25,7 @@ public sealed partial class t_Entity : Luban.BeanBase
         Type = (EntityType)_buf.ReadInt();
         Addressable = _buf.ReadString();
         Attr = Defination.Attribute.DeserializeAttribute(_buf);
-        {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);Abilities = new System.Collections.Generic.List<string>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { string _e0;  _e0 = _buf.ReadString(); Abilities.Add(_e0);}}
         if(_buf.ReadBool()){ DropId = _buf.ReadInt(); } else { DropId = null; }
-        if(_buf.ReadBool()){ AiId = _buf.ReadInt(); } else { AiId = null; }
     }
 
     public static t_Entity Deserializet_Entity(ByteBuf _buf)
@@ -45,17 +43,9 @@ public sealed partial class t_Entity : Luban.BeanBase
     public readonly string Addressable;
     public readonly Defination.Attribute Attr;
     /// <summary>
-    /// 技能列表(资源地址)
-    /// </summary>
-    public readonly System.Collections.Generic.List<string> Abilities;
-    /// <summary>
     /// 掉落
     /// </summary>
     public readonly int? DropId;
-    /// <summary>
-    /// AI ID
-    /// </summary>
-    public readonly int? AiId;
    
     public const int __ID__ = 796598830;
     public override int GetTypeId() => __ID__;
@@ -74,9 +64,7 @@ public sealed partial class t_Entity : Luban.BeanBase
         + "type:" + Type + ","
         + "addressable:" + Addressable + ","
         + "attr:" + Attr + ","
-        + "abilities:" + Luban.StringUtil.CollectionToString(Abilities) + ","
         + "dropId:" + DropId + ","
-        + "aiId:" + AiId + ","
         + "}";
     }
 }

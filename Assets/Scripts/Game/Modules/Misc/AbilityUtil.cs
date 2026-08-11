@@ -109,11 +109,7 @@ public static class AbilityUtil
                 
                 if (affectTargets.Contains(Vector3Int.FloorToInt(castPoint)))
                     ret.Add(Vector3Int.FloorToInt(castPoint));
-                foreach (var position in ret)
-                {
-                    Debug.Log(position);
-                }
-                Debug.Log(castPoint);
+ 
                 return;
             }
         }

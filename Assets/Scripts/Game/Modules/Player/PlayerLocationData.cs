@@ -7,14 +7,13 @@ public partial class SaveData
     [Serializable]
     public class PlayerLocation
     {
-        public string CurrentMap;
-        public Vector3 CurrentLocation;
-
-        public Vector3 CurrentDirection = Vector3.one;
+        public string SceneName;
+        public Vector3 Location;
+        public Vector3 Direction = Vector3.one;
         // 在大地图中的Chunk和位置，这个通常用不到，只有从地牢放弃出来的时候，才会用到，但是要时刻记录
-        public string CurrentWorld;
-        public Vector3 CurrentWorldLocation;
-        public Vector3 CurrentWorldDirection = Vector3.one;
+        public string WorldName;
+        public Vector3 WorldLocation;
+        public Vector3 WorldDirection = Vector3.one;
     }
 
     public PlayerLocation _location;
@@ -28,7 +27,14 @@ public partial class SaveData
 
 public partial class PlayerManager
 {
-    public SaveData.PlayerLocation GetLocation()
+
+    public static string GetSceneName()
+    {
+        var location = GetLocation();
+        return location.SceneName;
+    }
+    
+    public static SaveData.PlayerLocation GetLocation()
     {
         return Persist.Instance.GetPlayerData().GetLocation();
     }
@@ -36,44 +42,44 @@ public partial class PlayerManager
         
     public void SetWorld(string sceneName)
     {
-        GetLocation().CurrentWorld = sceneName;
+        GetLocation().WorldName = sceneName;
     }
 
     public string GetWorldChunk()
     {
-        return GetLocation().CurrentWorld;
+        return GetLocation().WorldName;
     }
     
     public string GetCurrentMap()
     {
-        return GetLocation().CurrentMap;
+        return GetLocation().SceneName;
     }
 
     public void SetCurrentMap(string map)
     {
-        GetLocation().CurrentMap = map;
+        GetLocation().SceneName = map;
     }
     
 
     public void SetCurrentLocation(Vector3 location)
     {
-        GetLocation().CurrentLocation = location;
+        GetLocation().Location = location;
     }
 
 
     public Vector3 GetCurrentLocation()
     {
-        return GetLocation().CurrentLocation;
+        return GetLocation().Location;
     }
     
     public Vector3 GetWorldLocation()
     {
-        return GetLocation().CurrentWorldLocation;
+        return GetLocation().WorldLocation;
     }
 
     public void SetWorldLocation(Vector3 location)
     {
-        GetLocation().CurrentWorldLocation = location;
+        GetLocation().WorldLocation = location;
     }
     
 }

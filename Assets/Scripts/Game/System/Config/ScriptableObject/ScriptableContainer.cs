@@ -5,4 +5,5 @@ public class ScriptableContainer : ScriptableObject
 {
     public CustomizationTable CustomizationTable;
     public AIParameterTable AIParameterTable;
+    public EntityTemplateTable EntityTemplateTable;
 }

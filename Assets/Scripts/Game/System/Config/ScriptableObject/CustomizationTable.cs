@@ -18,7 +18,7 @@ public class CustomizationTable : ScriptableObject
     private Dictionary<int, Sprite> _dict;
 
     // 在游戏启动时调用一次（比如在 GameManager 里）
-    public void Initialize()
+    private void Initialize()
     {
         _dict = new Dictionary<int, Sprite>();
         foreach (var entry in entries)

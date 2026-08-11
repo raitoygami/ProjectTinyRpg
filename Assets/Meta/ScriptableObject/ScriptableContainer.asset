@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableContainer
   CustomizationTable: {fileID: 11400000, guid: e4fe8803375765a4db32916900d3ae03, type: 2}
   AIParameterTable: {fileID: 11400000, guid: 0202f490545e4b7408927ef3108c42fd, type: 2}
+  EntityTemplateTable: {fileID: 11400000, guid: b91f1d0b074828e47b53b77cd6d7d18b, type: 2}

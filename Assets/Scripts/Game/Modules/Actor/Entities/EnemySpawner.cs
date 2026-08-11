@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
 
     public void InitAfterLevelLoad()
     {
-        var sceneName = SceneManager.GetActiveScene().name;
+        var sceneName = PlayerManager.GetSceneName();
         if (!gameObject.activeInHierarchy) return;
         var entityName = $"EnemySpawner_{sceneName}_{name}_{transform.position.x}_{transform.position.y}_{transform.position.z}";
 

@@ -2,6 +2,7 @@ using System;
 using cfg;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
@@ -17,7 +18,6 @@ public class AIEntity : Entity
 {
     [SerializeField] private Transform m_AvatarRoot;
     [SerializeField] private Transform m_SpriteRoot;
-    [SerializeField] private Weapon m_Weapon;
 
     private Weapon _WeaponInstance;
     
@@ -79,13 +79,21 @@ public class AIEntity : Entity
         m_AgentAnimations = gameObject.AddComponent<AgentAnimations>();
         m_AgentAnimations.Setup(m_AvatarRoot, m_SpriteRoot);
         
-        m_AgentWeapon = gameObject.GetComponent<AgentWeapon>();
-        m_AgentWeapon.LoadEnemyWeapon(m_Weapon);
+        
     }
 
     private EnemyStatData _runtimeStat;
     public async UniTask SetEntityState(EnemyStatData statData)
     {
+        var entityTemplateTable = ConfigManager.Instance.ScriptableContainer.EntityTemplateTable;
+        var template = entityTemplateTable.GetTemplate(statData.EntityId);
+        if (template != null)
+        {
+            m_AgentWeapon = gameObject.GetOrAddComponent<AgentWeapon>();
+            var handle = Addressables.LoadAssetAsync<GameObject>(template.DefaultWeapon);
+            await handle.ToUniTask();
+            m_AgentWeapon.LoadEnemyWeapon(handle.Result.GetComponent<Weapon>());
+        }
         m_AgentStats.SetHealthLost(statData.HpLost);
         m_AgentAnimations.SetDirection(statData.Direction);
         // 获取技能数据
@@ -156,9 +164,9 @@ public class AIEntity : Entity
     private void RebuildAiStrategy(t_Entity entity)
     {
         AIParameterTable.AIParameterData parameterData = null;
-        var id = entity?.AiId!= null ? entity.AiId : 0; 
-        if (entity?.AiId != null && ConfigManager.HasInstance())
-            parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(entity.AiId.Value);
+        
+        if (ConfigManager.HasInstance())
+            parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(entity.Id);
         var pattern = parameterData?.Pattern ?? AIPattern.Default;
         _aiStrategy = AiStrategyFactory.Create(pattern);
         _aiStrategy.Initialize(this, _blackBoard);
@@ -213,8 +221,7 @@ public class AIEntity : Entity
         if (ConfigManager.HasInstance())
         {
             var ec = m_AgentStats.EntityConfig;
-            if (ec?.AiId != null)
-                parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(ec.AiId.Value);
+            parameterData = ConfigManager.Instance.ScriptableContainer.AIParameterTable.GetData(ec.Id);
         }
 
         if (parameterData == null)
@@ -287,9 +294,7 @@ public class AIEntity : Entity
     private async UniTask OnDefeated(AgentStats.DefeatedEvent evt)
     {
         if (_runtimeStat != null)
-        {
             _runtimeStat.IsAlive = false;
-        }
         
         m_UnsubscribeLifetime?.Invoke();
         m_UnsubscribeLifetime = null;

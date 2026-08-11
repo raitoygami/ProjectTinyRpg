@@ -9,8 +9,6 @@ public class AgentWeapon : MonoBehaviour
     [SerializeField] private Transform _weaponBack;
     [SerializeField] private Transform _weaponFront;
 
-    [SerializeField] private Weapon _unarmedWeapon;
-
     public class EquipChangedEvt : EventArgs
     {
         public int Slot;
@@ -79,13 +77,6 @@ public class AgentWeapon : MonoBehaviour
         // 
         if (_currentWeaponUID == -1)
         {
-            // 还没有实例化过赤手空拳
-            if (_unarmedWeaponInst == null)
-            {
-                _unarmedWeaponInst = Instantiate(_unarmedWeapon, transform);
-                _weapons.Add(-1, _unarmedWeaponInst);
-            }
-
             _unarmedWeaponInst.Equipped(this);
             await this.Publish(new EquippedWeaponChangeEvt()
                 { WepAtkAbilityID = _unarmedWeaponInst.WepAtkAbilityId, WeaponChanged = _unarmedWeaponInst });
@@ -120,6 +111,14 @@ public class AgentWeapon : MonoBehaviour
         await UniTask.CompletedTask;
     }
 
+    public void LoadUnarmedWeapon(Weapon unarmedWeapon)
+    {
+        var weapon = Instantiate(unarmedWeapon);
+        _unarmedWeaponInst = weapon;
+        _weapons.Add(_currentWeaponUID, weapon);
+        _unarmedWeaponInst.Equipped(this);
+    }
+    
     public void LoadEnemyWeapon(Weapon t_Weapon)
     {
         var weapon = Instantiate(t_Weapon);

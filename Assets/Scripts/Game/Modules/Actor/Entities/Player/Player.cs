@@ -3,6 +3,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityEngine.AddressableAssets;
 
 // wasd move
 // left interact
@@ -12,17 +13,16 @@ public partial class Player : Entity
 {
     [SerializeField] private Transform m_AvatarRoot;
     [SerializeField] private Transform m_SpriteRoot;
-    private TurnActor m_TurnActor;
-    private AgentStats m_AgentStats;
-    private AgentAvatar m_AgentAvatar;
-    private AgentMover m_AgentMover;
-    private AgentWeapon m_AgentWeapon;
-    private AgentAbilities m_AgentAbilities;
-    private AgentAnimations m_AgentAnimations;
-    private AgentInteractive m_AgentInteractive;
-    private AgentCustomization m_AgentCustomization;
-    private Vector2 pointerInput, movementInput;
-
+    private TurnActor _turnActor;
+    private AgentStats _agentStats;
+    private AgentAvatar _agentAvatar;
+    private AgentMover _agentMover;
+    private AgentWeapon _agentWeapon;
+    private AgentAbilities _agentAbilities;
+    private AgentAnimations _agentAnimations;
+    private AgentInteractive _agentInteractive;
+    private AgentCustomization _agentCustomization;
+    
     private AgentWeapon.EquipChangedEvt _equipChangedEvt;
     
     // internal state
@@ -30,7 +30,7 @@ public partial class Player : Entity
     private bool _Controllable;
     private IInteractable _interactableHovered;
     private bool onNextTurnSkipPlayerActions;
-    private readonly Queue<Func<UniTask>> m_NextTurnEvt = new();
+    private readonly Queue<Func<UniTask>> _nextTurnEvt = new();
     protected void Awake()
     {
         GridSizeX = 1;
@@ -62,16 +62,16 @@ public partial class Player : Entity
         this.SubscribeGlobal<Context.EquipmentUpdateEvt>(OnItemChanged);
         this.SubscribeGlobal<Context.FOVDirtyEvt>(OnFovDirtyEvt);
   
-        m_TurnActor = gameObject.AddComponent<TurnActor>();
+        _turnActor = gameObject.AddComponent<TurnActor>();
         
-        m_AgentStats = gameObject.AddComponent<AgentStats>();
-        m_AgentMover = gameObject.AddComponent<AgentMover>();
-        m_AgentAvatar = gameObject.GetComponent<AgentAvatar>();
-        m_AgentWeapon = gameObject.GetComponent<AgentWeapon>();
-        m_AgentAbilities = gameObject.AddComponent<AgentAbilities>();
-        m_AgentAnimations = gameObject.GetComponent<AgentAnimations>();
-        m_AgentInteractive = gameObject.AddComponent<AgentInteractive>();
-        m_AgentCustomization = gameObject.GetComponent<AgentCustomization>();
+        _agentStats = gameObject.AddComponent<AgentStats>();
+        _agentMover = gameObject.AddComponent<AgentMover>();
+        _agentAvatar = gameObject.GetComponent<AgentAvatar>();
+        _agentWeapon = gameObject.GetComponent<AgentWeapon>();
+        _agentAbilities = gameObject.AddComponent<AgentAbilities>();
+        _agentAnimations = gameObject.GetComponent<AgentAnimations>();
+        _agentInteractive = gameObject.AddComponent<AgentInteractive>();
+        _agentCustomization = gameObject.GetComponent<AgentCustomization>();
   
         _equipChangedEvt = new AgentWeapon.EquipChangedEvt();
         // 订阅装备增删改
@@ -79,7 +79,7 @@ public partial class Player : Entity
         
         Faction = EntityFaction.Player;
 
-        m_AgentAnimations.Setup(m_AvatarRoot, m_SpriteRoot);
+        _agentAnimations.Setup(m_AvatarRoot, m_SpriteRoot);
         _xyPlane = new Plane(Vector3.back, Vector3.zero);   // 法线朝 -Z，点在原点
         EntityManager.Register(this);
     }
@@ -106,12 +106,12 @@ public partial class Player : Entity
         
         if (itemStackOld != null)
         {
-            m_AgentStats.RemoveAttributeModifiersFromSource(itemStackOld);
+            _agentStats.RemoveAttributeModifiersFromSource(itemStackOld);
         }
 
         if (itemStackNew != null)
         {
-            m_AgentStats.AddAttributeModifiersFromSource(itemStackNew.GetModifiers(), itemStackNew);
+            _agentStats.AddAttributeModifiersFromSource(itemStackNew.GetModifiers(), itemStackNew);
         }
 
         this.PublishGlobal(Context.PlayerStatsChange);
@@ -150,8 +150,8 @@ public partial class Player : Entity
     {
         await RefreshWeapons();
         // 更新换装
-        m_AgentCustomization.RefreshCustomization();
-        m_AgentAvatar.SetSprite(m_AgentCustomization.GetCombinedSprite());
+        _agentCustomization.RefreshCustomization();
+        _agentAvatar.SetSprite(_agentCustomization.GetCombinedSprite());
         // 更新ui界面
         await this.PublishGlobal(Context.AvatarChanged);
     }
@@ -166,9 +166,19 @@ public partial class Player : Entity
     // 第一次实例化
     public async UniTask FirstBindAfterInst()
     {
+        var entityID = PlayerManager.Instance.GetEntityID();
+        var entityTemplateTable = ConfigManager.Instance.ScriptableContainer.EntityTemplateTable;
+        var template = entityTemplateTable.GetTemplate(entityID);
+        if (template != null)
+        {
+            var handle = Addressables.LoadAssetAsync<GameObject>(template.DefaultWeapon);
+            await handle.ToUniTask();
+            _agentWeapon.LoadUnarmedWeapon(handle.Result.GetComponent<Weapon>());
+        }
+        
         // 更新装备外观
-        m_AgentCustomization.RefreshCustomization();
-        m_AgentAvatar.SetSprite(m_AgentCustomization.GetCombinedSprite());
+        _agentCustomization.RefreshCustomization();
+        _agentAvatar.SetSprite(_agentCustomization.GetCombinedSprite());
 
         // 更新武器技能和外观
         await RefreshWeapons();
@@ -178,10 +188,10 @@ public partial class Player : Entity
         
         // 读取当前血量
         var playerStats =  PlayerManager.Instance.GetStats();
-        m_AgentStats.SetHealthLost(playerStats.HpLost);
+        _agentStats.SetHealthLost(playerStats.HpLost);
 
-        var playerLocation = PlayerManager.Instance.GetLocation();
-        m_AgentAnimations.SetDirection(playerLocation.CurrentDirection);
+        var playerLocation = PlayerManager.GetLocation();
+        _agentAnimations.SetDirection(playerLocation.Direction);
 
         // 更新fov
         FOVManager.Instance.FovCompute(GridPosition, FOVManager.PlayerViewDistance);
@@ -196,16 +206,16 @@ public partial class Player : Entity
         for (var i = 4; i < 8; i++)
         {
             var weaponUid = PlayerManager.Instance.GetWeaponUID(i);
-            var weapon = await m_AgentWeapon.InitWeapon(weaponUid);
+            var weapon = await _agentWeapon.InitWeapon(weaponUid);
             if (weapon != null)
                 wepAtkAbilityIDs.Add(weapon.WepAtkAbilityId);
         }
-        await m_AgentAbilities.SyncWepAbilities(wepAtkAbilityIDs);
-        await m_AgentAbilities.SyncWepAtkAbilityStat(PlayerManager.Instance.GetAbilities().LookupTable);
+        await _agentAbilities.SyncWepAbilities(wepAtkAbilityIDs);
+        await _agentAbilities.SyncWepAtkAbilityStat(PlayerManager.Instance.GetAbilities().LookupTable);
         
         // 直接通过存档数据加载武器
         var currWeaponUIDEquipped = PlayerManager.Instance.GetCurrWeaponUID(); // 默认-1
-        await m_AgentWeapon.SwapWeapon(currWeaponUIDEquipped);
+        await _agentWeapon.SwapWeapon(currWeaponUIDEquipped);
     }
 
     // 这个函数，只在初始化的时候调用一次
@@ -215,7 +225,7 @@ public partial class Player : Entity
         foreach (var uid in equippedItems)
         {
             var itemStack = PlayerManager.Instance.GetItemStackByUID(uid);
-            m_AgentStats.AddAttributeModifiersFromSource(itemStack.GetModifiers(), itemStack);
+            _agentStats.AddAttributeModifiersFromSource(itemStack.GetModifiers(), itemStack);
         }
 
         // m_AgentStats.LogPlayerAttributesDebug();
@@ -224,14 +234,14 @@ public partial class Player : Entity
     //  切换武器的时候, 同步一下 技能信息
     private async UniTask OnWeaponChanged(AgentWeapon.EquippedWeaponChangeEvt arg)
     {
-        await m_AgentAbilities.UpdateWepAbility(arg.WepAtkAbilityID);
+        await _agentAbilities.UpdateWepAbility(arg.WepAtkAbilityID);
         
         // 只要切换武器就取消技能
         if (_isPreparingAbility && _abilityPrepared.GetAbilityID() != arg.WepAtkAbilityID)
             _abilityPrepared.Cancel();
         
         var abilityStat = PlayerManager.Instance.GetAbilityStat(arg.WepAtkAbilityID);
-        await m_AgentAbilities.SyncWepAtkAbilityStat(arg.WepAtkAbilityID, abilityStat);
+        await _agentAbilities.SyncWepAtkAbilityStat(arg.WepAtkAbilityID, abilityStat);
         // 全局消息 更新界面
         await this.PublishGlobal(arg);
     }
@@ -240,11 +250,11 @@ public partial class Player : Entity
 
     private async UniTask OnDefeated(AgentStats.DefeatedEvent evt)
     {
-        TurnManager.UnRegister(m_TurnActor);
+        TurnManager.UnRegister(_turnActor);
         TurnManager.Instance.StopLoop();
         GridIndicatorManager.Instance.HideCursorMark();
         PathFinder.Instance.ClearLogical(this);
-        await m_AgentAnimations.Death();
+        await _agentAnimations.Death();
         Destroy(gameObject);
         // 玩家被击败时的处理（如结算、复活、UI 等）
         await UniTask.CompletedTask;
@@ -274,11 +284,11 @@ public partial class Player : Entity
                 GridIndicatorManager.Instance.HideCursorMark();
         }
         
-        if (m_NextTurnEvt.Count > 0)
+        if (_nextTurnEvt.Count > 0)
         {
-            while (m_NextTurnEvt.Count > 0)
+            while (_nextTurnEvt.Count > 0)
             {
-                var callback = m_NextTurnEvt.Dequeue();
+                var callback = _nextTurnEvt.Dequeue();
                 await callback();
             }
 
@@ -304,7 +314,7 @@ public partial class Player : Entity
 
     public void OnNextTurn(Func<UniTask> callback, bool skipPlayerAction = true)
     {
-        m_NextTurnEvt.Enqueue(callback);
+        _nextTurnEvt.Enqueue(callback);
         if (!skipPlayerAction) return;
 
         if (!onNextTurnSkipPlayerActions)
@@ -337,8 +347,8 @@ public partial class Player : Entity
 
         DoNotClickUIAndGameAtSameTime();
 
-        var velocity = m_AgentMover.IsMoving() ? 1 : 0;
-        m_AgentAnimations.UpdateBaseAnimation(velocity);
+        var velocity = _agentMover.IsMoving() ? 1 : 0;
+        _agentAnimations.UpdateBaseAnimation(velocity);
 
         /*if (Input.GetKeyDown(KeyCode.P))
         {

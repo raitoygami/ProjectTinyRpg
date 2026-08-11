@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AIParameterTable
   m_EditorClassIdentifier: Assembly-CSharp::AIParameterTable
   Parameters:
-  - ID: 100001
+  - ID: 500001
     Pattern: 0
     Parameter: {fileID: 11400000, guid: fc05818732380d04096b14f9bb2257a6, type: 2}
