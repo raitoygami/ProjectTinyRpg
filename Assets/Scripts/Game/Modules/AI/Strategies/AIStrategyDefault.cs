@@ -21,11 +21,11 @@ public sealed class AIStrategyDefault : IAIStrategy
 {
     private Blackboard _board;
 
-    private AIEntity Owner { get; set; }
+    private AIEntity _owner { get; set; }
 
     public void Initialize(AIEntity owner, Blackboard board)
     {
-        Owner = owner ?? throw new ArgumentNullException(nameof(owner));
+        _owner = owner ?? throw new ArgumentNullException(nameof(owner));
         _board = board ?? throw new ArgumentNullException(nameof(board));
 
         ResetFullCombat();
@@ -39,7 +39,6 @@ public sealed class AIStrategyDefault : IAIStrategy
     private void ResetFullCombat()
     {
         _board?.ClearTargetOnly();
-        CombatManager.Instance.RemoveEnemyTarget(Owner);
     }
 
     private DefaultEnemyAiTreeContext _treeContext;
@@ -81,9 +80,8 @@ public sealed class AIStrategyDefault : IAIStrategy
         public int ChaseTired { get; }
 
         public Blackboard Board => _s._board;
-        public AIEntity Owner => _s.Owner;
+        public AIEntity Owner => _s._owner;
 
-        public Entity Target { get; private set; }
         public int Dist { get; private set; }
 
         private bool _IsReturningHome;
@@ -96,15 +94,15 @@ public sealed class AIStrategyDefault : IAIStrategy
                 return false;
             // 如果当前目标不为空
 
-            if (Target == null)
+            if (Board.Target == null)
             {
                 var enemies = EntityManager.Instance.FindEnemies(Owner, Vision);
-                Target = GetTargetableEntity(enemies);
+                Board.SetTarget(GetTargetableEntity(enemies));
             }
 
-            if (Target != null)
+            if (Board.Target != null)
             {
-                var dist = Target.GridPosition.Dist(Owner.SpawnPointLocation);
+                var dist = Board.Target.GridPosition.Dist(Owner.SpawnPointLocation);
                 // 没有往回走的时候，且玩家还没走出两倍的范围
                 if (!_IsReturningHome)
                 {
@@ -113,7 +111,7 @@ public sealed class AIStrategyDefault : IAIStrategy
                 }
                 else
                 {
-                    dist = Target.GridPosition.Dist(Owner.SpawnLocation);
+                    dist = Board.Target.GridPosition.Dist(Owner.SpawnLocation);
                     // 当怪物正在往回走
                     // 当玩家重新进入刷怪点切还没有从从怪物锁定上移除的时候
                     if (dist < Owner.DisengageLeashRange)
@@ -140,7 +138,7 @@ public sealed class AIStrategyDefault : IAIStrategy
         // 回到出生点以后, 将target清空
         private void OnBackToSpawnerPoint()
         {
-            Target = null;
+            Board.SetTarget(null);
             _IsReturningHome = false;
             Board.ClearTargetOnly();
         }
@@ -149,10 +147,9 @@ public sealed class AIStrategyDefault : IAIStrategy
         {
             if (!EntityManager.HasInstance()) return UniTask.FromResult(false);
             // 如果当前目标还在,切可以被锁定
-            if (Target != null && Target.GetComponent<AgentStats>().Targetable())
+            if (Board.Target != null && Board.Target.GetComponent<AgentStats>().Targetable())
             {
-                Board.SetTarget(Target);
-                Dist = Owner.GridPosition.Dist(Target.GridPosition);
+                Dist = Owner.GridPosition.Dist(Board.Target.GridPosition);
                 CombatManager.Instance.AddEnemyTarget(Owner);
                 return UniTask.FromResult(true);
             }
@@ -164,9 +161,8 @@ public sealed class AIStrategyDefault : IAIStrategy
             if (target == null)
                 return UniTask.FromResult(false);
 
-            Target = target;
-            Board.SetTarget(Target);
-            Dist = Owner.GridPosition.Dist(Target.GridPosition);
+            Board.SetTarget(target);
+            Dist = Owner.GridPosition.Dist(Board.Target.GridPosition);
             CombatManager.Instance.AddEnemyTarget(Owner);
             return UniTask.FromResult(true);
         }

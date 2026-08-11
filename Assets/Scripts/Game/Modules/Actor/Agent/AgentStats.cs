@@ -37,7 +37,7 @@ public partial class AgentStats : MonoBehaviour
         public int HpLost;
 
     }
-
+    
     public class TakeDamageEvent : EventArgs
     {
         public int Damage { get; set; }
@@ -79,7 +79,8 @@ public partial class AgentStats : MonoBehaviour
 
     // 闪避
     private StatValue _evade;
-
+    private StatValue _actionSpeed;
+    
     // Strength
     // STR: (Strength)HP + 1 | PhysicalMulti 5% | Armor 0.2
     public int STR => (int)(_strength?.Value ?? 0f);
@@ -122,6 +123,7 @@ public partial class AgentStats : MonoBehaviour
     public int CritMultiplier => (int)(100 + _critMultiplier.Value + DEX * 2);
     public int Evade => (int)(_evade.Value + DEX / 5.0f);
 
+    public int ActionSpeed => (int)_actionSpeed.Value;
     // stats
     private int _HealthLost;
     public int HealthCurrent => MaxHealth - _HealthLost;
@@ -180,6 +182,7 @@ public partial class AgentStats : MonoBehaviour
         _magicPenetration = new StatValue(0);
 
         _evade = new StatValue(0);
+        _actionSpeed = new StatValue(0);
     }
 
     /// <summary>
@@ -205,7 +208,7 @@ public partial class AgentStats : MonoBehaviour
         _magicResist.UpdateBase(attr.MagicResist);
 
         _evade.UpdateBase(attr.Dodge);
-
+        _actionSpeed.UpdateBase(attr.ActionSpeed);
         /*if (GetComponent<Player>() != null)
             LogPlayerAttributesDebug();
         else
@@ -266,6 +269,7 @@ public partial class AgentStats : MonoBehaviour
             AttributeType.ArmorPenetration => _armorPenetration,
             AttributeType.MagicPenetration => _magicPenetration,
             AttributeType.Dodge => _evade,
+            AttributeType.ActionSpeed => _actionSpeed,
             _ => null
         };
     }
@@ -300,6 +304,7 @@ public partial class AgentStats : MonoBehaviour
         any |= _armorPenetration.RemoveAllModifiersFromSource(source);
         any |= _magicPenetration.RemoveAllModifiersFromSource(source);
         any |= _evade.RemoveAllModifiersFromSource(source);
+        any |= _actionSpeed.RemoveAllModifiersFromSource(source);
         return any;
     }
 

@@ -45,7 +45,7 @@ public class AgentAnimations : MonoBehaviour
     }
 
     /// <summary>
-    /// Kill all tweens on m_AnimationTarget and this gameObject, even if the target has been destroyed.
+    ///     Kill all tweens on m_AnimationTarget and this gameObject, even if the target has been destroyed.
     /// </summary>
     public void KillAllTween()
     {
@@ -63,18 +63,18 @@ public class AgentAnimations : MonoBehaviour
     }
 
     /// <summary>
-    /// Attack animation (async UniTask).
+    ///     Attack animation (async UniTask).
     /// </summary>
     public async UniTask PunchTarget(Vector3 direction, float t_Duration, GameAudioSounds t_Sound)
     {
         var destroyToken = this.GetCancellationTokenOnDestroy();
-        
+
         FaceTarget(direction);
 
         const float windupRatio = 1.0f; // 前摇占 attackDuration * t_Duration 的比例
         const float forwardRatio = 0.25f;
 
-        float windupDistance = attackMoveDistance * 0.5f; // 后撤距离，可根据需要调整
+        var windupDistance = attackMoveDistance * 0.5f; // 后撤距离，可根据需要调整
 
         var originalPosition = _avatarTarget.localPosition;
 
@@ -97,7 +97,7 @@ public class AgentAnimations : MonoBehaviour
     }
 
     /// <summary>
-    /// Attack animation (async UniTask).
+    ///     Attack animation (async UniTask).
     /// </summary>
     public async UniTask SwordSlash(Vector3 direction, float t_Duration, GameAudioSounds t_Sound)
     {
@@ -107,7 +107,7 @@ public class AgentAnimations : MonoBehaviour
         const float windupRatio = 1.0f; // 前摇占 attackDuration * t_Duration 的比例
         const float forwardRatio = 0.25f;
 
-        float windupDistance = attackMoveDistance * 0.5f; // 后撤距离，可根据需要调整
+        var windupDistance = attackMoveDistance * 0.5f; // 后撤距离，可根据需要调整
 
         var originalPosition = _avatarTarget.localPosition;
 
@@ -161,9 +161,7 @@ public class AgentAnimations : MonoBehaviour
         var agentWeapon = GetComponent<AgentWeapon>();
         var weapon = agentWeapon.WeaponCurrent();
         if (weapon != null)
-        {
             await agentWeapon.WeaponCurrent().Startup(moveDir, attackDuration * startupRatio * t_Duration);
-        }
 
         // ==================== 后续动画全部 Fire-and-Forget，但保持顺序 ====================
         RunBowAnimationSequence(moveDir, originalPosition, weapon, t_Duration).Forget();
@@ -228,7 +226,8 @@ public class AgentAnimations : MonoBehaviour
         try
         {
             var flashSequence = DOTween.Sequence();
-            _ = flashSequence.Append(DOTween.To(() => sr.color, x => sr.color = x, Color.red, 0.05f).SetEase(Ease.OutQuad));
+            _ = flashSequence.Append(DOTween.To(() => sr.color, x => sr.color = x, Color.red, 0.05f)
+                .SetEase(Ease.OutQuad));
             _ = flashSequence.Append(DOTween.To(() => sr.color, x => sr.color = x, originalColor, 0.15f)
                 .SetEase(Ease.OutQuad));
 
@@ -274,7 +273,7 @@ public class AgentAnimations : MonoBehaviour
     private Tween currentTween;
 
     /// <summary>
-    /// 撞墙动画（异步版本）
+    ///     撞墙动画（异步版本）
     /// </summary>
     public async UniTask PlayBump(Vector3 targetWorldPos)
     {
@@ -287,16 +286,16 @@ public class AgentAnimations : MonoBehaviour
         // 播放音效 denied
         AudioManager.PlaySound(GameAudioSounds.Sfx_Common_Denied);
 
-        Vector3 originalPos = _avatarTarget.position;
-        Vector3 direction = (targetWorldPos - originalPos).normalized;
+        var originalPos = _avatarTarget.position;
+        var direction = (targetWorldPos - originalPos).normalized;
 
         // 撞击偏移距离（可调整）
-        Vector3 bumpPos = originalPos + direction * 0.15f;
+        var bumpPos = originalPos + direction * 0.15f;
 
         // 创建 Sequence
-        Sequence sequence = DOTween.Sequence();
+        var sequence = DOTween.Sequence();
 
-        float bumpDuration = 0.25f;
+        var bumpDuration = 0.25f;
         // 1. 快速往前撞
         _ = sequence.Append(_avatarTarget.DOMove(bumpPos, bumpDuration * 0.35f)
             .SetEase(Ease.OutQuad));
@@ -308,8 +307,8 @@ public class AgentAnimations : MonoBehaviour
         // 3. 加入轻微位置抖动（增加撞击感）
         _ = sequence.Join(_avatarTarget.DOShakePosition(bumpDuration * 0.8f,
             new Vector3(0.08f, 0.04f, 0),
-            vibrato: 14,
-            randomness: 80,
+            14,
+            80,
             fadeOut: true));
 
         currentTween = sequence;
@@ -336,24 +335,22 @@ public class AgentAnimations : MonoBehaviour
             if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.DissolveClip))
                 continue;
             // 获取初始值（一般是0）
-            
+
             var tween = DOTween.To(
                 () => mat.GetFloat(Const.ShaderPropertyKey.DissolveClip),
-                x => { 
-                    mat.SetFloat(Const.ShaderPropertyKey.DissolveClip, x); 
-                },
+                x => { mat.SetFloat(Const.ShaderPropertyKey.DissolveClip, x); },
                 1,
                 1
             );
-        
+
             tasks.Add(tween.ToUniTask(cancellationToken: destroyToken)
                 .SuppressCancellationThrow());
         }
 
         await UniTask.WhenAll(tasks);
     }
-    
-        
+
+
     private bool _visible = true;
 
     public void SetVisibility(bool visible)
@@ -365,13 +362,24 @@ public class AgentAnimations : MonoBehaviour
             if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
                 continue;
             mat.SetFloat(Const.ShaderPropertyKey.Fade, visible ? 0 : 1);
+            _visibilityChangedEvent.Fade = visible ? 0 : 1;
+            this.Publish(_visibilityChangedEvent);
         }
+
         _visible = visible;
     }
-    
+
+    public class VisibilityChangedEvent : EventArgs
+    {
+        public float Fade;
+    }
+
+    private readonly VisibilityChangedEvent _visibilityChangedEvent = new();
+
     private CancellationTokenSource _fadeCts;
-    private  TweenerCore<float,float,FloatOptions> _tweenFadeout;
-    private  TweenerCore<float,float,FloatOptions> _tweenFadein;
+    private TweenerCore<float, float, FloatOptions> _tweenFadeout;
+    private TweenerCore<float, float, FloatOptions> _tweenFadein;
+
     public async UniTask Fadeout()
     {
         if (!_visible)
@@ -380,14 +388,14 @@ public class AgentAnimations : MonoBehaviour
         _fadeCts?.Cancel();
         _fadeCts?.Dispose();
         _fadeCts = new CancellationTokenSource();
-        
+
         // 合并对象销毁令牌与当前自定义令牌
         using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(
             this.GetCancellationTokenOnDestroy(),
             _fadeCts.Token
         );
         var token = linkedCts.Token;
-        
+
         var renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
         var tasks = new List<UniTask>();
 
@@ -399,10 +407,15 @@ public class AgentAnimations : MonoBehaviour
 
             if (mat.GetFloat(Const.ShaderPropertyKey.Fade) >= 1)
                 continue;
-            
+
             _tweenFadeout = DOTween.To(
                 () => mat.GetFloat(Const.ShaderPropertyKey.Fade),
-                x => mat.SetFloat(Const.ShaderPropertyKey.Fade, x),
+                x =>
+                {
+                    _visibilityChangedEvent.Fade = x;
+                    this.Publish(_visibilityChangedEvent);
+                    mat.SetFloat(Const.ShaderPropertyKey.Fade, x);
+                },
                 1f,
                 0.25f
             );
@@ -416,11 +429,10 @@ public class AgentAnimations : MonoBehaviour
 
     public async UniTask Fadein()
     {
-
         if (_visible)
             return;
         _visible = true;
-        
+
         // 同样的逻辑，只是目标值改为 0
         _fadeCts?.Cancel();
         _fadeCts?.Dispose();
@@ -442,10 +454,15 @@ public class AgentAnimations : MonoBehaviour
                 continue;
             if (mat.GetFloat(Const.ShaderPropertyKey.Fade) <= 0)
                 continue;
-            
+
             _tweenFadein = DOTween.To(
                 () => mat.GetFloat(Const.ShaderPropertyKey.Fade),
-                x => mat.SetFloat(Const.ShaderPropertyKey.Fade, x),
+                x =>
+                {
+                    _visibilityChangedEvent.Fade = x;
+                    this.Publish(_visibilityChangedEvent);
+                    mat.SetFloat(Const.ShaderPropertyKey.Fade, x);
+                },
                 0f,
                 0.25f
             );
@@ -456,8 +473,8 @@ public class AgentAnimations : MonoBehaviour
 
         await UniTask.WhenAll(tasks);
     }
-    
-    
+
+
     public Vector3 GetDirection()
     {
         return _avatarTarget.localScale;
@@ -493,7 +510,7 @@ public class AgentAnimations : MonoBehaviour
             duration
         ).SetEase(Ease.Linear).onComplete += () =>
         {
-            if(_avatarTarget.gameObject == null) return;
+            if (_avatarTarget.gameObject == null) return;
             _avatarTarget.localPosition = Vector3.zero;
         };
     }

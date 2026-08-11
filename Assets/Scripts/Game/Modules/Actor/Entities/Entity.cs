@@ -14,43 +14,27 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
 
     Vector2Int IPathNodeAgent.GridLocation
     {
-        get => new Vector2Int(_gridX, _gridY);
+        get => new(X, Y);
         set
         {
-            _gridX = value.x;
-            _gridY = value.y;
+            X = value.x;
+            Y = value.y;
         }
     }
 
-    Vector2Int IPathNodeAgent.GridSize => new Vector2Int(GridSizeX, GridSizeZ);
-
-    public Vector3Int GetRealLocation()
-    {
-        return new Vector3Int(_gridX, _gridY, 0);
-    }
+    Vector2Int IPathNodeAgent.GridSize => new(GridSizeX, GridSizeZ);
     
     /// <summary>Grid column.</summary>
-    public int X
-    {
-        get => _gridX;
-        set => _gridX = value;
-    }
+    public int X { get; set; }
 
     /// <summary>Grid row.</summary>
-    public int Y
-    {
-        get => _gridY;
-        set => _gridY = value;
-    }
-
-    private int _gridX;
-    private int _gridY;
+    public int Y { get; set; }
 
     /// <summary>Footprint width in grid cells (≥1).</summary>
-    public int GridSizeX { get; set; } = 1;
+    public int GridSizeX { get; protected set; } = 1;
 
     /// <summary>Footprint height in grid cells (≥1).</summary>
-    public int GridSizeZ { get; set; } = 1;
+    public int GridSizeZ { get; protected set; } = 1;
 
     public LayerMask Layer { get; set; }
 
@@ -93,10 +77,10 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
 
     private UniTask OnMoveStart(AgentMover.MoveStartEvent args)
     {
-        var sgrid = args.StartPosition.SnapToGrid();
-        var tgrid = args.TargetPosition.SnapToGrid();
+        var startGrid = args.StartPosition.SnapToGrid();
+        var targetGrid = args.TargetPosition.SnapToGrid();
 
-        PathFinder.Instance.Move((int)sgrid.x, (int)sgrid.y, (int)tgrid.x, (int)tgrid.y, this);
+        PathFinder.Instance.Move((int)startGrid.x, (int)startGrid.y, (int)targetGrid.x, (int)targetGrid.y, this);
         return UniTask.CompletedTask;
     }
 

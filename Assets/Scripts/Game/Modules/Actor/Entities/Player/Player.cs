@@ -160,6 +160,7 @@ public partial class Player : Entity
     {
         // 更新fov
         FOVManager.Instance.FovCompute(GridPosition, FOVManager.PlayerViewDistance);
+        FOVManager.Instance.PlayerVisibilityChanged();
         return UniTask.CompletedTask;
     }
     

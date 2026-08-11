@@ -69,9 +69,13 @@ namespace cfg.Defination
         /// </summary>
         MagicPenetration = 12,
         /// <summary>
-        /// 闪避率（百分比）
+        /// 闪避率（百分比
         /// </summary>
         Dodge = 13,
+        /// <summary>
+        /// 行动速度
+        /// </summary>
+        ActionSpeed = 14,
     }
 
 } 

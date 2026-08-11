@@ -96,6 +96,12 @@ public class UIGameplay : MonoBehaviour
         var pub = entity.GetComponent<PubSubActor>();
         if (pub != null)
         {
+            UniTask Visibility(AgentAnimations.VisibilityChangedEvent evt)
+            {
+                view.SetVisibility(evt.Fade);
+                return UniTask.CompletedTask;
+            }
+            
             UniTask Handler(AgentStats.HealthChangedEvent evt)
             {
                 if (evt.Stats != stats) return UniTask.CompletedTask;
@@ -114,10 +120,12 @@ public class UIGameplay : MonoBehaviour
                 return UniTask.CompletedTask;
             }
 
+            pub.Messager.Subscribe<AgentAnimations.VisibilityChangedEvent>(Visibility);
             pub.Messager.Subscribe<AgentStats.HealthChangedEvent>(Handler);
             pub.Messager.Subscribe<AgentStats.ShieldChangedEvent>(ShieldHandler);
             unregister = () =>
             {
+                pub.Messager.Unsubscribe<AgentAnimations.VisibilityChangedEvent>(Visibility);
                 pub.Messager.Unsubscribe<AgentStats.HealthChangedEvent>(Handler);
                 pub.Messager.Unsubscribe<AgentStats.ShieldChangedEvent>(ShieldHandler);
             };

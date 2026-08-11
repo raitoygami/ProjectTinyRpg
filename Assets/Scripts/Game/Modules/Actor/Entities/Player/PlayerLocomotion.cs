@@ -168,7 +168,7 @@ public partial class Player
             case MovementResult.None:
                 ClearPath();
                 await GetComponent<AgentAnimations>().PlayBump(nextStep.GetLocation());
-                await UniTask.DelayFrame(2);
+                await UniTask.Delay(100);
                 ResetInput();
                 return;
             case MovementResult.Move:
@@ -178,7 +178,8 @@ public partial class Player
             case MovementResult.Interaction:
                 ClearPath();
                 await _agentInteractive.Interact(nextStep);
-                GetComponent<TurnActor>().FinishTurn();
+                await UniTask.Delay(100);
+                ResetInput();
                 return;
             default:
                 return;

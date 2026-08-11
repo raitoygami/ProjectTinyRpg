@@ -7,8 +7,9 @@ using UnityEngine.UI;
 /// </summary>
 public class UIStatBar : MonoBehaviour
 {
-    [SerializeField] private Image m_HpBar;
-    [SerializeField] private Image m_ShieldBar;
+    [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private Image _hpBar;
+    [SerializeField] private Image _shieldBar;
 
     [Tooltip("血量减少时动画持续时间（秒）")] [SerializeField]
     private float m_DecreaseDurationHp = 0.1f;
@@ -19,8 +20,8 @@ public class UIStatBar : MonoBehaviour
 
     private void Awake()
     {
-        if (m_HpBar == null)
-            m_HpBar = GetComponentInChildren<Image>();
+        if (_hpBar == null)
+            _hpBar = GetComponentInChildren<Image>();
     }
 
     private void OnDisable()
@@ -36,54 +37,60 @@ public class UIStatBar : MonoBehaviour
         _fillTweener?.Kill();
         _shieldFillTweener?.Kill();
     }
+
+    public void SetVisibility(float target)
+    {
+        _canvasGroup.alpha = Mathf.Clamp01(1 - target);
+    }
     
     public void SetHpBar(float fill)
     {
-        if (m_HpBar == null) return;
+        if (_hpBar == null) return;
         var target = Mathf.Clamp01(fill);
-        var current = m_HpBar.fillAmount;
+        var current = _hpBar.fillAmount;
 
         _fillTweener?.Kill();
         if (target < current)
         {
             _fillTweener = DOTween.To(
-                () => m_HpBar.fillAmount,
+                () => _hpBar.fillAmount,
                 x =>
                 {
-                    m_HpBar.fillAmount = x;
+                    _hpBar.fillAmount = x;
                     gameObject.SetActive(x > 0);
                 },
                 target,
                 m_DecreaseDurationHp
-            ).SetEase(Ease.OutQuad).SetTarget(m_HpBar);
+            ).SetEase(Ease.OutQuad).SetTarget(_hpBar);
         }
         else
         {
-            m_HpBar.fillAmount = target;
+            _hpBar.fillAmount = target;
         }
     }
     
     public void SetShieldFill(float fill)
     {
-        if (m_ShieldBar == null) return;
+        if (_shieldBar == null) return;
         var target = Mathf.Clamp01(fill);
-        var current = m_ShieldBar.fillAmount;
+        var current = _shieldBar.fillAmount;
 
         _shieldFillTweener?.Kill();
         if (target < current)
         {
             _shieldFillTweener = DOTween.To(
-                () => m_ShieldBar.fillAmount,
-                x => m_ShieldBar.fillAmount = x,
+                () => _shieldBar.fillAmount,
+                x => _shieldBar.fillAmount = x,
                 target,
                 m_DecreaseDurationShield
-            ).SetEase(Ease.OutQuad).SetTarget(m_ShieldBar);
+            ).SetEase(Ease.OutQuad).SetTarget(_shieldBar);
         }
         else
         {
-            m_ShieldBar.fillAmount = target;
+            _shieldBar.fillAmount = target;
         }
 
-        m_ShieldBar.gameObject.SetActive(target > 0.001f);
+        _shieldBar.gameObject.SetActive(target > 0.001f);
     }
+    
 }

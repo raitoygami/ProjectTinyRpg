@@ -139,6 +139,21 @@ internal static class WorldExtensions
         return new Vector3(self.x, self.y * WorldToGridScale, depth);
     }
 
+    public static bool IsWithinVisionRange(this Vector3Int self, Vector3Int target, int range)
+    {
+        var dx = self.x - target.x;
+        var dy = self.y - target.y;
+        var range1 = range + 0.75f;
+        return dx * dx + dy * dy <= range1 * range1;
+    }
+    
+    public static int ManhattanDist(this Vector3Int self, Vector3Int target)
+    {
+        var dx = Math.Abs(self.x - target.x);
+        var dy = Math.Abs(self.y - target.y);
+        return dx + dy;
+    }
+    
     // ── Distance / comparison (operates on grid-container format) ───────
 
     /// <summary>Manhattan (grid) distance between two grid-container positions.</summary>

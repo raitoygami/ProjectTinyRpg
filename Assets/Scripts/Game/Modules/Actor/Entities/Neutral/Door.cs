@@ -29,7 +29,7 @@ public class Door : Entity
 
     private async UniTask Close()
     {
-        var cell = PathFinder.Instance.GetCell(X, Y);
+        var cell = PathFinder.Instance.GetCell(GridPosition.x, GridPosition.y);
         var logical = cell?.Logical;
         if (logical != null)
         {
@@ -49,9 +49,9 @@ public class Door : Entity
         _doorOpened.SetActive(false);
         AudioManager.PlaySound(GameAudioSounds.Sfx_Common_DoorClose);
         
-        await this.PublishGlobal(Context.FOVDirty);
-        
         UpdateCell();
+        
+        await this.PublishGlobal(Context.FOVDirty);
     }
 
     
@@ -93,13 +93,15 @@ public class Door : Entity
     {
         var gridPosition = transform.position.SnapToGrid();
         transform.position = gridPosition.GridToWorld();
-
-        X = (int)gridPosition.x;
-        Y = (int)gridPosition.y;
+        
         if (GridSizeX < 1) GridSizeX = 1;
         if (GridSizeZ < 1) GridSizeZ = 1;
 
+        X = (int)gridPosition.x;
+        Y = (int)gridPosition.y;
+        
         Layer = 1 << gameObject.layer;
+        if (_isOpen) return;
         PathFinder.Instance.UpdateCell(X, Y, this);
     }
     
@@ -112,8 +114,7 @@ public class Door : Entity
         
         var isOpen = (entityStatData as EntityStatDoor)?.IsOpen ?? false;
         _isOpen = isOpen;
-        if (!_isOpen)
-            UpdateCell();
+        UpdateCell();
         // 更新门的状态
         _doorClosed.SetActive(!_isOpen);
         _doorOpened.SetActive(_isOpen);

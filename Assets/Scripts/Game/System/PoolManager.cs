@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PoolManager : Singleton<PoolManager>
@@ -14,6 +15,17 @@ public class PoolManager : Singleton<PoolManager>
         Pool.gameObject.SetActive(false);
     }
 
+    public void ClearAll()
+    {
+        foreach (var (_, queue) in pools)
+        foreach (var obj in queue.Where(obj => obj != null))
+        {
+            Destroy(obj);
+        }
+        
+        pools.Clear();
+    }
+    
     /// <summary>
     ///     从池中取出对象（若池不存在或无可用的，则新建实例）
     /// </summary>

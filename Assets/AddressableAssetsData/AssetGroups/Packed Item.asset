@@ -14,22 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Packed Item
   m_GUID: 5867dc16cf69a29488ec7815db8a3e32
-  m_SerializeEntries:
-  - m_GUID: 44f467d99312c114bac73fff6a41c1c4
-    m_Address: Weapon/Wep_CrossBow_01
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4b9d529819cf8e448a1cb0a14466456c
-    m_Address: Weapon/Wep_Hammer_01
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8926ddcb4ac8bb444bc72431b7d2a0f7
-    m_Address: Weapon/Wep_Sword_01
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d344bbadf2bdf774b90329d458b0e071, type: 2}
   m_SchemaSet:

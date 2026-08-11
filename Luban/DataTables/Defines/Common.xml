@@ -15,6 +15,7 @@
 		<var name="ArmorPenetration" 	type="int" 							comment="物穿"/>
 		<var name="MagicPenetration" 	type="int" 							comment="法穿"/>
 		<var name="Dodge" 				type="int" 							comment="闪避率（百分比）"/>
+		<var name="ActionSpeed" 		type="int" 							comment="行动速度 "/>
 	</bean>
 	
 	
@@ -33,7 +34,8 @@
 		<var name="MagicResist" 		value="10"  alias="法抗" 	 		comment="MagicResist"/>
 		<var name="ArmorPenetration" 	value="11"  alias="物穿" 			comment="物穿"/>
 		<var name="MagicPenetration" 	value="12"  alias="法穿" 			comment="法穿"/>
-		<var name="Dodge" 				value="13"  alias="闪避" 			comment="闪避率（百分比）"/>
+		<var name="Dodge" 				value="13"  alias="闪避" 			comment="闪避率（百分比"/>
+		<var name="ActionSpeed" 		value="14"  alias="速度" 			comment="行动速度"/>
 	</enum>
 	
 	<enum name="AttributeModifierType" comment="属性类型">

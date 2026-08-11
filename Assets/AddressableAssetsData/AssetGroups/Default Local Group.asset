@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: ff294fabcf19d424cb68742549a4128f
   m_SerializeEntries:
+  - m_GUID: 8926ddcb4ac8bb444bc72431b7d2a0f7
+    m_Address: Weapon/Player/Wep_Sword_01.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f37cc4777d3a4c349b1a7fcfb8233e6e
     m_Address: Graphics
     m_ReadOnly: 0

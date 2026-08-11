@@ -7,8 +7,8 @@ using UnityEngine.Tilemaps;
 
 public class FOVManager : Singleton<FOVManager>
 {
-    public static int PlayerViewDistance = 6;
-    
+    public const int PlayerViewDistance = 7;
+
     private struct Slope
     {
         public Slope(int y, int x)
@@ -124,13 +124,13 @@ public class FOVManager : Singleton<FOVManager>
         var playerLocation = Vector3Int.FloorToInt(location);
         TileCompute(sceneName, playerLocation);
         for (uint octant = 0; octant <= 7; octant++)
-            Compute(sceneName, octant, playerLocation, viewDistance, 1, new Slope(1, 1), new Slope(0, 1));
+            Compute(sceneName, playerLocation, octant, playerLocation, viewDistance, 1, new Slope(1, 1), new Slope(0, 1));
         
         // 然后在更新
         ViewCompute();
     }
 
-    private void Compute(string sceneName, uint octant, Vector3Int location, int rangeLimit, int x, Slope top,
+    private void Compute(string sceneName, Vector3Int origin, uint octant, Vector3Int location, int rangeLimit, int x, Slope top,
         Slope bottom)
     {
         for (; (uint)x <= (uint)rangeLimit; x++) // rangeLimit < 0 || x <= rangeLimit
@@ -185,8 +185,11 @@ public class FOVManager : Singleton<FOVManager>
                         ty += y;
                         break;
                 }
-
+                
                 var newLocation = new Vector3Int(tx, ty, 0); // the position of the tile at the top of the column
+                if (!origin.IsWithinVisionRange(newLocation, rangeLimit))
+                    continue;
+                
                 TileCompute(sceneName, newLocation);
                 // NOTE: use the next line instead if you want the algorithm to be symmetrical
 
@@ -209,7 +212,7 @@ public class FOVManager : Singleton<FOVManager>
                             break;
                         } // don't recurse unless we have to
 
-                        Compute(sceneName, octant, location, rangeLimit, x + 1, top, newBottom);
+                        Compute(sceneName, origin, octant, location, rangeLimit, x + 1, top, newBottom);
                     }
 
                     wasOpaque = 1;

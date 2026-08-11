@@ -33,6 +33,7 @@ public sealed partial class Attribute : Luban.BeanBase
         ArmorPenetration = _buf.ReadInt();
         MagicPenetration = _buf.ReadInt();
         Dodge = _buf.ReadInt();
+        ActionSpeed = _buf.ReadInt();
     }
 
     public static Attribute DeserializeAttribute(ByteBuf _buf)
@@ -96,6 +97,10 @@ public sealed partial class Attribute : Luban.BeanBase
     /// 闪避率（百分比）
     /// </summary>
     public readonly int Dodge;
+    /// <summary>
+    /// 行动速度 
+    /// </summary>
+    public readonly int ActionSpeed;
    
     public const int __ID__ = -439948871;
     public override int GetTypeId() => __ID__;
@@ -121,6 +126,7 @@ public sealed partial class Attribute : Luban.BeanBase
         + "ArmorPenetration:" + ArmorPenetration + ","
         + "MagicPenetration:" + MagicPenetration + ","
         + "Dodge:" + Dodge + ","
+        + "ActionSpeed:" + ActionSpeed + ","
         + "}";
     }
 }

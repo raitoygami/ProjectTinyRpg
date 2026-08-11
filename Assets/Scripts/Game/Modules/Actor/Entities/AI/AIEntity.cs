@@ -5,6 +5,7 @@ using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 // ReSharper disable All
@@ -83,6 +84,7 @@ public class AIEntity : Entity
     }
 
     private EnemyStatData _runtimeStat;
+    private AsyncOperationHandle<GameObject> _weaponHandle;
     public async UniTask SetEntityState(EnemyStatData statData)
     {
         var entityTemplateTable = ConfigManager.Instance.ScriptableContainer.EntityTemplateTable;
@@ -90,9 +92,9 @@ public class AIEntity : Entity
         if (template != null)
         {
             m_AgentWeapon = gameObject.GetOrAddComponent<AgentWeapon>();
-            var handle = Addressables.LoadAssetAsync<GameObject>(template.DefaultWeapon);
-            await handle.ToUniTask();
-            m_AgentWeapon.LoadEnemyWeapon(handle.Result.GetComponent<Weapon>());
+            _weaponHandle = Addressables.LoadAssetAsync<GameObject>(template.DefaultWeapon);
+            await _weaponHandle.ToUniTask();
+            m_AgentWeapon.LoadEnemyWeapon(_weaponHandle.Result.GetComponent<Weapon>());
         }
         m_AgentStats.SetHealthLost(statData.HpLost);
         m_AgentAnimations.SetDirection(statData.Direction);
@@ -310,6 +312,7 @@ public class AIEntity : Entity
 
     private void OnDestroy()
     {
+        Addressables.Release(_weaponHandle);
         EntityManager.UnRegister(this);
         _blackBoard?.Clear();
         _blackBoard = null;

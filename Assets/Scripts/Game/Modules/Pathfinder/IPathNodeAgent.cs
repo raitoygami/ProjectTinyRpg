@@ -4,16 +4,10 @@ using UnityEngine;
 public interface IPathNodeAgent
 {
     /// <summary>Grid position (column, row).</summary>
-    Vector2Int GridLocation { get; set; }
+    public Vector2Int GridLocation { get; set; }
 
     /// <summary>Footprint size in grid cells (width, height), at least (1,1).</summary>
     Vector2Int GridSize { get; }
-
-    /// <summary>Backward-compat: grid column.</summary>
-    int X { get; set; }
-
-    /// <summary>Backward-compat: grid row.</summary>
-    int Y { get; set; }
 
     /// <summary>Backward-compat: footprint width.</summary>
     int GridSizeX { get; }

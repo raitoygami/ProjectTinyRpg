@@ -41,6 +41,9 @@ public class MapLoader : Singleton<MapLoader>
             
         await Addressables.LoadSceneAsync(mapInfo.AddressableName).ToUniTask();
 
+        // 将缓存全部清掉
+        PoolManager.Instance.ClearAll();
+        
         var levelLayers = FindFirstObjectByType<MapLayers>();
         var tilemap = levelLayers != null ? levelLayers.LayerBlocks : null;
 

@@ -20,8 +20,12 @@ public class Blackboard
 
     public Entity Target => _target;
 
-    public void ClearTargetOnly() => _target = null;
-
+    public void ClearTargetOnly()
+    {
+        _target = null;
+        CombatManager.Instance.RemoveEnemyTarget(_owner);
+    } 
+    
     public Entity GetOwer() => _owner;
     
     public async UniTask<bool> MoveTowardsGrid(Vector3 goalGrid)
@@ -150,10 +154,13 @@ public class Blackboard
             return false;
         }
         
+        // 不可移动的时候，需要耐心
         var path = mover.FindPath(_target.GridPosition);
-        if (path is not {Count : > 0})
+        if (path is not { Count: > 0 })
+        {
+            ClearTargetOnly();
             return false;
-
+        }
         var nextPath = path[0];
         if (!mover.Moveable(nextPath))
         {
