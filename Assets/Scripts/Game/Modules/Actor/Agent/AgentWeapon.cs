@@ -21,8 +21,9 @@ public class AgentWeapon : MonoBehaviour
         public Weapon WeaponChanged;
         public int WepAtkAbilityID;
     }
-
+    
     private Weapon _unarmedWeaponInst;
+    private long _defaultWeaponUID;
     private long _currentWeaponUID = 0;
     private readonly Dictionary<long, Weapon> _weapons = new();
 
@@ -75,7 +76,7 @@ public class AgentWeapon : MonoBehaviour
         _currentWeaponUID = currEquippedWeaponUID;
         // 通过界面操作。把所有武器全部卸掉
         // 
-        if (_currentWeaponUID == -1)
+        if (_currentWeaponUID == _defaultWeaponUID)
         {
             _unarmedWeaponInst.Equipped(this);
             await this.Publish(new EquippedWeaponChangeEvt()
@@ -111,12 +112,16 @@ public class AgentWeapon : MonoBehaviour
         await UniTask.CompletedTask;
     }
 
-    public void LoadUnarmedWeapon(Weapon unarmedWeapon)
+    public async UniTask LoadUnarmedWeapon(Weapon unarmedWeapon, long weaponUID)
     {
-        var weapon = Instantiate(unarmedWeapon);
-        _unarmedWeaponInst = weapon;
-        _weapons.Add(_currentWeaponUID, weapon);
+        var weaponInst = Instantiate(unarmedWeapon);
+        _unarmedWeaponInst = weaponInst;
+        _defaultWeaponUID = weaponUID;
+        _currentWeaponUID = weaponUID;
+        _weapons.Add(_currentWeaponUID, weaponInst);
         _unarmedWeaponInst.Equipped(this);
+        await this.Publish(new EquippedWeaponChangeEvt()
+            { WepAtkAbilityID = weaponInst.WepAtkAbilityId, WeaponChanged = weaponInst });
     }
     
     public void LoadEnemyWeapon(Weapon t_Weapon)

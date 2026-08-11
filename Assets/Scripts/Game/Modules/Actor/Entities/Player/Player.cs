@@ -167,6 +167,7 @@ public partial class Player : Entity
     // 第一次实例化
     public async UniTask FirstBindAfterInst()
     {
+        // 先装上默认武器
         var entityID = PlayerManager.Instance.GetEntityID();
         var entityTemplateTable = ConfigManager.Instance.ScriptableContainer.EntityTemplateTable;
         var template = entityTemplateTable.GetTemplate(entityID);
@@ -174,7 +175,7 @@ public partial class Player : Entity
         {
             var handle = Addressables.LoadAssetAsync<GameObject>(template.DefaultWeapon);
             await handle.ToUniTask();
-            _agentWeapon.LoadUnarmedWeapon(handle.Result.GetComponent<Weapon>());
+            await _agentWeapon.LoadUnarmedWeapon(handle.Result.GetComponent<Weapon>(), template.DefaultWeaponUID);
         }
         
         // 更新装备外观
@@ -182,7 +183,7 @@ public partial class Player : Entity
         _agentAvatar.SetSprite(_agentCustomization.GetCombinedSprite());
 
         // 更新武器技能和外观
-        await RefreshWeapons();
+        await RefreshWeapons(true);
         
         // 更新属性 
         AddEquipmentModifiers();
@@ -199,11 +200,18 @@ public partial class Player : Entity
         
     }
 
-    private async UniTask RefreshWeapons()
+    private async UniTask RefreshWeapons(bool init = false)
     {
         // 这里不会移除已经缓存的武器实例
         // 但是会移除没有装备的武器普通攻击技能
         var wepAtkAbilityIDs = new List<int>();
+
+        if (init)
+        {
+            var unarmedWeapon = _agentWeapon.GetWeapon(-1);
+            wepAtkAbilityIDs.Add(unarmedWeapon.WepAtkAbilityId);
+        }
+        
         for (var i = 4; i < 8; i++)
         {
             var weaponUid = PlayerManager.Instance.GetWeaponUID(i);

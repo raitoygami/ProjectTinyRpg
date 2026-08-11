@@ -9,6 +9,7 @@ public class EntityTemplateTable : ScriptableObject
     public class EntityTemplate
     {
         [SerializeField] public int id;
+        [SerializeField] public long DefaultWeaponUID;
         [SerializeField] public string DefaultWeapon;    
     }
     

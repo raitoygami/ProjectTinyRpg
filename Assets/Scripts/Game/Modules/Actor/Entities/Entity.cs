@@ -8,7 +8,7 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
     public EntityFaction Faction;
 
     /// <summary>World-space grid-container position (gridX, 0, gridZ).</summary>
-    public Vector3 GridPosition => transform ? transform.position.SnapToGrid() : Vector3.zero;
+    public Vector3 GridPosition => new(X, Y, 0);
 
     // ── IPathNodeAgent implementation ───────────────────────────────────
 

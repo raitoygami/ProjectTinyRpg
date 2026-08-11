@@ -16,6 +16,7 @@ public class AgentAbilities : MonoBehaviour
 
     public async UniTask<Ability> GetWepAtkAbility(int abilityId)
     {
+        
         if (!_wepAtkAbilities.TryGetValue(abilityId, out var ability))
         {
             var config = ConfigManager.Instance.GetAbility(abilityId);
@@ -26,7 +27,6 @@ public class AgentAbilities : MonoBehaviour
             ability = Instantiate(handle.Result);
             _wepAtkAbilities.Add(abilityId, ability);
         }
-        
         return ability;
     }
 
