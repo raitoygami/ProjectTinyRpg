@@ -116,7 +116,6 @@ public class AIEntity : Entity
         
     }
     
-    
     protected override bool IsWalkable(PathCell cell, int goalX, int goalY)
     {
         if (cell.Logical == null)

@@ -21,7 +21,7 @@ namespace skner.DualGrid
     {
         [SerializeField]
         private DualGridRuleTile _renderTile;
-        public DualGridRuleTile RenderTile { get => _renderTile; internal set => _renderTile = value; }
+        public DualGridRuleTile RenderTile { get => _renderTile; set => _renderTile = value; }
 
         public DualGridDataTile DataTile => RenderTile.DataTile;
 

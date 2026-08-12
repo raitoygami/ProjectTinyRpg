@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using skner.DualGrid;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -24,10 +26,12 @@ public class FOVManager : Singleton<FOVManager>
     // 新增：三个 Tilemap 引用
 
     private Transform _root;
-    private Tilemap _tilemapFog; // 敌方预警
-    private Tilemap _tilemapView; // 敌方预警
-    private RuleTile _tileFog;
-    private RuleTile _tileView;
+
+    private Tilemap _tilemapDualFog;
+    private Tilemap _tilemapDualView;
+
+    private DualGridRuleTile _dualTileFog;
+    private DualGridRuleTile _dualTileView;
     
     private List<Vector3Int> _visibleTiles = new();
     private List<Vector3Int> _visibleTilesLast = new();
@@ -38,8 +42,9 @@ public class FOVManager : Singleton<FOVManager>
         _root.SetParent(transform);
         _root.transform.position = Vector3.zero;
 
-        _tileFog = tileAssetTable.TileFog;
-        _tileView = tileAssetTable.TileView;
+        
+        _dualTileFog = tileAssetTable.DualTileFog;
+        _dualTileView = tileAssetTable.DualTileView;
         
         var gridObj = new GameObject("FOV Grid");
         gridObj.transform.SetParent(transform);
@@ -52,11 +57,32 @@ public class FOVManager : Singleton<FOVManager>
         _fogGrid.cellSwizzle = GridLayout.CellSwizzle.XYZ;
 
         var defaultLayer = SortingLayer.NameToID("Default");
-        _tilemapFog = CreateTilemap(gridObj.transform, "Field of View - Fog", defaultLayer, 200);
-        _tilemapView = CreateTilemap(gridObj.transform, "Field of View - View", defaultLayer, 199);
-        _tilemapView.color = new Color(1, 1, 1, 0.5f);
+        _tilemapDualFog = CreateTilemapDual(gridObj.transform, "Fog Dual", defaultLayer, 300, _dualTileFog, tileAssetTable.DualTileFogMaterial);
+        _tilemapDualView = CreateTilemapDual(gridObj.transform, "View Dual", defaultLayer, 299, _dualTileView, tileAssetTable.DualTileViewMaterial);
     }
 
+    private Tilemap CreateTilemapDual(Transform parent, string tilemapName, int sortingLayerID, int order, DualGridRuleTile ruleTile, Material material)
+    {
+        var child = new GameObject(tilemapName);
+        child.transform.SetParent(parent.transform);
+        child.transform.localPosition = Vector3.zero;
+
+        var tilemap = child.AddComponent<Tilemap>();
+        var module = child.AddComponent<DualGridTilemapModule>();
+        module.RenderTile = ruleTile;
+        
+        var renderTilemap = new GameObject("Render Tilemap");
+        renderTilemap.AddComponent<Tilemap>();
+        renderTilemap.transform.SetParent(child.transform);
+        var tilemapRenderer = renderTilemap.AddComponent<TilemapRenderer>();
+        tilemapRenderer.material = material;
+        // 设置排序
+        tilemapRenderer.sortingLayerID = sortingLayerID;
+        tilemapRenderer.sortingOrder = order;
+
+        return tilemap;
+    }
+    
     private Tilemap CreateTilemap(Transform parent, string tilemapName, int sortingLayerID, int order)
     {
         var child = new GameObject(tilemapName);
@@ -80,9 +106,8 @@ public class FOVManager : Singleton<FOVManager>
     {
         var mapData = MapManager.Instance.GetMapData(sceneName);
         var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
-        _tilemapFog.ClearAllTiles();
-        _tilemapFog.color = mapInfo.MapType == MapConfig.MapType.Dungeon ? Color.white : Color.clear;
-        
+        _tilemapDualFog.ClearAllTiles();
+        _tilemapDualFog.GetComponent<DualGridTilemapModule>().RefreshRenderTilemap();
         if (mapData == null || mapInfo.MapType == MapConfig.MapType.WorldChunk) return;
         // 遍历地图范围内的所有格子
         for (var x = mapData.OriginX; x <= mapData.OriginX + mapData.Width; x++)
@@ -91,8 +116,8 @@ public class FOVManager : Singleton<FOVManager>
             var location = new Vector3Int(x, y, 0);
             // 如果该格子未被探索，则设置黑雾 Tile
             if (mapData.GetFOV(location)) continue;
-            var cell = _tilemapFog.WorldToCell(location);
-            _tilemapFog.SetTile(cell, _tileFog);
+            var cell = _fogGrid.WorldToCell(location);
+            _tilemapDualFog.SetTile(cell, _dualTileFog);
             // 注意：已探索的格子不需要设置 Tile（或者可以设置为空以清除黑雾）
             // 但这里 ClearAll 已经清空了所有，我们只对未探索的设置黑雾，已探索的保持空即可
         }
@@ -109,10 +134,8 @@ public class FOVManager : Singleton<FOVManager>
         for (var y = mapData.OriginY; y <= mapData.OriginY + mapData.Height; y++)
         {
             var location = new Vector3Int(x, y, 0);
-            var cell = _tilemapView.WorldToCell(location);
-            _tilemapView.SetTile(cell, _tileView);
-            _tilemapView.SetColor(cell, Color.white);
-            _tilemapView.SetTileFlags(cell, TileFlags.None);
+            var cell = _fogGrid.WorldToCell(location);
+            _tilemapDualView.SetTile(cell, _dualTileFog);
         }
     }
 
@@ -260,10 +283,8 @@ public class FOVManager : Singleton<FOVManager>
         if (!hasFOV || mapInfo.MapType == MapConfig.MapType.WorldChunk)
             return;
 
-        var cell = _tilemapFog.WorldToCell(location);
-
-        _tilemapFog.SetTileFlags(cell, TileFlags.None);
-        _tilemapFog.SetColor(cell, new Color(1.0f, 1.0f, 1.0f, 0f));
+        var cell = _fogGrid.WorldToCell(location);
+        _tilemapDualFog.SetTile(cell, null);
         mapData.SetFOV(location, true);
 
     }
@@ -276,16 +297,14 @@ public class FOVManager : Singleton<FOVManager>
         
         foreach (var location in added)
         {
-            var cell = _tilemapView.WorldToCell(location);
-            _tilemapView.SetTileFlags(cell, TileFlags.None);
-            _tilemapView.SetColor(cell, Color.clear);
+            var cell = _fogGrid.WorldToCell(location);
+            _tilemapDualView.SetTile(cell, null);
         }
 
         foreach (var location in removed)
         {
-            var cell = _tilemapView.WorldToCell(location);
-            _tilemapView.SetTileFlags(cell, TileFlags.None);
-            _tilemapView.SetColor(cell, Color.white);
+            var cell = _fogGrid.WorldToCell(location);
+            _tilemapDualView.SetTile(cell, _dualTileFog);
         }
         
     }
@@ -343,7 +362,6 @@ public class FOVManager : Singleton<FOVManager>
             else
                 agentAnimation.Fadeout().Forget();
         }
-        
     }
 
     public void RefreshVisibility(Entity entity, Vector3Int nextLocation)
@@ -360,7 +378,9 @@ public class FOVManager : Singleton<FOVManager>
     
     public void ClearAll()
     {
-        _tilemapFog.ClearAllTiles();
-        _tilemapView.ClearAllTiles();
+        _tilemapDualFog.ClearAllTiles();
+        _tilemapDualView.ClearAllTiles();
+        _tilemapDualFog.GetComponent<DualGridTilemapModule>().RefreshRenderTilemap();
+        _tilemapDualView.GetComponent<DualGridTilemapModule>().RefreshRenderTilemap();
     }
 }

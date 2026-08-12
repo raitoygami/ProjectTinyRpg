@@ -26,6 +26,7 @@ public class SettingsPanel : PanelBase
         await UIRoot.Instance.LoadingStart(0.25f);
         // 关闭所有界面
         await UIRoot.Instance.CloseAllAsync();
+        FOVManager.Instance.ClearAll();
         MapLoader.Instance.ClearScene();
         PoolManager.Instance.ClearAll();
         

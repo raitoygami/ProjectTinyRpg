@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using skner.DualGrid;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,7 +15,10 @@ public class TileAssetTable : ScriptableObject{
     [SerializeField] public Tile TileAbilityTelegraph;
 
     [Header("FOV")] 
-    [SerializeField] public RuleTile TileFog;
-    [SerializeField] public RuleTile TileView;
+    [SerializeField] public DualGridRuleTile DualTileFog;
+    [SerializeField] public DualGridRuleTile DualTileView;
+
+    [SerializeField] public Material DualTileFogMaterial;
+    [SerializeField] public Material DualTileViewMaterial;
     
 }
