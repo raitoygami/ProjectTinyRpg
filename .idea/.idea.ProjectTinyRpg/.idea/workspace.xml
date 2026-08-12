@@ -27,6 +27,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/EquipType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/ItemRarity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/Tables.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/t_Ability.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/t_Drop.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/t_Equip.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Config/t_ItemBase.cs" root0="FORCE_HIGHLIGHTING" />
@@ -72,6 +73,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/EnemySpawnerRandomly.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/Entity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/EntityManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/EntityTemplateTable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/IDymanicEntity.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/Neutral/Door.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/Neutral/TreasureChest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Actor/Entities/Player/Player.cs" root0="FORCE_HIGHLIGHTING" />
@@ -105,6 +108,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/PathCell2D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/PathFinder.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Pathfinder/PathNode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Player/PlayerAbilitiesData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Player/PlayerInventoryData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Player/PlayerLocationData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Player/PlayerManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -130,6 +134,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Selection/GridIndicatorManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Modules/Selection/TileAssetTable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/CameraManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigAbilities.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ConfigScriptable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/System/Config/ScriptableObject/CustomizationTable.cs" root0="FORCE_HIGHLIGHTING" />
@@ -290,7 +295,8 @@
       <workItem from="1786241510682" duration="41373000" />
       <workItem from="1786326869250" duration="38412000" />
       <workItem from="1786379275622" duration="1389000" />
-      <workItem from="1786409463033" duration="16727000" />
+      <workItem from="1786409463033" duration="22059000" />
+      <workItem from="1786503004602" duration="7186000" />
     </task>
     <servers />
   </component>

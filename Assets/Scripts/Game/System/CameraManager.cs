@@ -41,8 +41,8 @@ public class CameraManager : Singleton<CameraManager>
         }
 
         // orthographicSize 僅在 Orthographic 模式才有意義，這裡保留原邏輯
-        _mainCamera.orthographicSize = 11.25f;
-        _followCam.Lens.OrthographicSize = 11.25f;
+        _mainCamera.orthographicSize = 8.4375f;
+        _followCam.Lens.OrthographicSize = 8.4375f;
         _brain = _mainCamera.GetComponent<CinemachineBrain>();
         if (_brain == null)
             _brain = _mainCamera.gameObject.AddComponent<CinemachineBrain>();
@@ -76,6 +76,16 @@ public class CameraManager : Singleton<CameraManager>
         }
     }
 
+    public void SetMapBound(BoxCollider2D collider)
+    {
+        if (_followCam == null) return;
+        var component = _followCam.GetComponent<CinemachineConfiner2D>();
+        if (component != null)
+        {
+            component.BoundingShape2D = collider;
+        }
+    }
+    
     /// <summary>清除跟隨目標。</summary>
     public void ClearFollowTarget()
     {

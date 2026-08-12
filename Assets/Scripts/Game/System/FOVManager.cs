@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class FOVManager : Singleton<FOVManager>
 {
-    public const int PlayerViewDistance = 7;
+    public const int PlayerViewDistance = 6;
 
     private struct Slope
     {
@@ -79,7 +79,11 @@ public class FOVManager : Singleton<FOVManager>
     public void InitFov(string sceneName)
     {
         var mapData = MapManager.Instance.GetMapData(sceneName);
-        if (mapData == null) return;
+        var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
+        _tilemapFog.ClearAllTiles();
+        _tilemapFog.color = mapInfo.MapType == MapConfig.MapType.Dungeon ? Color.white : Color.clear;
+        
+        if (mapData == null || mapInfo.MapType == MapConfig.MapType.WorldChunk) return;
         // 遍历地图范围内的所有格子
         for (var x = mapData.OriginX; x <= mapData.OriginX + mapData.Width; x++)
         for (var y = mapData.OriginY; y <= mapData.OriginY + mapData.Height; y++)
@@ -190,10 +194,10 @@ public class FOVManager : Singleton<FOVManager>
                 if (!origin.IsWithinVisionRange(newLocation, rangeLimit))
                     continue;
                 
+                var isOpaque = IsBlockView(newLocation);
+                
                 TileCompute(sceneName, newLocation);
                 // NOTE: use the next line instead if you want the algorithm to be symmetrical
-
-                var isOpaque = IsBlockView(newLocation);
 
                 if (x == rangeLimit) continue;
                 
@@ -250,8 +254,10 @@ public class FOVManager : Singleton<FOVManager>
             _visibleTiles.Add(location);
         
         var mapData = MapManager.Instance.GetMapData(sceneName);
+        var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
         var hasFOV = mapData.HasFOV(location);
-        if (!hasFOV)
+        // 世界地图不更新瓦片地图
+        if (!hasFOV || mapInfo.MapType == MapConfig.MapType.WorldChunk)
             return;
 
         var cell = _tilemapFog.WorldToCell(location);

@@ -18,3 +18,8 @@ MonoBehaviour:
     ChunkIndex: {x: 0, y: 0}
     AddressableName: Scene/Tutorial
     MainMusic: 1
+  - SceneName: World/Chunk_01_01
+    MapType: 0
+    ChunkIndex: {x: 1, y: 1}
+    AddressableName: World/Chunk_01_01.unity
+    MainMusic: 1

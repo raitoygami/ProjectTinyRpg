@@ -57,6 +57,7 @@ public class EntityManager : Singleton<EntityManager>
         var l = location.GridToWorld();
         
         var go = Instantiate(playerPrefab, l, Quaternion.identity);
+        go.transform.localScale = Vector3.one * 1.25f;
         var stats = go.GetComponent<AgentStats>();
         if (stats != null && entity?.Attr != null)
             stats.SetBaseFromAttribute(entity.Attr);
@@ -84,6 +85,7 @@ public class EntityManager : Singleton<EntityManager>
     {
         if (enemyPrefab == null) return null;
         var go = Instantiate(enemyPrefab, location.GridToWorld(), Quaternion.identity);
+        go.transform.localScale = Vector3.one * 1.25f;
         var ai = go.GetComponent<AIEntity>();
         if (ai == null) return null;
         ai.ConfigureAsEnemy(entity);
@@ -107,6 +109,7 @@ public class EntityManager : Singleton<EntityManager>
         if (entity == null) return null;
         if (enemyPrefab == null) return null;
         var go = Instantiate(enemyPrefab, location.GridToWorld(), Quaternion.identity);
+        go.transform.localScale = Vector3.one * 1.25f;
         var ai = go.GetComponent<AIEntity>();
         if (ai == null)
         {

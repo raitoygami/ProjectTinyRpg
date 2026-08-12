@@ -44,8 +44,8 @@ public class MapLoader : Singleton<MapLoader>
         // 将缓存全部清掉
         PoolManager.Instance.ClearAll();
         
-        var levelLayers = FindFirstObjectByType<MapLayers>();
-        var tilemap = levelLayers != null ? levelLayers.LayerBlocks : null;
+        var mapLayers = FindFirstObjectByType<MapLayers>();
+        var tilemap = mapLayers != null ? mapLayers.LayerBlocks : null;
 
         if (tilemap == null)
         {
@@ -89,7 +89,7 @@ public class MapLoader : Singleton<MapLoader>
         // 新加载的地图 清理掉所有敌方预警
         GridIndicatorManager.Instance.ClearAll();
         // 初始化
-        var activeAfterLoad = levelLayers.ActiveAfterLoad;
+        var activeAfterLoad = mapLayers.ActiveAfterLoad;
         if (activeAfterLoad != null)
         {
             var entities =  activeAfterLoad.GetComponentsInChildren<IDynamicEntity>();
@@ -106,6 +106,8 @@ public class MapLoader : Singleton<MapLoader>
         p.InitAfterLevelLoad();
         Context.Instance.SetPlayer(p);
         CameraManager.Instance.SetFollowTarget(p.transform);
+        CameraManager.Instance.SetMapBound(mapLayers.CameraBound);
+        
         await p.FirstBindAfterInst();
         if (mapInfo.MapType == MapConfig.MapType.WorldChunk)
         {

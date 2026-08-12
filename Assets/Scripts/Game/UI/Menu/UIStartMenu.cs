@@ -48,8 +48,9 @@ public class UIStartMenu : PanelBase
         Persist.Instance.ResetSlot(0);
         // 设置玩家模板id 和出生位置
         PlayerManager.Instance.SetEntityID(100001);
-        PlayerManager.Instance.SetCurrentMap("Tutorial");
-        PlayerManager.Instance.SetCurrentLocation(new Vector3(-16, -11, 0));
+        PlayerManager.Instance.SetCurrentMap("World/Chunk_01_01");
+        PlayerManager.Instance.SetCurrentLocation(new Vector3(1, 1, 0));
+        /*PlayerManager.Instance.SetCurrentLocation(new Vector3(-16, -11, 0));*/
         // 构建玩家数据
         PlayerManager.Instance.RebuildPersist();
         
