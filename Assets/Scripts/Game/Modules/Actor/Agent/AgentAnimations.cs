@@ -353,6 +353,11 @@ public class AgentAnimations : MonoBehaviour
 
     private bool _visible = true;
 
+    public void RefreshVisibility()
+    {
+        SetVisibility(_visible);
+    }
+    
     public void SetVisibility(bool visible)
     {
         var renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
@@ -361,12 +366,12 @@ public class AgentAnimations : MonoBehaviour
             var mat = sr.material;
             if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
                 continue;
+            
             mat.SetFloat(Const.ShaderPropertyKey.Fade, visible ? 0 : 1);
-            _visibilityChangedEvent.Fade = visible ? 0 : 1;
-            this.Publish(_visibilityChangedEvent);
         }
-
+        _visibilityChangedEvent.Fade = visible ? 0 : 1;
         _visible = visible;
+        this.Publish(_visibilityChangedEvent);
     }
 
     public class VisibilityChangedEvent : EventArgs
@@ -395,36 +400,32 @@ public class AgentAnimations : MonoBehaviour
             _fadeCts.Token
         );
         var token = linkedCts.Token;
-
         var renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
-        var tasks = new List<UniTask>();
-
-        foreach (var sr in renderers)
+        
+        var progress = 0f;
+        _tweenFadeout = DOTween.To(
+            () => progress,
+            x => progress = x,
+            1f,
+            0.25f
+        ).OnUpdate(() =>
         {
-            var mat = sr.material;
-            if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
-                continue;
+            // 在每一帧更新时，遍历所有材质，计算当前目标值并应用
+            foreach (var sr in renderers)
+            {
+                var mat = sr.material;
+                if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
+                    continue;
+                mat.SetFloat(Const.ShaderPropertyKey.Fade, progress);
+                // 发布事件（与原逻辑一致，每个材质更新时发布一次）
+            }
+            _visibilityChangedEvent.Fade = progress;
+            this.Publish(_visibilityChangedEvent);
+        });
 
-            if (mat.GetFloat(Const.ShaderPropertyKey.Fade) >= 1)
-                continue;
-
-            _tweenFadeout = DOTween.To(
-                () => mat.GetFloat(Const.ShaderPropertyKey.Fade),
-                x =>
-                {
-                    _visibilityChangedEvent.Fade = x;
-                    this.Publish(_visibilityChangedEvent);
-                    mat.SetFloat(Const.ShaderPropertyKey.Fade, x);
-                },
-                1f,
-                0.25f
-            );
-
-            tasks.Add(_tweenFadeout.ToUniTask(cancellationToken: token)
-                .SuppressCancellationThrow());
-        }
-
-        await UniTask.WhenAll(tasks);
+// 将 Tween 转换为 UniTask，支持取消，并抑制取消抛出的异常
+        await _tweenFadeout.ToUniTask(cancellationToken: token)
+            .SuppressCancellationThrow();
     }
 
     public async UniTask Fadein()
@@ -443,35 +444,33 @@ public class AgentAnimations : MonoBehaviour
             _fadeCts.Token
         );
         var token = linkedCts.Token;
-
         var renderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
-        var tasks = new List<UniTask>();
-
-        foreach (var sr in renderers)
+        
+        var progress = 1f;
+        _tweenFadeout = DOTween.To(
+            () => progress,
+            x => progress = x,
+            0f,
+            0.25f
+        ).OnUpdate(() =>
         {
-            var mat = sr.material;
-            if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
-                continue;
-            if (mat.GetFloat(Const.ShaderPropertyKey.Fade) <= 0)
-                continue;
+            // 在每一帧更新时，遍历所有材质，计算当前目标值并应用
+            foreach (var sr in renderers)
+            {
+                var mat = sr.material;
+                if (mat == null || !mat.HasProperty(Const.ShaderPropertyKey.Fade))
+                    continue;
+                mat.SetFloat(Const.ShaderPropertyKey.Fade, progress);
+                // 发布事件（与原逻辑一致，每个材质更新时发布一次）
+       
+            }
+            _visibilityChangedEvent.Fade = progress;
+            this.Publish(_visibilityChangedEvent);
+        });
 
-            _tweenFadein = DOTween.To(
-                () => mat.GetFloat(Const.ShaderPropertyKey.Fade),
-                x =>
-                {
-                    _visibilityChangedEvent.Fade = x;
-                    this.Publish(_visibilityChangedEvent);
-                    mat.SetFloat(Const.ShaderPropertyKey.Fade, x);
-                },
-                0f,
-                0.25f
-            );
-
-            tasks.Add(_tweenFadein.ToUniTask(cancellationToken: token)
-                .SuppressCancellationThrow());
-        }
-
-        await UniTask.WhenAll(tasks);
+// 将 Tween 转换为 UniTask，支持取消，并抑制取消抛出的异常
+        await _tweenFadeout.ToUniTask(cancellationToken: token)
+            .SuppressCancellationThrow();
     }
 
 

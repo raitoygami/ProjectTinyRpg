@@ -86,9 +86,6 @@ MonoBehaviour:
       type: {class: RangePointParam, ns: , asm: Assembly-CSharp}
       data:
         requireMoveableInLayer: 1
-        layerMask:
-          serializedVersion: 2
-          m_Bits: 0
 --- !u!114 &1163618895722414851
 MonoBehaviour:
   m_ObjectHideFlags: 0

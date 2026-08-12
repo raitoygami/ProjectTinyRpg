@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using cfg;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -111,7 +112,10 @@ public class AIEntity : Entity
         });
          
         _runtimeStat = statData;
+        m_AgentAnimations.RefreshVisibility();
+        
     }
+    
     
     protected override bool IsWalkable(PathCell cell, int goalX, int goalY)
     {
