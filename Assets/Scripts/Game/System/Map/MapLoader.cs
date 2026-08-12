@@ -67,7 +67,7 @@ public class MapLoader : Singleton<MapLoader>
         
         // 全图初始化fov
         var mapData = MapManager.Instance.GetMapData(sceneName);
-        mapData.InitFogTiles(originX, originY, width, height);
+        mapData.InitFogTiles(originX - 2, originY - 2, width + 4, height + 4);
         FOVManager.Instance.ClearAll();
         FOVManager.Instance.InitView(sceneName);
         

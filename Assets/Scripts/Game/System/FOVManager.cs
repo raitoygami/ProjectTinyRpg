@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using skner.DualGrid;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class FOVManager : Singleton<FOVManager>
@@ -32,20 +30,20 @@ public class FOVManager : Singleton<FOVManager>
 
     private DualGridRuleTile _dualTileFog;
     private DualGridRuleTile _dualTileView;
-    
+
     private List<Vector3Int> _visibleTiles = new();
     private List<Vector3Int> _visibleTilesLast = new();
-    
+
     public void Setup(TileAssetTable tileAssetTable)
     {
         _root = new GameObject("Root").transform;
         _root.SetParent(transform);
         _root.transform.position = Vector3.zero;
 
-        
+
         _dualTileFog = tileAssetTable.DualTileFog;
         _dualTileView = tileAssetTable.DualTileView;
-        
+
         var gridObj = new GameObject("FOV Grid");
         gridObj.transform.SetParent(transform);
         gridObj.transform.localPosition = new Vector3(0.5f, 0.5f, 0);
@@ -57,11 +55,14 @@ public class FOVManager : Singleton<FOVManager>
         _fogGrid.cellSwizzle = GridLayout.CellSwizzle.XYZ;
 
         var defaultLayer = SortingLayer.NameToID("Default");
-        _tilemapDualFog = CreateTilemapDual(gridObj.transform, "Fog Dual", defaultLayer, 300, _dualTileFog, tileAssetTable.DualTileFogMaterial);
-        _tilemapDualView = CreateTilemapDual(gridObj.transform, "View Dual", defaultLayer, 299, _dualTileView, tileAssetTable.DualTileViewMaterial);
+        _tilemapDualFog = CreateTilemapDual(gridObj.transform, "Fog Dual", defaultLayer, 300, _dualTileFog,
+            tileAssetTable.DualTileFogMaterial, Color.white);
+        _tilemapDualView = CreateTilemapDual(gridObj.transform, "View Dual", defaultLayer, 299, _dualTileView,
+            tileAssetTable.DualTileViewMaterial, new Color(1, 1, 1, 0.75f));
     }
 
-    private Tilemap CreateTilemapDual(Transform parent, string tilemapName, int sortingLayerID, int order, DualGridRuleTile ruleTile, Material material)
+    private Tilemap CreateTilemapDual(Transform parent, string tilemapName, int sortingLayerID, int order,
+        DualGridRuleTile ruleTile, Material material, Color color)
     {
         var child = new GameObject(tilemapName);
         child.transform.SetParent(parent.transform);
@@ -70,7 +71,7 @@ public class FOVManager : Singleton<FOVManager>
         var tilemap = child.AddComponent<Tilemap>();
         var module = child.AddComponent<DualGridTilemapModule>();
         module.RenderTile = ruleTile;
-        
+
         var renderTilemap = new GameObject("Render Tilemap");
         renderTilemap.AddComponent<Tilemap>();
         renderTilemap.transform.SetParent(child.transform);
@@ -79,10 +80,10 @@ public class FOVManager : Singleton<FOVManager>
         // 设置排序
         tilemapRenderer.sortingLayerID = sortingLayerID;
         tilemapRenderer.sortingOrder = order;
-
+        renderTilemap.GetComponent<Tilemap>().color = color;
         return tilemap;
     }
-    
+
     private Tilemap CreateTilemap(Transform parent, string tilemapName, int sortingLayerID, int order)
     {
         var child = new GameObject(tilemapName);
@@ -105,10 +106,9 @@ public class FOVManager : Singleton<FOVManager>
     public void InitFov(string sceneName)
     {
         var mapData = MapManager.Instance.GetMapData(sceneName);
-        var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
         _tilemapDualFog.ClearAllTiles();
         _tilemapDualFog.GetComponent<DualGridTilemapModule>().RefreshRenderTilemap();
-        if (mapData == null || mapInfo.MapType == MapConfig.MapType.WorldChunk) return;
+        if (mapData == null) return;
         // 遍历地图范围内的所有格子
         for (var x = mapData.OriginX; x <= mapData.OriginX + mapData.Width; x++)
         for (var y = mapData.OriginY; y <= mapData.OriginY + mapData.Height; y++)
@@ -147,17 +147,19 @@ public class FOVManager : Singleton<FOVManager>
 
         _visibleTilesLast = _visibleTiles;
         _visibleTiles = new List<Vector3Int>();
-        
+
         var playerLocation = Vector3Int.FloorToInt(location);
         TileCompute(sceneName, playerLocation);
         for (uint octant = 0; octant <= 7; octant++)
-            Compute(sceneName, playerLocation, octant, playerLocation, viewDistance, 1, new Slope(1, 1), new Slope(0, 1));
-        
+            Compute(sceneName, playerLocation, octant, playerLocation, viewDistance, 1, new Slope(1, 1),
+                new Slope(0, 1));
+
         // 然后在更新
         ViewCompute();
     }
 
-    private void Compute(string sceneName, Vector3Int origin, uint octant, Vector3Int location, int rangeLimit, int x, Slope top,
+    private void Compute(string sceneName, Vector3Int origin, uint octant, Vector3Int location, int rangeLimit, int x,
+        Slope top,
         Slope bottom)
     {
         for (; (uint)x <= (uint)rangeLimit; x++) // rangeLimit < 0 || x <= rangeLimit
@@ -212,18 +214,18 @@ public class FOVManager : Singleton<FOVManager>
                         ty += y;
                         break;
                 }
-                
+
                 var newLocation = new Vector3Int(tx, ty, 0); // the position of the tile at the top of the column
                 if (!origin.IsWithinVisionRange(newLocation, rangeLimit))
                     continue;
-                
+
                 var isOpaque = IsBlockView(newLocation);
-                
+
                 TileCompute(sceneName, newLocation);
                 // NOTE: use the next line instead if you want the algorithm to be symmetrical
 
                 if (x == rangeLimit) continue;
-                
+
                 if (isOpaque)
                 {
                     if (wasOpaque ==
@@ -272,21 +274,19 @@ public class FOVManager : Singleton<FOVManager>
     {
         if (!MapManager.HasInstance())
             return;
-        
+
         if (!_visibleTiles.Contains(location))
             _visibleTiles.Add(location);
-        
+
         var mapData = MapManager.Instance.GetMapData(sceneName);
-        var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
         var hasFOV = mapData.HasFOV(location);
         // 世界地图不更新瓦片地图
-        if (!hasFOV || mapInfo.MapType == MapConfig.MapType.WorldChunk)
+        if (!hasFOV)
             return;
 
         var cell = _fogGrid.WorldToCell(location);
         _tilemapDualFog.SetTile(cell, null);
         mapData.SetFOV(location, true);
-
     }
 
 
@@ -294,7 +294,7 @@ public class FOVManager : Singleton<FOVManager>
     {
         var added = _visibleTiles.Except(_visibleTilesLast).ToList();
         var removed = _visibleTilesLast.Except(_visibleTiles).ToList();
-        
+
         foreach (var location in added)
         {
             var cell = _fogGrid.WorldToCell(location);
@@ -306,18 +306,17 @@ public class FOVManager : Singleton<FOVManager>
             var cell = _fogGrid.WorldToCell(location);
             _tilemapDualView.SetTile(cell, _dualTileFog);
         }
-        
     }
-    
+
     public bool IsVisibility(Vector3Int location)
     {
         return _visibleTiles.Contains(location);
     }
-    
+
     public void InitVisibility()
     {
         if (!EntityManager.HasInstance()) return;
-        
+
         var entitiesTable = EntityManager.Instance.GetEntitiesTable();
         foreach (var (faction, entities) in entitiesTable)
         {
@@ -332,16 +331,16 @@ public class FOVManager : Singleton<FOVManager>
             }
         }
     }
-    
+
     private List<Vector3Int> GetUpdatedTiles()
     {
         var added = _visibleTiles.Except(_visibleTilesLast).ToList();
         var removed = _visibleTilesLast.Except(_visibleTiles).ToList();
         added.AddRange(removed);
-        
+
         return added;
     }
-    
+
     public void PlayerVisibilityChanged()
     {
         if (!PathFinder.HasInstance()) return;
@@ -368,14 +367,14 @@ public class FOVManager : Singleton<FOVManager>
     {
         var agentAnimation = entity.GetComponent<AgentAnimations>();
         if (agentAnimation == null) return;
-        
+
         var visible = IsVisibility(nextLocation);
         if (visible)
             agentAnimation.Fadein().Forget();
         else
             agentAnimation.Fadeout().Forget();
     }
-    
+
     public void ClearAll()
     {
         _tilemapDualFog.ClearAllTiles();
