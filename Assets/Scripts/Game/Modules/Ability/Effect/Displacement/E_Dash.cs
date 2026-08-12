@@ -19,26 +19,20 @@ public class E_Dash : AbilityEffect
         var target = m_Context.Position;
         var line = origin.Line(target);
 
-        var pulledGrid = line[0];
+        var dashPosition = line[0];
 
-        for (var i = 1; i < line.Count; i++)
+        foreach (var t in line)
         {
-            var grid = line[i];
-
-            if (PathFinder.Instance.CanPlaceFootprint(m_Context.Owner, grid.x, grid.z, (int)target.x, (int)target.z))
-            {
-                pulledGrid = grid;
-            }
-            else
-            {
+            var cell = PathFinder.Instance.GetCell(t.x, t.y);
+            if (cell == null || !PathFinder.IsWalkableCellForce(cell, m_Context.Owner))
                 break;
-            }
+            dashPosition = t;
         }
 
-        if (pulledGrid.Dist(origin) > 0)
+        if (dashPosition.Dist(origin) > 0)
         {
-            animator.FaceTarget(pulledGrid - origin);
-            await mover.Move(pulledGrid, true, Velocity, _easeMod);
+            animator.FaceTarget(dashPosition - origin);
+            await mover.Move(dashPosition, true, Velocity, _easeMod);
             await ApplyChildren();
         }
         else

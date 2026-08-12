@@ -28,7 +28,7 @@ public class E_Push : AbilityEffect
         foreach (var t in line)
         {
             var cell = PathFinder.Instance.GetCell(t.x, t.y);
-            if (cell == null || !PathFinder.IsWalkableCell(cell, m_Context.Target))
+            if (cell == null || !PathFinder.IsWalkableCellForce(cell, m_Context.Target))
                 break;
             pushPosition = t;
         }

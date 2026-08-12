@@ -253,6 +253,12 @@ public class PathFinder : Singleton<PathFinder>
         return mover.IsMoveable(cell, goalX, goalY);
     }
 
+    public static bool IsWalkableCellForce(PathCell cell, IPathNodeAgent mover)
+    {
+        if (cell == null) return false;
+        return IsWalkableCell(cell, mover, 100000, 100000);
+    }
+    
     /// <summary>No separate goal — uses the cell's own position as the goal.</summary>
     public static bool IsWalkableCell(PathCell cell, IPathNodeAgent mover)
     {

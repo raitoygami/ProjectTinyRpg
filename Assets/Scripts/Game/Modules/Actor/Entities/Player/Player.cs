@@ -33,6 +33,7 @@ public partial class Player : Entity
     private readonly Queue<Func<UniTask>> _nextTurnEvt = new();
     protected void Awake()
     {
+        Faction = EntityFaction.Player;
         GridSizeX = 1;
         GridSizeZ = 1;
    
