@@ -84,25 +84,6 @@ public class FOVManager : Singleton<FOVManager>
         return tilemap;
     }
 
-    private Tilemap CreateTilemap(Transform parent, string tilemapName, int sortingLayerID, int order)
-    {
-        var child = new GameObject(tilemapName);
-        child.transform.SetParent(parent.transform);
-        child.transform.localPosition = Vector3.zero;
-
-        var tilemap = child.AddComponent<Tilemap>();
-        var tilemapRenderer = child.AddComponent<TilemapRenderer>();
-
-        // 设置排序
-        tilemapRenderer.sortingLayerID = sortingLayerID;
-        tilemapRenderer.sortingOrder = order;
-
-        // 可选：设置材质（使用默认或者透明材质）
-        // renderer.material = ...;
-
-        return tilemap;
-    }
-
     public void InitFov(string sceneName)
     {
         var mapData = MapManager.Instance.GetMapData(sceneName);

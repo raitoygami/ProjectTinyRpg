@@ -20,5 +20,10 @@ public class TileAssetTable : ScriptableObject{
 
     [SerializeField] public Material DualTileFogMaterial;
     [SerializeField] public Material DualTileViewMaterial;
-    
+
+    // block l
+    [Header("Block Layer")]
+    public Tile TileWater;
+    public Tile TileGrass;
+    public Tile TileBlock;
 }

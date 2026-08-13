@@ -6,11 +6,14 @@ public static class Const
 {
     public static class Layer
     {
-        public static LayerMask ObstacleOnly = LayerMask.GetMask("Obstacle");
-        public static LayerMask ObstacleForNavi = LayerMask.GetMask("Obstacle", "Creature", "Interact", "Player");
-        public static readonly LayerMask LayerMaskInteract = LayerMask.GetMask( "Interact");
+        
+        public static LayerMask BlockOnly = LayerMask.GetMask("Obstacle");
+        public static LayerMask WaterOnly = LayerMask.GetMask("Water");
+        public static LayerMask GrassOnly = LayerMask.GetMask("Grass");
+        public static LayerMask ObstacleOnly = LayerMask.GetMask("Obstacle", "Water");
+        public static LayerMask ObstacleForNavi = LayerMask.GetMask("Obstacle", "Water", "Creature", "Interact", "Player");
         public static LayerMask ForInteractHover = LayerMask.GetMask("Interact");
-        public static readonly LayerMask ObstacleForEnemyNavi = LayerMask.GetMask("Obstacle", "Interact");
+        public static readonly LayerMask ObstacleForEnemyNavi = LayerMask.GetMask("Obstacle", "Water", "Interact");
         public static readonly LayerMask LayerFogComputeFOV = LayerMask.GetMask("Obstacle", "Interact");
     }
 

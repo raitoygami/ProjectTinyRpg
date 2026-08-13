@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d4ec626bdc611a74d87b5e46397a4779
+guid: 6fb320ac23f89cb4e98a8e5a3ac60f0a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 410973492302196144
-    second: tilset_common_fog_0
+      213: -8081475925856952395
+    second: tilset_common_bound_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -74,7 +74,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tilset_common_fog_0
+      name: tilset_common_bound_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,14 +115,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0bd26ccb63214b500800000000000000
-      internalID: 410973492302196144
+      spriteID: 5bfdc628674d8df80800000000000000
+      internalID: -8081475925856952395
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_1
+      name: tilset_common_bound_1
       rect:
         serializedVersion: 2
         x: 16
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5587d6a5f449334ea861dae2288904f
-      internalID: -1115337805
+      spriteID: 43f543352acd1cf4795366f449551bf2
+      internalID: 951865361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_2
+      name: tilset_common_bound_2
       rect:
         serializedVersion: 2
         x: 32
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80bcc349582994e439bda81ed370c42f
-      internalID: 506731631
+      spriteID: 483fa7498c54a1942ba8a800952b20bd
+      internalID: -2018922561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_3
+      name: tilset_common_bound_3
       rect:
         serializedVersion: 2
         x: 48
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19734c999a9d2914f94882b7cc2a5c24
-      internalID: 1930609011
+      spriteID: f336480e661f74a47adaf971f32edd68
+      internalID: -1963961023
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_4
+      name: tilset_common_bound_4
       rect:
         serializedVersion: 2
         x: 0
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af687b20e5f432e418e44ff16ba19fd5
-      internalID: 1631240303
+      spriteID: 725e36aeafce85c459bc67884fa744e1
+      internalID: -779592884
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_5
+      name: tilset_common_bound_5
       rect:
         serializedVersion: 2
         x: 16
@@ -225,14 +225,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c35b2c282e172c6468242743c5c7f575
-      internalID: 1290252556
+      spriteID: 2e19cb7c6fd022645b3b040de64de4fd
+      internalID: 598085243
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_6
+      name: tilset_common_bound_6
       rect:
         serializedVersion: 2
         x: 32
@@ -247,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 379ec59847ef1f742a86bb7bf35103ad
-      internalID: -575770850
+      spriteID: a1692cedf789ec748a7c6a4c07f877ca
+      internalID: -2024571619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_7
+      name: tilset_common_bound_7
       rect:
         serializedVersion: 2
         x: 48
@@ -269,14 +269,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fb4b00916fbe084799d35cebf4d57f9
-      internalID: 1392748579
+      spriteID: 095d8d2dfa9fd244c81da94ed47d7021
+      internalID: 666156862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_8
+      name: tilset_common_bound_8
       rect:
         serializedVersion: 2
         x: 0
@@ -291,14 +291,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc427220bad1dca40847ca3ffe36ed1e
-      internalID: 39990269
+      spriteID: 667146f4205bc8a44b71fd6a1f5c50b1
+      internalID: 2129291289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_9
+      name: tilset_common_bound_9
       rect:
         serializedVersion: 2
         x: 16
@@ -313,14 +313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 112bcb31cfaaa8e438c750c53bc61be6
-      internalID: -1803316507
+      spriteID: dc15f39fcc14be34cb91666b2c5de416
+      internalID: 965981819
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_10
+      name: tilset_common_bound_10
       rect:
         serializedVersion: 2
         x: 32
@@ -335,14 +335,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36cbdf1b065023242afe7806da35ce63
-      internalID: -1249177112
+      spriteID: e736167b9f98e0f439fe6fccb81844f0
+      internalID: 1174047627
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_11
+      name: tilset_common_bound_11
       rect:
         serializedVersion: 2
         x: 48
@@ -357,14 +357,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8222e6df4c5b9ee4888cc89c63c09656
-      internalID: -928489998
+      spriteID: 62cf1171fd732024ab5f6cfe58c456bb
+      internalID: -766194786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_12
+      name: tilset_common_bound_12
       rect:
         serializedVersion: 2
         x: 0
@@ -379,14 +379,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0821fc3bb1247e4084bd854bab2edea
-      internalID: -1764629612
+      spriteID: e2bd7321beb8c694d80b4a2a92edf614
+      internalID: -1301662291
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_13
+      name: tilset_common_bound_13
       rect:
         serializedVersion: 2
         x: 16
@@ -401,14 +401,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd2a76e48a3974c42992e80800055cb7
-      internalID: -402536466
+      spriteID: 5b84fe061316b3a4eace7673b9b280ec
+      internalID: 2057302477
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_14
+      name: tilset_common_bound_14
       rect:
         serializedVersion: 2
         x: 32
@@ -423,14 +423,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81b9b924fdf3093429d1891cb3547912
-      internalID: 1942379310
+      spriteID: 41cdb7f74cdd4724d8627af336d85b66
+      internalID: -767104758
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_15
+      name: tilset_common_bound_15
       rect:
         serializedVersion: 2
         x: 48
@@ -445,8 +445,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11b08031001e4844c96d329bb2587ac1
-      internalID: -1732243254
+      spriteID: b9bc84416eb21804cab31bf4f694feec
+      internalID: 459669338
       vertices: []
       indices: 
       edges: []
@@ -455,7 +455,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 342e73425964b9549ac5eb370875a13f
+    spriteID: e768390f1d8beb94d9f975eecf1e047c
     internalID: 0
     vertices: []
     indices: 
@@ -467,22 +467,22 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":true,"isAlternate":false}'
     nameFileIdTable:
-      tilset_common_fog_0: 410973492302196144
-      tilset_common_fog_1: -1115337805
-      tilset_common_fog_10: -1249177112
-      tilset_common_fog_11: -928489998
-      tilset_common_fog_12: -1764629612
-      tilset_common_fog_13: -402536466
-      tilset_common_fog_14: 1942379310
-      tilset_common_fog_15: -1732243254
-      tilset_common_fog_2: 506731631
-      tilset_common_fog_3: 1930609011
-      tilset_common_fog_4: 1631240303
-      tilset_common_fog_5: 1290252556
-      tilset_common_fog_6: -575770850
-      tilset_common_fog_7: 1392748579
-      tilset_common_fog_8: 39990269
-      tilset_common_fog_9: -1803316507
+      tilset_common_bound_0: -8081475925856952395
+      tilset_common_bound_1: 951865361
+      tilset_common_bound_10: 1174047627
+      tilset_common_bound_11: -766194786
+      tilset_common_bound_12: -1301662291
+      tilset_common_bound_13: 2057302477
+      tilset_common_bound_14: -767104758
+      tilset_common_bound_15: 459669338
+      tilset_common_bound_2: -2018922561
+      tilset_common_bound_3: -1963961023
+      tilset_common_bound_4: -779592884
+      tilset_common_bound_5: 598085243
+      tilset_common_bound_6: -2024571619
+      tilset_common_bound_7: 666156862
+      tilset_common_bound_8: 2129291289
+      tilset_common_bound_9: 965981819
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

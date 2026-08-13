@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d4ec626bdc611a74d87b5e46397a4779
+guid: 9b22182bb1c29d9469e862a3026b2991
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 410973492302196144
-    second: tilset_common_fog_0
+      213: -7771572873875710930
+    second: world_dualtile_water_01_random_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tilset_common_fog_0
+      name: world_dualtile_water_01_random_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,14 +115,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0bd26ccb63214b500800000000000000
-      internalID: 410973492302196144
+      spriteID: e2c939295a3d52490800000000000000
+      internalID: -7771572873875710930
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_1
+      name: world_dualtile_water_01_random_1
       rect:
         serializedVersion: 2
         x: 16
@@ -137,58 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5587d6a5f449334ea861dae2288904f
-      internalID: -1115337805
+      spriteID: fb7d97d1a3a557349ad127fb050c8fd0
+      internalID: -467820036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 48
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 80bcc349582994e439bda81ed370c42f
-      internalID: 506731631
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tilset_common_fog_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 48
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 19734c999a9d2914f94882b7cc2a5c24
-      internalID: 1930609011
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tilset_common_fog_4
+      name: world_dualtile_water_01_random_2
       rect:
         serializedVersion: 2
         x: 0
@@ -203,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af687b20e5f432e418e44ff16ba19fd5
-      internalID: 1631240303
+      spriteID: f58a25fca48917849b7b207f2f92ec1a
+      internalID: 582310846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_5
+      name: world_dualtile_water_01_random_3
       rect:
         serializedVersion: 2
         x: 16
@@ -225,58 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c35b2c282e172c6468242743c5c7f575
-      internalID: 1290252556
+      spriteID: b172a6e0c9c81494c8601a5362132eab
+      internalID: 527518665
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_6
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 379ec59847ef1f742a86bb7bf35103ad
-      internalID: -575770850
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tilset_common_fog_7
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2fb4b00916fbe084799d35cebf4d57f9
-      internalID: 1392748579
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tilset_common_fog_8
+      name: world_dualtile_water_01_random_4
       rect:
         serializedVersion: 2
         x: 0
@@ -291,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc427220bad1dca40847ca3ffe36ed1e
-      internalID: 39990269
+      spriteID: 36516ea946c932d4d85f4f5f20e8f252
+      internalID: -628995328
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_9
+      name: world_dualtile_water_01_random_5
       rect:
         serializedVersion: 2
         x: 16
@@ -313,58 +225,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 112bcb31cfaaa8e438c750c53bc61be6
-      internalID: -1803316507
+      spriteID: 3c922a0798f68db4a984535d0d9d1648
+      internalID: -1550474292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_10
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36cbdf1b065023242afe7806da35ce63
-      internalID: -1249177112
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tilset_common_fog_11
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8222e6df4c5b9ee4888cc89c63c09656
-      internalID: -928489998
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tilset_common_fog_12
+      name: world_dualtile_water_01_random_6
       rect:
         serializedVersion: 2
         x: 0
@@ -379,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0821fc3bb1247e4084bd854bab2edea
-      internalID: -1764629612
+      spriteID: f26f04177ae5b6a45b42f36887863b34
+      internalID: 1464501301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilset_common_fog_13
+      name: world_dualtile_water_01_random_7
       rect:
         serializedVersion: 2
         x: 16
@@ -401,52 +269,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd2a76e48a3974c42992e80800055cb7
-      internalID: -402536466
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tilset_common_fog_14
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81b9b924fdf3093429d1891cb3547912
-      internalID: 1942379310
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tilset_common_fog_15
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 11b08031001e4844c96d329bb2587ac1
-      internalID: -1732243254
+      spriteID: 62921724e5387ee419973f144a552759
+      internalID: 1755837129
       vertices: []
       indices: 
       edges: []
@@ -455,7 +279,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 342e73425964b9549ac5eb370875a13f
+    spriteID: 6189d7280f98387499cc2113250f6e1a
     internalID: 0
     vertices: []
     indices: 
@@ -467,22 +291,14 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":true,"isAlternate":false}'
     nameFileIdTable:
-      tilset_common_fog_0: 410973492302196144
-      tilset_common_fog_1: -1115337805
-      tilset_common_fog_10: -1249177112
-      tilset_common_fog_11: -928489998
-      tilset_common_fog_12: -1764629612
-      tilset_common_fog_13: -402536466
-      tilset_common_fog_14: 1942379310
-      tilset_common_fog_15: -1732243254
-      tilset_common_fog_2: 506731631
-      tilset_common_fog_3: 1930609011
-      tilset_common_fog_4: 1631240303
-      tilset_common_fog_5: 1290252556
-      tilset_common_fog_6: -575770850
-      tilset_common_fog_7: 1392748579
-      tilset_common_fog_8: 39990269
-      tilset_common_fog_9: -1803316507
+      world_dualtile_water_01_random_0: -7771572873875710930
+      world_dualtile_water_01_random_1: -467820036
+      world_dualtile_water_01_random_2: 582310846
+      world_dualtile_water_01_random_3: 527518665
+      world_dualtile_water_01_random_4: -628995328
+      world_dualtile_water_01_random_5: -1550474292
+      world_dualtile_water_01_random_6: 1464501301
+      world_dualtile_water_01_random_7: 1755837129
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

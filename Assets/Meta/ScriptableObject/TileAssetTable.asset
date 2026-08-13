@@ -20,3 +20,6 @@ MonoBehaviour:
   DualTileView: {fileID: 11400000, guid: 03dcf1ac65a5c4844bef2caaf7b6bb77, type: 2}
   DualTileFogMaterial: {fileID: 2100000, guid: 9e62b57ad6849ef4bb1cf17ea91b7e6a, type: 2}
   DualTileViewMaterial: {fileID: 2100000, guid: ad67aad05d17fe84bb39fb958263f118, type: 2}
+  TileWater: {fileID: 11400000, guid: d8c0fac1ffb7cc64ebf316022c6b02f0, type: 2}
+  TileGrass: {fileID: 11400000, guid: 507c7c04beca01643b91b113e4749d04, type: 2}
+  TileBlock: {fileID: 11400000, guid: ede4acdab3255ca41967dd4e3ef33e24, type: 2}

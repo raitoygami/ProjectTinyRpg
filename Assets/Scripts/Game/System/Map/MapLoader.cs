@@ -25,7 +25,7 @@ public class MapLoader : Singleton<MapLoader>
         public bool IsMoveable(PathCell cell, int goalX, int goalY) => false;
         public bool BlockVision()
         {
-            return true;
+            return (Const.Layer.ObstacleOnly.value & Layer.value) != 0;
         }
     }
 
@@ -70,17 +70,31 @@ public class MapLoader : Singleton<MapLoader>
         mapData.InitFogTiles(originX - 2, originY - 2, width + 4, height + 4);
         FOVManager.Instance.ClearAll();
         FOVManager.Instance.InitView(sceneName);
-        
+
+        var tileAssetTable = PreloadSettings.Instance.GetTileAssetTable();
+
         // ── Mark cells with tiles as impassable ────────────────────────
         for (var x = bounds.xMin; x < bounds.xMax; x++)
         for (var y = bounds.yMin; y < bounds.yMax; y++)
         {
             var cell = tilemap.WorldToCell(new Vector3(x, y, 0));
             if (!tilemap.HasTile(cell)) continue;
+            
+            var tile = tilemap.GetTile(cell);
+            
+            var layerMask = Const.Layer.BlockOnly;
+            if (tile == tileAssetTable.TileWater)
+            {
+                layerMask = Const.Layer.WaterOnly;
+            }else if (tile == tileAssetTable.TileGrass)
+            {
+                layerMask = Const.Layer.GrassOnly;
+            }
+            
             var blocker = new TilemapBlocker
             {
                 GridLocation = new Vector2Int(x, y),
-                Layer = Const.Layer.ObstacleOnly
+                Layer = layerMask,
             };
             PathFinder.Instance.UpdateCell(x, y, blocker);
         }
