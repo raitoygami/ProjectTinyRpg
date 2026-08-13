@@ -23,6 +23,7 @@ public partial class Player
         if (!InputManager.Instance.IsKeyboardMouse())
         {
             GridIndicatorManager.Instance.HideCursorMark();
+            Shader.SetGlobalVector(Const.ShaderPropertyKey.CursorLocation, transform.position);
             return;
         }
         
@@ -30,6 +31,8 @@ public partial class Player
             return;
         var cursorGridPosition = hitPoint.SnapToGrid();
 
+        Shader.SetGlobalVector(Const.ShaderPropertyKey.CursorLocation, cursorGridPosition);
+        
         if (cursorGridPosition != _lastCursorPosition)
         {
             GridIndicatorManager.Instance.ClearAffectableRange();

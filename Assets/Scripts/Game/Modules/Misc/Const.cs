@@ -29,6 +29,8 @@ public static class Const
 
     public static class ShaderPropertyKey
     {
+        public static readonly int PlayerLocation = Shader.PropertyToID("_PlayerLocation");
+        public static readonly int CursorLocation = Shader.PropertyToID("_CursorLocation");
         public static readonly int TexelSizeX = Shader.PropertyToID("_OutlineTexelSizeX");
         public static readonly int TexelSizeY = Shader.PropertyToID("_OutlineTexelSizeY");
         public static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");

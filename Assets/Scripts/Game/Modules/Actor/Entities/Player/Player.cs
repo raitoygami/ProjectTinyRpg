@@ -359,11 +359,12 @@ public partial class Player : Entity
 
         var velocity = _agentMover.IsMoving() ? 1 : 0;
         _agentAnimations.UpdateBaseAnimation(velocity);
-
         /*if (Input.GetKeyDown(KeyCode.P))
         {
             PersistenceModule.Instance.Save(0);
         }*/
+        
+        Shader.SetGlobalVector(Const.ShaderPropertyKey.PlayerLocation, transform.position);
     }
 
     private async UniTask OnInventoryInputEvt(InputManager.InventoryEvt _)
