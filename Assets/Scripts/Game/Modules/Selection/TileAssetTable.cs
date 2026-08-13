@@ -26,4 +26,28 @@ public class TileAssetTable : ScriptableObject{
     public Tile TileWater;
     public Tile TileGrass;
     public Tile TileBlock;
+    
+    // 使用字典存储 瓦片名称 -> Layer
+    private Dictionary<string,  LayerMask> tileLayerMap;
+    
+    private void Init()
+    {
+        tileLayerMap = new Dictionary<string, LayerMask>
+        {
+            { TileWater.name, Const.Layer.WaterOnly },
+            { TileGrass.name, Const.Layer.GrassOnly }
+            // 后续可以扩展
+        };
+    }
+
+    // 对外提供查询方法
+    public LayerMask GetLayerByTile(TileBase tile)
+    {
+        if (tileLayerMap == null)
+            Init();
+        if (tile != null && tileLayerMap != null && tileLayerMap.TryGetValue(tile.name, out var layer))
+            return layer;
+        return Const.Layer.BlockOnly; // 默认
+    }
+    
 }

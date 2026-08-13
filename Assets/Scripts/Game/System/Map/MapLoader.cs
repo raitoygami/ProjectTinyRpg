@@ -81,15 +81,7 @@ public class MapLoader : Singleton<MapLoader>
             if (!tilemap.HasTile(cell)) continue;
             
             var tile = tilemap.GetTile(cell);
-            
-            var layerMask = Const.Layer.BlockOnly;
-            if (tile == tileAssetTable.TileWater)
-            {
-                layerMask = Const.Layer.WaterOnly;
-            }else if (tile == tileAssetTable.TileGrass)
-            {
-                layerMask = Const.Layer.GrassOnly;
-            }
+            var layerMask = tileAssetTable.GetLayerByTile(tile);
             
             var blocker = new TilemapBlocker
             {
