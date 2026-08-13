@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class FOVManager : Singleton<FOVManager>
 {
-    public const int PlayerViewDistance = 6;
+    public const int PlayerViewDistance = 7;
 
     private struct Slope
     {
@@ -260,7 +260,7 @@ public class FOVManager : Singleton<FOVManager>
             _visibleTiles.Add(location);
 
         var mapData = MapManager.Instance.GetMapData(sceneName);
-        var hasFOV = mapData.HasFOV(location);
+        var hasFOV = mapData.WithinRange(location);
         // 世界地图不更新瓦片地图
         if (!hasFOV)
             return;

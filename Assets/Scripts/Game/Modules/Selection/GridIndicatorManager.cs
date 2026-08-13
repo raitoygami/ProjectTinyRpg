@@ -180,7 +180,7 @@ public class GridIndicatorManager : Singleton<GridIndicatorManager>
     public void DrawCursorMark(Vector3 location, bool moveable)
     {
         var spriteRenderer = _cursorMark.GetComponent<SpriteRenderer>();
-        spriteRenderer.sortingOrder = moveable ? 0 : 1000;
+        spriteRenderer.sortingOrder = 2000;
         spriteRenderer.color = moveable ? Color.green : Color.red;
         
         _cursorMark.transform.position = location.GridToWorld();

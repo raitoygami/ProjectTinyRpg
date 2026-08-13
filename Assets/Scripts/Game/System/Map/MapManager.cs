@@ -27,7 +27,7 @@ public partial class SaveData
             return _entityStats.GetValueOrDefault(entityName);
         }
 
-        public bool HasFOV(Vector3Int location)
+        public bool WithinRange(Vector3Int location)
         {
             // 如果 _fogData 未初始化，直接返回 false
             if (_fovData == null) return false;
@@ -40,14 +40,14 @@ public partial class SaveData
 
         public void SetFOV(Vector3Int location, bool isExplored)
         {
-            if (!HasFOV(location))
+            if (!WithinRange(location))
                 return;
             _fovData[location.x - OriginX, location.y - OriginY] = (byte)(isExplored ? 1 : 0);
         }
 
         public bool GetFOV(Vector3Int location)
         {
-            return HasFOV(location) && _fovData[location.x - OriginX, location.y - OriginX] == 1;
+            return WithinRange(location) && _fovData[location.x - OriginX, location.y - OriginX] == 1;
         }
 
         public void SetEntityStat(string entityName, EntityStatData entityStatData)

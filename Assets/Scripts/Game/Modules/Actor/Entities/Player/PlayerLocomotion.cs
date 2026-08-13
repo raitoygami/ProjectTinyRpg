@@ -47,8 +47,15 @@ public partial class Player
             }
         }
         
+        var hasExplored = true;
+        if (MapManager.HasInstance())
+        {
+            var mapData = MapManager.Instance.GetMapData(PlayerManager.Instance.GetCurrentMap());
+            hasExplored = mapData.GetFOV(Vector3Int.FloorToInt(cursorGridPosition));
+        }
+        
         var path = _agentMover.FindPath(cursorGridPosition, Const.Layer.ObstacleForNavi);
-        GridIndicatorManager.Instance.DrawCursorMark(cursorGridPosition, path is { Count: > 0 }); 
+        GridIndicatorManager.Instance.DrawCursorMark(cursorGridPosition, path is { Count: > 0 } && hasExplored); 
         
         // raycast for loot
         var hitCount = Physics2D.RaycastNonAlloc(
@@ -133,6 +140,17 @@ public partial class Player
             return;
 
         var targetPoint = hitPoint.SnapToGrid();
+        
+        var hasExplored = true;
+        if (MapManager.HasInstance())
+        {
+            var mapData = MapManager.Instance.GetMapData(PlayerManager.Instance.GetCurrentMap());
+            hasExplored = mapData.GetFOV(Vector3Int.FloorToInt(targetPoint));
+        }
+
+        if (!hasExplored)
+            return;
+        
         if (targetPoint != GridPosition)
             _pathNodes = _agentMover.FindPath(targetPoint, Const.Layer.ObstacleForNavi);
         

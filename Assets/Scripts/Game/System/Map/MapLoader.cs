@@ -100,17 +100,20 @@ public class MapLoader : Singleton<MapLoader>
         }
 
         var blockPropRoot = mapLayers.BlockProps;
-        for (var i = 0; i < blockPropRoot.childCount; i++)
+        if (blockPropRoot != null)
         {
-            var block = blockPropRoot.GetChild(i);
-            var cell = Vector3Int.FloorToInt(block.position);
-            var blocker = new TilemapBlocker
+            for (var i = 0; i < blockPropRoot.childCount; i++)
             {
-                GridLocation = new Vector2Int(cell.x, cell.y),
-                Layer = Const.Layer.BlockOnly,
-            };
-            PathFinder.Instance.UpdateCell(cell.x, cell.y, blocker);
-            // 在这里处理每个一级子节点
+                var block = blockPropRoot.GetChild(i);
+                var cell = Vector3Int.FloorToInt(block.position);
+                var blocker = new TilemapBlocker
+                {
+                    GridLocation = new Vector2Int(cell.x, cell.y),
+                    Layer = Const.Layer.BlockOnly,
+                };
+                PathFinder.Instance.UpdateCell(cell.x, cell.y, blocker);
+                // 在这里处理每个一级子节点
+            }
         }
         
         // 新加载的地图 清理掉所有敌方预警

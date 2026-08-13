@@ -84,6 +84,21 @@ public partial class Player
         _abilityPrepared = null;
 
         var castPoint = Vector3Int.FloorToInt(location);
+        
+        var hasExplored = true;
+        if (MapManager.HasInstance())
+        {
+            var mapData = MapManager.Instance.GetMapData(PlayerManager.Instance.GetCurrentMap());
+            hasExplored = mapData.GetFOV(Vector3Int.FloorToInt(castPoint));
+        }
+
+        if (!hasExplored)
+        {
+            ability.Cancel();
+            return;
+        }
+            
+        
         var castableRange = ability.GetCastableRange(location); 
         if ( !_agentAbilities.GetAffectTarget(ability, castPoint, castableRange, out var affectTargets))
         {
