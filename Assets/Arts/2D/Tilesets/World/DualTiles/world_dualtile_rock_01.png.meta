@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: b0272131767837a4a8f97681f502ad5e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5983454554779917019
+    second: world_dualtile_rock_01_0
+  - first:
+      213: 456110017417241758
+    second: world_dualtile_rock_01_1
+  - first:
+      213: 319557622551738051
+    second: world_dualtile_rock_01_2
+  - first:
+      213: -7230714161045157039
+    second: world_dualtile_rock_01_3
+  - first:
+      213: 1710253369171800989
+    second: world_dualtile_rock_01_4
+  - first:
+      213: 4227685654141762595
+    second: world_dualtile_rock_01_5
+  - first:
+      213: -3723986995545101022
+    second: world_dualtile_rock_01_6
+  - first:
+      213: -499628384652229787
+    second: world_dualtile_rock_01_7
+  - first:
+      213: -925142735635975861
+    second: world_dualtile_rock_01_8
+  - first:
+      213: -6819677605629568072
+    second: world_dualtile_rock_01_9
+  - first:
+      213: 7164754610524649094
+    second: world_dualtile_rock_01_10
+  - first:
+      213: 5539159683304495401
+    second: world_dualtile_rock_01_11
+  - first:
+      213: 7554308901676914180
+    second: world_dualtile_rock_01_12
+  - first:
+      213: 4477831754635867234
+    second: world_dualtile_rock_01_13
+  - first:
+      213: 1316067555611098955
+    second: world_dualtile_rock_01_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52566acb8cf76fca0800000000000000
+      internalID: -5983454554779917019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 22
+        width: 29
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e94e6aee4ad645600800000000000000
+      internalID: 456110017417241758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_2
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 55
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c6f671f6fb4f6400800000000000000
+      internalID: 319557622551738051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_3
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 53
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15b448ec7c757ab90800000000000000
+      internalID: -7230714161045157039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_4
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 32
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d937661c06a0cb710800000000000000
+      internalID: 1710253369171800989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 43
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c722504b1cbaa30800000000000000
+      internalID: 4227685654141762595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_6
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 39
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22d2c5ede8db15cc0800000000000000
+      internalID: -3723986995545101022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_7
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 37
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5630a1d91a6f019f0800000000000000
+      internalID: -499628384652229787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 23
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4172e3659b3923f0800000000000000
+      internalID: -925142735635975861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_9
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 26
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bb53c19953ab51a0800000000000000
+      internalID: -6819677605629568072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_10
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 21
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 686f9279b525e6360800000000000000
+      internalID: 7164754610524649094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_11
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 16
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929978d526c0fdc40800000000000000
+      internalID: 5539159683304495401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_12
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 15
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4061600fbeb46d860800000000000000
+      internalID: 7554308901676914180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_13
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 8
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 264f80b9144742e30800000000000000
+      internalID: 4477831754635867234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_dualtile_rock_01_14
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 0
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4fbd90187c934210800000000000000
+      internalID: 1316067555611098955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      world_dualtile_rock_01_0: -5983454554779917019
+      world_dualtile_rock_01_1: 456110017417241758
+      world_dualtile_rock_01_10: 7164754610524649094
+      world_dualtile_rock_01_11: 5539159683304495401
+      world_dualtile_rock_01_12: 7554308901676914180
+      world_dualtile_rock_01_13: 4477831754635867234
+      world_dualtile_rock_01_14: 1316067555611098955
+      world_dualtile_rock_01_2: 319557622551738051
+      world_dualtile_rock_01_3: -7230714161045157039
+      world_dualtile_rock_01_4: 1710253369171800989
+      world_dualtile_rock_01_5: 4227685654141762595
+      world_dualtile_rock_01_6: -3723986995545101022
+      world_dualtile_rock_01_7: -499628384652229787
+      world_dualtile_rock_01_8: -925142735635975861
+      world_dualtile_rock_01_9: -6819677605629568072
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
