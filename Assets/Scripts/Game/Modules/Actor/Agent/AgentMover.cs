@@ -165,12 +165,10 @@ public class AgentMover : MonoBehaviour
             chunkIndex.y += dir;
             spawnLocation.y = -dir * (ChunkBound - 1);
         }
-
         var chunkInfo = MapManager.Instance.GetChunkInfo(chunkIndex);
         return chunkInfo != null;
     }
     
-
     public bool Moveable(Vector3 gridPosition)
     {
         var entity = GetComponent<Entity>();

@@ -13,6 +13,7 @@ public partial class Player : Entity
 {
     [SerializeField] private Transform m_AvatarRoot;
     [SerializeField] private Transform m_SpriteRoot;
+    [SerializeField] private GameObject _light;
     private TurnActor _turnActor;
     private AgentStats _agentStats;
     private AgentAvatar _agentAvatar;
@@ -199,6 +200,9 @@ public partial class Player : Entity
         // 更新fov
         FOVManager.Instance.FovCompute(GridPosition, FOVManager.PlayerViewDistance);
         
+        var mapName = PlayerManager.Instance.GetCurrentMap();
+        var mapInfo = MapManager.Instance.GetMapInfo(mapName);
+        _light.gameObject.SetActive(mapInfo.MapType == MapConfig.MapType.Dungeon);
     }
 
     private async UniTask RefreshWeapons(bool init = false)

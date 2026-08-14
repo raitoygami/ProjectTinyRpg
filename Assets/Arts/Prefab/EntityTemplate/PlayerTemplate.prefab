@@ -230,6 +230,7 @@ MonoBehaviour:
   Faction: 1
   m_AvatarRoot: {fileID: 8724940214820955986}
   m_SpriteRoot: {fileID: 8288956061866635386}
+  _light: {fileID: 731979347149257971}
 --- !u!114 &2750681688825859724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +265,6 @@ MonoBehaviour:
   AmplitudeX: 5
   FrequenceY: 3
   AmplitudeY: 0.1
-  _deathDissolveDuration: 2
 --- !u!114 &8344875186528486424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +279,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AgentWeapon
   _weaponBack: {fileID: 7608130440810326845}
   _weaponFront: {fileID: 1101533325411180654}
-  _unarmedWeapon: {fileID: 636426730727539062, guid: 21f736392bc314944b55db69b972106f, type: 3}
 --- !u!114 &8503745413639449383
 MonoBehaviour:
   m_ObjectHideFlags: 0

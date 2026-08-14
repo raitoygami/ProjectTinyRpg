@@ -283,14 +283,16 @@ public partial class Player
 
         // 2.判断是否发生场景切换
         
-        if (_agentMover.ShouldTransitionChunk(targetLocation, out var chunkIndex, out var spawnLocation))
-        {
-            return new MovementDecision(MovementResult.MapChunkTransition, chunkIndex, spawnLocation);
-        }
+        
         
         // 3. 判断是否可以正常移动
         if (_agentMover.Moveable(targetLocation))
         {
+            // 判断是否切在chunk边缘然后换场景
+            if (_agentMover.ShouldTransitionChunk(targetLocation, out var chunkIndex, out var spawnLocation))
+            {
+                return new MovementDecision(MovementResult.MapChunkTransition, chunkIndex, spawnLocation);
+            }
             return new MovementDecision(MovementResult.Move, Vector2Int.zero, Vector3Int.zero);
         }
 
