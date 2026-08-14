@@ -140,9 +140,10 @@ public class MapLoader : Singleton<MapLoader>
         // 初始化
         FOVManager.Instance.InitFov(sceneName);
         FOVManager.Instance.InitVisibility();
-        
-        AudioManager.FadeMainMusicOut(1f);
-        AudioManager.FadeMusicIn(mapInfo.MainMusic, 1f, true);
+        if (mapInfo.MainMusic != (GameAudioMusic)AudioManager.MainMusicEnumAsInt)
+        {
+            AudioManager.PlayMusic(mapInfo.MainMusic, true);
+        }
     }
 
     public void OnCombatStart(float fadeOut)

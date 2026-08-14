@@ -36,7 +36,7 @@ namespace JSAM
                 return AudioSource;
             }
 
-            AudioSource.pitch = 1;
+            AudioSource.pitch = audioFile.startingPitch;
 
             if (audioFile.loopMode == LoopMode.NoLooping)
             {

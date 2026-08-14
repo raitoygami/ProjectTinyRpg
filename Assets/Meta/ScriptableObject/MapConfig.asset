@@ -22,9 +22,9 @@ MonoBehaviour:
     MapType: 0
     ChunkIndex: {x: 1, y: 1}
     AddressableName: World/Chunk_01_01.unity
-    MainMusic: 1
+    MainMusic: 2
   - SceneName: World/Chunk_02_01
     MapType: 0
     ChunkIndex: {x: 2, y: 1}
     AddressableName: World/Chunk_02_01.unity
-    MainMusic: 1
+    MainMusic: 2

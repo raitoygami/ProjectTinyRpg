@@ -10,5 +10,6 @@
     }
     public enum GameAudioMusic {
         Combat_Loop_01,
-        Ambient_Dungeon01
+        Ambient_Dungeon01,
+        Ambient_Forest01
     }

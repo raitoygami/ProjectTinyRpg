@@ -44,7 +44,6 @@ namespace JSAM
                 newPitch += UnityEngine.Random.Range(-pitch, pitch);
                 newPitch = Mathf.Clamp(newPitch, 0, 3);
             }
-
             return newPitch;
         }
     }
