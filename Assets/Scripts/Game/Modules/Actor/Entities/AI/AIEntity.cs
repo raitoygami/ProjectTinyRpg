@@ -62,7 +62,7 @@ public class AIEntity : Entity
     protected void Awake()
     {
         GridSizeX = 1;
-        GridSizeZ = 1;
+        GridSizeY = 1;
   
         m_TurnActor = gameObject.AddComponent<TurnActor>();
         m_AgentMover = gameObject.AddComponent<AgentMover>();

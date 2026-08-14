@@ -44,5 +44,11 @@ public class MapConfig : ScriptableObject
         if (_runtimeDict == null) Initialize();
         return _runtimeDict?.GetValueOrDefault(sceneName);
     }
+
+    public MapInfo GetConfigByChunkIndex(Vector2Int chunkIndex)
+    {
+        var sceneName = $"World/Chunk_{chunkIndex.x:D2}_{chunkIndex.y:D2}";
+        return GetConfigBySceneName(sceneName);
+    }
     
 }

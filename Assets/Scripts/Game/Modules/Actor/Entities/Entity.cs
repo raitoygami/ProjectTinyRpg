@@ -22,7 +22,7 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
         }
     }
 
-    Vector2Int IPathNodeAgent.GridSize => new(GridSizeX, GridSizeZ);
+    Vector2Int IPathNodeAgent.GridSize => new(GridSizeX, GridSizeY);
     
     /// <summary>Grid column.</summary>
     public int X { get; set; }
@@ -34,7 +34,7 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
     public int GridSizeX { get; protected set; } = 1;
 
     /// <summary>Footprint height in grid cells (≥1).</summary>
-    public int GridSizeZ { get; protected set; } = 1;
+    public int GridSizeY { get; protected set; } = 1;
 
     public LayerMask Layer { get; set; }
 
@@ -96,7 +96,7 @@ public class Entity : PubSubActor, IPathNodeAgent, IDynamicEntity
         X = (int)gridPosition.x;
         Y = (int)gridPosition.y;
         if (GridSizeX < 1) GridSizeX = 1;
-        if (GridSizeZ < 1) GridSizeZ = 1;
+        if (GridSizeY < 1) GridSizeY = 1;
 
         Layer = 1 << gameObject.layer;
         PathFinder.Instance.UpdateCell(X, Y, this);

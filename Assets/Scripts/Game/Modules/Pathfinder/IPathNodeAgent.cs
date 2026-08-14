@@ -13,7 +13,7 @@ public interface IPathNodeAgent
     int GridSizeX { get; }
 
     /// <summary>Backward-compat: footprint height.</summary>
-    int GridSizeZ { get; }
+    int GridSizeY { get; }
 
     LayerMask Layer { get; set; }
 

@@ -35,7 +35,7 @@ public partial class Player : Entity
     {
         Faction = EntityFaction.Player;
         GridSizeX = 1;
-        GridSizeZ = 1;
+        GridSizeY = 1;
    
         this.Subscribe<TurnActor.TurnActionEvent>(OnTurnAction);
         this.Subscribe<TurnActor.TurnEndedEvent>(OnTurnEnded);

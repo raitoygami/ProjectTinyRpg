@@ -20,7 +20,7 @@ public class MapLoader : Singleton<MapLoader>
         public int Y { get; set; }
 
         public int GridSizeX => 1;
-        public int GridSizeZ => 1;
+        public int GridSizeY => 1;
         public LayerMask Layer { get; set; }
         public bool IsMoveable(PathCell cell, int goalX, int goalY) => false;
         public bool BlockVision()

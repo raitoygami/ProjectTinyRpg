@@ -202,10 +202,36 @@ public partial class Player
                 await UniTask.Delay(100);
                 ResetInput();
                 return;
+            case MovementResult.MapChunkTransition:
+                _agentAnimations.FaceTarget(nextStep.GetLocation() - GridPosition);
+                await _agentMover.Move(nextStep.GetLocation(), true);
+                await TransitionChunk(decision.chunkIndex, decision.spawnLocation);
+                return;
             default:
                 return;
         }
     }
+
+    private async UniTask TransitionChunk(Vector2Int chunkIndex, Vector3Int spawnLocation)
+    {
+        
+        var mapInfo = MapManager.Instance.GetChunkInfo(chunkIndex);
+        if (mapInfo == null)
+            return;
+        
+        await UIRoot.Instance.FadeIn(0.2f);
+        // 设置玩家模板id 和出生位置
+        PlayerManager.Instance.SetCurrentMap(mapInfo.SceneName);
+        PlayerManager.Instance.SetCurrentLocation(spawnLocation);
+        
+        // 加载场景
+        await MapLoader.Instance.Load(PlayerManager.Instance.GetCurrentMap());
+        
+        await UniTask.DelayFrame(1);
+        await this.PublishGlobal(new MapLoader.MapChangedEvt());
+        await UIRoot.Instance.FadeOut(0.2f);
+    }
+    
 
     private void PlayStepSound(Vector3 location)
     {
@@ -224,42 +250,57 @@ public partial class Player
         Move,
         Attack,
         Interaction,
+        MapChunkTransition,
     }
 
     public struct MovementDecision
     {
         public readonly MovementResult Result;
         public readonly List<Vector3Int> AttackTargets; // 仅在 Attack 时有效
-
-        public MovementDecision(MovementResult result, List<Vector3Int> affectTargets = null)
+        public Vector2Int chunkIndex;
+        public Vector3Int spawnLocation;
+        
+        
+        public MovementDecision(MovementResult result, Vector2Int index, Vector3Int location, List<Vector3Int> affectTargets = null)
         {
             Result = result;
             AttackTargets = affectTargets ?? new List<Vector3Int>();
+            chunkIndex = index;
+            spawnLocation = location;
         }
     }
 
     private MovementDecision DetermineMovement(PathNode targetLocation, PathNode targetFinal)
     {
+        // 判断是否在是世界地图chunk的边界
+        
         // 1. 优先判断是否可以攻击（使用最终目标位置）
         var attackTargets = _agentAbilities.GetTargetByMove(this, targetFinal);
         if (attackTargets.Count > 0 && _agentAbilities.WithinBaseAttack(targetFinal))
         {
-            return new MovementDecision(MovementResult.Attack, attackTargets);
+            return new MovementDecision(MovementResult.Attack, Vector2Int.zero, Vector3Int.zero, attackTargets);
         }
 
-        // 2. 判断是否可以正常移动
+        // 2.判断是否发生场景切换
+        
+        if (_agentMover.ShouldTransitionChunk(targetLocation, out var chunkIndex, out var spawnLocation))
+        {
+            return new MovementDecision(MovementResult.MapChunkTransition, chunkIndex, spawnLocation);
+        }
+        
+        // 3. 判断是否可以正常移动
         if (_agentMover.Moveable(targetLocation))
         {
-            return new MovementDecision(MovementResult.Move);
+            return new MovementDecision(MovementResult.Move, Vector2Int.zero, Vector3Int.zero);
         }
 
-        // 3. 判断是否可以交互
+        // 4. 判断是否可以交互
         if (_agentInteractive.Interactable(targetLocation))
         {
-            return new MovementDecision(MovementResult.Interaction);
+            return new MovementDecision(MovementResult.Interaction, Vector2Int.zero, Vector3Int.zero);
         }
 
-        return new MovementDecision(MovementResult.None);
+        return new MovementDecision(MovementResult.None, Vector2Int.zero, Vector3Int.zero);
     }
 
     private UniTask MoveStartEvent(AgentMover.MoveStartEvent arg)

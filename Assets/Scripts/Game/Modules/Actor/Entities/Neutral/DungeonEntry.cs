@@ -24,7 +24,6 @@ public class DungeonEntry : Entity
         // 设置玩家模板id 和出生位置
         PlayerManager.Instance.SetCurrentMap(dungeonName);
         PlayerManager.Instance.SetCurrentLocation(EntryPoint);
-        PlayerManager.Instance.RebuildPersist();
         
         // 加载场景
         await MapLoader.Instance.Load(PlayerManager.Instance.GetCurrentMap());

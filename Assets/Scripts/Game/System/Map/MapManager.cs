@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Unity.Collections;
 using UnityEngine;
@@ -37,7 +38,7 @@ public partial class SaveData
             // 检查索引是否在数组边界内
             return xIndex >= 0 && xIndex <= Width && yIndex >= 0 && yIndex <= Height;
         }
-
+        
         public void SetFOV(Vector3Int location, bool isExplored)
         {
             if (!WithinRange(location))
@@ -121,6 +122,11 @@ public partial class MapManager : Singleton<MapManager>
         return _MapConfig.GetConfigBySceneName(sceneName);
     }
 
+    public MapConfig.MapInfo GetChunkInfo(Vector2Int chunkIndex)
+    {
+        return _MapConfig.GetConfigByChunkIndex(chunkIndex);
+    }
+    
     public EntityStatData GetEntityStatData(string sceneName, string entityName)
     {
         var mapInfo = GetMapInfo(sceneName);

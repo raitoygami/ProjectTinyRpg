@@ -95,7 +95,7 @@ public class Door : Entity
         transform.position = gridPosition.GridToWorld();
         
         if (GridSizeX < 1) GridSizeX = 1;
-        if (GridSizeZ < 1) GridSizeZ = 1;
+        if (GridSizeY < 1) GridSizeY = 1;
 
         X = (int)gridPosition.x;
         Y = (int)gridPosition.y;

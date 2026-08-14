@@ -6,6 +6,7 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class AgentMover : MonoBehaviour
 {
@@ -105,18 +106,18 @@ public class AgentMover : MonoBehaviour
         if (mover == null) return false;
 
         var anchorX = target.X;
-        var anchorZ = target.Y;
+        var anchorY = target.Y;
         var sizeX = Mathf.Max(1, mover.GridSizeX);
-        var sizeZ = Mathf.Max(1, mover.GridSizeZ);
+        var sizeY = Mathf.Max(1, mover.GridSizeY);
 
         // 检查自身 footprint 放在目标锚点后占据的所有格子
         for (var ox = 0; ox < sizeX; ox++)
-        for (var oz = 0; oz < sizeZ; oz++)
+        for (var oy = 0; oy < sizeY; oy++)
         {
             var checkX = anchorX + ox;
-            var checkZ = anchorZ + oz;
+            var checkY = anchorY + oy;
 
-            var cell = PathFinder.Instance.GetCell(checkX, checkZ);
+            var cell = PathFinder.Instance.GetCell(checkX, checkY);
 
             if (cell == null)
                 return false;
@@ -135,7 +136,40 @@ public class AgentMover : MonoBehaviour
 
         return true;
     }
+    
+    public const int  ChunkBound = 20;
 
+    public bool ShouldTransitionChunk(PathNode target, out Vector2Int chunkIndex, out Vector3Int spawnLocation)
+    {
+        var mapName = PlayerManager.Instance.GetCurrentMap();
+        var mapInfo = MapManager.Instance.GetMapInfo(mapName);
+        chunkIndex = mapInfo.ChunkIndex;
+        spawnLocation = new Vector3Int(target.X, target.Y, 0);
+        if (mapInfo.MapType == MapConfig.MapType.Dungeon)
+            return false;
+
+        // chunk内部
+        if (Mathf.Abs(target.X) < ChunkBound && Mathf.Abs(target.Y) < ChunkBound)
+            return false;
+        // chunk边界
+        if (Mathf.Abs(target.X) == ChunkBound)
+        {
+            var dir = (target.X > 0) ? 1 : -1;
+            chunkIndex.x += dir;
+            spawnLocation.x = -dir * (ChunkBound - 1);
+        }
+        
+        if (Mathf.Abs(target.Y) == ChunkBound)
+        {
+            var dir = (target.Y > 0) ? 1 : -1;
+            chunkIndex.y += dir;
+            spawnLocation.y = -dir * (ChunkBound - 1);
+        }
+
+        var chunkInfo = MapManager.Instance.GetChunkInfo(chunkIndex);
+        return chunkInfo != null;
+    }
+    
 
     public bool Moveable(Vector3 gridPosition)
     {
