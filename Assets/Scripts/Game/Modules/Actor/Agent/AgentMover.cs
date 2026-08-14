@@ -152,14 +152,14 @@ public class AgentMover : MonoBehaviour
         if (Mathf.Abs(target.X) < ChunkBound && Mathf.Abs(target.Y) < ChunkBound)
             return false;
         // chunk边界
-        if (Mathf.Abs(target.X) == ChunkBound)
+        if (Mathf.Abs(target.X) >= ChunkBound)
         {
             var dir = (target.X > 0) ? 1 : -1;
             chunkIndex.x += dir;
             spawnLocation.x = -dir * (ChunkBound - 1);
         }
         
-        if (Mathf.Abs(target.Y) == ChunkBound)
+        if (Mathf.Abs(target.Y) >= ChunkBound)
         {
             var dir = (target.Y > 0) ? 1 : -1;
             chunkIndex.y += dir;
