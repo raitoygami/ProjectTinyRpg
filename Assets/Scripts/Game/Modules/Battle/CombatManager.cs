@@ -70,7 +70,7 @@ public class CombatManager : Singleton<CombatManager>
         this.PublishGlobal(_combatStartedEvent);
     }
 
-    private void OnCombatEnded(bool immediate = false)
+    public void OnCombatEnded(bool immediate = false)
     {
         var fadeTime = immediate ? 0.1f : 10f;
         AudioManager.FadeMusicOut(GameAudioMusic.Combat_Loop_01, fadeTime);
@@ -79,6 +79,11 @@ public class CombatManager : Singleton<CombatManager>
         if (MapLoader.HasInstance())
             MapLoader.Instance.OnCombatEnded(fadeTime);
         this.PublishGlobal(_combatEndedEvent);
+    }
+
+    public void StopCombatMusic()
+    {
+        AudioManager.StopMusic(GameAudioMusic.Combat_Loop_01);
     }
     
 }

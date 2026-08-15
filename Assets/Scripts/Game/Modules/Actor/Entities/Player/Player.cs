@@ -95,6 +95,14 @@ public partial class Player : Entity
         {
             playerStats.HpLost = arg.HpLost;    
         }
+
+        Context.PlayerHealthChange.Current = arg.Current;
+        Context.PlayerHealthChange.Max = arg.Max;
+        Context.PlayerHealthChange.HpChanged = arg.HpChanged;
+        Context.PlayerHealthChange.HpLost = arg.HpLost;
+        
+        this.PublishGlobal(Context.PlayerHealthChange);
+        
         return UniTask.CompletedTask;
     }
 

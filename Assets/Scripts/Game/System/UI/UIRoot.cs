@@ -315,6 +315,10 @@ public class UIRoot : Singleton<UIRoot>
         }
 
         var go = handle.Result;
+        var canvas = go.GetComponent<Canvas>();
+        canvas.sortingOrder = parent.GetComponentInParent<Canvas>().sortingOrder;
+        canvas.overrideSorting = true;
+        
         _uiOpenedTable[panelKey] = go;
     }
 

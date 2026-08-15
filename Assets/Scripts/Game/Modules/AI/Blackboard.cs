@@ -24,7 +24,14 @@ public class Blackboard
     {
         _target = null;
         CombatManager.Instance.RemoveEnemyTarget(_owner);
-    } 
+    }
+
+    public void ClearTelegraph()
+    {
+        if (_telegraph == null) return;
+        GridIndicatorManager.Instance.RemoveTelegraph(_telegraph.ToArray());
+        _telegraph.Clear();
+    }
     
     public Entity GetOwer() => _owner;
     

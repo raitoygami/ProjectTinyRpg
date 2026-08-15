@@ -22,6 +22,7 @@ public class MainUI : MonoBehaviour
     {
         this.SubscribeGlobal<AgentWeapon.EquippedWeaponChangeEvt>(OnEquippedWeaponChangeEvt);
         this.SubscribeGlobal<Context.AvatarChangedEvt>(OnAvatarChanged);
+        this.SubscribeGlobal<Context.PlayerHealthChangeEvt>(OnPlayerHealthChange);
     }
 
     private UniTask OnAvatarChanged(Context.AvatarChangedEvt arg)
@@ -44,12 +45,7 @@ public class MainUI : MonoBehaviour
         
         var customization = Context.Instance.PlayerInst.GetComponent<AgentCustomization>();
         _Portrait.sprite =  customization.GetCombinedSprite();
-        
-        var pub = player.GetComponent<PubSubActor>();
-        if (pub == null) return;
-        
-        pub.Messager.Subscribe<AgentStats.HealthChangedEvent>(Handler);
-        pub.Messager.Subscribe<AgentStats.ShieldChangedEvent>(ShieldHandler);
+ 
     }
 
     private UniTask ShieldHandler(AgentStats.ShieldChangedEvent evt)
@@ -61,7 +57,7 @@ public class MainUI : MonoBehaviour
         return UniTask.CompletedTask;
     }
 
-    private UniTask Handler(AgentStats.HealthChangedEvent evt)
+    private UniTask OnPlayerHealthChange(Context.PlayerHealthChangeEvt evt)
     {
         var max = evt.Max > 0 ? evt.Max : 1;
         _HealthValue.text = $"{Mathf.Min(evt.Current, max)}/{max}";

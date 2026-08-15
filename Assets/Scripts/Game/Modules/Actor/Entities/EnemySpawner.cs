@@ -107,7 +107,7 @@ public class EnemySpawner : MonoBehaviour, IDynamicEntity
     {
         if (!EntityManager.HasInstance())
             return null;
-        var enemy = EntityManager.Instance.CreateEnemy(spawnPoint.Location, spawnPoint.EntityId);
+        var enemy = EntityManager.Instance.CreateEnemy(spawnPoint.SpawnPosition, spawnPoint.EntityId);
         if (enemy != null)
             enemy.SetHomeAnchor(spawnPoint.SpawnPosition, transform.position.SnapToGrid(), disengageLeashRange);
         return enemy;

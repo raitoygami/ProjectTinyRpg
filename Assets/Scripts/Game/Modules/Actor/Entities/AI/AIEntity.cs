@@ -305,7 +305,7 @@ public class AIEntity : Entity
         m_UnsubscribeLifetime = null;
         TurnManager.UnRegister(m_TurnActor);
         PathFinder.Instance.ClearLogical(this);
-        CombatManager.Instance.RemoveEnemyTarget(this);
+        
         KillLocalTweensBeforeDestroy();
         await m_AgentAnimations.Death();
         Destroy(gameObject);
@@ -315,6 +315,8 @@ public class AIEntity : Entity
 
     private void OnDestroy()
     {
+        if (CombatManager.HasInstance())
+            CombatManager.Instance.RemoveEnemyTarget(this);
         Addressables.Release(_weaponHandle);
         EntityManager.UnRegister(this);
         _blackBoard?.Clear();

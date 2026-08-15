@@ -31,6 +31,9 @@ public class MapLoader : Singleton<MapLoader>
 
     public async UniTask Load(string sceneName)
     {
+        if (CombatManager.Instance.IsInBattle)
+            CombatManager.Instance.OnCombatEnded();
+        
         var mapInfo = MapManager.Instance.GetMapInfo(sceneName);
         if (mapInfo == null)
         {
@@ -140,6 +143,8 @@ public class MapLoader : Singleton<MapLoader>
         // 初始化
         FOVManager.Instance.InitFov(sceneName);
         FOVManager.Instance.InitVisibility();
+        
+
         if (mapInfo.MainMusic != (GameAudioMusic)AudioManager.MainMusicEnumAsInt)
         {
             AudioManager.PlayMusic(mapInfo.MainMusic, true);

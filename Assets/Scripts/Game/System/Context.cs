@@ -18,11 +18,22 @@ public class Context : Singleton<Context>
     }
     public static readonly EquipmentUpdateEvt  EquipmentUpdate = new();
 
+    public class PlayerHealthChangeEvt : EventArgs
+    {
+        public int Current { get; set; }
+        public int Max { get; set; }
 
+        public int HpChanged;
+        public int HpLost;
+    }
+    public static readonly PlayerHealthChangeEvt PlayerHealthChange = new();
     public class PlayerStatsChangeEvt : EventArgs
     {
         
     }
+    
+    
+    
     public static readonly PlayerStatsChangeEvt PlayerStatsChange = new();
     
     public class PlayerInitEvt : EventArgs

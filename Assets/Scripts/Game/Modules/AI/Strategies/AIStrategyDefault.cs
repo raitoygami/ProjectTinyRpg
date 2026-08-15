@@ -129,9 +129,10 @@ public sealed class AIStrategyDefault : IAIStrategy
             }
 
             CombatManager.Instance.RemoveEnemyTarget(Owner);
+            Board.ClearTelegraph();
             await Board.MoveTowardsGrid(Owner.SpawnLocation);
             _IsReturningHome = true;
-
+            
             return true;
         }
 
