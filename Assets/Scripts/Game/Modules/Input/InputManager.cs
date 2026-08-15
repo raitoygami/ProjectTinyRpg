@@ -44,7 +44,12 @@ public class InputManager : Singleton<InputManager>
         
     }
     private readonly StatsEvt m_StatsEvt = new();
-    
+
+    public class OverworldEvt : EventArgs
+    {
+        
+    }
+    private readonly OverworldEvt _overworldEvt = new();
     public class SkipEvt : EventArgs
     {
     }
@@ -94,6 +99,7 @@ public class InputManager : Singleton<InputManager>
         m_InputMapping.PlayerInput.PointerPosition.performed += OnPointerPositionPerformed;
         m_InputMapping.PlayerInput.Inventory.performed += OnInventoryPerformed;
         m_InputMapping.PlayerInput.Stats.performed += OnStatsPerformed;
+        m_InputMapping.PlayerInput.Map.performed += OnOverworldPerformed;
         m_InputMapping.PlayerInput.Skip.performed += OnSkipPerformed;
         m_InputMapping.PlayerInput.Esc.performed += OnEscPerformed;
         // action panel hot key
@@ -312,6 +318,11 @@ public class InputManager : Singleton<InputManager>
     private void OnStatsPerformed(InputAction.CallbackContext _)
     {
         this.Publish(m_StatsEvt);
+    }
+
+    private void OnOverworldPerformed(InputAction.CallbackContext _)
+    {
+        this.Publish(_overworldEvt);
     }
     
     private void OnSkipPerformed(InputAction.CallbackContext obj)

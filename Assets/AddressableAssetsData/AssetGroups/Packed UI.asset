@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8faf5f539d45b8140b5bb51ef175bc57
+    m_Address: UI/OverworldUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a598344eb6c1d3042946939b4499f8a4
     m_Address: UI/InventoryUI
     m_ReadOnly: 0

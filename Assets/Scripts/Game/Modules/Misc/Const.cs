@@ -22,6 +22,7 @@ public static class Const
         public const string Inventory = "Inventory";
         public const string Stats = "Stats";
         public const string SettingPanel = "Settings";
+        public const string Overworld = "Overworld";
     }
 
     public static class LocalizationTable

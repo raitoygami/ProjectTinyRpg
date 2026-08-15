@@ -55,6 +55,7 @@ public partial class Player : Entity
         this.SubscribeInput<InputManager.WASDEvt>(OnWASDEvt);
         this.SubscribeInput<InputManager.InventoryEvt>(OnInventoryInputEvt);
         this.SubscribeInput<InputManager.StatsEvt>(OnStatsEvt);
+        this.SubscribeInput<InputManager.OverworldEvt>(OnOverworldKeyEvt);
         this.SubscribeInput<InputManager.SkipEvt>(OnSkipTurn);
         this.SubscribeInput<InputManager.SwitchEvt>(OnSwitchWeapon);
         this.SubscribeInput<InputManager.HotkeyEvt>(OnHotKey);
@@ -87,6 +88,7 @@ public partial class Player : Entity
     }
 
  
+
 
     private UniTask HealthChangedEvent(AgentStats.HealthChangedEvent arg)
     {
@@ -399,6 +401,16 @@ public partial class Player : Entity
         await UIRoot.Instance.Toggle(Const.KeyUI.Stats);
     }
 
+    private async UniTask OnOverworldKeyEvt(InputManager.OverworldEvt arg)
+    {
+        if (!UIRoot.HasInstance())
+        {
+            await UniTask.CompletedTask;
+            return;
+        }
+        await UIRoot.Instance.Toggle(Const.KeyUI.Overworld);
+    }
+    
     
     private async UniTask OnSkipTurn(InputManager.SkipEvt arg)
     {

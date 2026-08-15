@@ -244,6 +244,15 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""1c5ea30c-5b62-4444-b28e-689eee7c6d91"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -488,6 +497,17 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
                     ""action"": ""Stats"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed8327e2-8e44-4030-bd9b-1124e375c401"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -541,6 +561,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         m_PlayerInput_Hotkey6 = m_PlayerInput.FindAction("Hotkey6", throwIfNotFound: true);
         m_PlayerInput_QuickBar1 = m_PlayerInput.FindAction("QuickBar1", throwIfNotFound: true);
         m_PlayerInput_QuickBar2 = m_PlayerInput.FindAction("QuickBar2", throwIfNotFound: true);
+        m_PlayerInput_Map = m_PlayerInput.FindAction("Map", throwIfNotFound: true);
     }
 
     ~@InputMapping()
@@ -638,6 +659,7 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInput_Hotkey6;
     private readonly InputAction m_PlayerInput_QuickBar1;
     private readonly InputAction m_PlayerInput_QuickBar2;
+    private readonly InputAction m_PlayerInput_Map;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerInput".
     /// </summary>
@@ -718,6 +740,10 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @QuickBar2 => m_Wrapper.m_PlayerInput_QuickBar2;
         /// <summary>
+        /// Provides access to the underlying input action "PlayerInput/Map".
+        /// </summary>
+        public InputAction @Map => m_Wrapper.m_PlayerInput_Map;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_PlayerInput; }
@@ -794,6 +820,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @QuickBar2.started += instance.OnQuickBar2;
             @QuickBar2.performed += instance.OnQuickBar2;
             @QuickBar2.canceled += instance.OnQuickBar2;
+            @Map.started += instance.OnMap;
+            @Map.performed += instance.OnMap;
+            @Map.canceled += instance.OnMap;
         }
 
         /// <summary>
@@ -856,6 +885,9 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
             @QuickBar2.started -= instance.OnQuickBar2;
             @QuickBar2.performed -= instance.OnQuickBar2;
             @QuickBar2.canceled -= instance.OnQuickBar2;
+            @Map.started -= instance.OnMap;
+            @Map.performed -= instance.OnMap;
+            @Map.canceled -= instance.OnMap;
         }
 
         /// <summary>
@@ -1041,5 +1073,12 @@ public partial class @InputMapping: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnQuickBar2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Map" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMap(InputAction.CallbackContext context);
     }
 }
