@@ -48,7 +48,7 @@ public partial class SaveData
 
         public bool GetFOV(Vector3Int location)
         {
-            return WithinRange(location) && _fovData[location.x - OriginX, location.y - OriginX] == 1;
+            return WithinRange(location) && _fovData[location.x - OriginX, location.y - OriginY] == 1;
         }
 
         public void SetEntityStat(string entityName, EntityStatData entityStatData)
