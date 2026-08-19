@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1049fe8296e868640ab084bcece4b57a
+guid: a00bd61d31b65bf489ff5039143d67e9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5820350225951733928
-    second: world_prop_tree_01_shadow_0
+      213: -8216924155710778492
+    second: world_tiles_grass_01_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -100,23 +100,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: world_prop_tree_01_shadow_0
+      name: world_tiles_grass_01_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 79
-        height: 64
-      alignment: 9
-      pivot: {x: 0.25, y: 0}
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4835888f30f97fd80800000000000000
+      internalID: -8216924155710778492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_tiles_grass_01_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 455c8c7dfe5d4f649acb2988852f8e7b
-      internalID: 5820350225951733928
+      spriteID: 9908614eed6f31e44a93ea2dc89fafd9
+      internalID: -1107330381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: world_tiles_grass_01_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 574fffbc6c5ff054c99517ce0d4f5410
+      internalID: -1358460869
       vertices: []
       indices: 
       edges: []
@@ -125,7 +169,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ca3adc5b79233334a8408f95cb233167
+    spriteID: 8c14f762d68934a4086babe934d7024b
     internalID: 0
     vertices: []
     indices: 
@@ -135,9 +179,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      world_prop_tree_01_shadow_0: 5820350225951733928
+      world_tiles_grass_01_0: -8216924155710778492
+      world_tiles_grass_01_1: -1107330381
+      world_tiles_grass_01_2: -1358460869
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1049fe8296e868640ab084bcece4b57a
+guid: a42b0778b0d038847a059c9e13b3759f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5820350225951733928
-    second: world_prop_tree_01_shadow_0
+      213: -6847416340414242619
+    second: sail_01_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.625, y: 0.02}
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: world_prop_tree_01_shadow_0
+      name: sail_01_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 79
-        height: 64
-      alignment: 9
-      pivot: {x: 0.25, y: 0}
+        width: 72
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 455c8c7dfe5d4f649acb2988852f8e7b
-      internalID: 5820350225951733928
+      spriteID: 5c067681e1719f0a0800000000000000
+      internalID: -6847416340414242619
       vertices: []
       indices: 
       edges: []
@@ -125,19 +125,17 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ca3adc5b79233334a8408f95cb233167
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      world_prop_tree_01_shadow_0: 5820350225951733928
+      sail_01_0: -6847416340414242619
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
